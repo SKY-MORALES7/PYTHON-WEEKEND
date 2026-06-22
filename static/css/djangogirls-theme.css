@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@300;400;600&family=Rajdhani:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap");
+
+:root {
+  --py-yellow: #FFD43B;
+  --py-yellow-dark: #C9A227;
+  --py-navy: #16213e;
+  --py-blue: #4B8BBE;
+  --py-blue-dark: #306998;
+  --py-silver: #94a3b8;
+  --py-light: #f1f5f9;
+  --py-code-bg: #1e1e2e;
+  --dg-border: rgba(75, 139, 190, 0.25);
+}
+
+body {
+  font-family: "Source Sans 3", system-ui, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Rajdhani", "Source Sans 3", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+a {
+  color: var(--py-blue);
+}
+
+a:hover {
+  color: var(--py-yellow);
+}
+
+::selection {
+  background: rgba(75, 139, 190, 0.35);
+  color: var(--py-light);
+}
+
+/* Removed legacy navbar-shield rules — templates use a different navbar markup. */
+
+.prose-dg {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.prose-dg h2,
+.prose-dg h3 {
+  color: var(--py-light);
+}
+
+.prose-dg pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--dg-border);
+  border-radius: 0.5rem;
+  background: var(--py-code-bg);
+  color: var(--py-light);
+}
+
+.prose-dg code:not(pre code) {
+  padding: 0.1rem 0.35rem;
+  border-radius: 0.25rem;
+  background: rgba(255, 212, 59, 0.12);
+  color: var(--py-yellow);
+}
+
+.hljs {
+  background: var(--py-code-bg) !important;
+  color: #e2e8f0;
+}
+
+.hljs-keyword {
+  color: var(--py-yellow) !important;
+}
+
+.hljs-string {
+  color: var(--py-blue) !important;
+}
+
+.hljs-number {
+  color: var(--py-light) !important;
+}
+
+.hljs-comment {
+  color: #64748b !important;
+  font-style: italic;
+}

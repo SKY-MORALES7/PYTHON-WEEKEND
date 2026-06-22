@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block title %}{{ tutorial.title }} — Python Weekend{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<style>
+  /* Code block wrapper */
+  .code-wrapper {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .code-lang-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background: #1A2738;
+    color: #38BDF8;
+    border: 1px solid rgba(26,47,75,0.6);
+    border-bottom: none;
+    position: absolute;
+    top: -1.6rem;
+    left: 0;
+  }
+  .code-copy-btn {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.75rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.65rem;
+    border-radius: 0.4rem;
+    border: 1px solid rgba(56,189,248,0.25);
+    background: rgba(26,39,56,0.9);
+    color: #94A3B8;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    z-index: 10;
+  }
+  .code-copy-btn:hover { color: #38BDF8; border-color: rgba(56,189,248,0.5); }
+  .code-copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.4); }
+
+  /* Prose body paragraphs */
+  .section-body p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+    color: #94A3B8;
+  }
+  .section-body p:last-child { margin-bottom: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="bg-tactical min-h-screen">
+
+  <!-- ── HEADER ── -->
+  <header class="py-16 bg-tactical-light border-b border-shield-navy/40">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="{% url 'content:tutorial_list' %}" class="text-shield-ice text-sm hover:underline">← All tutorials</a>
+
+      <div class="flex flex-wrap items-center gap-3 mt-5 mb-4">
+        {% if tutorial.difficulty %}
+        <span class="text-xs px-2.5 py-0.5 rounded-full border font-semibold tracking-wide
+          {% if tutorial.difficulty == 'beginner' %}border-green-500/40 text-green-400 bg-green-500/5
+          {% elif tutorial.difficulty == 'intermediate' %}border-yellow-500/40 text-yellow-400 bg-yellow-500/5
+          {% else %}border-shield-red/40 text-shield-red bg-shield-red/5{% endif %}">
+          {{ tutorial.get_difficulty_display }}
+        </span>
+        {% endif %}
+        {% if tutorial.estimated_minutes %}
+        <span class="text-xs text-shield-steel">⏱ {{ tutorial.estimated_minutes }} min read</span>
+        {% endif %}
+      </div>
+
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-star mb-3 leading-tight">
+        {{ tutorial.title }}
+      </h1>
+      {% if tutorial.excerpt %}
+      <p class="text-shield-steel text-base leading-relaxed">{{ tutorial.excerpt }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- ── COVER IMAGE ── -->
+  {% if tutorial.cover_image %}
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+    <img src="{{ tutorial.cover_image.url }}" alt="{{ tutorial.title }}"
+         class="rounded-xl w-full object-cover max-h-72 border border-shield-navy/40" />
+  </div>
+  {% endif %}
+
+  <!-- ── BODY ── -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-14">
+
+    <!-- Legacy content field (backwards compat) -->
+    {% if tutorial.content %}
+    <div class="section-body prose prose-invert prose-sm max-w-none
+                prose-headings:font-display prose-headings:text-shield-star
+                prose-a:text-shield-ice prose-code:text-shield-ice">
+      {{ tutorial.content|linebreaks }}
+    </div>
+    {% endif %}
+
+    <!-- Sections -->
+    {% for section in tutorial.sections.all %}
+    <div class="space-y-4">
+
+      {% if section.heading %}
+      <h2 class="font-display font-bold text-xl sm:text-2xl text-shield-star flex items-center gap-3">
+        <span class="w-1 h-6 rounded-full
+          {% if tutorial.difficulty == 'beginner' %}bg-green-400
+          {% elif tutorial.difficulty == 'intermediate' %}bg-yellow-400
+          {% else %}bg-shield-red{% endif %}">
+        </span>
+        {{ section.heading }}
+      </h2>
+      {% endif %}
+
+      {% if section.body %}
+      <div class="section-body">
+        {{ section.body|linebreaks }}
+      </div>
+      {% endif %}
+
+      {% if section.code_block %}
+      <div class="code-wrapper pt-6">
+        <span class="code-lang-label my-4">{{ section.language }}</span>
+        <div class="relative rounded-xl overflow-hidden border border-shield-navy/40 bg-tactical-card">
+          <button class="code-copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre class="!m-0 !rounded-none !border-0 !bg-transparent overflow-x-auto"><code class="language-{{ section.language }} !bg-transparent text-sm leading-relaxed">{{ section.code_block }}</code></pre>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    {% if not forloop.last %}
+    <hr class="border-shield-navy/30" />
+    {% endif %}
+
+    {% empty %}
+    {# No sections at all — nothing to show beyond the legacy content above #}
+    {% endfor %}
+
+  </div><!-- /body -->
+
+  <!-- ── FOOTER NAV ── -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <a href="{% url 'content:tutorial_list' %}"
+       class="inline-flex items-center gap-2 text-sm text-shield-ice hover:underline">
+      ← Back to tutorials
+    </a>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+  hljs.highlightAll();
+
+  function copyCode(btn) {
+    const code = btn.closest('.relative').querySelector('code');
+    navigator.clipboard.writeText(code.innerText).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+</script>
+{% endblock %}

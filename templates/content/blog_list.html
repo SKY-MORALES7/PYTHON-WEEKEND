@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}{% load static%}Blog — Python Weekend{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden min-h-[88vh] flex items-center">
+
+  <!-- Ken Burns background layer -->
+  <div class="absolute inset-0 scale-110 animate-ken-burns">
+    <div class="w-full h-full bg-cover bg-center"
+         style="background-image: url('{% static 'img/about2.jpg' %}');">
+    </div>
+  </div>
+ 
+     <div class="absolute inset-0 bg-black/70"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span class="font-semibold text-shield-ice uppercase tracking-widest  sm:text-5xl md:text-6xl lg:text-xs">Blog</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2">Community stories</h1>
+    <p class="text-shield-ice mt-2">Learnings, tips, and updates from the Python Weekend community.</p>
+  </div>
+</section>
+
+<section class="py-16 bg-tactical-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if page_obj.object_list %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for post in page_obj %}
+        {% include "components/card-blog.html" %}
+      {% endfor %}
+    </div>
+    {% include "components/pagination.html" %}
+    {% else %}
+    <div class="text-center py-20 text-shield-steel">
+      <p class="text-lg">No posts yet — check back soon.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

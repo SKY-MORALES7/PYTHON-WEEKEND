@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Python Weekend{% endblock %}</title>
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            shield: {
+              red: "#FFD43B",
+              "red-dark": "#C9A227",
+              navy: "#16213E",
+              blue: "#4B8BBE",
+              ice: "#306998",
+              silver: "#94A3B8",
+              star: "#F1F5F9",
+              steel: "#475569",
+              purple: "#801e6f"
+            },
+            tactical: {
+              DEFAULT: "#0B1118",
+              light: "#131C28",
+              card: "#1A2738",
+            },
+          },
+          fontFamily: {
+            display: ['"Rajdhani"', "sans-serif"],
+            body: ['"DM Sans"', "sans-serif"],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/dist/output.css' %}">
+
+  {% block extra_head %}{% endblock %}
+</head>
+
+<body class="bg-tactical text-shield-star font-body min-h-screen flex flex-col">
+
+  {% include "components/navbar.html" %}
+
+  <main class="flex-1">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "components/footer.html" %}
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

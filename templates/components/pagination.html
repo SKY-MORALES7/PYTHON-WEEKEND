@@ -1,0 +1,26 @@
+{% comment %}
+Usage: {% include "components/pagination.html" with page_obj=page_obj %}
+{% endcomment %}
+{% if page_obj.has_other_pages %}
+<nav class="flex justify-center items-center gap-2 mt-10" aria-label="Pagination">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 rounded-lg bg-tactical-card border border-shield-navy/40 text-shield-silver hover:border-shield-ice/40 hover:text-shield-ice transition-all text-sm">
+    ← Prev
+  </a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <span class="px-3 py-2 rounded-lg bg-shield-ice text-tactical font-semibold text-sm">{{ num }}</span>
+    {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+      <a href="?page={{ num }}" class="px-3 py-2 rounded-lg bg-tactical-card border border-shield-navy/40 text-shield-silver hover:border-shield-ice/40 hover:text-shield-ice transition-all text-sm">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 rounded-lg bg-tactical-card border border-shield-navy/40 text-shield-silver hover:border-shield-ice/40 hover:text-shield-ice transition-all text-sm">
+    Next →
+  </a>
+  {% endif %}
+</nav>
+{% endif %}

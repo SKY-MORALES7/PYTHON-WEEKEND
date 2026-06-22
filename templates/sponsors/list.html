@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Sponsors — Python Weekend{% endblock %}
+
+{% block content %}
+<section class="bg-tactical py-16 border-b border-shield-navy/40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span class=" font-semibold text-shield-ice uppercase tracking-widest  sm:text-5xl md:text-6xl lg:text-xs">Sponsors</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2">Our sponsors</h1>
+    <p class="text-shield-steel mt-2">Companies and individuals who make Python Weekend possible.</p>
+  </div>
+</section>
+
+<section class="py-16 bg-tactical-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if sponsors %}
+
+    {% regroup sponsors by tier as sponsor_tiers %}
+    {% for tier in sponsor_tiers %}
+    <div class="mb-14">
+      <h2 class="font-display font-bold text-xl text-shield-ice uppercase tracking-widest mb-6 border-b border-shield-navy/40 pb-3">
+        {{ tier.grouper|capfirst }} sponsors
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+        {% for sponsor in tier.list %}
+        <a href="{{ sponsor.website }}" target="_blank" rel="noopener sponsored"
+           class="bg-tactical-card border border-shield-navy/40 rounded-xl p-6 flex flex-col items-center gap-3 hover:border-shield-ice/30 transition-all group">
+          {% if sponsor.logo %}
+          <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="h-10 object-contain opacity-75 group-hover:opacity-100 transition-opacity" />
+          {% else %}
+          <span class="font-display font-bold text-shield-silver group-hover:text-shield-ice transition-colors text-base">{{ sponsor.name }}</span>
+          {% endif %}
+          {% if sponsor.tagline %}
+          <p class="text-shield-steel text-xs text-center">{{ sponsor.tagline }}</p>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div class="text-center py-20 text-shield-steel">
+      <p class="text-lg">Sponsor listings coming soon.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="py-16 bg-tactical border-t border-shield-navy/40">
+  <div class="max-w-xl mx-auto px-4 text-center">
+    <h2 class="font-display font-bold text-2xl text-shield-star mb-3">Sponsor Python Weekend</h2>
+    <p class="text-shield-steel mb-6">Help us keep the event free and accessible. Your support directly funds attendee costs.</p>
+    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-shield-red hover:bg-shield-red-dark text-white font-semibold rounded-xl transition-all inline-block">
+      Talk to us
+    </a>
+  </div>
+</section>
+{% endblock %}

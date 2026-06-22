@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Events — Python Weekend{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden min-h-[88vh] flex items-center">
+
+  <!-- Ken Burns background layer -->
+  <div class="absolute inset-0 scale-110 animate-ken-burns">
+    <div class="w-full h-full bg-cover bg-center"
+         style="background-image: url('{% static 'img/events2.jpg' %}');">
+    </div>
+  </div>
+
+<div class = "absolute inset-0 bg-black/60 z-0"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span class="font-semibold text-shield-ice uppercase tracking-widest  sm:text-5xl md:text-6xl lg:text-xs">Events</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2">Workshops &amp; events</h1>
+    <p class="text-emerald-600 mt-2">Find a Python Weekend workshop near you.</p>
+  </div>
+</section>
+
+<section class="py-16 bg-tactical-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if page_obj.object_list %}
+    <h2 class="sr-only">Upcoming events</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for event in page_obj %}
+      <div class="bg-tactical-card border border-shield-navy/40 rounded-xl p-0 hover:border-shield-ice/30 transition-all overflow-hidden">
+        {% if event.image %}
+        <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{{ event.image.url }}');"></a>
+        {% else %}
+        <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{% static 'img/events2.jpg' %}');"></a>
+        {% endif %}
+        <div class="p-5 flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full {% if event.is_upcoming %}bg-green-400{% else %}bg-shield-steel{% endif %}"></span>
+          <span class="text-xs font-semibold uppercase tracking-widest {% if event.is_upcoming %}text-green-400{% else %}text-shield-steel{% endif %}">
+            {% if event.is_upcoming %}Upcoming{% else %}Passed{% endif %}
+          </span>
+        </div>
+        <div>
+          <h3 class="font-display font-bold text-shield-star text-lg mb-1">
+            <a href="{% url 'content:event_detail' event.slug %}" class="hover:text-shield-ice transition-colors">{{ event.title }}</a>
+          </h3>
+          <p class="text-shield-steel text-sm">{{ event.start_date|date:"F j, Y" }}</p>
+          {% if event.location %}<p class="text-shield-steel text-sm">{{event.location }}</p>{% endif %}
+
+        </div>
+        <div class="mt-auto flex gap-3">
+          <a href="{% url 'content:event_detail' event.slug %}" class="text-shield-ice text-sm font-medium hover:underline">Details →</a>
+          {% if event.is_upcoming %}
+          <a href="{% url 'core:contact' %}?event={{ event.slug }}" class="text-shield-red text-sm font-medium hover:underline">Register →</a>
+          {% endif %}
+        </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% include "components/pagination.html" %}
+    {% else %}
+    <div class="text-center py-20 text-shield-steel">
+      <p class="text-lg">No upcoming events — <a href="{% url 'core:contact' %}" class="text-shield-ice hover:underline">get notified</a>.</p>
+    </div>
+    {% endif %}
+
+    {% if past_events %}
+    <section class="mt-12">
+      <h2 class="font-display font-bold text-2xl text-shield-star mb-4">Past events</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for event in past_events %}
+        <div class="bg-tactical-card border border-shield-navy/40 rounded-xl p-0 hover:border-shield-ice/30 transition-all overflow-hidden">
+          {% if event.image %}
+          <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{{ event.image.url }}');"></a>
+          {% else %}
+          <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{% static 'img/events2.jpg' %}');"></a>
+          {% endif %}
+          <div class="p-5 flex flex-col gap-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-shield-steel"></span>
+              <span class="text-xs font-semibold uppercase tracking-widest text-shield-steel">Passed</span>
+            </div>
+            <div>
+              <h3 class="font-display font-bold text-shield-star text-lg mb-1">
+                <a href="{% url 'content:event_detail' event.slug %}" class="hover:text-shield-ice transition-colors">{{ event.title }}</a>
+              </h3>
+              <p class="text-shield-steel text-sm">{{ event.start_date|date:"F j, Y" }}</p>
+              {% if event.location %}<p class="text-shield-steel text-sm" {{ event.location }}</p>{% endif %}
+            </div>
+            <div class="mt-auto flex gap-3">
+              <a href="{% url 'content:event_detail' event.slug %}" class="text-shield-ice text-sm font-medium hover:underline">Details →</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

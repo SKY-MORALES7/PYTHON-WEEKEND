@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+
+# Django
+*.log
+db.sqlite3
+media/
+# Keep dist/ tracked after `npm run build:css` — uncomment to ignore:
+# static/css/dist/
+
+# Node
+node_modules/
+package-lock.json
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store

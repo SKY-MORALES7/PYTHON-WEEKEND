@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Coaches — Python Weekend{% endblock %}
+
+{% block content %}
+<section class="bg-tactical py-16 border-b border-shield-navy/40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span class="font-semibold text-shield-ice uppercase tracking-widest  sm:text-5xl md:text-6xl lg:text-xs">Coaches</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2">Meet our coaches</h1>
+    <p class="text-shield-steel mt-2">The people who make it happen — experienced devs who give their weekend to help others learn.</p>
+  </div>
+</section>
+
+<section class="py-16 bg-tactical-light">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {% if coaches %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {% for coach in coaches %}
+      <div class="bg-tactical-card border border-shield-navy/40 rounded-xl p-6 hover:border-shield-ice/25 transition-all text-center">
+        {% if coach.photo %}
+        <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-2 border-shield-navy" />
+        {% else %}
+        <div class="w-20 h-20 rounded-full mx-auto mb-4 bg-shield-navy/60 flex items-center justify-center text-2xl text-shield-ice font-bold">
+          {{ coach.name|first }}
+        </div>
+        {% endif %}
+        <h3 class="font-display font-bold text-shield-star text-lg">{{ coach.name }}</h3>
+        {% if coach.role %}<p class="text-shield-ice text-sm mb-2">{{ coach.role }}</p>{% endif %}
+        {% if coach.bio %}<p class="text-shield-steel text-sm leading-relaxed">{{ coach.bio|truncatewords:20 }}</p>{% endif %}
+        {% if coach.github or coach.linkedIn %}
+        <div class="flex justify-center gap-3 mt-3">
+          {% if coach.github %}
+          <a href="{{ coach.github }}" class="text-shield-steel hover:text-shield-ice transition-colors text-xs" target="_blank" rel="noopener">GitHub</a>
+          {% endif %}
+
+          {% if coach.linkedIn %}
+          <a href="{{ coach.linkedIn }}" class="text-shield-steel hover:text-shield-ice transition-colors text-xs" target="_blank" rel="noopener">LinkedIn</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-20 text-shield-steel">
+      <p class="text-lg">Coach profiles coming soon.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="py-16 bg-tactical border-t border-shield-navy/40">
+  <div class="max-w-xl mx-auto px-4 text-center">
+    <h2 class="font-display font-bold text-2xl text-shield-star mb-3">Want to coach?</h2>
+    <p class="text-shield-steel mb-6">We're always looking for experienced developers to help guide attendees.</p>
+    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-shield-ice text-tactical font-bold rounded-xl transition-all hover:bg-sky-400 inline-block">
+      Get in touch
+    </a>
+  </div>
+</section>
+{% endblock %}

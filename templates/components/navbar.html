@@ -1,0 +1,62 @@
+<nav class="bg-white border-b border-slate-200 sticky top-0 z-50 h-[70px]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 py-6">
+
+      <!-- Logo -->
+      <a href="{% url 'core:home' %}" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center text-xs font-bold text-white">PW</span>
+        <span class="text-slate-800 font-display font-bold text-lg tracking-wide transition-colors">
+          Python <span class="text-blue-600">Weekend</span>
+        </span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center gap-6 text-sm font-medium ">
+        <a href="{% url 'core:home' %}" class="text-slate-700 hover:text-blue-600 transition-colors {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'home' %}text-blue-600{% endif %}">Home</a>
+        <a href="{% url 'content:tutorial_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'tutorial' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Tutorials</a>
+        <a href="{% url 'content:blog_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'blog' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Blog</a>
+        <a href="{% url 'content:event_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'event' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Events</a>
+        <a href="{% url 'coach:list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'coach' %}text-shield-ice{% endif %}">Coaches</a>
+        <a href="{% url 'sponsors:list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'sponsors' %}text-shield-ice{% endif %}">Sponsors</a>
+        <a href="{% url 'core:about' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'about' %}text-shield-ice{% endif %}">About</a>
+        <a href="{% url 'core:contact' %}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105">
+          Register Interest
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button id="mobile-menu-toggle" class="md:hidden text-shield-silver hover:text-shield-ice" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+    <div class="px-4 py-3 space-y-1">
+      <a href="{% url 'core:home' %}" class="block px-3 py-2 text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors">Home</a>
+      <a href="{% url 'content:tutorial_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Tutorials</a>
+      <a href="{% url 'content:blog_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Blog</a>
+      <a href="{% url 'content:event_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Events</a>
+      <a href="{% url 'coach:list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Coaches</a>
+      <a href="{% url 'sponsors:list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Sponsors</a>
+      <a href="{% url 'core:about' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">About</a>
+      <a href="{% url 'core:contact' %}" class="block mx-3 my-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm text-center transition-colors">Register Interest</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger-icon');
+  const close = document.getElementById('close-icon');
+  toggle.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+    hamburger.classList.toggle('hidden');
+    close.classList.toggle('hidden');
+  });
+</script>

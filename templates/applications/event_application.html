@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Apply to run an event — Python Weekend{% endblock %}
+
+{% block content %}
+
+<style>
+  form input[type="text"], 
+  form input[type="email"], 
+  form input[type="number"], 
+  form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: #1f2937; /* Tailwind gray-800 to match bg-tactical */
+    color: #f3f4f6; /* Tailwind gray-100 */
+    border: 1px solid #374151; /* Tailwind gray-700 */
+    border-radius: 0.375rem; /* rounded-md */
+    outline: none;
+    transition: all 0.2s;
+  }
+  form input:focus, 
+  form textarea:focus {
+    border-color: #dc2626; /* Matches your text-shield-red/red-600 */
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+  }
+</style>
+
+<div class="relative bg-tactical overflow-hidden min-h-[88vh] flex items-center"
+     style="background-image: url('{% static 'img/game2.jpg' %}');
+            background-size: cover;
+            background-position: center;">
+
+  <div class="relative z-10 max-w-2xl min-h-screen lg:mx-auto py-16 m-8 sm:mx-6 lg:px-6 bg-tactical/90 rounded-2xl">
+    <h1 class="font-display text-3xl font-bold mb-4 text-shield-red px-8">Apply to become an organiser</h1>
+    <p class="text-shield-steel mb-6 px-8">Fill this form to apply to run or organise a Python Weekend event. We'll review your application and get back to you in a week.</p>
+
+    <form method="post" novalidate class="space-y-4 px-8">
+      {% csrf_token %}
+      
+      {% if messages %}
+        <div class="mb-4">
+          {% for message in messages %}
+            <div class="rounded px-4 py-3 mb-2 text-sm font-medium"
+                 {% if 'success' in message.tags %}style="background-color:#16a34a;color:#fff;"{% elif 'error' in message.tags %}style="background-color:#dc2626;color:#fff;"{% else %}style="background-color:#1f2937;color:#fff;"{% endif %}>
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% for field in form %}
+        <div class="flex flex-col space-y-1">
+          <label class="block text-sm font-medium text-shield-ice" for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+          
+          <div>
+            {{ field }}
+          </div>
+
+          {% if field.help_text %}
+            <p class="text-xs text-gray-400 mt-1">{{ field.help_text }}</p>
+          {% endif %}
+          
+          {% for error in field.errors %}
+            <p class="text-red-500 text-sm mt-1 font-semibold">⚠️ {{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+
+      <div class="pt-2">
+        <button type="submit" class="px-6 py-3 bg-shield-red text-black rounded font-semibold transition hover:bg-opacity-90 duration-200">
+          Submit application
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

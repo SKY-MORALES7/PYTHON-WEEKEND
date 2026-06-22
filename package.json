@@ -1,0 +1,12 @@
+{
+  "name": "python-weekend",
+  "version": "1.0.0",
+  "description": "Tailwind CSS build for Python Weekend Django app",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/css/src/input.css -o ./static/css/dist/output.css --minify",
+    "watch:css": "tailwindcss -i ./static/css/src/input.css -o ./static/css/dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
