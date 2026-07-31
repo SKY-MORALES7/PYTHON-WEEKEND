@@ -16,6 +16,9 @@ urlpatterns = [
     path("coaches/", include("coach.urls", namespace="coach")),
     path("sponsors/", include("sponsors.urls", namespace="sponsors")),
     path("applications/", include("applications.urls", namespace="applications")),
+    
+    # Flatpages
+    path("pages/", include("django.contrib.flatpages.urls")),
 ]
 
 # Serve media files in development

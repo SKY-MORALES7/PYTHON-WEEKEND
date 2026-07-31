@@ -27,79 +27,57 @@
       </span>
 
       <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-shield-star leading-none mb-6">
-        Build real apps.<br />
-        <span class="text-emerald-500">Become a programming Guru with Python Weekend</span>
-      
+        Start with Python.<br />
+        <span class="text-emerald-500">Build with AI.</span>
       </h1>
 
       <p class="text-amber-200 text-lg sm:text-xl leading-relaxed max-w-xl mb-10">
-        A hands-on, beginner-friendly Python &amp; Django workshop. Write code, ship features, and leave with a project you built yourself.
+        Python Weekend is a free, beginner friendly and community led training experience that helps people learn Python and take their first practical step into artificial intelligence.
       </p>
 
       <div class="flex flex-col sm:flex-row gap-4 mb-4">
-        <a href="{% url 'core:contact' %}" class="px-4 py-3.5 bg-amber-300 hover:bg-shield-purple text-white font-semibold rounded-xl text-base transition-all hover:shadow-lg hover:text-amber-300/70 text-center">
-          Register Interest
+        <a href="{% url 'content:event_list' %}" class="px-4 py-3.5 bg-amber-300 hover:bg-shield-purple text-white font-semibold rounded-xl text-base transition-all hover:shadow-lg hover:text-amber-300/70 text-center">
+          Find a workshop
         </a>
-        <a href="{% url 'content:event_list' %}" class="px-8 py-3.5 bg-transparent border border-shield-sky hover:border-shield-ice/90 text-amber-200 hover:text-shield-navy font-medium rounded-xl text-base transition-all text-center hover:-translate-y-2 hover:font-bold">
-          View Events →
-        </a>
-        <a href="{% url 'applications:apply' %}" class="px-6 py-3.5 bg-shield-star text-tactical-card font-semibold rounded-xl text-base transition-all  text-center hover:scale-105">
-          Become an organiser
+        <a href="/organise/" class="px-8 py-3.5 bg-transparent border border-shield-sky hover:border-shield-ice/90 text-amber-200 hover:text-shield-navy font-medium rounded-xl text-base transition-all text-center hover:-translate-y-2 hover:font-bold">
+          Organise a workshop
         </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── WHAT YOU'LL LEARN ── -->
+<!-- ── WHAT IS PYTHON WEEKEND ── -->
 <section class="py-20 bg-tactical">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-star">What you'll build</h2>
-      <p class="text-shield-steel mt-2 text-base max-w-xl mx-auto">From zero to deployed — in two days.</p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for item in highlights %}
-     <div class="group relative overflow-hidden border border-shield-navy/40 rounded-xl hover:border-shield-ice/25 transition-all duration-500">
-     <div
-    class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-    style="background-image: url('{% static 'img/laptop1.avif' %}');">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-star">What is Python Weekend?</h2>
+      <p class="text-shield-steel mt-4 text-base max-w-3xl mx-auto leading-relaxed">
+        Python Weekend was created to give complete beginners a practical, supportive entry into programming. The programme focuses on Python foundations and introduces beginner artificial intelligence concepts.
+      </p>
+      <p class="text-shield-steel mt-4 text-base max-w-3xl mx-auto leading-relaxed">
+        During a workshop, participants build their first working project in a small group guided by a mentor. The central Python Weekend team provides local organisers with the curriculum, training resources and community support needed to deliver a strong learning experience.
+      </p>
     </div>
 
-<!-- Dark Overlay -->
-<div class="absolute inset-0 bg-black/75"></div>
-
-<!-- Content -->
-<div class="relative z-10 p-6">
-        <div class="text-3xl mb-3">{{ item.icon }}</div>
-        <h3 class="font-display font-bold text-shield-star text-lg mb-1">{{ item.title }}</h3>
-        <p class="text-shield-steel text-sm leading-relaxed">{{ item.description }}</p>
+    <!-- Impact Counters -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <div class="text-4xl font-display font-bold text-shield-ice">50+</div>
+        <div class="text-shield-silver mt-2 text-sm uppercase tracking-widest">Workshops</div>
       </div>
+      <div>
+        <div class="text-4xl font-display font-bold text-shield-ice">2,000+</div>
+        <div class="text-shield-silver mt-2 text-sm uppercase tracking-widest">Participants</div>
       </div>
-      {% empty %}
-{% for item in default_highlights %}
-<div class="group relative overflow-hidden border border-shield-navy/40 rounded-xl hover:border-shield-ice/25 transition-all duration-500 min-h-[250px]">
-
-  <div
-    class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-    style="background-image: url('{% static 'img/laptop1.avif' %}');">
-  </div>
-
-  <div class="absolute inset-0 bg-black/75"></div>
-
-  <div class="relative z-10 p-6">
-    <div class="text-3xl mb-3">{{ item.icon }}</div>
-    <h3 class="font-display font-bold text-shield-star text-lg mb-1">
-      {{ item.title }}
-    </h3>
-    <p class="text-shield-silver text-sm leading-relaxed">
-      {{ item.description }}
-    </p>
-  </div>
-
-</div>
-{% endfor %}
-      {% endfor %}
+      <div>
+        <div class="text-4xl font-display font-bold text-shield-ice">300+</div>
+        <div class="text-shield-silver mt-2 text-sm uppercase tracking-widest">Mentors</div>
+      </div>
+      <div>
+        <div class="text-4xl font-display font-bold text-shield-ice">15+</div>
+        <div class="text-shield-silver mt-2 text-sm uppercase tracking-widest">Cities</div>
+      </div>
     </div>
   </div>
 </section>
@@ -204,8 +182,8 @@
 {% endif %}
 
 
-<!-- ── CTA STRIP ── -->
-<section class="relative  overflow-hidden min-h-[88vh] flex items-center"
+<!-- ── SUPPORT OUR WORK ── -->
+<section class="relative  overflow-hidden min-h-[70vh] flex items-center"
          style="background-image: url('{% static 'img/dg-style/image-4.jpg' %}');
                 background-size: cover;
                 background-position: center;">
@@ -214,16 +192,16 @@
 
     <div class="relative z-10 max-w-3xl mx-auto px-5 text-center">
         <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-star mb-4">
-            Ready to start building?
+            Support Our Work
         </h2>
 
         <p class="text-shield-star/70 mb-8 text-xl ">
-            Join the next Python Weekend workshop and go from zero to your first Django app.
+            Our free beginner workshops are made possible by partners who support the programme or sponsor local volunteer teams.
         </p>
 
-        <a href="{% url 'core:contact' %}"
+        <a href="/support-us/"
            class="px-10 py-3.5 bg-amber-400 hover:bg-sky-400 text-tactical font-bold rounded-xl text-base transition-all hover:shadow-lg hover:shadow-shield-ice/25 inline-block animate-float">
-            Get in touch
+            Support a workshop
         </a>
     </div>
 

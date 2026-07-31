@@ -12,15 +12,12 @@
 
       <!-- Desktop Links -->
       <div class="hidden md:flex items-center gap-6 text-sm font-medium ">
-        <a href="{% url 'core:home' %}" class="text-slate-700 hover:text-blue-600 transition-colors {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'home' %}text-blue-600{% endif %}">Home</a>
-        <a href="{% url 'content:tutorial_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'tutorial' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Tutorials</a>
-        <a href="{% url 'content:blog_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'blog' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Blog</a>
-        <a href="{% url 'content:event_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'content' and 'event' in request.resolver_match.url_name %}text-shield-ice{% endif %}">Events</a>
-        <a href="{% url 'coach:list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'coach' %}text-shield-ice{% endif %}">Coaches</a>
-        <a href="{% url 'sponsors:list' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'sponsors' %}text-shield-ice{% endif %}">Sponsors</a>
-        <a href="{% url 'core:about' %}" class="text-shield-silver hover:text-shield-ice transition-colors {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'about' %}text-shield-ice{% endif %}">About</a>
+        <a href="/support-us/" class="text-slate-700 hover:text-blue-600 transition-colors">Support Us</a>
+        <a href="/organise/" class="text-shield-silver hover:text-shield-ice transition-colors">Volunteer</a>
+        <a href="{% url 'content:event_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors">Events</a>
+        <a href="{% url 'content:blog_list' %}" class="text-shield-silver hover:text-shield-ice transition-colors">What's New?</a>
         <a href="{% url 'core:contact' %}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105">
-          Register Interest
+          Contact Us
         </a>
       </div>
 
@@ -37,14 +34,11 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
     <div class="px-4 py-3 space-y-1">
-      <a href="{% url 'core:home' %}" class="block px-3 py-2 text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors">Home</a>
-      <a href="{% url 'content:tutorial_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Tutorials</a>
-      <a href="{% url 'content:blog_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Blog</a>
+      <a href="/support-us/" class="block px-3 py-2 text-slate-700 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors">Support Us</a>
+      <a href="/organise/" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Volunteer</a>
       <a href="{% url 'content:event_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Events</a>
-      <a href="{% url 'coach:list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Coaches</a>
-      <a href="{% url 'sponsors:list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">Sponsors</a>
-      <a href="{% url 'core:about' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">About</a>
-      <a href="{% url 'core:contact' %}" class="block mx-3 my-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm text-center transition-colors">Register Interest</a>
+      <a href="{% url 'content:blog_list' %}" class="block px-3 py-2 text-shield-silver hover:text-shield-ice hover:bg-tactical-card rounded-lg transition-colors">What's New?</a>
+      <a href="{% url 'core:contact' %}" class="block mx-3 my-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm text-center transition-colors">Contact Us</a>
     </div>
   </div>
 </nav>
