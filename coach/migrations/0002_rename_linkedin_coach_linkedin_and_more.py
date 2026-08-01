@@ -3,26 +3,49 @@
 from django.db import migrations, models
 
 
-def safe_rename_or_add_linkedin(apps, schema_editor):
+def safe_db_operations(apps, schema_editor):
     from django.db import connection, transaction
-    try:
-        with transaction.atomic():
-            with connection.cursor() as cursor:
-                if connection.vendor == 'sqlite':
-                    cursor.execute("ALTER TABLE coach_coach RENAME COLUMN linkedin TO linkedIn;")
-                else:
-                    cursor.execute('ALTER TABLE coach_coach RENAME COLUMN "linkedin" TO "linkedIn";')
-    except Exception:
-        # Column linkedin doesn't exist, so add linkedIn safely
-        try:
-            with transaction.atomic():
-                with connection.cursor() as cursor:
+    
+    # We will try the first query, and if it fails, we try the fallback.
+    # We ignore errors for removing columns.
+    queries = [
+        # linkedin -> linkedIn
+        ('ALTER TABLE coach_coach RENAME COLUMN "linkedin" TO "linkedIn";',
+         'ALTER TABLE coach_coach ADD COLUMN "linkedIn" varchar(200) NOT NULL DEFAULT \'\';'),
+        
+        # image -> photo
+        ('ALTER TABLE coach_coach RENAME COLUMN "image" TO "photo";',
+         'ALTER TABLE coach_coach ADD COLUMN "photo" varchar(100) DEFAULT NULL;'),
+        
+        # drop event_id
+        ('ALTER TABLE coach_coach DROP COLUMN "event_id";', None),
+        
+        # drop featured
+        ('ALTER TABLE coach_coach DROP COLUMN "featured";', None),
+        
+        # drop updated_at
+        ('ALTER TABLE coach_coach DROP COLUMN "updated_at";', None),
+    ]
+    
+    with connection.cursor() as cursor:
+        for try_sql, fallback_sql in queries:
+            try:
+                with transaction.atomic():
                     if connection.vendor == 'sqlite':
-                        cursor.execute("ALTER TABLE coach_coach ADD COLUMN linkedIn varchar(200) NOT NULL DEFAULT '';")
+                        cursor.execute(try_sql.replace('"', ''))
                     else:
-                        cursor.execute('ALTER TABLE coach_coach ADD COLUMN "linkedIn" varchar(200) NOT NULL DEFAULT \'\';')
-        except Exception:
-            pass
+                        cursor.execute(try_sql)
+            except Exception:
+                if fallback_sql:
+                    try:
+                        with transaction.atomic():
+                            if connection.vendor == 'sqlite':
+                                cursor.execute(fallback_sql.replace('"', ''))
+                            else:
+                                cursor.execute(fallback_sql)
+                    except Exception:
+                        pass
+
 
 class Migration(migrations.Migration):
 
@@ -38,29 +61,29 @@ class Migration(migrations.Migration):
                     old_name='linkedin',
                     new_name='linkedIn',
                 ),
+                migrations.RenameField(
+                    model_name='coach',
+                    old_name='image',
+                    new_name='photo',
+                ),
+                migrations.RemoveField(
+                    model_name='coach',
+                    name='event',
+                ),
+                migrations.RemoveField(
+                    model_name='coach',
+                    name='featured',
+                ),
+                migrations.RemoveField(
+                    model_name='coach',
+                    name='updated_at',
+                ),
             ],
             database_operations=[
                 migrations.RunPython(
-                    code=safe_rename_or_add_linkedin,
+                    code=safe_db_operations,
                 ),
             ]
-        ),
-        migrations.RenameField(
-            model_name='coach',
-            old_name='image',
-            new_name='photo',
-        ),
-        migrations.RemoveField(
-            model_name='coach',
-            name='event',
-        ),
-        migrations.RemoveField(
-            model_name='coach',
-            name='featured',
-        ),
-        migrations.RemoveField(
-            model_name='coach',
-            name='updated_at',
         ),
         migrations.AddField(
             model_name='coach',
