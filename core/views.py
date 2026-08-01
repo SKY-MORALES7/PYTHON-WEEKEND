@@ -69,6 +69,7 @@ from django.views import View
 from django.utils import timezone
 
 from content.models import Tutorial, BlogPost, Event
+
 from .forms import ContactForm
 from .utils import send_contact_notifications  # 👈 Points directly to core/utils.py
 
@@ -83,7 +84,7 @@ class HomeView(View):
             "upcoming_events": Event.objects.filter(published=True, start_date__gte=timezone.now()).order_by("start_date")[:3],
             "default_highlights": [
                 {"icon": "🐍", "title": "Python fundamentals", "description": "Variables, loops, functions — the building blocks you'll use in every project."},
-                {"icon": "🤖", "title": "Learn Python", "description": "Build with AI. Take your first practical step into artificial intelligence."},
+                {"icon": "🎸", "title": "Django from scratch", "description": "Models, views, templates. Build a real web app, not just 'Hello World'."},
                 {"icon": "🚀", "title": "Deploy it", "description": "Get your project live by the end of day two. Something you can actually share."},
             ],
         }

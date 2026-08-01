@@ -9,7 +9,7 @@ django.setup()
 
 from django.contrib.sites.models import Site
 from django.contrib.flatpages.models import FlatPage
-from content.models import Event
+from core.models import Event
 from django.contrib.auth.models import User
 
 def populate():

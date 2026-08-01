@@ -7,6 +7,7 @@
 #     list_display = ("name", "event")
 #     search_fields = ("name",)
 
+
 from django.contrib import admin
 from .models import Sponsor
 

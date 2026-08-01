@@ -4,6 +4,7 @@ from django.utils import timezone
 from .models import BlogPost, Tutorial, Event
 
 
+
 class BlogListView(ListView):
     model = BlogPost
     template_name = "content/blog_list.html"
