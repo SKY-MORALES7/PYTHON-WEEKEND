@@ -25,6 +25,15 @@ def safe_db_operations(apps, schema_editor):
         
         # drop updated_at
         ('ALTER TABLE coach_coach DROP COLUMN "updated_at";', None),
+        
+        # add active
+        ('ALTER TABLE coach_coach ADD COLUMN "active" boolean NOT NULL DEFAULT true;', None),
+        
+        # add role
+        ('ALTER TABLE coach_coach ADD COLUMN "role" varchar(200) NOT NULL DEFAULT \'\';', None),
+        
+        # alter name (postgres)
+        ('ALTER TABLE coach_coach ALTER COLUMN "name" TYPE varchar(200);', None),
     ]
     
     with connection.cursor() as cursor:
@@ -32,6 +41,8 @@ def safe_db_operations(apps, schema_editor):
             try:
                 with transaction.atomic():
                     if connection.vendor == 'sqlite':
+                        if 'ALTER COLUMN' in try_sql:
+                            continue  # SQLite doesn't support ALTER COLUMN TYPE easily
                         cursor.execute(try_sql.replace('"', ''))
                     else:
                         cursor.execute(try_sql)
@@ -78,31 +89,31 @@ class Migration(migrations.Migration):
                     model_name='coach',
                     name='updated_at',
                 ),
+                migrations.AddField(
+                    model_name='coach',
+                    name='active',
+                    field=models.BooleanField(default=True),
+                ),
+                migrations.AddField(
+                    model_name='coach',
+                    name='role',
+                    field=models.CharField(blank=True, max_length=200),
+                ),
+                migrations.AlterField(
+                    model_name='coach',
+                    name='bio',
+                    field=models.TextField(blank=True),
+                ),
+                migrations.AlterField(
+                    model_name='coach',
+                    name='name',
+                    field=models.CharField(max_length=200),
+                ),
             ],
             database_operations=[
                 migrations.RunPython(
                     code=safe_db_operations,
                 ),
             ]
-        ),
-        migrations.AddField(
-            model_name='coach',
-            name='active',
-            field=models.BooleanField(default=True),
-        ),
-        migrations.AddField(
-            model_name='coach',
-            name='role',
-            field=models.CharField(blank=True, max_length=200),
-        ),
-        migrations.AlterField(
-            model_name='coach',
-            name='bio',
-            field=models.TextField(blank=True),
-        ),
-        migrations.AlterField(
-            model_name='coach',
-            name='name',
-            field=models.CharField(max_length=200),
         ),
     ]
