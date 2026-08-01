@@ -83,7 +83,7 @@ class HomeView(View):
             "upcoming_events": Event.objects.filter(published=True, start_date__gte=timezone.now()).order_by("start_date")[:3],
             "default_highlights": [
                 {"icon": "🐍", "title": "Python fundamentals", "description": "Variables, loops, functions — the building blocks you'll use in every project."},
-                {"icon": "🎸", "title": "Django from scratch", "description": "Models, views, templates. Build a real web app, not just 'Hello World'."},
+                {"icon": "🤖", "title": "Learn Python", "description": "Build with AI. Take your first practical step into artificial intelligence."},
                 {"icon": "🚀", "title": "Deploy it", "description": "Get your project live by the end of day two. Something you can actually share."},
             ],
         }
