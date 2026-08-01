@@ -3,6 +3,25 @@
 from django.db import migrations, models
 
 
+def safe_rename_or_add_linkedin(apps, schema_editor):
+    from django.db import connection
+    try:
+        with connection.cursor() as cursor:
+            if connection.vendor == 'sqlite':
+                cursor.execute("ALTER TABLE coach_coach RENAME COLUMN linkedin TO linkedIn;")
+            else:
+                cursor.execute('ALTER TABLE coach_coach RENAME COLUMN "linkedin" TO "linkedIn";')
+    except Exception:
+        # Column linkedin doesn't exist, so add linkedIn
+        try:
+            with connection.cursor() as cursor:
+                if connection.vendor == 'sqlite':
+                    cursor.execute("ALTER TABLE coach_coach ADD COLUMN linkedIn varchar(200) NOT NULL DEFAULT '';")
+                else:
+                    cursor.execute('ALTER TABLE coach_coach ADD COLUMN "linkedIn" varchar(200) NOT NULL DEFAULT \'\';')
+        except Exception:
+            pass
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,10 +29,19 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='coach',
-            old_name='linkedin',
-            new_name='linkedIn',
+        migrations.SeparateDatabaseAndState(
+            state_operations=[
+                migrations.RenameField(
+                    model_name='coach',
+                    old_name='linkedin',
+                    new_name='linkedIn',
+                ),
+            ],
+            database_operations=[
+                migrations.RunPython(
+                    code=safe_rename_or_add_linkedin,
+                ),
+            ]
         ),
         migrations.RenameField(
             model_name='coach',
