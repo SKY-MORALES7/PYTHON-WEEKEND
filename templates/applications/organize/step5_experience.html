@@ -1,0 +1,72 @@
+{% extends "applications/organize/_base_wizard.html" %}
+{% block title %}Application to organize a workshop{% endblock %}
+
+{% block wizard_content %}
+<h1 class="font-cursive text-4xl sm:text-5xl text-center text-gray-800 mb-12">
+  Application to organize a workshop
+</h1>
+
+<form method="post" action="{% url 'applications:organize_step' step=5 %}">
+  {% csrf_token %}
+
+  <div class="mb-10">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">
+      Have you organized a Python Weekend workshop before? <span class="text-red-500">*</span>
+    </h2>
+    <p class="text-gray-500 text-sm mb-5">
+      If so, the form will be much shorter as we already know a lot about you! :)
+    </p>
+
+    <div class="space-y-6 ml-2 mt-6">
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="radio" name="experience" value="yes" id="exp-yes" class="wizard-radio" 
+               {% if wizard_data.has_organized_before %}checked{% endif %} />
+        <span class="text-gray-800 font-medium text-sm flex items-center gap-3">
+          Yes, I organized Python Weekend
+          <select name="previous_event" id="event-select" class="ml-2 border border-gray-300 rounded-md px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange text-gray-500">
+            <option value="">Choose event</option>
+            {% for event in events %}
+              <option value="{{ event.id }}" {% if wizard_data.previous_event_id == event.id|stringformat:"s" %}selected{% endif %}>{{ event.title }}</option>
+            {% endfor %}
+          </select>
+        </span>
+      </label>
+      <label class="flex items-center gap-3 cursor-pointer">
+        <input type="radio" name="experience" value="no" id="exp-no" class="wizard-radio" 
+               {% if not wizard_data.has_organized_before %}checked{% endif %} />
+        <span class="text-gray-800 font-medium text-sm">No, it's my first time organizing Python Weekend</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="flex justify-center mt-12">
+    <button type="submit"
+            class="px-10 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
+      Submit application
+    </button>
+  </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const expYes = document.getElementById('exp-yes');
+  const expNo = document.getElementById('exp-no');
+  const eventSelect = document.getElementById('event-select');
+
+  function updateSelect() {
+    if (expYes.checked) {
+      eventSelect.disabled = false;
+      eventSelect.classList.remove('opacity-50');
+    } else {
+      eventSelect.disabled = true;
+      eventSelect.classList.add('opacity-50');
+      eventSelect.value = "";
+    }
+  }
+
+  expYes.addEventListener('change', updateSelect);
+  expNo.addEventListener('change', updateSelect);
+  updateSelect(); // initialize on load
+</script>
+{% endblock %}

@@ -1,54 +1,60 @@
 {% extends "base.html" %}
-{% block title %} {%load static%}About — Python Weekend{% endblock %}
+{% load static %}
+{% block title %}About — Python Weekend{% endblock %}
+
+{% block extra_head %}
+<style>
+  .about-hero-bg { background-image: url('{% static "img/about.jpg" %}'); }
+</style>
+{% endblock %}
 
 {% block content %}
 <section class="relative overflow-hidden min-h-[88vh] flex items-center">
 
   <!-- Ken Burns background layer -->
   <div class="absolute inset-0 scale-110 animate-ken-burns">
-    <div class="w-full h-full bg-cover bg-center"
-         style="background-image: url('{% static 'img/about.jpg' %}');">
+    <div class="w-full h-full bg-cover bg-center about-hero-bg">
     </div>
   </div>
 
-  
+  <div class="absolute inset-0 bg-black/50"></div>
 
   {% include "components/blobs.html" %}
-  <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="font-semibold text-shield-ice uppercase tracking-widest  sm:text-5xl md:text-6xl lg:text-xs">About</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2 mb-6">What is Python Weekend?</h1>
-    <p class="text-shield-silver text-lg leading-relaxed">
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <span class="font-semibold text-py-yellow uppercase tracking-widest sm:text-5xl md:text-6xl lg:text-xs">About</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-2 mb-6">What is Python Weekend?</h1>
+    <p class="text-white/90 text-lg leading-relaxed">
       Python Weekend is a community-run, hands-on workshop for people who want to learn Python and Django by actually building something. No slides-only lectures — you write real code, ship a real app, and leave with something to show.
     </p>
   </div>
 </section>
 
-<section class="py-16 bg-tactical-light">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-invert prose-sm max-w-none">
-    <div class="bg-tactical-card border border-shield-navy/40 rounded-xl p-8">
-      <h2 class="font-display font-bold text-2xl text-shield-star mb-4">Our approach</h2>
-      <p class="text-shield-steel leading-relaxed mb-4">
+<section class="py-16 bg-py-light">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 prose prose-sm max-w-none">
+    <div class="bg-white border border-gray-200 rounded-xl p-8">
+      <h2 class="font-display font-bold text-2xl text-py-navy mb-4">Our approach</h2>
+      <p class="text-gray-600 leading-relaxed mb-4">
         We keep groups small, pair beginners with experienced coaches, and structure the day around a single project that grows as attendees learn. By the end, everyone has a working Django app they built themselves.
       </p>
-      <p class="text-shield-steel leading-relaxed">
-        The format is inspired by <a href="https://djangogirls.org" class="text-shield-ice hover:underline" target="_blank" rel="noopener">Django Girls</a> — this project is not affiliated with Django Girls, but we gratefully reference their workshop structure and open-source ethos.
+      <p class="text-gray-600 leading-relaxed">
+        The format is inspired by <a href="https://djangogirls.org" class="text-py-blue hover:underline" target="_blank" rel="noopener">Django Girls</a> — this project is not affiliated with Django Girls, but we gratefully reference their workshop structure and open-source ethos.
       </p>
     </div>
 
-    <div class="mt-8 bg-tactical-card border border-shield-navy/40 rounded-xl p-8">
-      <h2 class="font-display font-bold text-2xl text-shield-star mb-4">Design &amp; tech</h2>
-      <p class="text-shield-steel leading-relaxed">
+    <div class="mt-8 bg-white border border-gray-200 rounded-xl p-8">
+      <h2 class="font-display font-bold text-2xl text-py-navy mb-4">Design &amp; tech</h2>
+      <p class="text-gray-600 leading-relaxed">
         This site is built with Django 5, Tailwind CSS, and a fair bit of enthusiasm. The color palette — red, navy, ice — is the Python Weekend shield palette. If you want to explore the code, it's open-source under the MIT license.
       </p>
     </div>
   </div>
 </section>
 
-<section class="py-16 bg-tactical border-t border-shield-navy/40">
+<section class="py-16 bg-white border-t border-gray-200">
   <div class="max-w-xl mx-auto px-4 text-center">
-    <h2 class="font-display font-bold text-2xl text-shield-star mb-3">Want to get involved?</h2>
-    <p class="text-shield-steel mb-6">Whether you want to attend, coach, or sponsor — reach out.</p>
-    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-shield-red hover:bg-shield-red-dark text-white font-semibold rounded-xl transition-all inline-block">
+    <h2 class="font-display font-bold text-2xl text-py-navy mb-3">Want to get involved?</h2>
+    <p class="text-gray-500 mb-6">Whether you want to attend, coach, or sponsor — reach out.</p>
+    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl transition-all inline-block">
       Contact us
     </a>
   </div>

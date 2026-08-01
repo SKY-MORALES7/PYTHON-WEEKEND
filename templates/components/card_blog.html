@@ -1,15 +1,15 @@
-<article class="comic-card group flex flex-col h-full">
-    <div class="relative h-2 bg-gradient-to-r from-shield-red via-shield-navy to-shield-ice"></div>
+<article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-py-blue/30 transition-all duration-300 flex flex-col h-full">
+    <div class="relative h-2 bg-gradient-to-r from-py-blue via-py-navy to-py-yellow"></div>
     <div class="p-6 flex flex-col flex-grow z-10">
-        <span class="text-xs font-display font-semibold uppercase tracking-wider text-shield-silver mb-2">{{ post.category }}</span>
+        <span class="text-xs font-display font-semibold uppercase tracking-wider text-gray-400 mb-2">{{ post.category }}</span>
 
-        <h3 class="font-display text-xl font-bold text-white mb-2 group-hover:text-shield-ice transition-colors">
+        <h3 class="font-display text-xl font-bold text-py-navy mb-2 group-hover:text-py-blue transition-colors">
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h3>
 
-        <p class="text-gray-400 text-sm flex-grow mb-4 line-clamp-3">{{ post.excerpt }}</p>
+        <p class="text-gray-500 text-sm flex-grow mb-4 line-clamp-3">{{ post.excerpt }}</p>
 
-        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5 text-xs text-gray-500">
+        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 text-xs text-gray-400">
             <span>{{ post.author }}</span>
             <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"M d, Y" }}</time>
         </div>

@@ -1,0 +1,81 @@
+{% extends "applications/organize/_base_wizard.html" %}
+{% block title %}Prerequisites{% endblock %}
+
+{% block wizard_content %}
+<h1 class="font-cursive text-4xl sm:text-5xl text-center text-gray-800 mb-10">
+  Prerequisites to organize a Python Weekend workshop
+</h1>
+
+{% if error %}
+<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-8 text-sm">
+  {{ error }}
+</div>
+{% endif %}
+
+<form method="post" action="{% url 'applications:organize_step' step=2 %}">
+  {% csrf_token %}
+
+  <div class="mb-8">
+    <p class="text-gray-700 leading-relaxed mb-6">
+      Yay! You want to organize a Python Weekend workshop! That's wonderful. Before we can get you started, there are a few things
+      requirements that we'd like to confirm with you to make sure your workshop is going to be planned as smoothly as possible:
+    </p>
+
+    <!-- Reading checkboxes -->
+    <p class="text-gray-800 font-medium mb-4">
+      Confirm that you've read the following chapters of our <a href="#" class="wizard-link">Organizer's Manual</a>:
+    </p>
+
+    <div class="space-y-4 ml-4 mb-8">
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="read_intro" class="wizard-check mt-0.5" {% if form_data.read_intro %}checked{% endif %} />
+        <a href="#" class="wizard-link">Introduction to Organizer's Manual</a>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="read_step_by_step" class="wizard-check mt-0.5" {% if form_data.read_step_by_step %}checked{% endif %} />
+        <a href="#" class="wizard-link">Organizing Python Weekend workshop step by step</a>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="read_environment" class="wizard-check mt-0.5" {% if form_data.read_environment %}checked{% endif %} />
+        <a href="#" class="wizard-link">Environment at Python Weekend workshop</a>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="read_faq" class="wizard-check mt-0.5" {% if form_data.read_faq %}checked{% endif %} />
+        <a href="#" class="wizard-link">Frequently Asked Questions</a>
+      </label>
+    </div>
+
+    <!-- Requirements checkboxes -->
+    <p class="text-gray-800 font-medium mb-4">
+      Confirm that you meet following requirements to organize a workshop:
+    </p>
+
+    <div class="space-y-4 ml-4">
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="is_18" class="wizard-check mt-0.5" {% if form_data.is_18 %}checked{% endif %} />
+        <span class="text-gray-800 font-medium">You're at least 18 years old</span>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="free_workshop" class="wizard-check mt-0.5" {% if form_data.free_workshop %}checked{% endif %} />
+        <span class="text-gray-800 font-medium">Your workshop will be free for participants, and women will have preference in attending</span>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="non_profit" class="wizard-check mt-0.5" {% if form_data.non_profit %}checked{% endif %} />
+        <span class="text-gray-800 font-medium">The event you're organizing will be non-profit</span>
+      </label>
+      <label class="flex items-start gap-3 cursor-pointer">
+        <input type="checkbox" name="no_pay" class="wizard-check mt-0.5" {% if form_data.no_pay %}checked{% endif %} />
+        <span class="text-gray-800 font-bold text-brand-orange">You will not pay coaches, speakers or organizers therefore you will not request money from sponsors to pay coaches, speakers or organizers.</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="flex justify-center mt-10">
+    <button type="submit"
+            class="px-10 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
+      Go to next step
+    </button>
+  </div>
+</form>
+{% endblock %}

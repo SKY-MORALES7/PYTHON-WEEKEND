@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Page Not Found — Python Weekend{% endblock %}
 {% block content %}
-<section class="min-h-[70vh] flex items-center justify-center bg-tactical">
+<section class="min-h-[70vh] flex items-center justify-center bg-py-light">
   <div class="text-center px-4">
-    <p class="text-shield-ice font-display font-bold text-8xl mb-4 opacity-20">404</p>
-    <h1 class="font-display font-bold text-3xl text-shield-star mb-3">Page not found</h1>
-    <p class="text-shield-steel mb-8 max-w-sm mx-auto">That page doesn't exist. It may have moved or been deleted.</p>
-    <a href="{% url 'core:home' %}" class="px-8 py-3 bg-shield-ice text-tactical font-bold rounded-xl transition-all hover:bg-sky-400 inline-block">
+    <p class="text-py-blue font-display font-bold text-8xl mb-4 opacity-20">404</p>
+    <h1 class="font-display font-bold text-3xl text-py-navy mb-3">Page not found</h1>
+    <p class="text-gray-500 mb-8 max-w-sm mx-auto">That page doesn't exist. It may have moved or been deleted.</p>
+    <a href="{% url 'core:home' %}" class="px-8 py-3 bg-py-blue text-white font-bold rounded-xl transition-all hover:bg-py-blue-dark inline-block">
       Back to home
     </a>
   </div>

@@ -5,7 +5,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Python Weekend{% endblock %}</title>
-  <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon.svg' %}" />
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,21 +13,15 @@
       theme: {
         extend: {
           colors: {
-            shield: {
-              red: "#FFD43B",
-              "red-dark": "#C9A227",
-              navy: "#16213E",
+            py: {
               blue: "#4B8BBE",
-              ice: "#306998",
-              silver: "#94A3B8",
-              star: "#F1F5F9",
-              steel: "#475569",
-              purple: "#801e6f"
-            },
-            tactical: {
-              DEFAULT: "#0B1118",
-              light: "#131C28",
-              card: "#1A2738",
+              "blue-dark": "#306998",
+              yellow: "#FFD43B",
+              "yellow-dark": "#C9A227",
+              navy: "#16213E",
+              light: "#f8f9fa",
+              body: "#4a4a4a",
+              muted: "#6c757d",
             },
           },
           fontFamily: {
@@ -49,7 +42,7 @@
   {% block extra_head %}{% endblock %}
 </head>
 
-<body class="bg-tactical text-shield-star font-body min-h-screen flex flex-col">
+<body class="bg-white text-py-body font-body min-h-screen flex flex-col">
 
   {% include "components/navbar.html" %}
 

@@ -3,89 +3,191 @@
 
 {% block content %}
 <style>
-  #id_name, #id_email, #id_interest, #id_event, #id_message {
+  #id_name,
+  #id_email,
+  #id_interest,
+  #id_event,
+  #id_message {
     width: 100%;
     padding: 0.75rem 1rem;
-    background-color: #111827; /* Tailwind gray-900 / fits tactical theme */
-    color: #f3f4f6; /* text-gray-100 */
-    border: 1px solid #374151; /* border-gray-700 */
-    border-radius: 0.75rem; /* rounded-xl */
+    background-color: #ffffff;
+    color: #1a1a1a;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
     outline: none;
     font-size: 0.95rem;
     transition: all 0.2s ease-in-out;
   }
-  #id_name:focus, #id_email:focus, #id_interest:focus, #id_event:focus, #id_message:focus {
-    border-color: #dc2626; /* match shield-red */
-    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+
+  #id_name:focus,
+  #id_email:focus,
+  #id_interest:focus,
+  #id_event:focus,
+  #id_message:focus {
+    border-color: #4B8BBE;
+    box-shadow: 0 0 0 2px rgba(75, 139, 190, 0.2);
   }
-  /* Optional sizing logic specifically for message textareas */
+
   textarea#id_message {
     min-height: 120px;
     resize: vertical;
   }
 </style>
 
-<section class="relative bg-tactical py-20 overflow-hidden">
+<section class="relative bg-py-light py-20 overflow-hidden">
   {% include "components/blobs.html" %}
   <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="text-xs font-semibold text-shield-ice uppercase tracking-widest">Get involved</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-star mt-2 mb-3">Contact us</h1>
-    <p class="text-shield-silver leading-relaxed">
+    <span class="text-xs font-semibold text-py-blue uppercase tracking-widest">Get involved</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-py-navy mt-2 mb-3">Contact us</h1>
+    <p class="text-gray-500 leading-relaxed">
       Interested in attending, coaching, or sponsoring? Fill in the form and we'll get back to you.
     </p>
   </div>
 </section>
 
-<section class="py-16 bg-tactical-light">
+<section class="py-16 bg-white">
   <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
 
     {% if messages %}
     <div class="mb-6 space-y-2">
       {% for message in messages %}
-      <div class="px-4 py-3 rounded-lg {% if message.tags == 'success' %}bg-green-900/40 border border-green-500/30 text-green-300{% else %}bg-shield-red/20 border border-shield-red/30 text-red-300{% endif %} text-sm">
+      <div
+        class="px-4 py-3 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-300 text-green-700{% else %}bg-red-50 border border-red-300 text-red-700{% endif %} text-sm">
         {{ message }}
       </div>
       {% endfor %}
     </div>
     {% endif %}
 
-    <div class="bg-tactical-card border border-shield-navy/40 rounded-xl p-8">
+    <div class="mb-8">
+      <p class="text-gray-700 text-lg mb-2 font-medium">Hi! We would love to hear from you!</p>
+      <p class="text-gray-600 mb-6 text-sm">To be sure your email reaches the right person, check this FAQ first!</p>
+
+      <!-- Accordion -->
+      <div class="space-y-3 mb-8">
+        <!-- Q1 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+          <button type="button"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            data-target="faq-1">
+            <span>Q: How can I register for an upcoming Python Weekend event?</span>
+            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="faq-1" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="mb-2">A: To register, head to our homepage and locate the list of upcoming events. Each city's
+              event has its own dedicated detail page where applications can be submitted directly.</p>
+            <p>If you do not see a "Register" button on an event's page, it usually means that registrations have not
+              opened yet or the maximum participant capacity has already been reached. Check back periodically or
+              subscribe to our newsletter for announcements.</p>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+          <button type="button"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            data-target="faq-2">
+            <span>Q: I missed the application deadline! Can I still secure a spot?</span>
+            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="faq-2" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="mb-2">A: Unfortunately, we are unable to accept applications once the official deadline has
+              passed. Our organizing teams need to finalize catering, coach-to-student ratios, and venue details well in
+              advance.</p>
+            <p>We do maintain a waiting list in case accepted participants cancel. If you'd like to be placed on the
+              waitlist or be notified of the next workshop in your area, please submit a quick message using the contact
+              form below.</p>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+          <button type="button"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            data-target="faq-3">
+            <span>Q: I want to coach or sponsor an event! How do I get involved?</span>
+            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="faq-3" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="mb-2">A: That's fantastic! Volunteers and sponsors are what make Python Weekend possible. If you
+              want to coach, we look for developers with Python/Django experience who can guide beginners with patience
+              and encouragement.</p>
+            <p>If you want to sponsor (providing venue space, food/drinks, or financial assistance), please select the
+              appropriate interest dropdown option in the form below and share some details. We will route your offer to
+              the right local organizers immediately!</p>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+          <button type="button"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            data-target="faq-4">
+            <span>Q: I'm running into errors with the tutorial. Can you help me debug?</span>
+            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="faq-4" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+            <p class="mb-2">A: While we'd love to help, our central support team's focus is on helping organizers run
+              their workshops. If you need tutorial help, we recommend asking in our community channels.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-gray-600 text-sm">
+        If you didn't find what you wanted, please use the form below. :)
+      </p>
+    </div>
+
+    <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
       <form method="post" class="space-y-5" novalidate>
         {% csrf_token %}
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-shield-silver text-sm font-medium mb-1.5" for="id_name">Name</label>
+            <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_name">Name</label>
             {{ form.name }}
-            {% if form.name.errors %}<p class="text-shield-red text-xs mt-1">{{ form.name.errors.0 }}</p>{% endif %}
+            {% if form.name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.name.errors.0 }}</p>{% endif %}
           </div>
           <div>
-            <label class="block text-shield-silver text-sm font-medium mb-1.5" for="id_email">Email</label>
+            <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_email">Email</label>
             {{ form.email }}
-            {% if form.email.errors %}<p class="text-shield-red text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+            {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
           </div>
         </div>
 
         <div>
-          <label class="block text-shield-silver text-sm font-medium mb-1.5" for="id_interest">I'm interested in</label>
+          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_interest">I'm interested in</label>
           {{ form.interest }}
-          {% if form.interest.errors %}<p class="text-shield-red text-xs mt-1">{{ form.interest.errors.0 }}</p>{% endif %}
+          {% if form.interest.errors %}<p class="text-red-500 text-xs mt-1">{{ form.interest.errors.0 }}</p>{% endif %}
         </div>
 
         {% if form.event %}
         <div>
-          <label class="block text-shield-silver text-sm font-medium mb-1.5" for="id_event">Specific event (optional)</label>
+          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_event">Specific event (optional)</label>
           {{ form.event }}
         </div>
         {% endif %}
 
         <div>
-          <label class="block text-shield-silver text-sm font-medium mb-1.5" for="id_message">Message</label>
+          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_message">Message</label>
           {{ form.message }}
-          {% if form.message.errors %}<p class="text-shield-red text-xs mt-1">{{ form.message.errors.0 }}</p>{% endif %}
+          {% if form.message.errors %}<p class="text-red-500 text-xs mt-1">{{ form.message.errors.0 }}</p>{% endif %}
         </div>
 
-        <button type="submit" class="w-full py-3 bg-shield-red hover:bg-shield-red-dark text-white font-semibold rounded-xl transition-all text-base">
+        <button type="submit"
+          class="w-full py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl transition-all text-base">
           Send message
         </button>
       </form>
@@ -93,4 +195,34 @@
 
   </div>
 </section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const target = document.getElementById(targetId);
+        const icon = btn.querySelector('svg');
+
+        const isOpen = !target.classList.contains('hidden');
+
+        // Close all FAQs
+        document.querySelectorAll('.faq-btn').forEach(otherBtn => {
+          const otherTargetId = otherBtn.getAttribute('data-target');
+          document.getElementById(otherTargetId).classList.add('hidden');
+          otherBtn.querySelector('svg').classList.remove('rotate-180');
+        });
+
+        // Toggle current FAQ
+        if (!isOpen) {
+          target.classList.remove('hidden');
+          icon.classList.add('rotate-180');
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}

@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Become an Organiser{% endblock %} | Python Weekend</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: "#f5a623",
+              "orange-dark": "#e0941e",
+            },
+          },
+          fontFamily: {
+            cursive: ['"Caveat"', 'cursive'],
+            body: ['"Inter"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Google Fonts: Caveat (handwritten) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Custom checkbox styling */
+    .wizard-check {
+      accent-color: #f5a623;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .wizard-radio {
+      accent-color: #f5a623;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    /* Links in orange */
+    .wizard-link {
+      color: #f5a623;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .wizard-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 font-body text-gray-800 min-h-screen">
+
+  <!-- Progress bar -->
+  <div class="w-full bg-gray-200 h-1.5">
+    <div class="bg-brand-orange h-1.5 transition-all duration-500"
+         style="width: {{ step|default:1 }}{% widthratio step total_steps 100 %}%"></div>
+  </div>
+
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+    {% block wizard_content %}{% endblock %}
+  </div>
+
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

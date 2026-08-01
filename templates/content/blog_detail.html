@@ -17,9 +17,9 @@
     text-transform: uppercase;
     padding: 0.25rem 0.75rem;
     border-radius: 0.5rem 0.5rem 0 0;
-    background: #1A2738;
-    color: #38BDF8;
-    border: 1px solid rgba(26,47,75,0.6);
+    background: #1e293b;
+    color: #4B8BBE;
+    border: 1px solid rgba(75, 139, 190, 0.3);
     border-bottom: none;
     position: absolute;
     top: -1.6rem;
@@ -34,38 +34,38 @@
     letter-spacing: 0.05em;
     padding: 0.25rem 0.65rem;
     border-radius: 0.4rem;
-    border: 1px solid rgba(56,189,248,0.25);
-    background: rgba(26,39,56,0.9);
+    border: 1px solid rgba(75, 139, 190, 0.25);
+    background: rgba(30, 41, 59, 0.9);
     color: #94A3B8;
     cursor: pointer;
     transition: color 0.15s, border-color 0.15s;
     z-index: 10;
   }
-  .code-copy-btn:hover { color: #38BDF8; border-color: rgba(56,189,248,0.5); }
+  .code-copy-btn:hover { color: #4B8BBE; border-color: rgba(75, 139, 190, 0.5); }
   .code-copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.4); }
 
   .section-body p {
     margin-bottom: 1rem;
     line-height: 1.75;
-    color: #94A3B8;
+    color: #4a4a4a;
   }
   .section-body p:last-child { margin-bottom: 0; }
 </style>
 {% endblock %}
 
 {% block content %}
-<article class="bg-tactical min-h-screen">
+<article class="bg-white min-h-screen">
 
   <!-- ── HEADER ── -->
-  <header class="py-16 bg-tactical-light border-b border-shield-navy/40">
+  <header class="py-16 bg-py-light border-b border-gray-200">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <a href="{% url 'content:blog_list' %}" class="text-shield-ice text-sm hover:underline">← All posts</a>
-      <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-star mt-5 mb-4 leading-tight">
+      <a href="{% url 'content:blog_list' %}" class="text-py-blue text-sm hover:underline">← All posts</a>
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-py-navy mt-5 mb-4 leading-tight">
         {{ post.title }}
       </h1>
-      <div class="flex items-center gap-3 text-shield-steel text-sm">
+      <div class="flex items-center gap-3 text-gray-400 text-sm">
         {% if post.author %}
-        <span class="text-shield-silver font-medium">{{ post.author }}</span>
+        <span class="text-gray-600 font-medium">{{ post.author }}</span>
         <span>·</span>
         {% endif %}
         <span>{{ post.published_at|date:"F j, Y" }}</span>
@@ -77,7 +77,7 @@
   {% if post.cover_image %}
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}"
-         class="rounded-xl w-full object-cover max-h-80 border border-shield-navy/40" />
+         class="rounded-xl w-full object-cover max-h-80 border border-gray-200" />
   </div>
   {% endif %}
 
@@ -86,9 +86,9 @@
 
     <!-- Legacy content field (backwards compat) -->
     {% if post.content %}
-    <div class="section-body prose prose-invert prose-sm max-w-none
-                prose-headings:font-display prose-headings:text-shield-star
-                prose-a:text-shield-ice prose-code:text-shield-ice">
+    <div class="section-body prose prose-sm max-w-none
+                prose-headings:font-display prose-headings:text-py-navy
+                prose-a:text-py-blue prose-code:text-py-blue">
       {{ post.content|linebreaks }}
     </div>
     {% endif %}
@@ -98,8 +98,8 @@
     <div class="space-y-4">
 
       {% if section.heading %}
-      <h2 class="font-display font-bold text-xl sm:text-2xl text-shield-star flex items-center gap-3">
-        <span class="w-1 h-6 bg-shield-ice rounded-full"></span>
+      <h2 class="font-display font-bold text-xl sm:text-2xl text-py-navy flex items-center gap-3">
+        <span class="w-1 h-6 bg-py-blue rounded-full"></span>
         {{ section.heading }}
       </h2>
       {% endif %}
@@ -113,7 +113,7 @@
       {% if section.code_block %}
       <div class="code-wrapper pt-6">
         <span class="code-lang-label my-4">{{ section.language }}</span>
-        <div class="relative rounded-xl overflow-hidden border border-shield-navy/40 bg-tactical-card">
+        <div class="relative rounded-xl overflow-hidden border border-gray-300 bg-slate-900">
           <button class="code-copy-btn" onclick="copyCode(this)">Copy</button>
           <pre class="!m-0 !rounded-none !border-0 !bg-transparent overflow-x-auto"><code class="language-{{ section.language }} !bg-transparent text-sm leading-relaxed">{{ section.code_block }}</code></pre>
         </div>
@@ -123,7 +123,7 @@
     </div>
 
     {% if not forloop.last %}
-    <hr class="border-shield-navy/30" />
+    <hr class="border-gray-200" />
     {% endif %}
 
     {% empty %}
@@ -135,7 +135,7 @@
   <!-- ── FOOTER NAV ── -->
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     <a href="{% url 'content:blog_list' %}"
-       class="inline-flex items-center gap-2 text-sm text-shield-ice hover:underline">
+       class="inline-flex items-center gap-2 text-sm text-py-blue hover:underline">
       ← Back to blog
     </a>
   </div>

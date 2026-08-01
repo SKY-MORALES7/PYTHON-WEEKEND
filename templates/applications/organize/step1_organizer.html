@@ -1,0 +1,141 @@
+{% extends "applications/organize/_base_wizard.html" %}
+{% block title %}Who is going to organize this workshop?{% endblock %}
+
+{% block wizard_content %}
+<h1 class="font-cursive text-4xl sm:text-5xl text-center text-gray-800 mb-12">
+  Who is going to organize this workshop?
+</h1>
+
+<form method="post" action="{% url 'applications:organize_step' step=1 %}">
+  {% csrf_token %}
+
+  <!-- ── Lead Organizer ── -->
+  <div class="mb-10">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">
+      Lead organizer <span class="text-red-500">*</span>
+    </h2>
+    <p class="text-gray-500 text-sm mb-5">This is probably you! :)</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          First Name <span class="text-red-500">*</span>
+        </label>
+        <input type="text" name="lead_first_name"
+               value="{% if form_data.lead_first_name %}{{ form_data.lead_first_name }}{% elif wizard_data.lead_first_name %}{{ wizard_data.lead_first_name }}{% endif %}"
+               class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange"
+               required />
+        {% if errors.lead_first_name %}
+          <p class="text-red-500 text-xs mt-1">{{ errors.lead_first_name }}</p>
+        {% endif %}
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Last Name
+        </label>
+        <input type="text" name="lead_last_name"
+               value="{% if form_data.lead_last_name %}{{ form_data.lead_last_name }}{% elif wizard_data.lead_last_name %}{{ wizard_data.lead_last_name }}{% endif %}"
+               class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">
+          Email Address <span class="text-red-500">*</span>
+        </label>
+        <input type="email" name="lead_email"
+               value="{% if form_data.lead_email %}{{ form_data.lead_email }}{% elif wizard_data.lead_email %}{{ wizard_data.lead_email }}{% endif %}"
+               class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange"
+               required />
+        {% if errors.lead_email %}
+          <p class="text-red-500 text-xs mt-1">{{ errors.lead_email }}</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Your organizing team ── -->
+  <div class="mb-10">
+    <h2 class="text-lg font-bold text-gray-900 mb-1">Your organizing team</h2>
+    <p class="text-gray-500 text-sm mb-5">
+      Who is going to organize this event with you? Please confirm with your co-organizers that they agreed for you
+      to provide their information here. They will be able to access your event's emails and edit your event's website.
+    </p>
+
+    <div id="team-rows">
+      <!-- Row 0 (always visible) -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 team-row">
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">First Name</label>
+          <input type="text" name="team_0_first_name" value="{% if wizard_data.team_members.0.first_name %}{{ wizard_data.team_members.0.first_name }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Last Name</label>
+          <input type="text" name="team_0_last_name" value="{% if wizard_data.team_members.0.last_name %}{{ wizard_data.team_members.0.last_name }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
+          <input type="email" name="team_0_email" value="{% if wizard_data.team_members.0.email %}{{ wizard_data.team_members.0.email }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+      </div>
+
+      <!-- Row 1 -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 team-row">
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">First Name</label>
+          <input type="text" name="team_1_first_name" value="{% if wizard_data.team_members.1.first_name %}{{ wizard_data.team_members.1.first_name }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Last Name</label>
+          <input type="text" name="team_1_last_name" value="{% if wizard_data.team_members.1.last_name %}{{ wizard_data.team_members.1.last_name }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
+          <input type="email" name="team_1_email" value="{% if wizard_data.team_members.1.email %}{{ wizard_data.team_members.1.email }}{% endif %}" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Add member button -->
+    <div class="flex justify-center mt-2">
+      <button type="button" id="add-team-row"
+              class="w-10 h-10 rounded-full bg-gray-200 hover:bg-brand-orange hover:text-white text-gray-500 flex items-center justify-center text-2xl font-bold transition-all">
+        +
+      </button>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="flex justify-center mt-10">
+    <button type="submit"
+            class="px-10 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
+      Go to next step
+    </button>
+  </div>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  let teamIndex = 2;
+  document.getElementById('add-team-row').addEventListener('click', function() {
+    const container = document.getElementById('team-rows');
+    const row = document.createElement('div');
+    row.className = 'grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4 team-row';
+    row.innerHTML = `
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">First Name</label>
+        <input type="text" name="team_${teamIndex}_first_name" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Last Name</label>
+        <input type="text" name="team_${teamIndex}_last_name" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Email Address</label>
+        <input type="email" name="team_${teamIndex}_email" class="w-full border border-gray-300 rounded-md px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-orange/40 focus:border-brand-orange" />
+      </div>
+    `;
+    container.appendChild(row);
+    teamIndex++;
+  });
+</script>
+{% endblock %}

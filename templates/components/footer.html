@@ -1,60 +1,49 @@
-<footer class="bg-white border-t border-slate-200 mt-auto">
+<footer class="bg-white border-t border-gray-200 mt-auto">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 
       <!-- Brand -->
       <div class="md:col-span-1">
         <div class="flex items-center gap-2 mb-3">
-          <span class="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center text-xs font-bold text-white">PW</span>
-          <span class="font-display font-bold text-slate-800">Python <span class="text-blue-600">Weekend</span></span>
+          <span class="w-7 h-7 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
+          <span class="font-display font-bold text-py-navy">Python <span class="text-py-blue">Weekend</span></span>
         </div>
-        <p class="text-slate-700 text-sm leading-relaxed">A hands-on Python &amp; AI learning event for beginners.</p>
+        <p class="text-gray-500 text-sm leading-relaxed">A hands-on Python &amp; Django learning event for beginners and intermediate developers.</p>
       </div>
 
-      <!-- Support Us -->
+      <!-- Learn -->
       <div>
-        <h4 class="text-slate-800 font-display font-semibold text-sm uppercase tracking-widest mb-3">Support Us</h4>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Learn</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="/support-us/" class="text-slate-700 hover:text-blue-600 transition-colors">Support a Workshop</a></li>
-          <li><a href="/partners/" class="text-slate-700 hover:text-blue-600 transition-colors">Our Partners</a></li>
+          <li><a href="{% url 'content:tutorial_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Tutorials</a></li>
+          <li><a href="{% url 'content:blog_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Blog</a></li>
+          <li><a href="{% url 'content:event_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Events</a></li>
         </ul>
       </div>
 
       <!-- Community -->
       <div>
-        <h4 class="text-slate-800 font-display font-semibold text-sm uppercase tracking-widest mb-3">Community</h4>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Community</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="{% url 'content:event_list' %}" class="text-slate-700 hover:text-blue-600 transition-colors">Events</a></li>
-          <li><a href="/jobs/" class="text-slate-700 hover:text-blue-600 transition-colors">Job Board</a></li>
+          <li><a href="{% url 'coach:list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Meet the Coaches</a></li>
+          <li><a href="{% url 'sponsors:list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Our Sponsors</a></li>
+          <li><a href="{% url 'core:about' %}" class="text-gray-500 hover:text-py-blue transition-colors">About</a></li>
         </ul>
       </div>
 
-      <!-- Resources -->
+      <!-- Get Involved -->
       <div>
-        <h4 class="text-slate-800 font-display font-semibold text-sm uppercase tracking-widest mb-3">Resources</h4>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Get Involved</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="{% url 'content:tutorial_list' %}" class="text-slate-700 hover:text-blue-600 transition-colors">Tutorial</a></li>
-          <li><a href="/resources/" class="text-slate-700 hover:text-blue-600 transition-colors">Mentoring Guide</a></li>
-          <li><a href="/resources/" class="text-slate-700 hover:text-blue-600 transition-colors">Organiser's Manual</a></li>
-        </ul>
-      </div>
-
-      <!-- Website -->
-      <div>
-        <h4 class="text-slate-800 font-display font-semibold text-sm uppercase tracking-widest mb-3">Website</h4>
-        <ul class="space-y-2 text-sm">
-          <li><a href="/about/" class="text-slate-700 hover:text-blue-600 transition-colors">About Python Weekend</a></li>
-          <li><a href="{% url 'core:contact' %}" class="text-slate-700 hover:text-blue-600 transition-colors">Contact Us</a></li>
-          <li><a href="/code-of-conduct/" class="text-slate-700 hover:text-blue-600 transition-colors">Code of Conduct</a></li>
-          <li><a href="/terms/" class="text-slate-700 hover:text-blue-600 transition-colors">Terms &amp; Conditions</a></li>
-          <li><a href="/privacy/" class="text-slate-700 hover:text-blue-600 transition-colors">Privacy Policy</a></li>
+          <li><a href="{% url 'applications:organize_start' %}" class="text-gray-500 hover:text-py-blue transition-colors">Become An Organiser</a></li>
+          <li><a href="{% url 'core:contact' %}" class="text-gray-500 hover:text-py-blue transition-colors">Contact Us</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t border-slate-200 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-slate-700">
+    <div class="border-t border-gray-200 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-400">
       <p>© {% now "Y" %} Python Weekend.</p>
-      <p>Layout inspired by <a href="https://djangogirls.org" class="hover:text-blue-600 transition-colors" target="_blank" rel="noopener">Django Girls</a>. Not affiliated.</p>
+      <p>Layout inspired by <a href="https://djangogirls.org" class="hover:text-py-blue transition-colors" target="_blank" rel="noopener">Django Girls</a>. Not affiliated.</p>
     </div>
   </div>
 </footer>

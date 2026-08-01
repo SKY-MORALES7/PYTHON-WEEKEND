@@ -5,20 +5,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 DEBUG = config("DEBUG", default=False, cast=bool)
-# Ensure we capture any comma-separated hosts provided in env vars, and always fallback safely.
 raw_hosts = config("ALLOWED_HOSTS", default="*")
 ALLOWED_HOSTS = [host.strip() for host in raw_hosts.split(",") if host.strip()]
-
-# Add Render's external hostname if available
 import os
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-# Failsafe to unblock the 400 error:
 if "*" not in ALLOWED_HOSTS:
     ALLOWED_HOSTS.append("*")
-
 
 SITE_NAME = config("SITE_NAME", default="Python Weekend")
 

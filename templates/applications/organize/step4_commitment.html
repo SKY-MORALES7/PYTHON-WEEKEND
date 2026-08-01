@@ -1,0 +1,48 @@
+{% extends "applications/organize/_base_wizard.html" %}
+{% block title %}Python Weekend Organizer Commitment{% endblock %}
+
+{% block wizard_content %}
+<div class="text-center mb-10">
+  <h1 class="font-cursive text-4xl sm:text-5xl inline-flex items-center justify-center gap-3 text-gray-800">
+    <span class="text-yellow-400 text-3xl">✨</span>
+    Python Weekend Organizer Commitment
+    <span class="text-yellow-400 text-3xl">✨</span>
+  </h1>
+</div>
+
+<form method="post" action="{% url 'applications:organize_step' step=4 %}">
+  {% csrf_token %}
+
+  <div class="mb-10 text-gray-700 leading-relaxed text-[15px]">
+    <p class="mb-6">
+      Python Weekend is an initiative aimed at introducing beginners to the world of technology and
+      increasing diversity within the tech industry. We do that by organizing workshops and inviting beginners to join us to learn
+      how to build the internet using HTML, CSS, Python and Django in a safe, friendly and inclusive environment.
+    </p>
+
+    <p class="mb-6">
+      As a Python Weekend Organizer, you make a commitment to foster and advance Python Weekend values:
+    </p>
+
+    <ul class="space-y-4 ml-6 list-disc marker:text-brand-orange">
+      <li>
+        The workshop you organize will strive to provide safe, inclusive, friendly and positive experience for everyone
+        attending and coaching
+      </li>
+      <li>
+        You will require everyone involved with the workshop to comply with <a href="#" class="wizard-link font-normal">Python Weekend Code of Conduct</a>
+      </li>
+      <li>
+        You'll strive to have tons of fun while organizing your amazing workshop! 🙌
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex justify-center mt-12">
+    <button type="submit"
+            class="px-10 py-3 bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
+      Sign the commitment
+    </button>
+  </div>
+</form>
+{% endblock %}
