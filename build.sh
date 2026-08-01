@@ -15,4 +15,5 @@ python reset_db.py
 # ---------------------------------------
 
 python manage.py migrate
+python populate_content.py
 
