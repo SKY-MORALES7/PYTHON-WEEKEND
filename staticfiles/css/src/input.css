@@ -1,0 +1,393 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base layer ─── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen font-body bg-tactical text-gray-100 antialiased;
+    
+  }
+
+  html:not(.dark) body {
+    @apply bg-slate-100 text-slate-900;
+  }
+
+  html:not(.dark) .comic-card {
+    @apply bg-white border-slate-200 shadow-lg;
+  }
+
+  html:not(.dark) .nav-link {
+    @apply text-slate-700;
+  }
+
+  ::selection {
+    @apply bg-shield-red/50 text-white;
+  }
+}
+
+/* ─── Component layer ─── */
+@layer components {
+  .comic-card {
+    @apply relative overflow-hidden rounded-2xl border border-shield-ice/10
+           bg-card-gradient shadow-card
+           transition-all duration-300 ease-out
+           hover:scale-[1.03] hover:border-shield-red/50 hover:shadow-shield;
+  }
+
+  .page-wrap {
+    @apply relative z-[1] flex min-h-screen flex-col;
+  }
+
+  .page-wrap > main {
+    @apply flex-1;
+  }
+
+  .site-header {
+    @apply sticky top-0 z-50 border-b border-slate-200 bg-white;
+  }
+
+  /* Ensure header and mobile collapse appear above overlays */
+  .site-header {
+    position: relative; /* ensure z-index works */
+    z-index: 1100;
+  }
+
+  /* Navbar layout / legacy styles removed (not used in templates)
+     Kept header layout in `.site-header` above. */
+
+  /* Legacy button utilities removed: .btn-dg .btn-arc .btn-arc-secondary
+     (not used in current templates). */
+
+  /* Page hero helpers removed (not used). */
+
+  .homepage-text {
+    text-shadow: 0 3px 34px rgba(2, 6, 23, 0.95), 0 0 32px rgba(56, 189, 248, 0.3);
+  }
+
+  .section {
+    @apply py-12 md:py-16;
+  }
+
+  .glass-card,
+  .blog-card {
+    @apply rounded-lg border border-slate-200 bg-white mt-2 text-slate-900 shadow-card transition-all duration-300 p-4;
+  }
+
+  .glass-card:hover,
+  .blog-card:hover {
+    @apply -translate-y-1 border-slate-300 bg-white shadow-md;
+  }
+
+  .glass-card h2,
+  .glass-card h3,
+  .blog-card h3 {
+    @apply text-slate-900;
+  }
+
+  .glass-card p,
+  .blog-card p {
+    @apply text-slate-700;
+  }
+
+  .video-frame {
+    @apply block min-h-72 w-full rounded-md border-0;
+  }
+
+  /* 3D card helpers removed (unused). */
+
+  .card-overlay {
+    @apply absolute inset-x-0 bottom-0 z-[1] p-6 text-white;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.42) 70%, transparent);
+  }
+
+  .card-overlay h3 {
+    @apply text-2xl text-white;
+  }
+
+  .card-overlay p {
+    @apply m-0 font-display font-bold uppercase tracking-wider text-sky-200;
+  }
+
+  /* Progress / glow utilities removed (unused). */
+
+  .inner-shell {
+    @apply relative min-h-[72vh] overflow-hidden py-16 bg-white text-slate-800;
+  }
+
+  .inner-shell::before {
+    content: "";
+    @apply absolute inset-0 -z-10;
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(247,247,248,0.6));
+  }
+
+  .marvel-page-hero {
+    @apply mx-auto mb-8 border-b border-sky-100/20 py-8;
+    width: min(1120px, calc(100% - 32px));
+  }
+
+  .marvel-page-hero p,
+  .meta-line,
+  .breadcrumb-line {
+    @apply font-display text-sm font-bold uppercase tracking-[0.16em] text-sky-200;
+  }
+
+  .marvel-page-hero h1 {
+    @apply max-w-5xl font-display text-5xl font-bold uppercase leading-none text-white md:text-7xl;
+    text-shadow: 0 2px 28px rgba(2, 6, 23, 0.88), 0 0 34px rgba(147, 197, 253, 0.22);
+  }
+
+  .marvel-page-hero span {
+    @apply mt-4 block max-w-3xl text-xl leading-relaxed text-slate-200;
+  }
+
+  .detail-hero {
+    @apply w-full pt-4;
+  }
+
+  .detail-copy {
+    @apply text-lg leading-relaxed;
+  }
+
+  .tag-chip {
+    @apply mb-2 mr-2 inline-flex min-h-7 items-center rounded-full border border-sky-200/30 bg-sky-300/10 px-3 py-1 font-display text-xs font-bold uppercase text-sky-200;
+  }
+
+  .pager-bar {
+    @apply flex flex-wrap items-center gap-3 text-slate-200;
+  }
+
+  .site-footer {
+    @apply relative z-[1] mt-0 border-t border-slate-200 bg-white py-14 text-slate-700;
+  }
+
+  .footer-brand {
+    @apply inline-flex items-center gap-3 text-white no-underline;
+  }
+
+  .footer-brand span {
+    @apply inline-flex h-11 w-11 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-400 font-display font-bold text-white shadow-sm;
+  }
+
+  .footer-brand strong {
+    @apply font-display text-3xl leading-none;
+  }
+
+  .footer-copy {
+    @apply mt-4 max-w-xl text-slate-700;
+  }
+
+  .site-footer h4 {
+    @apply mb-3 font-display text-sm font-bold uppercase tracking-[0.14em] text-slate-700;
+  }
+
+  .site-footer ul {
+    @apply m-0 list-none p-0;
+  }
+
+  .site-footer li,
+  .site-footer a {
+    @apply text-base leading-8 text-slate-700 no-underline;
+  }
+
+  .site-footer a:hover {
+    @apply text-blue-500;
+  }
+
+  .footer-bottom {
+    @apply mt-10 flex justify-between gap-4 border-t border-white/10 pt-5 text-sm text-slate-500 max-md:block;
+  }
+
+  .inner-shell form .form-label {
+    @apply font-display font-bold uppercase tracking-wider text-slate-700;
+  }
+
+  .inner-shell form .form-control {
+    @apply rounded-md border-slate-200 bg-white text-slate-800 focus:border-blue-300 focus:ring-2 focus:ring-blue-100;
+  }
+
+  /* Utility: empty-state for sections with no content */
+  .empty-state {
+    @apply bg-white border border-slate-200 rounded-lg p-8 text-center text-slate-700 shadow-sm;
+    background-image: url('/static/img/mr-robotbg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .empty-state::after {
+    content: "";
+    @apply absolute inset-0 bg-white/70 rounded-lg;
+    pointer-events: none;
+  }
+
+  .empty-state .empty-state-content {
+    @apply relative z-10;
+  }
+
+  /* Lighter card variants */
+  .card-light {
+    @apply bg-slate-50 border border-slate-100 text-slate-800 shadow-sm;
+  }
+
+  .card-ghost {
+    @apply bg-white/60 border border-slate-50 text-slate-800 shadow-none;
+  }
+
+  .comic-card::before {
+    content: "";
+    @apply absolute inset-0 bg-halftone bg-halftone opacity-25 pointer-events-none;
+  }
+
+  .btn-neon {
+    @apply relative inline-flex items-center justify-center gap-2
+           px-6 py-3 font-display font-semibold text-sm uppercase tracking-wider
+           rounded-lg overflow-hidden
+           bg-gradient-to-r from-shield-red to-shield-red-dark
+           text-shield-star shadow-shield-red
+           transition-all duration-300
+           hover:scale-105 hover:shadow-shield
+           active:scale-95;
+  }
+
+  .btn-neon::after {
+    content: "";
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent
+           -translate-x-full transition-transform duration-500;
+  }
+
+  .btn-neon:hover::after {
+    @apply translate-x-full;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           px-6 py-3 font-display font-semibold text-sm uppercase tracking-wider
+           rounded-lg border-2 border-shield-ice/70 text-shield-ice
+           transition-all duration-300
+           hover:bg-shield-ice/10 hover:scale-105 hover:shadow-shield-ice
+           active:scale-95;
+  }
+
+  .section-title {
+    @apply font-comic text-4xl md:text-5xl lg:text-6xl tracking-wide
+           bg-gradient-to-r from-shield-red via-shield-star to-shield-ice
+           bg-clip-text text-transparent
+           drop-shadow-[0_0_30px_rgba(56,189,248,0.25)];
+  }
+
+  .section-subtitle {
+    @apply font-display text-lg text-shield-silver max-w-2xl;
+  }
+
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg
+           bg-tactical-light border border-shield-ice/15
+           text-gray-100 placeholder-gray-500
+           focus:outline-none focus:border-shield-ice/60 focus:ring-2 focus:ring-shield-ice/25
+           transition-all duration-200;
+  }
+
+  .form-textarea {
+    @apply resize-y min-h-[120px];
+  }
+
+  .prose-weekend {
+    @apply font-body text-slate-800 leading-relaxed max-w-none;
+  }
+
+  .prose-weekend h2 {
+    @apply font-comic text-3xl text-slate-900 tracking-wide mt-10 mb-4;
+  }
+
+  .prose-weekend h3 {
+    @apply font-display text-xl font-semibold text-slate-800 mt-8 mb-3;
+  }
+
+  .prose-weekend p {
+    @apply mb-4;
+  }
+
+  .prose-weekend ul,
+  .prose-weekend ol {
+    @apply mb-4 pl-6 space-y-2;
+  }
+
+  .prose-weekend ul {
+    @apply list-disc;
+  }
+
+  .prose-weekend ol {
+    @apply list-decimal;
+  }
+
+  .prose-weekend a {
+    @apply text-blue-600 hover:text-blue-500 underline transition-colors;
+  }
+
+  .prose-weekend code:not(pre code) {
+    @apply px-1.5 py-0.5 rounded bg-slate-50 text-slate-800 text-sm font-mono;
+  }
+
+  .prose-weekend pre {
+    @apply my-6 rounded-xl overflow-hidden border border-shield-navy/50 shadow-lg;
+  }
+
+  .prose-weekend pre code {
+    @apply block p-4 text-sm font-mono leading-relaxed overflow-x-auto;
+  }
+
+  .badge-beginner {
+    @apply px-3 py-1 text-xs font-display font-bold uppercase tracking-wide
+           rounded-full bg-shield-ice/20 text-shield-ice border border-shield-ice/40;
+  }
+
+  .badge-intermediate {
+    @apply px-3 py-1 text-xs font-display font-bold uppercase tracking-wide
+           rounded-full bg-shield-blue/25 text-shield-star border border-shield-blue/40;
+  }
+
+  .badge-advanced {
+    @apply px-3 py-1 text-xs font-display font-bold uppercase tracking-wide
+           rounded-full bg-shield-red/25 text-shield-red border border-shield-red/40;
+  }
+
+  .reveal {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+
+  .reveal.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .sidebar-card {
+    @apply comic-card p-5;
+  }
+
+  .halftone-overlay {
+    @apply absolute inset-0 bg-halftone bg-halftone opacity-20 pointer-events-none;
+  }
+}
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke: 1px rgba(241, 245, 249, 0.15);
+  }
+
+  .comic-border {
+    box-shadow:
+      4px 4px 0 #E23636,
+      8px 8px 0 #38BDF8;
+  }
+
+  .parallax-slow {
+    will-change: transform;
+  }
+}
+
+
