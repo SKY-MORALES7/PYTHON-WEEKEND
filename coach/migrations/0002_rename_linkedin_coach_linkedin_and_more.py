@@ -4,21 +4,23 @@ from django.db import migrations, models
 
 
 def safe_rename_or_add_linkedin(apps, schema_editor):
-    from django.db import connection
+    from django.db import connection, transaction
     try:
-        with connection.cursor() as cursor:
-            if connection.vendor == 'sqlite':
-                cursor.execute("ALTER TABLE coach_coach RENAME COLUMN linkedin TO linkedIn;")
-            else:
-                cursor.execute('ALTER TABLE coach_coach RENAME COLUMN "linkedin" TO "linkedIn";')
-    except Exception:
-        # Column linkedin doesn't exist, so add linkedIn
-        try:
+        with transaction.atomic():
             with connection.cursor() as cursor:
                 if connection.vendor == 'sqlite':
-                    cursor.execute("ALTER TABLE coach_coach ADD COLUMN linkedIn varchar(200) NOT NULL DEFAULT '';")
+                    cursor.execute("ALTER TABLE coach_coach RENAME COLUMN linkedin TO linkedIn;")
                 else:
-                    cursor.execute('ALTER TABLE coach_coach ADD COLUMN "linkedIn" varchar(200) NOT NULL DEFAULT \'\';')
+                    cursor.execute('ALTER TABLE coach_coach RENAME COLUMN "linkedin" TO "linkedIn";')
+    except Exception:
+        # Column linkedin doesn't exist, so add linkedIn safely
+        try:
+            with transaction.atomic():
+                with connection.cursor() as cursor:
+                    if connection.vendor == 'sqlite':
+                        cursor.execute("ALTER TABLE coach_coach ADD COLUMN linkedIn varchar(200) NOT NULL DEFAULT '';")
+                    else:
+                        cursor.execute('ALTER TABLE coach_coach ADD COLUMN "linkedIn" varchar(200) NOT NULL DEFAULT \'\';')
         except Exception:
             pass
 
