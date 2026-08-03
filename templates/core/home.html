@@ -1,227 +1,299 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Python Weekend — Learn Django, Build Stuff{% endblock %}
+{% load content_tags %}
+{% block title %}Python Weekend — Learn Python and build with AI{% endblock %}
+
 
 {% block extra_head %}
 <style>
-  .hero-bg { background-image: url('{% static "img/game2.jpg" %}'); }
-  .highlights-bg { background-image: url('{% static "img/laptop1.avif" %}'); }
-  .blog-bg { background-image: url('{% static "img/blogbg1.jpg" %}'); }
-  .cta-bg { background-image: url('{% static "img/dg-style/image-4.jpg" %}'); }
+  .hero-parallax {
+    position: relative;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-image: url('{% static "img/dg-style/hero-bg.jpg" %}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 
-<!-- ── HERO ── -->
-<section class="relative overflow-hidden min-h-[88vh] flex items-center">
-
-  <!-- Ken Burns background layer -->
-  <div class="absolute inset-0 scale-110 animate-ken-burns">
-    <div class="w-full h-full bg-cover bg-center hero-bg"></div>
-  </div>
-
-  <!-- Dark overlay for text readability on the image -->
-  <div class="absolute inset-0 bg-black/50"></div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36">
-    <div class="max-w-4xl">
-      <span class="inline-flex items-center gap-2 text-xs font-semibold text-py-yellow uppercase tracking-widest mb-6 px-3 py-1.5 border border-py-yellow/30 rounded-full bg-py-yellow/10">
-        <span class="w-1.5 h-1.5 rounded-full bg-py-yellow animate-pulse"></span>
-        Applications Open
-      </span>
-
-      <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white leading-none mb-6">
-        Build real apps.<br />
-        <span class="text-py-yellow">Become a programming Guru with Python Weekend</span>
-      
-      </h1>
-
-      <p class="text-white/90 text-lg sm:text-xl leading-relaxed max-w-xl mb-10">
-        A hands-on, beginner-friendly Python &amp; Django workshop. Write code, ship features, and leave with a project you built yourself.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-4 mb-4">
-        <a href="{% url 'core:contact' %}" class="px-4 py-3.5 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl text-base transition-all hover:shadow-lg text-center">
-          Register Interest
-        </a>
-        <a href="{% url 'content:event_list' %}" class="px-8 py-3.5 bg-transparent border border-white/40 hover:border-white text-white hover:bg-white/10 font-medium rounded-xl text-base transition-all text-center">
-          View Events →
-        </a>
-        <a href="{% url 'applications:organize_start' %}" class="px-6 py-3.5 bg-py-yellow text-py-navy font-semibold rounded-xl text-base transition-all text-center hover:scale-105">
-          Become an organiser
-        </a>
-      </div>
-    </div>
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO  (Django Girls style: fixed background image)
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero-parallax">
+  <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);"></div>
+  <div style="position:relative; z-index:10; max-width:800px; padding:4rem 1.5rem;">
+    {% get_content 'home_hero_text' %}
   </div>
 </section>
 
-<!-- ── WHAT YOU'LL LEARN ── -->
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-12">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-py-navy">What you'll build</h2>
-      <p class="text-gray-500 mt-2 text-base max-w-xl mx-auto">From zero to deployed — in two days.</p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for item in highlights %}
-     <div class="group relative overflow-hidden border border-gray-200 rounded-xl hover:border-py-blue/30 transition-all duration-500">
-     <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 highlights-bg"></div>
 
-<!-- Dark Overlay -->
-<div class="absolute inset-0 bg-black/75"></div>
-
-<!-- Content -->
-<div class="relative z-10 p-6">
-        <div class="text-3xl mb-3">{{ item.icon }}</div>
-        <h3 class="font-display font-bold text-white text-lg mb-1">{{ item.title }}</h3>
-        <p class="text-gray-300 text-sm leading-relaxed">{{ item.description }}</p>
-      </div>
-      </div>
-      {% empty %}
-{% for item in default_highlights %}
-<div class="group relative overflow-hidden border border-gray-200 rounded-xl hover:border-py-blue/30 transition-all duration-500 min-h-[250px]">
-
-  <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 highlights-bg"></div>
-
-  <div class="absolute inset-0 bg-black/75"></div>
-
-  <div class="relative z-10 p-6">
-    <div class="text-3xl mb-3">{{ item.icon }}</div>
-    <h3 class="font-display font-bold text-white text-lg mb-1">
-      {{ item.title }}
-    </h3>
-    <p class="text-gray-300 text-sm leading-relaxed">
-      {{ item.description }}
-    </p>
-  </div>
-
-</div>
-{% endfor %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
-<!-- ── LATEST TUTORIALS ── -->
-{% if tutorials %}
-<section class="py-20 bg-py-light">
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <div class="flex items-end justify-between mb-10">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — WHAT IS PYTHON WEEKEND?  (text left, image right)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg">
+  <div class="container-dg">
+    <div class="about-grid">
+      <!-- Left: description -->
       <div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-py-navy">Latest tutorials</h2>
-        <p class="text-gray-500 mt-1 text-md">Step-by-step guides to build with Python.</p>
+        {% get_content 'home_what_is' %}
       </div>
-      <a href="{% url 'content:tutorial_list' %}" class="text-py-blue text-sm font-medium hover:underline hidden sm:block">All tutorials →</a>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for tutorial in tutorials %}
-        {% include "components/card-tutorial.html" %}
-      {% endfor %}
-    </div>
-    <div class="mt-8 sm:hidden">
-      <a href="{% url 'content:tutorial_list' %}" class="text-py-blue text-sm font-medium">All tutorials →</a>
-    </div>
-  </div>
-</section>
-{% endif %}
 
-<!-- ── LATEST BLOG ── -->
-{% if blog_posts %}
-<section class="relative overflow-hidden min-h-[88vh] flex items-center">
-
-  <!-- Ken Burns background layer -->
-  <div class="absolute inset-0 scale-110 animate-ken-burns">
-    <div class="w-full h-full bg-cover bg-center blog-bg"></div>
-  </div>
-
-<div class="absolute inset-0 bg-black/60"></div>
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-    <div class="flex items-end justify-between mb-10">
+      <!-- Right: video -->
       <div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white">From the blog</h2>
-        <p class="text-py-yellow/80 mt-1 text-sm">Community stories, learnings, and updates.</p>
+        <div style="position:relative; width:100%; border-radius:0.5rem; overflow:hidden; background:#000;">
+          <video controls preload="metadata" style="width:100%; height:auto; display:block;" poster="{% static 'img/dg-style/image-4.jpg' %}">
+            <source src="{% static 'video/VID-20260523-WA0061.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
       </div>
-      <a href="{% url 'content:blog_list' %}" class="text-py-yellow text-sm font-medium hover:underline hidden sm:block">All posts →</a>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for post in blog_posts %}
-        {% include "components/card-blog.html" %}
-      {% endfor %}
-    </div>
-     <div class="my-8 sm:hidden">
-      <a href="{% url 'content:blog_list' %}" class="text-py-yellow text-sm font-medium">All posts →</a>
     </div>
   </div>
 </section>
 
 
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — IMPACT STATS + BRING PW TO YOUR CITY
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg section-dg--bordered">
+  <div class="container-dg">
+    <div class="impact-grid">
 
-{% endif %}
-
-<!-- ── UPCOMING EVENTS ── -->
-{% if upcoming_events %}
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-end justify-between mb-10">
+      <!-- Left: stats -->
       <div>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-py-navy">Upcoming events</h2>
-        <p class="text-gray-500 mt-1 text-sm">Find a workshop near you.</p>
+        <h2>Python Weekend impact</h2>
+        <p>
+          Since we started, an army of
+          <span class="stat-badge stat-badge--orange">{{ total_coaches }} coach{{ total_coaches|pluralize:"es" }}</span>
+          in the Python Weekend community organised
+          <span class="stat-badge stat-badge--orange">{{ total_events }} event{{ total_events|pluralize }}</span>.
+          We've been to
+          <span class="stat-badge stat-badge--blue">{{ total_cities }} cit{{ total_cities|pluralize:"y,ies" }}</span>
+          in
+          <span class="stat-badge stat-badge--orange">{{ total_countries }} countr{{ total_countries|pluralize:"y,ies" }}</span>.
+        </p>
       </div>
-      <a href="{% url 'content:event_list' %}" class="text-py-blue text-sm font-medium hover:underline hidden sm:block">All events →</a>
+
+      <!-- Right: organise CTA -->
+      <div>
+        {% get_content 'home_bring_pw' %}
+        <div style="margin-top: 1.25rem;">
+          <a href="{% url 'applications:organize_start' %}" class="btn-orange">
+            Apply to organise a workshop
+          </a>
+        </div>
+      </div>
+
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 — UPCOMING EVENTS  (overlay cards in 3-col grid)
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg section-dg--bordered">
+  <div class="container-dg">
+
+    <h2 style="font-size: 1.75rem; margin-bottom: 1.5rem;">
+      Upcoming events
+      <a href="{% url 'content:event_list' %}" class="tag-badge" style="text-decoration:none;">All Events</a>
+    </h2>
+
+    {% if upcoming_events %}
+    <div class="events-grid">
       {% for event in upcoming_events %}
-      <div class="mt-4 bg-white border border-gray-200 rounded-xl p-0 hover:border-py-blue/30 transition-all overflow-hidden hover:shadow-lg">
-        <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center"
-           {% if event.image %}style="background-image: url({{ event.image.url }});"{% endif %}></a>
-        <div class="p-5">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="w-2 h-2 rounded-full bg-green-500"></span>
-          <span class="text-green-600 text-xs font-semibold uppercase tracking-widest">Upcoming</span>
+      <a href="{% url 'content:event_detail' event.slug %}" class="event-card-overlay" style="text-decoration:none;">
+        <div class="event-card-overlay__bg"
+             {% if event.image %}style="background-image: url({{ event.image.url }});"
+             {% else %}style="background-image: url({% static 'img/dg-style/image-4.jpg' %}); "{% endif %}></div>
+        <div class="event-card-overlay__gradient"></div>
+        <div class="event-card-overlay__text">
+          <div class="event-card-overlay__city">{{ event.title }}</div>
+          <div class="event-card-overlay__date">{{ event.start_date|date:"jS F Y" }}</div>
         </div>
-        <h3 class="font-display font-bold text-py-navy text-lg mb-1">
-          <a href="{% url 'content:event_detail' event.slug %}" class="hover:text-py-blue transition-colors">{{ event.title }}</a>
-        </h3>
-        <p class="text-gray-500 text-sm mb-3">{{ event.start_date|date:"F j, Y" }} · {{ event.location }}</p>
-        </div>
-        <a href="{% url 'core:contact' %}?event={{ event.slug }}" class="px-4 py-4 inline-flex items-center gap-1 text-py-blue text-sm font-medium hover:gap-2 transition-all">
-          Register interest →
-        </a>
-      </div>
+      </a>
       {% endfor %}
     </div>
-     <div class="mt-8 sm:hidden">
-      <a href="{% url 'content:event_list' %}" class="text-py-blue text-sm font-medium">All events →</a>
+    {% else %}
+    <p style="color: var(--py-muted);">No upcoming events right now. <a href="{% url 'applications:organize_start' %}">Organise one!</a></p>
+    {% endif %}
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5 — COACHES SPOTLIGHT + LATEST BLOG
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg section-dg--bordered">
+  <div class="container-dg">
+    <div class="community-grid">
+
+      <!-- Left: coaches -->
+      <div>
+        {% get_content 'home_coaches_text' %}
+
+        {% if coaches %}
+        <div class="coach-photos-grid">
+          {% for coach in coaches %}
+          <div>
+            {% if coach.photo %}
+            <img src="{{ coach.photo.url }}"
+                 alt="{{ coach.name }}"
+                 class="coach-photo"
+                 loading="lazy" />
+            {% else %}
+            <div class="coach-photo" style="background: linear-gradient(135deg, var(--py-blue) 0%, var(--py-navy) 100%); display:flex; align-items:center; justify-content:center; color:#fff; font-size:2rem; font-family:'Covered By Your Grace',cursive;">
+              {{ coach.name|truncatechars:1 }}
+            </div>
+            {% endif %}
+            <p style="font-weight:600; margin-top:0.5rem; color:var(--py-navy);">{{ coach.name }}</p>
+            {% if coach.role %}
+            <p style="font-size:0.9rem; color:var(--py-muted);">{{ coach.role }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <div style="margin-top:1rem;">
+          <a href="{% url 'coach:list' %}" style="color:var(--py-blue); font-weight:600;">Meet all coaches →</a>
+        </div>
+        {% else %}
+        <p style="color:var(--py-muted);">Coach profiles coming soon!</p>
+        {% endif %}
+      </div>
+
+      <!-- Right: latest blog -->
+      <div>
+        <h2>Latest from our blog</h2>
+
+        {% if blog_posts %}
+        {% for post in blog_posts %}
+        <div class="blog-link-item">
+          <a href="{% url 'content:blog_detail' post.slug %}">{{ post.title }}</a>
+          <p>
+            {{ post.excerpt|truncatewords:25 }}
+            <a href="{% url 'content:blog_detail' post.slug %}" class="read-all">Read all »</a>
+          </p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p style="color:var(--py-muted);">No blog posts yet. Stay tuned!</p>
+        {% endif %}
+      </div>
+
     </div>
   </div>
 </section>
-{% endif %}
 
 
-<!-- ── CTA STRIP ── -->
-<section class="relative overflow-hidden min-h-[88vh] flex items-center cta-bg bg-cover bg-center">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6 — SUPPORT OUR WORK + STAY UP TO DATE
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg section-dg--bordered">
+  <div class="container-dg">
+    <div class="support-grid">
 
-    <div class="absolute inset-0 bg-py-navy/85"></div>
+      <!-- Left: support -->
+      <div>
+        {% get_content 'home_support_work' %}
 
-    <div class="relative z-10 max-w-3xl mx-auto px-5 text-center">
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mb-4">
-            Ready to start building?
-        </h2>
+        <div style="margin: 1rem 0;">
+          <span class="stat-badge stat-badge--orange">Goal</span>
+          <span style="font-size:1.1rem; font-weight:600; color:var(--py-navy);"> — help us fund more workshops</span>
+        </div>
 
-        <p class="text-white/80 mb-8 text-xl">
-            Join the next Python Weekend workshop and go from zero to your first Django app.
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width: 42%;">42%</div>
+        </div>
+
+        <div style="margin-top:1.25rem;">
+          <a href="{% url 'core:contact' %}" class="btn-orange">
+            Get in touch to support us
+          </a>
+        </div>
+
+        <p style="margin-top:1rem; font-size:0.95rem; color:var(--py-muted);">
+          You can also send us a one-time donation. If you would like
+          to discuss a bigger partnership,
+          <a href="{% url 'core:contact' %}">please get in touch</a>.
+        </p>
+      </div>
+
+      <!-- Right: newsletter -->
+      <div>
+        <h2>Stay up to date!</h2>
+        <p>
+          Subscribe to Python Weekend Dispatch to receive the latest and
+          greatest from our community every two weeks, straight to your inbox!
         </p>
 
-        <a href="{% url 'core:contact' %}"
-           class="px-10 py-3.5 bg-py-yellow hover:bg-py-yellow-dark text-py-navy font-bold rounded-xl text-base transition-all hover:shadow-lg inline-block">
-            Get in touch
-        </a>
-    </div>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+          <input type="email" placeholder="email address" required />
+          <button type="submit">Subscribe</button>
+        </form>
 
+        <p style="margin-top:0.75rem;">
+          <a href="{% url 'content:blog_list' %}" style="color:var(--py-blue); font-size:0.95rem;">
+            See the Python Weekend Dispatch archives »
+          </a>
+        </p>
+
+        <div style="margin-top: 2rem;">
+          <h2>Check out our community!</h2>
+          <p>
+            We have an amazing community of coaches, organisers, and
+            alumni who continue building after each workshop. Check out
+            our <a href="{% url 'coach:list' %}">coaches</a> and
+            <a href="{% url 'content:blog_list' %}">blog</a> to stay connected.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 7 — SPONSORS
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg section-dg--bordered">
+  <div class="container-dg" style="text-align:center;">
+
+    <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">
+      {% get_content 'home_sponsors_text' %}
+    </h2>
+
+    {% if sponsors %}
+    <div class="sponsor-row">
+      {% for sponsor in sponsors %}
+      <a href="{{ sponsor.website|default:'#' }}"
+         target="_blank" rel="noopener"
+         title="{{ sponsor.name }}">
+        {% if sponsor.logo %}
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" loading="lazy" />
+        {% else %}
+        <span style="display:inline-block; padding:0.5rem 1.25rem; border:1px solid #ddd; border-radius:4px; font-weight:600; color:var(--py-navy); font-size:1rem;">{{ sponsor.name }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="color:var(--py-muted);">
+      Interested in sponsoring? <a href="{% url 'core:contact' %}">Get in touch!</a>
+    </p>
+    {% endif %}
+
+  </div>
+</section>
 
 {% endblock %}
