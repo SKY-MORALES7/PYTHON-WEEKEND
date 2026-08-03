@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
+
 {% block title %}Python Weekend — Learn Python and build with AI{% endblock %}
 
 
@@ -30,7 +30,8 @@
 <section class="hero-parallax">
   <div style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);"></div>
   <div style="position:relative; z-index:10; max-width:800px; padding:4rem 1.5rem;">
-    {% get_content 'home_hero_text' %}
+    <h1 style="font-size: 3rem; font-weight: bold; color: #fff; margin-bottom: 1rem;">Build real apps. <br><span style="color: var(--py-yellow);">Become a programming Guru with Python Weekend</span></h1>
+    <p style="color: #fff; font-size: 1.25rem; margin-bottom: 2rem;">A hands-on, beginner-friendly Python & Django workshop. Write code, ship features, and leave with a project you built yourself.</p>
   </div>
 </section>
 
@@ -43,7 +44,8 @@
     <div class="about-grid">
       <!-- Left: description -->
       <div>
-        {% get_content 'home_what_is' %}
+        <h2 style="font-size: 2rem; font-weight: bold; margin-bottom: 1rem; color: var(--py-navy);">What you'll build</h2>
+        <p style="color: var(--py-muted); margin-bottom: 2rem;">From zero to deployed — in two days.</p>
       </div>
 
       <!-- Right: video -->
@@ -84,7 +86,8 @@
 
       <!-- Right: organise CTA -->
       <div>
-        {% get_content 'home_bring_pw' %}
+        <h2>Bring Python Weekend to your city</h2>
+        <p>Want to host a Python Weekend? We provide the curriculum, tools, and guidance. You provide the space and community.</p>
         <div style="margin-top: 1.25rem;">
           <a href="{% url 'applications:organize_start' %}" class="btn-orange">
             Apply to organise a workshop
@@ -140,7 +143,8 @@
 
       <!-- Left: coaches -->
       <div>
-        {% get_content 'home_coaches_text' %}
+        <h2>Meet our coaches</h2>
+        <p>Our experienced coaches are here to help you get unstuck and build real apps.</p>
 
         {% if coaches %}
         <div class="coach-photos-grid">
@@ -204,7 +208,8 @@
 
       <!-- Left: support -->
       <div>
-        {% get_content 'home_support_work' %}
+        <h2>Support our work</h2>
+        <p>Python Weekend is a volunteer-led initiative. We depend on community support to make events happen.</p>
 
         <div style="margin: 1rem 0;">
           <span class="stat-badge stat-badge--orange">Goal</span>
@@ -270,7 +275,7 @@
   <div class="container-dg" style="text-align:center;">
 
     <h2 style="font-size: 1.75rem; margin-bottom: 2rem;">
-      {% get_content 'home_sponsors_text' %}
+      Our Sponsors
     </h2>
 
     {% if sponsors %}
