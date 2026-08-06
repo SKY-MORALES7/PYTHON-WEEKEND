@@ -1,86 +1,81 @@
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50 h-[70px]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 py-6">
+{% load static %}
+<nav class="pw-navbar" id="pw-navbar">
+  <div class="pw-navbar__inner">
 
-      <!-- Logo -->
-      <a href="{% url 'core:home' %}" class="flex items-center gap-2 group focus:outline-none">
-        <span class="w-8 h-8 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
-        <span class="text-py-navy font-display font-bold text-lg tracking-wide transition-colors">
-          Python <span class="text-py-blue">Weekend</span>
-        </span>
-      </a>
+    <!-- Logo -->
+    <a href="{% url 'core:home' %}" class="pw-navbar__logo">
+      <span class="pw-logo-heart">♥</span>
+      <span class="pw-logo-text">python <strong>weekend</strong></span>
+    </a>
 
-      <!-- Desktop Links -->
-      <div class="hidden md:flex items-center gap-1 text-sm font-medium">
-        <a href="{% url 'core:home' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors {% if request.resolver_match.namespace == 'core' and request.resolver_match.url_name == 'home' %}text-py-blue{% endif %}">Home</a>
+    <!-- Desktop Links -->
+    <div class="pw-navbar__links" id="pw-nav-links">
+      <a href="{% url 'content:event_list' %}">Events</a>
 
-        <!-- Learn Dropdown -->
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1 {% if request.resolver_match.namespace == 'content' and 'tutorial' in request.resolver_match.url_name or request.resolver_match.namespace == 'content' and 'blog' in request.resolver_match.url_name %}text-py-blue{% endif %}">
-            Learn
-            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="{% url 'content:tutorial_list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Tutorials</a>
-            <a href="{% url 'content:blog_list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Blog</a>
-          </div>
+      <div class="pw-dropdown">
+        <button class="pw-dropdown__toggle">
+          Learn
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="pw-dropdown__menu">
+          <a href="{% url 'content:tutorial_list' %}">Tutorials</a>
+          <a href="{% url 'content:blog_list' %}">Blog</a>
         </div>
-
-        <a href="{% url 'content:event_list' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors {% if request.resolver_match.namespace == 'content' and 'event' in request.resolver_match.url_name %}text-py-blue{% endif %}">Events</a>
-
-        <!-- Community Dropdown -->
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1 {% if request.resolver_match.namespace == 'coach' or request.resolver_match.namespace == 'sponsors' or request.resolver_match.url_name == 'about' %}text-py-blue{% endif %}">
-            Community
-            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="{% url 'coach:list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Coaches</a>
-            <a href="{% url 'sponsors:list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Sponsors</a>
-            <a href="{% url 'core:about' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">About</a>
-          </div>
-        </div>
-
-        <a href="{% url 'core:contact' %}" class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105">
-          Register Interest
-        </a>
       </div>
 
-      <!-- Mobile Hamburger -->
-      <button id="mobile-menu-toggle" class="md:hidden text-gray-600 hover:text-py-blue" aria-label="Toggle menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path id="hamburger-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
+      <div class="pw-dropdown">
+        <button class="pw-dropdown__toggle">
+          Community
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="pw-dropdown__menu">
+          <a href="{% url 'coach:list' %}">Coaches</a>
+          <a href="{% url 'sponsors:list' %}">Sponsors</a>
+          <a href="{% url 'core:about' %}">About</a>
+        </div>
+      </div>
+
+      <a href="{% url 'applications:organize_start' %}">Volunteer</a>
+      <a href="{% url 'core:contact' %}">Contact us</a>
     </div>
+
+    <!-- Hamburger -->
+    <button class="pw-navbar__hamburger" id="pw-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
-    <div class="px-4 py-3 space-y-1">
-      <a href="{% url 'core:home' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Home</a>
-      <p class="px-3 pt-3 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Learn</p>
-      <a href="{% url 'content:tutorial_list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Tutorials</a>
-      <a href="{% url 'content:blog_list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Blog</a>
-      <a href="{% url 'content:event_list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Events</a>
-      <p class="px-3 pt-3 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Community</p>
-      <a href="{% url 'coach:list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Coaches</a>
-      <a href="{% url 'sponsors:list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Sponsors</a>
-      <a href="{% url 'core:about' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">About</a>
-      <a href="{% url 'core:contact' %}" class="block mx-3 my-2 px-4 py-2 bg-py-blue text-white rounded-lg font-semibold text-sm text-center transition-colors">Register Interest</a>
-    </div>
+  <!-- Mobile menu -->
+  <div class="pw-navbar__mobile" id="pw-mobile-menu">
+    <a href="{% url 'core:home' %}">Home</a>
+    <a href="{% url 'content:event_list' %}">Events</a>
+    <a href="{% url 'content:tutorial_list' %}">Tutorials</a>
+    <a href="{% url 'content:blog_list' %}">Blog</a>
+    <a href="{% url 'coach:list' %}">Coaches</a>
+    <a href="{% url 'sponsors:list' %}">Sponsors</a>
+    <a href="{% url 'core:about' %}">About</a>
+    <a href="{% url 'applications:organize_start' %}">Volunteer</a>
+    <a href="{% url 'core:contact' %}">Contact us</a>
   </div>
 </nav>
 
 <script>
-  const toggle = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const hamburger = document.getElementById('hamburger-icon');
-  const close = document.getElementById('close-icon');
-  toggle.addEventListener('click', () => {
-    menu.classList.toggle('hidden');
-    hamburger.classList.toggle('hidden');
-    close.classList.toggle('hidden');
+  const hamburger = document.getElementById('pw-hamburger');
+  const mobileMenu = document.getElementById('pw-mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('pw-navbar__mobile--open');
+    hamburger.classList.toggle('pw-navbar__hamburger--open');
+  });
+
+  // Sticky navbar shadow on scroll
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('pw-navbar');
+    navbar.classList.toggle('pw-navbar--scrolled', window.scrollY > 10);
+  });
+
+  // Dropdown hover on desktop
+  document.querySelectorAll('.pw-dropdown').forEach(el => {
+    el.addEventListener('mouseenter', () => el.classList.add('pw-dropdown--open'));
+    el.addEventListener('mouseleave', () => el.classList.remove('pw-dropdown--open'));
   });
 </script>

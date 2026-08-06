@@ -1,326 +1,583 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@300;400;600&family=Rajdhani:wght@500;600;700&family=Source+Sans+3:wght@300;400;600&display=swap");
+/* ═══════════════════════════════════════════════════════════════
+   PYTHON WEEKEND — Django Girls-Inspired Theme
+   Primary: Orange #e87c30 | Teal #2ac5a9 | Dark #22313f
+   ═══════════════════════════════════════════════════════════════ */
 
+@import url("https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap");
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
 :root {
-  --py-yellow: #FFD43B;
-  --py-yellow-dark: #C9A227;
-  --py-navy: #16213e;
-  --py-blue: #4B8BBE;
-  --py-blue-dark: #306998;
-  --py-silver: #94a3b8;
-  --py-light: #f1f5f9;
-  --py-code-bg: #1e1e2e;
-  --dg-border: rgba(75, 139, 190, 0.25);
+  --pw-orange:      #e87c30;
+  --pw-orange-dark: #c96820;
+  --pw-teal:        #2ac5a9;
+  --pw-teal-dark:   #1fa38d;
+  --pw-dark:        #22313f;
+  --pw-muted:       #666;
+  --pw-light-gray:  #f3f3f3;
+  --pw-border:      #e0e0e0;
+  --pw-white:       #ffffff;
+  --pw-link:        #4b7fa3;
 }
+
+/* ─── Base Reset ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: "DM Sans", system-ui, sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: "Rajdhani", "DM Sans", sans-serif;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--pw-dark);
+  background: var(--pw-white);
 }
 
 a {
-  color: var(--py-blue);
+  color: var(--pw-link);
+  text-decoration: none;
+}
+a:hover { color: var(--pw-orange); text-decoration: underline; }
+
+h1, h2, h3, h4 {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
-a:hover {
-  color: var(--py-yellow);
-}
+img { max-width: 100%; height: auto; display: block; }
 
-::selection {
-  background: rgba(75, 139, 190, 0.35);
-  color: var(--py-light);
-}
-
-/* Removed legacy navbar-shield rules — templates use a different navbar markup. */
-
-.prose-dg {
-  font-size: 18px;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-.prose-dg h2,
-.prose-dg h3 {
-  color: var(--py-light);
-}
-
-.prose-dg pre {
-  overflow-x: auto;
-  padding: 1rem;
-  border: 1px solid var(--dg-border);
-  border-radius: 0.5rem;
-  background: var(--py-code-bg);
-  color: var(--py-light);
-}
-
-.prose-dg code:not(pre code) {
-  padding: 0.1rem 0.35rem;
-  border-radius: 0.25rem;
-  background: rgba(255, 212, 59, 0.12);
-  color: var(--py-yellow);
-}
-
-.hljs {
-  background: var(--py-code-bg) !important;
-  color: #e2e8f0;
-}
-
-.hljs-keyword {
-  color: var(--py-yellow) !important;
-}
-
-.hljs-string {
-  color: var(--py-blue) !important;
-}
-
-.hljs-number {
-  color: var(--py-light) !important;
-}
-
-.hljs-comment {
-  color: #64748b !important;
-  font-style: italic;
-}
-
-/* ═══════════════════════════════════════════════════════
-   HOME PAGE LAYOUT & COMPONENTS
-   ═══════════════════════════════════════════════════════ */
-:root {
-  --py-muted: #64748b;
-}
-
-.section-dg {
-  padding: 4rem 1.5rem;
-  background-color: #fff;
-}
-.section-dg--bordered {
-  border-top: 1px solid #e2e8f0;
-}
-.container-dg {
-  max-width: 1100px;
+/* ─── Layout Utilities ──────────────────────────────────────── */
+.pw-container {
+  max-width: 1080px;
   margin: 0 auto;
-}
-.container-dg h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: var(--py-navy);
+  padding: 0 1.5rem;
 }
 
-/* Grids */
-.about-grid, .impact-grid, .community-grid, .support-grid {
+.pw-two-col {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
-  align-items: center;
+  align-items: start;
 }
-@media (min-width: 768px) {
-  .about-grid, .impact-grid, .community-grid, .support-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+@media (min-width: 760px) {
+  .pw-two-col { grid-template-columns: 1fr 1fr; }
 }
 
-.events-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+/* ─── Sections ──────────────────────────────────────────────── */
+.pw-section {
+  padding: 4rem 1.5rem;
 }
-@media (min-width: 768px) {
-  .events-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.pw-section--gray {
+  background-color: var(--pw-light-gray);
+  border-top: 1px solid var(--pw-border);
+  border-bottom: 1px solid var(--pw-border);
 }
+.pw-section--teal {
+  background-color: var(--pw-teal);
+  color: var(--pw-white);
+}
+.pw-section--teal h2  { color: var(--pw-white); }
+.pw-section--teal p   { color: rgba(255,255,255,0.9); }
+.pw-section--teal a   { color: var(--pw-white); text-decoration: underline; }
 
-/* Badges */
-.stat-badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin: 0 0.25rem;
-}
-.stat-badge--orange {
-  background-color: rgba(255, 212, 59, 0.2);
-  color: var(--py-yellow-dark);
-}
-.stat-badge--blue {
-  background-color: rgba(75, 139, 190, 0.15);
-  color: var(--py-blue-dark);
-}
-.tag-badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  background: var(--py-light);
-  color: var(--py-blue);
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-left: 0.5rem;
-  vertical-align: middle;
-}
-
-/* Button */
-.btn-orange {
-  display: inline-block;
-  background-color: var(--py-yellow);
-  color: var(--py-navy);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.2s;
-}
-.btn-orange:hover {
-  background-color: var(--py-yellow-dark);
-}
-
-/* Event Cards */
-.event-card-overlay {
-  position: relative;
-  display: block;
-  height: 250px;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-.event-card-overlay__bg {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.3s;
-}
-.event-card-overlay:hover .event-card-overlay__bg {
-  transform: scale(1.05);
-}
-.event-card-overlay__gradient {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-}
-.event-card-overlay__text {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  color: #fff;
-}
-.event-card-overlay__city {
-  font-family: "Rajdhani", "DM Sans", sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-.event-card-overlay__date {
-  font-size: 0.9rem;
-  color: #ddd;
-}
-
-/* Coaches */
-.coach-photos-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-.coach-photo {
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 0.5rem;
-  object-fit: cover;
-}
-
-/* Blog Links */
-.blog-link-item {
-  margin-bottom: 1.5rem;
-}
-.blog-link-item a:first-child {
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--py-navy);
-  display: block;
+/* ─── Typography ────────────────────────────────────────────── */
+.pw-heading-orange {
+  font-size: 2rem;
+  color: var(--pw-orange);
   margin-bottom: 0.5rem;
 }
-.blog-link-item a:first-child:hover {
-  color: var(--py-blue);
+.pw-heart-divider {
+  color: var(--pw-teal);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
 }
-.blog-link-item p {
-  color: var(--py-muted);
-  font-size: 0.95rem;
-}
-.read-all {
+.pw-prose p { margin-bottom: 1rem; color: #555; }
+.pw-text-link {
+  color: var(--pw-link);
   font-weight: 600;
-  margin-left: 0.25rem;
+  text-decoration: underline;
+}
+.pw-text-link:hover { color: var(--pw-orange); }
+
+/* ─── Navbar ────────────────────────────────────────────────── */
+.pw-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--pw-white);
+  border-bottom: 1px solid var(--pw-border);
+  transition: box-shadow 0.2s;
+}
+.pw-navbar--scrolled { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+.pw-navbar__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 65px;
 }
 
-/* Support/Progress */
-.progress-bar-wrap {
+/* Logo */
+.pw-navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 1.5rem;
+  color: var(--pw-dark);
+}
+.pw-navbar__logo:hover { text-decoration: none; color: var(--pw-dark); }
+.pw-logo-heart {
+  color: var(--pw-teal);
+  font-size: 1.4rem;
+  font-family: sans-serif;
+}
+.pw-logo-text strong { color: var(--pw-orange); }
+
+/* Desktop links */
+.pw-navbar__links {
+  display: none;
+  gap: 0.25rem;
+  align-items: center;
+}
+@media (min-width: 760px) {
+  .pw-navbar__links { display: flex; }
+}
+
+.pw-navbar__links > a,
+.pw-dropdown__toggle {
+  padding: 0.5rem 0.85rem;
+  color: var(--pw-dark);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pw-navbar__links > a:hover,
+.pw-dropdown__toggle:hover {
+  color: var(--pw-orange);
+  text-decoration: none;
+}
+
+/* Dropdown */
+.pw-dropdown { position: relative; }
+.pw-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--pw-white);
+  border: 1px solid var(--pw-border);
+  border-radius: 4px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  min-width: 170px;
+  padding: 0.5rem 0;
+  z-index: 200;
+}
+.pw-dropdown--open .pw-dropdown__menu { display: block; }
+.pw-dropdown__menu a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--pw-dark);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-decoration: none;
+}
+.pw-dropdown__menu a:hover { color: var(--pw-orange); background: var(--pw-light-gray); }
+
+/* Hamburger */
+.pw-navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px;
+}
+@media (min-width: 760px) { .pw-navbar__hamburger { display: none; } }
+.pw-navbar__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--pw-dark);
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+/* Mobile menu */
+.pw-navbar__mobile {
+  display: none;
+  flex-direction: column;
+  background: var(--pw-white);
+  border-top: 1px solid var(--pw-border);
+  padding: 0.5rem 1.5rem 1rem;
+}
+.pw-navbar__mobile--open { display: flex; }
+.pw-navbar__mobile a {
+  padding: 0.6rem 0;
+  color: var(--pw-dark);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--pw-border);
+  text-decoration: none;
+}
+.pw-navbar__mobile a:last-child { border-bottom: none; }
+.pw-navbar__mobile a:hover { color: var(--pw-orange); }
+
+/* ─── Hero ──────────────────────────────────────────────────── */
+.pw-hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #22313f; /* fallback */
+}
+.pw-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(34, 49, 63, 0.72);
+}
+.pw-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  padding: 5rem 2rem;
+}
+.pw-hero__content h1 {
+  font-family: "Covered By Your Grace", cursive;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  color: var(--pw-white);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+  font-weight: 400;
+}
+.pw-hero__content em {
+  font-style: normal;
+  color: var(--pw-teal);
+}
+.pw-hero__content p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.88);
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+/* ─── Buttons ───────────────────────────────────────────────── */
+.pw-btn-orange {
+  display: inline-block;
+  background: var(--pw-orange);
+  color: var(--pw-white) !important;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: background 0.2s;
+}
+.pw-btn-orange:hover {
+  background: var(--pw-orange-dark);
+  text-decoration: none !important;
+}
+
+/* ─── Impact Pills ──────────────────────────────────────────── */
+.pw-pill {
+  display: inline-block;
+  background: var(--pw-orange);
+  color: var(--pw-white);
+  padding: 0.15rem 0.6rem;
+  border-radius: 3px;
+  font-weight: 700;
+}
+.pw-section--teal .pw-pill {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ─── Events Grid ───────────────────────────────────────────── */
+.pw-all-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 0.15rem 0.6rem;
+  margin-left: 0.75rem;
+  color: var(--pw-muted) !important;
+  text-decoration: none !important;
+  vertical-align: middle;
+}
+.pw-all-link:hover { border-color: var(--pw-orange); color: var(--pw-orange) !important; }
+
+.pw-events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.pw-event-card {
+  position: relative;
+  display: block;
+  height: 220px;
+  border-radius: 6px;
+  overflow: hidden;
+  text-decoration: none !important;
+}
+.pw-event-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.35s;
+}
+.pw-event-card:hover .pw-event-card__bg { transform: scale(1.06); }
+.pw-event-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+}
+.pw-event-card__text {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  color: #fff;
+}
+.pw-event-card__city {
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.pw-event-card__date {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-top: 0.2rem;
+}
+
+/* ─── Video ─────────────────────────────────────────────────── */
+.pw-video-wrap {
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+}
+.pw-video-wrap video { width: 100%; display: block; }
+
+/* ─── Coaches ───────────────────────────────────────────────── */
+.pw-coaches-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+.pw-coach-item { text-align: center; }
+.pw-coach-avatar {
   width: 100%;
-  background-color: var(--py-light);
-  border-radius: 9999px;
-  height: 1.5rem;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  object-fit: cover;
+}
+.pw-coach-avatar--placeholder {
+  background: linear-gradient(135deg, var(--pw-teal), var(--pw-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 2.5rem;
+}
+.pw-coach-name {
+  font-weight: 700;
+  margin-top: 0.4rem;
+  color: var(--pw-dark);
+  font-size: 0.9rem;
+}
+.pw-coach-role { font-size: 0.8rem; color: var(--pw-muted); }
+
+/* ─── Blog ──────────────────────────────────────────────────── */
+.pw-blog-item { margin-bottom: 1.5rem; }
+.pw-blog-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pw-dark);
+  margin-bottom: 0.35rem;
+  text-decoration: none;
+}
+.pw-blog-title:hover { color: var(--pw-orange); }
+.pw-blog-excerpt { color: #666; font-size: 0.95rem; }
+.pw-read-all {
+  color: var(--pw-orange);
+  font-weight: 700;
+  margin-left: 0.25rem;
+  text-decoration: underline;
+}
+
+/* ─── Progress / Support ────────────────────────────────────── */
+.pw-goal-text {
+  margin: 1rem 0 0.75rem;
+  font-size: 1.05rem;
+}
+.pw-progress-wrap {
+  width: 100%;
+  background: #ddd;
+  border-radius: 20px;
+  height: 28px;
   overflow: hidden;
 }
-.progress-bar-fill {
-  background-color: var(--py-yellow);
+.pw-progress-fill {
+  background: var(--pw-teal);
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.8rem;
-  font-weight: bold;
-  color: var(--py-navy);
+  font-weight: 700;
+  color: var(--pw-white);
 }
 
-/* Newsletter form */
-.newsletter-form {
+/* ─── Newsletter Form ───────────────────────────────────────── */
+.pw-newsletter-form {
   display: flex;
   margin-top: 1.25rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--pw-border);
 }
-.newsletter-form input {
+.pw-newsletter-form input {
   flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.5rem 0 0 0.5rem;
-  outline: none;
-}
-.newsletter-form button {
-  background-color: var(--py-navy);
-  color: #fff;
-  padding: 0 1.5rem;
+  padding: 0.7rem 1rem;
   border: none;
-  border-radius: 0 0.5rem 0.5rem 0;
-  font-weight: 600;
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--pw-dark);
+}
+.pw-newsletter-form button {
+  background: var(--pw-orange);
+  color: var(--pw-white);
+  border: none;
+  padding: 0 1.5rem;
+  font-weight: 700;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: background 0.2s;
 }
-.newsletter-form button:hover {
-  background-color: var(--py-blue);
-}
+.pw-newsletter-form button:hover { background: var(--pw-orange-dark); }
 
-/* Sponsors */
-.sponsor-row {
+/* ─── Sponsors ──────────────────────────────────────────────── */
+.pw-sponsor-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
   align-items: center;
+  gap: 3rem;
+  margin-top: 1rem;
 }
-.sponsor-row img {
-  max-height: 60px;
+.pw-sponsor-row img {
+  max-height: 55px;
   max-width: 150px;
   object-fit: contain;
   filter: grayscale(100%);
-  opacity: 0.7;
-  transition: all 0.2s;
+  opacity: 0.65;
+  transition: all 0.25s;
 }
-.sponsor-row img:hover {
-  filter: grayscale(0%);
-  opacity: 1;
+.pw-sponsor-row img:hover { filter: grayscale(0%); opacity: 1; }
+.pw-sponsor-text {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  font-weight: 700;
+  color: var(--pw-dark);
+  font-size: 0.95rem;
 }
+
+/* ─── Footer ────────────────────────────────────────────────── */
+.pw-footer {
+  background: var(--pw-light-gray);
+  border-top: 1px solid var(--pw-border);
+  padding: 3rem 1.5rem 2rem;
+  color: var(--pw-dark);
+}
+.pw-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 3rem;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+@media (min-width: 760px) {
+  .pw-footer__grid { grid-template-columns: repeat(5, 1fr); }
+}
+
+.pw-footer__col-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--pw-orange);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.75rem;
+}
+.pw-footer ul { list-style: none; }
+.pw-footer li {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--pw-muted);
+}
+.pw-footer a {
+  color: var(--pw-muted);
+  text-decoration: none;
+}
+.pw-footer a:hover { color: var(--pw-orange); }
+
+.pw-footer__bottom {
+  max-width: 1080px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--pw-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--pw-muted);
+}
+.pw-footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 1.4rem;
+  color: var(--pw-dark);
+  text-decoration: none;
+}
+.pw-footer__logo:hover { text-decoration: none; }
+.pw-footer__logo strong { color: var(--pw-orange); }
+.pw-footer__bottom p { color: var(--pw-muted); font-size: 0.85rem; }
+.pw-footer__bottom a { color: var(--pw-muted); text-decoration: underline; }
+.pw-footer__bottom a:hover { color: var(--pw-orange); }
+
+/* ─── Prose / Blog Articles ─────────────────────────────────── */
+.pw-article-body {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #444;
+}
+.pw-article-body h2, .pw-article-body h3 { color: var(--pw-dark); margin: 1.5rem 0 0.5rem; }
+.pw-article-body a { color: var(--pw-orange); }
+.pw-article-body pre { background: #f6f6f6; border-radius: 4px; padding: 1rem; overflow-x: auto; }
+.pw-article-body code { background: #f6f6f6; padding: 0.1rem 0.3rem; border-radius: 3px; font-size: 0.9em; }
