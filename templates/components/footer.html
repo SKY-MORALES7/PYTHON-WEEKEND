@@ -1,66 +1,49 @@
-<footer class="pw-footer">
-  <div class="pw-container">
-    <div class="pw-footer__grid">
+<footer class="bg-white border-t border-gray-200 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 
-      <!-- Python Weekend -->
-      <div>
-        <p class="pw-footer__col-title">PYTHON WEEKEND</p>
-        <ul>
-          <li><a href="{% url 'core:about' %}">About</a></li>
-          <li><a href="{% url 'core:contact' %}">Contact</a></li>
-          <li><a href="{% url 'content:blog_list' %}">Newsletter</a></li>
-          <li><a href="{% url 'core:about' %}">Code of Conduct</a></li>
-        </ul>
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-7 h-7 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
+          <span class="font-display font-bold text-py-navy">Python <span class="text-py-blue">Weekend</span></span>
+        </div>
+        <p class="text-gray-500 text-sm leading-relaxed">A hands-on Python &amp; Django learning event for beginners and intermediate developers.</p>
       </div>
 
-      <!-- Support Us -->
+      <!-- Learn -->
       <div>
-        <p class="pw-footer__col-title">SUPPORT US</p>
-        <ul>
-          <li><a href="{% url 'core:contact' %}">Make a donation</a></li>
-          <li><a href="{% url 'sponsors:list' %}">Our Sponsors</a></li>
-          <li><a href="{% url 'core:contact' %}">Sponsor us</a></li>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Learn</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'content:tutorial_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Tutorials</a></li>
+          <li><a href="{% url 'content:blog_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Blog</a></li>
+          <li><a href="{% url 'content:event_list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Events</a></li>
         </ul>
       </div>
 
       <!-- Community -->
       <div>
-        <p class="pw-footer__col-title">COMMUNITY</p>
-        <ul>
-          <li><a href="{% url 'coach:list' %}">Coaches</a></li>
-          <li><a href="{% url 'applications:organize_start' %}">Become an Organiser</a></li>
-          <li><a href="{% url 'content:blog_list' %}">Blog</a></li>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Community</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'coach:list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Meet the Coaches</a></li>
+          <li><a href="{% url 'sponsors:list' %}" class="text-gray-500 hover:text-py-blue transition-colors">Our Sponsors</a></li>
+          <li><a href="{% url 'core:about' %}" class="text-gray-500 hover:text-py-blue transition-colors">About</a></li>
         </ul>
       </div>
 
-      <!-- Resources -->
+      <!-- Get Involved -->
       <div>
-        <p class="pw-footer__col-title">RESOURCES</p>
-        <ul>
-          <li><a href="{% url 'content:tutorial_list' %}">Tutorial</a></li>
-          <li><a href="{% url 'content:event_list' %}">Events</a></li>
-          <li><a href="{% url 'core:contact' %}">Coaching Guide</a></li>
+        <h4 class="text-py-navy font-display font-semibold text-sm uppercase tracking-widest mb-3">Get Involved</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="{% url 'applications:organize_start' %}" class="text-gray-500 hover:text-py-blue transition-colors">Become An Organiser</a></li>
+          <li><a href="{% url 'core:contact' %}" class="text-gray-500 hover:text-py-blue transition-colors">Contact Us</a></li>
         </ul>
       </div>
-
-      <!-- Stats -->
-      <div>
-        <p class="pw-footer__col-title">♥</p>
-        <ul>
-          <li>Events organised worldwide</li>
-          <li>Coaches volunteering</li>
-          <li>Cities reached</li>
-        </ul>
-      </div>
-
     </div>
 
-    <div class="pw-footer__bottom">
-      <a href="{% url 'core:home' %}" class="pw-footer__logo">
-        <span class="pw-logo-heart">♥</span>
-        <span>python <strong>weekend</strong></span>
-      </a>
-      <p>© {% now "Y" %} Python Weekend. Layout inspired by <a href="https://djangogirls.org" target="_blank" rel="noopener">Django Girls</a>. Not affiliated.</p>
+    <div class="border-t border-gray-200 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-400">
+      <p>© {% now "Y" %} Python Weekend.</p>
+      <p>Layout inspired by <a href="https://djangogirls.org" class="hover:text-py-blue transition-colors" target="_blank" rel="noopener">Django Girls</a>. Not affiliated.</p>
     </div>
   </div>
 </footer>
