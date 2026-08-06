@@ -341,6 +341,12 @@ class Event(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    # ── Customization ────────────────────────────────────
+    custom_html = models.TextField(blank=True, help_text="Custom HTML to include on the event page")
+    custom_css = models.TextField(blank=True, help_text="Custom CSS to include on the event page")
+    sponsors_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Sponsors' section title")
+    schedule_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Schedule' section title")
+    
     # 👈 2. ADD THIS: Connects this event instance to a specific authorized user account
     owner = models.ForeignKey(
         User,

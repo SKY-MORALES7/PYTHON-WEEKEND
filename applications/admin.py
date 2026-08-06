@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Form, Question, Answer, OrganizerApplication, EventApplication
+from .models import Form, Question, Answer, OrganizerApplication, OrganizerExperience, OrganizerValue, EventApplication
 
 
 @admin.register(EventApplication)
@@ -199,3 +199,16 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
 
         if messages:
             send_mass_mail(messages, fail_silently=True)
+
+
+@admin.register(OrganizerExperience)
+class OrganizerExperienceAdmin(admin.ModelAdmin):
+    list_display = ("organizer_application", "created_at")
+    search_fields = ("organizer_application__lead_email", "experience_description")
+    readonly_fields = ("created_at",)
+
+
+@admin.register(OrganizerValue)
+class OrganizerValueAdmin(admin.ModelAdmin):
+    list_display = ("value_name",)
+    search_fields = ("value_name", "description")

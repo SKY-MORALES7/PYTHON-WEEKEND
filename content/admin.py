@@ -126,6 +126,9 @@ class EventAdmin(admin.ModelAdmin):
         ("Applications", {
             "fields": ("application_open", "application_deadline")
         }),
+        ("Customization", {
+            "fields": ("custom_html", "custom_css", "sponsors_title", "schedule_title")
+        }),
     )
 
     def get_queryset(self, request):
