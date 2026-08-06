@@ -3,6 +3,11 @@
 {% block title %}{{ event.title }} — Python Weekend{% endblock %}
 
 {% block content %}
+{% if event.custom_css %}
+<style>
+  {{ event.custom_css|safe }}
+</style>
+{% endif %}
 
 <!-- ── HERO ── -->
 <section class="relative min-h-[50vh] flex items-end overflow-hidden bg-py-light">
@@ -67,7 +72,7 @@
     {% if event.day1_schedule or event.day2_schedule or event.day3_schedule %}
     <section id="schedule">
       <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-8 flex items-center gap-3">
-        <span class="w-1 h-8 bg-py-yellow rounded-full"></span>Workshop schedule
+        <span class="w-1 h-8 bg-py-yellow rounded-full"></span>{{ event.schedule_title|default:"Workshop schedule" }}
       </h2>
       <div class="grid grid-cols-1 {% if event.day2_schedule %}md:grid-cols-2{% endif %} {% if event.day3_schedule %}lg:grid-cols-3{% endif %} gap-6">
 
@@ -192,6 +197,13 @@
     <div class="text-center py-10 text-gray-500">
       <p>No additional details have been added for this event yet.</p>
     </div>
+    {% endif %}
+
+    <!-- ── CUSTOM HTML ── -->
+    {% if event.custom_html %}
+    <section id="custom-html">
+      {{ event.custom_html|safe }}
+    </section>
     {% endif %}
 
   </div>
