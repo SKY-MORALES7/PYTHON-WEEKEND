@@ -328,20 +328,6 @@ a:hover {
 /* ═══════════════════════════════════════════════════════
    HERO BUTTONS
    ═══════════════════════════════════════════════════════ */
-.hero-headline {
-  font-family: "Covered By Your Grace", "Rajdhani", cursive;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 400;
-  color: #fff;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-}
-.hero-sub {
-  font-family: "Covered By Your Grace", "DM Sans", cursive;
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: #fff;
-  line-height: 1.6;
-}
 .btn-hero-primary {
   display: inline-block;
   background-color: var(--py-yellow);
