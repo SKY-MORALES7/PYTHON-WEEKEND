@@ -346,7 +346,7 @@ a:hover {
 }
 .btn-hero-outline {
   display: inline-block;
-  border: 2px solid var(--py-yellow);
+  border: 2px solid transparent;
   color: var(--py-yellow) !important;
   padding: 0.85rem 2rem;
   border-radius: 0.5rem;
