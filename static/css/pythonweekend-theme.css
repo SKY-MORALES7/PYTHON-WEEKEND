@@ -346,8 +346,8 @@ a:hover {
 }
 .btn-hero-outline {
   display: inline-block;
-  border: 2px solid #fff;
-  color: #fff !important;
+  border: 2px solid var(--py-yellow);
+  color: var(--py-yellow) !important;
   padding: 0.85rem 2rem;
   border-radius: 0.5rem;
   font-weight: bold;
@@ -356,8 +356,8 @@ a:hover {
   transition: background-color 0.2s, transform 0.15s;
 }
 .btn-hero-outline:hover {
-  background-color: rgba(255,255,255,0.15);
-  color: #fff !important;
+  background-color: rgba(255, 212, 59, 0.15); /* Tint of py-yellow */
+  color: var(--py-yellow) !important;
   transform: translateY(-2px);
 }
 
