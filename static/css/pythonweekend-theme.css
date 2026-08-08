@@ -342,7 +342,7 @@ a:hover {
 .btn-hero-primary:hover {
   background-color: var(--py-yellow-dark);
   transform: translateY(-2px);
-  color: var(--py-navy);
+  color: var(--py-navy) !important;
 }
 .btn-hero-outline {
   display: inline-block;
@@ -356,8 +356,9 @@ a:hover {
   transition: background-color 0.2s, transform 0.15s;
 }
 .btn-hero-outline:hover {
-  background-color: rgba(255,255,255,0.15);
-  color: #fff;
+  background-color: #fff;
+  border-color: #fff;
+  color: var(--py-navy) !important;
   transform: translateY(-2px);
 }
 
