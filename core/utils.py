@@ -76,3 +76,29 @@ def send_contact_notifications(contact_submission):
             
     except Exception as e:
         logger.error(f"Failed to execute core app contact email routing: {e}")
+
+def send_newsletter_welcome(email):
+    """
+    Sends a welcome email to new newsletter subscribers.
+    """
+    site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
+    
+    subject = f"Welcome to the {site_name} Dispatch!"
+    message_body = (
+        f"Hello!\n\n"
+        f"Thank you for subscribing to the {site_name} newsletter.\n\n"
+        f"You will now receive the latest updates, event announcements, and "
+        f"opportunities directly in your inbox.\n\n"
+        f"Best regards,\nThe {site_name} Team"
+    )
+
+    try:
+        send_mail(
+            subject=subject,
+            message=message_body,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+    except Exception as e:
+        logger.error(f"Failed to send newsletter welcome email: {e}")

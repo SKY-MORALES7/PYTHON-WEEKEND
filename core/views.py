@@ -73,8 +73,9 @@ from content.models import Tutorial, BlogPost, Event
 from coach.models import Coach
 from sponsors.models import Sponsor
 
+from .models import Subscriber
 from .forms import ContactForm
-from .utils import send_contact_notifications  # 👈 Points directly to core/utils.py
+from .utils import send_contact_notifications, send_newsletter_welcome
 
 
 class HomeView(View):
@@ -166,3 +167,23 @@ class ContactView(View):
 
 def handler404(request, exception):
     return render(request, "404.html", status=404)
+
+
+class SubscribeView(View):
+    def post(self, request):
+        email = request.POST.get("email")
+        if email:
+            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            if created:
+                send_newsletter_welcome(email)
+                messages.success(request, "Thanks for subscribing! Check your inbox for a welcome email.")
+            else:
+                messages.info(request, "You're already subscribed to our newsletter!")
+        else:
+            messages.error(request, "Please provide a valid email address.")
+        
+        # Redirect back to where the user came from
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        return redirect('core:home')
