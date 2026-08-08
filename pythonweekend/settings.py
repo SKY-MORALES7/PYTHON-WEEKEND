@@ -100,16 +100,24 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Email SMTP Configuration
+# Email — Resend SMTP
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+
+EMAIL_HOST = "smtp.resend.com"
+
 EMAIL_PORT = 587
+
 EMAIL_USE_TLS = True
+
 EMAIL_USE_SSL = False
 
-EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="kenter.yandev7@gmail.com")
-# Google requires a 16-character App Password here, NOT your login password
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="pjjiztnaqrykvcwt")
+EMAIL_HOST_USER = "resend"
 
-DEFAULT_FROM_EMAIL = f"{SITE_NAME} <{EMAIL_HOST_USER}>"
-SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = os.environ.get("RESEND_API_KEY")
+
+DEFAULT_FROM_EMAIL = os.environ.get(
+    "DEFAULT_FROM_EMAIL",
+    "Python Weekend <hello@pythonweekend.org>"
+)
+
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
