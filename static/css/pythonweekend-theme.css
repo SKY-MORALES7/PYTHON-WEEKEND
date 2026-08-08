@@ -331,7 +331,7 @@ a:hover {
 .btn-hero-primary {
   display: inline-block;
   background-color: var(--py-yellow);
-  color: var(--py-navy);
+  color: var(--py-navy) !important;
   padding: 0.85rem 2rem;
   border-radius: 0.5rem;
   font-weight: bold;
@@ -347,7 +347,7 @@ a:hover {
 .btn-hero-outline {
   display: inline-block;
   border: 2px solid #fff;
-  color: #fff;
+  color: #fff !important;
   padding: 0.85rem 2rem;
   border-radius: 0.5rem;
   font-weight: bold;
@@ -356,9 +356,8 @@ a:hover {
   transition: background-color 0.2s, transform 0.15s;
 }
 .btn-hero-outline:hover {
-  background-color: #fff;
-  border-color: #fff;
-  color: var(--py-navy) !important;
+  background-color: rgba(255,255,255,0.15);
+  color: #fff !important;
   transform: translateY(-2px);
 }
 
