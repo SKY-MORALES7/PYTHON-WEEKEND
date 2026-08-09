@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Job Board — Python Weekend{% endblock %}
+
+{% block content %}
+
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Job Board</h1>
+  </div>
+</section>
+
+<section class="section-dg">
+  <div class="container-dg" style="text-align:center;max-width:640px;">
+    <p style="font-size:1.1rem;color:var(--py-body);line-height:1.7;margin-bottom:1rem;">
+      Sorry, there are no job openings at the moment.
+    </p>
+    <p style="color:var(--py-muted);font-size:0.95rem;line-height:1.7;">
+      When approved Python, AI or entry-level technology opportunities are available, they will be displayed on this page. Subscribe to the newsletter to be notified of future opportunities.
+    </p>
+    <div style="margin-top:2rem;">
+      <a href="{% url 'core:newsletter' %}" class="btn-orange" style="display:inline-block;">Subscribe to the newsletter</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

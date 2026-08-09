@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Support a Workshop — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Support a Workshop</h1>
+    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
+      Python Weekend workshops are free to participants. Your support makes that possible.
+    </p>
+  </div>
+</section>
+
+<!-- Why Support -->
+<section class="section-dg">
+  <div class="container-dg">
+    <div class="about-grid">
+
+      <div>
+        <h2>Our Mission</h2>
+        <p style="margin-bottom:1rem;">
+          Python Weekend helps complete beginners learn Python and take their first practical step into artificial intelligence through free, mentor-supported workshops.
+        </p>
+        <p style="margin-bottom:1rem;">
+          We support local volunteer teams with a shared programme framework, organiser guidance, learning resources and central coordination. Partners make it possible for these teams to provide the spaces, tools and participant support required for a strong learning experience.
+        </p>
+        <p style="margin-bottom:1rem;">
+          Our goal is to make Python and AI education more accessible, especially for people who have had limited opportunities to enter technology.
+        </p>
+        <p>
+          We are committed to being transparent about the workshops and activities supported by our partners. Verified outcomes are published in periodic impact reports.
+        </p>
+      </div>
+
+      <div>
+        <h2>What Your Support Covers</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;">
+          {% for item in support_items %}
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;">
+            <span style="color:var(--py-blue);font-size:1.1rem;margin-top:0.1rem;">✓</span>
+            <span>{{ item }}</span>
+          </li>
+          {% empty %}
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Learning venues</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Laptops and devices</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Internet connectivity</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Meals and refreshments</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Transport support</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Cloud or software credits</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Printing and learning materials</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Photography and media support</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Mentors and technical volunteers</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- How to Support -->
+<section class="section-dg" style="background:var(--py-light);">
+  <div class="container-dg">
+    <h2 style="text-align:center;margin-bottom:2.5rem;">Start Supporting Python Weekend Today</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+
+      <!-- Sponsor a Local Workshop -->
+      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:2rem;margin-bottom:1rem;">📍</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Sponsor a Local Workshop</h3>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
+          Support a specific Python Weekend edition by contacting its local organising team. Local sponsorship may cover venue costs, internet access, participant meals, learning materials, transport support, photography or equipment.
+        </p>
+        <a href="{% url 'content:event_list' %}" class="btn-orange" style="display:inline-block;">View upcoming events</a>
+      </div>
+
+      <!-- Become a Programme Partner -->
+      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:2rem;margin-bottom:1rem;">🤝</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Become a Programme Partner</h3>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
+          Companies and institutions can support several Python Weekend editions or contribute to resources used across the community — curriculum development, organiser training, mentor preparation, website infrastructure or accessibility.
+        </p>
+        <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Discuss a partnership</a>
+      </div>
+
+      <!-- Provide In-Kind Support -->
+      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div style="font-size:2rem;margin-bottom:1rem;">💡</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Provide In-Kind Support</h3>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
+          Your organisation can contribute venues, devices, internet, meals, transport, cloud credits, printing, photography or technical volunteers — all directly benefiting participants.
+        </p>
+        <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Current work -->
+<section class="section-dg">
+  <div class="container-dg">
+    <h2 style="text-align:center;margin-bottom:2.5rem;">Current Work That Will Benefit From Your Support</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
+
+      <div style="border-left:3px solid var(--py-blue);padding-left:1.25rem;">
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Free Local Workshops</h3>
+        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Help local volunteer teams deliver well-organised, beginner-friendly Python and AI workshops without charging participants.</p>
+      </div>
+
+      <div style="border-left:3px solid var(--py-yellow);padding-left:1.25rem;">
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Python and AI Tutorial</h3>
+        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Support the development and maintenance of a clear, practical tutorial that participants can use during workshops and continue using afterwards.</p>
+      </div>
+
+      <div style="border-left:3px solid var(--py-blue);padding-left:1.25rem;">
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Organiser and Mentor Resources</h3>
+        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Help us equip local organisers and mentors with guidance that protects programme quality and creates a supportive experience for beginners.</p>
+      </div>
+
+      <div style="border-left:3px solid var(--py-yellow);padding-left:1.25rem;">
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Access and Participation</h3>
+        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Support participants who may need access to devices, internet, transport, meals or other practical assistance to attend and complete a workshop.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Existing sponsors -->
+{% if sponsors %}
+<section class="section-dg" style="background:var(--py-light);text-align:center;">
+  <div class="container-dg">
+    <h2 style="margin-bottom:2rem;">They Already Support Us!</h2>
+    <div class="sponsor-row">
+      {% for sponsor in sponsors %}
+      <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener" title="{{ sponsor.name }}">
+        {% if sponsor.logo %}
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" loading="lazy" />
+        {% else %}
+        <span style="display:inline-block;padding:0.5rem 1.25rem;border:1px solid #ddd;border-radius:4px;font-weight:600;color:var(--py-navy);">{{ sponsor.name }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

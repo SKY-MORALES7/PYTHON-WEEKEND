@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contribute — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Contribute</h1>
+    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
+      There are many ways to contribute to Python Weekend. Find the one that works for you.
+    </p>
+  </div>
+</section>
+
+
+<!-- Contribution paths -->
+<section class="section-dg">
+  <div class="container-dg">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+
+      <!-- Support Us -->
+      <div style="border-top:4px solid var(--py-yellow);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Support Us!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Python Weekend workshops depend on partners who help local teams provide a strong learning experience at no cost to participants. Individuals and organisations can support a specific event by contacting its local organising team. Wider programme partnerships should be discussed with the central Python Weekend team.
+        </p>
+        <a href="{% url 'core:support' %}" style="color:var(--py-blue);font-size:0.9rem;font-weight:600;">Support a workshop »</a>
+      </div>
+
+      <!-- Organise -->
+      <div style="border-top:4px solid var(--py-blue);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Organise!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Each Python Weekend event is a practical beginner workshop focused on Python foundations and an introduction to building with AI. Local organisers build a volunteer team, secure a suitable venue or remote platform, recruit mentors, select participants, manage event communication and deliver the programme using official resources.
+        </p>
+        <p style="color:var(--py-body);font-size:0.9rem;line-height:1.6;margin-bottom:1rem;">Ready to begin? Read the Organiser's Manual and apply to bring Python Weekend to your city.</p>
+        <a href="{% url 'core:organise' %}" style="color:var(--py-blue);font-size:0.9rem;font-weight:600;">Organise a workshop »</a>
+      </div>
+
+      <!-- Mentor -->
+      <div style="border-top:4px solid var(--py-yellow);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Mentor!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Have you seen a Python Weekend event happening in your city and want to help? Contact the local organising team and ask whether they need mentors. Mentors guide a small group of beginners through the workshop tutorial, help participants understand errors and encourage them to solve problems independently.
+        </p>
+        <p style="color:var(--py-body);font-size:0.9rem;line-height:1.6;margin-bottom:1rem;">You do not need to know everything. You need a sound understanding of the workshop material, patience, empathy and a willingness to guide without taking over.</p>
+        <a href="{% url 'core:resources' %}" style="color:var(--py-blue);font-size:0.9rem;font-weight:600;">Read the Mentoring Guide »</a>
+      </div>
+
+      <!-- Work on the Website -->
+      <div style="border-top:4px solid var(--py-blue);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Work on the Website!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          There is always something that can make the Python Weekend website clearer, faster and more useful. Contributors may report or fix bugs, correct typographical errors, improve accessibility, update documentation or help develop approved features.
+        </p>
+        <span style="color:var(--py-muted);font-size:0.85rem;font-style:italic;">Repository link published when officially available.</span>
+      </div>
+
+      <!-- Improve the Tutorial -->
+      <div style="border-top:4px solid var(--py-yellow);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Improve the Tutorial!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Is an explanation unclear? Did you find an error or an outdated instruction? You can help make the Python and AI tutorial easier for the next beginner. Approved contributions may correct mistakes, improve explanations, update installation steps, strengthen accessibility or add carefully reviewed exercises.
+        </p>
+        <a href="{% url 'core:resources' %}" style="color:var(--py-blue);font-size:0.9rem;font-weight:600;">Contribute to the tutorial »</a>
+      </div>
+
+      <!-- Translate -->
+      <div style="border-top:4px solid var(--py-blue);padding-top:1.5rem;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.35rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Translate the Tutorial!</h2>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Help more people learn in a language they understand. Translation teams can adapt approved Python Weekend learning resources while preserving the meaning, technical accuracy and inclusive tone of the original material.
+        </p>
+        <span style="color:var(--py-muted);font-size:0.85rem;font-style:italic;">Translation workflow link published when established.</span>
+      </div>
+
+    </div>
+
+    <!-- Want to do more -->
+    <div style="margin-top:3rem;padding:2rem;background:var(--py-light);border-radius:1rem;text-align:center;">
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Want to Do More?</h3>
+      <p style="color:var(--py-body);font-size:0.95rem;margin-bottom:1.25rem;">If you have an idea that is not listed here, contact us and explain what you would like to contribute.</p>
+      <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact the Python Weekend team »</a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

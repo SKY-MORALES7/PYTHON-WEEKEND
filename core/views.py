@@ -67,15 +67,38 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.utils import timezone
-from django.db.models import Count
+from django.db.models import Count, Sum
 
-from content.models import Tutorial, BlogPost, Event
+from content.models import Tutorial, BlogPost, Event, Story
 from coach.models import Coach
 from sponsors.models import Sponsor
 
-from .models import Subscriber
+from .models import Subscriber, Newsletter
 from .forms import ContactForm
 from .utils import send_contact_notifications, send_newsletter_welcome
+
+
+def _footer_context():
+    """Return counter variables used by the footer template on every page."""
+    from applications.models import EventApplication
+    from django.core.exceptions import FieldError
+    now = timezone.now()
+    published = Event.objects.filter(published=True)
+    try:
+        total_attendees = published.aggregate(s=Sum("attendees_count"))["s"] or 0
+    except FieldError:
+        total_attendees = 0
+    return {
+        "total_upcoming_events": published.filter(start_date__gte=now).count(),
+        "total_past_events":     published.filter(start_date__lt=now).count(),
+        "total_applicants":      EventApplication.objects.count(),
+        "total_attendees":       total_attendees,
+        # Use the dedicated country field; fall back to location if empty
+        "total_countries": (
+            published.exclude(country="").values("country").distinct().count()
+            or published.exclude(location="").values("location").distinct().count()
+        ) or 0,
+    }
 
 
 class HomeView(View):
@@ -96,8 +119,14 @@ class HomeView(View):
             .distinct()
             .count()
         )
-        # Distinct non-empty locations used as country proxy until a country field is added
+        # Distinct non-empty countries (fallback to locations until all events have country set)
         total_countries = (
+            published_events
+            .exclude(country="")
+            .values("country")
+            .distinct()
+            .count()
+        ) or (
             published_events
             .exclude(location="")
             .values("location")
@@ -122,7 +151,10 @@ class HomeView(View):
             "tutorials": Tutorial.objects.filter(published=True).order_by("-created_at")[:3],
             # Sponsors
             "sponsors": Sponsor.objects.filter(active=True),
+            # Stories (Section 8)
+            "stories": Story.objects.filter(published=True)[:3],
         }
+        context.update(_footer_context())
         return render(request, self.template_name, context)
 
 
@@ -187,3 +219,115 @@ class SubscribeView(View):
         if referer:
             return redirect(referer)
         return redirect('core:home')
+
+
+# ─── Phase 1 — New static pages ─────────────────────────────────────────────
+
+class SupportView(View):
+    template_name = "core/support.html"
+
+    def get(self, request):
+        context = {
+            "upcoming_events": Event.objects.filter(published=True, start_date__gte=timezone.now()).order_by("start_date")[:6],
+            "sponsors": Sponsor.objects.filter(active=True),
+        }
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class PartnersView(View):
+    template_name = "core/partners.html"
+
+    def get(self, request):
+        all_sponsors = Sponsor.objects.filter(active=True)
+        context = {
+            "global_partners":    all_sponsors.filter(tier="platinum"),
+            "event_partners":     all_sponsors.filter(tier="gold"),
+            "community_partners": all_sponsors.filter(tier__in=["silver", "community"]),
+        }
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class OrganiseView(View):
+    template_name = "core/organise.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class ContributeView(View):
+    template_name = "core/contribute.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class ResourcesView(View):
+    template_name = "core/resources.html"
+
+    def get(self, request):
+        from content.models import Tutorial
+        tutorials = Tutorial.objects.filter(published=True)
+        context = {
+            "workshop_tutorials": tutorials.filter(resource_type="workshop_tutorial") if hasattr(Tutorial, 'resource_type') else tutorials[:1],
+            "organisers_manual":  tutorials.filter(resource_type="organisers_manual") if hasattr(Tutorial, 'resource_type') else None,
+            "mentoring_guide":    tutorials.filter(resource_type="mentoring_guide") if hasattr(Tutorial, 'resource_type') else None,
+            "extensions":         tutorials.filter(resource_type="extension") if hasattr(Tutorial, 'resource_type') else None,
+        }
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class NewsletterView(View):
+    template_name = "core/newsletter.html"
+
+    def post(self, request):
+        email = request.POST.get("email")
+        if email:
+            subscriber, created = Subscriber.objects.get_or_create(email=email)
+            if created:
+                send_newsletter_welcome(email)
+                messages.success(request, "You're subscribed! Welcome to the Python Weekend Dispatch.")
+            else:
+                messages.info(request, "You're already subscribed to our newsletter!")
+        else:
+            messages.error(request, "Please provide a valid email address.")
+        return redirect("core:newsletter")
+
+    def get(self, request):
+        past_editions = Newsletter.objects.filter(sent_at__isnull=False).order_by("-sent_at")
+        context = {"past_editions": past_editions}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class FAQView(View):
+    template_name = "core/faq.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class CoCView(View):
+    template_name = "core/coc.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class JobsView(View):
+    template_name = "core/jobs.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)

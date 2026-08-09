@@ -13,7 +13,7 @@ from .models import Sponsor
 
 @admin.register(Sponsor)
 class SponsorAdmin(admin.ModelAdmin):
-    list_display = ["name", "tier", "active"]
-    list_editable = ["active"]
-    list_filter = ["tier"]
-    search_fields = ["name"]
+    list_display  = ["name", "tier", "category", "active"]
+    list_editable = ["active", "category"]
+    list_filter   = ["tier", "category", "active"]
+    search_fields = ["name", "tagline"]

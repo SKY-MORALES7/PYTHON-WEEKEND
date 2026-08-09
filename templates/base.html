@@ -55,5 +55,63 @@
   {% include "components/footer.html" %}
 
   {% block extra_js %}{% endblock %}
+
+  <!-- ── Cookie Consent Banner ──────────────────────────────────────── -->
+  <div id="cookie-banner"
+       style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;
+              background:var(--py-navy,#16213E);color:#fff;
+              padding:1rem 1.5rem;
+              display:flex;flex-wrap:wrap;align-items:center;gap:1rem;
+              justify-content:space-between;
+              box-shadow:0 -2px 16px rgba(0,0,0,0.25);
+              font-size:0.875rem;line-height:1.5;
+              animation:slideUp 0.4s ease-out;">
+    <style>
+      @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+    </style>
+    <p style="margin:0;max-width:700px;color:rgba(255,255,255,0.85);">
+      <strong style="color:#fff;">We Value Your Privacy.</strong>
+      We use cookies to improve your experience on this website. You can accept or decline optional cookies.
+      Essential cookies may still be used where they are required for the website to function.
+      <a href="/privacy/" style="color:#FFD43B;text-decoration:underline;">Privacy &amp; Cookies Policy</a>
+    </p>
+    <div style="display:flex;gap:0.75rem;flex-shrink:0;">
+      <button id="cookie-decline"
+              style="padding:0.5rem 1.25rem;border-radius:0.5rem;border:1px solid rgba(255,255,255,0.4);
+                     background:transparent;color:#fff;cursor:pointer;font-size:0.875rem;
+                     transition:background 0.2s;">
+        I decline
+      </button>
+      <button id="cookie-accept"
+              style="padding:0.5rem 1.25rem;border-radius:0.5rem;border:none;
+                     background:#FFD43B;color:#16213E;font-weight:700;cursor:pointer;font-size:0.875rem;
+                     transition:opacity 0.2s;">
+        I agree
+      </button>
+    </div>
+  </div>
+  <script>
+    (function() {
+      var pref = localStorage.getItem('pw_cookie_pref');
+      if (!pref) {
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.style.display = 'flex';
+      }
+      function dismiss(choice) {
+        localStorage.setItem('pw_cookie_pref', choice);
+        var banner = document.getElementById('cookie-banner');
+        if (banner) {
+          banner.style.transition = 'transform 0.3s ease-in';
+          banner.style.transform = 'translateY(100%)';
+          setTimeout(function(){ banner.style.display = 'none'; }, 300);
+        }
+      }
+      var acceptBtn = document.getElementById('cookie-accept');
+      var declineBtn = document.getElementById('cookie-decline');
+      if (acceptBtn) acceptBtn.addEventListener('click', function(){ dismiss('accepted'); });
+      if (declineBtn) declineBtn.addEventListener('click', function(){ dismiss('declined'); });
+    })();
+  </script>
+
 </body>
 </html>

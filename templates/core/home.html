@@ -123,6 +123,11 @@
           <span class="stat-badge stat-badge--blue">{{ total_cities }} cit{{ total_cities|pluralize:"y,ies" }}</span>
           across
           <span class="stat-badge stat-badge--orange">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
+          {% if total_attendees %}
+          <br><br>Over <span class="stat-badge stat-badge--blue">{{ total_attendees }} participant{{ total_attendees|pluralize }}</span>
+          have attended our workshops,
+          with <span class="stat-badge stat-badge--orange">{{ total_applicants }} application{{ total_applicants|pluralize }}</span> received so far.
+          {% endif %}
         </p>
         <p style="margin-top:1rem;">
           <a href="{% url 'core:about' %}" style="color:var(--py-blue);font-size:0.95rem;">
@@ -159,8 +164,8 @@
 
     <h2 style="font-size:1.75rem;margin-bottom:1.5rem;">
       Upcoming events
-      <a href="{% url 'content:event_list' %}" class="tag-badge" style="text-decoration:none;">ICAL</a>
-      <a href="{% url 'content:event_list' %}" class="tag-badge" style="text-decoration:none;">MAP</a>
+      <a href="{% url 'content:event_ical' %}" class="tag-badge" style="text-decoration:none;">ICAL</a>
+      <a href="{% url 'content:event_map' %}" class="tag-badge" style="text-decoration:none;">MAP</a>
     </h2>
 
     {% if upcoming_events %}
@@ -340,9 +345,7 @@
 </section>
 
 
-<!-- ═══════════════════════════════════════════════════════
-     SECTION 7 — SPONSORS
-     ═══════════════════════════════════════════════════════ -->
+{% if sponsors %}
 <section class="section-dg">
   <div class="container-dg" style="text-align:center;">
 
@@ -370,5 +373,42 @@
 
   </div>
 </section>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 8 — PYTHON WEEKEND STORIES
+     ═══════════════════════════════════════════════════════ -->
+{% if stories %}
+<section class="section-dg" style="background:var(--py-light);">
+  <div class="container-dg">
+    <h2 style="font-size:1.75rem;margin-bottom:0.5rem;">Python Weekend Stories</h2>
+    <p style="color:var(--py-muted);margin-bottom:2rem;font-size:0.95rem;">Real people from our community.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;">
+      {% for story in stories %}
+      <div style="background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:flex;flex-direction:column;">
+        {% if story.photo %}
+        <img src="{{ story.photo.url }}" alt="{{ story.name }}"
+             style="width:100%;height:200px;object-fit:cover;" loading="lazy" />
+        {% else %}
+        <div style="width:100%;height:160px;background:linear-gradient(135deg,var(--py-blue),var(--py-navy));display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:3rem;font-weight:700;color:rgba(255,255,255,0.2);">{{ story.name|truncatechars:1 }}</div>
+        {% endif %}
+        <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column;">
+          <p style="font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--py-navy);margin-bottom:0.2rem;">{{ story.name }}</p>
+          {% if story.role %}<p style="font-size:0.78rem;color:var(--py-muted);margin-bottom:0.75rem;">{{ story.role }}</p>{% endif %}
+          <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;flex:1;">{{ story.intro|truncatewords:30 }}</p>
+          {% if story.link %}
+          <a href="{{ story.link }}" target="_blank" rel="noopener"
+             style="display:inline-block;margin-top:1rem;color:var(--py-blue);font-size:0.85rem;font-weight:600;">Read story »</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endif %}
 
 {% endblock %}

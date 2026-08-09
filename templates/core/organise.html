@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Organise a Workshop — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:760px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Organise a Python Weekend Workshop</h1>
+    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:600px;margin:0 auto 2rem;">
+      Python Weekend events are organised by groups of committed volunteers in local communities.
+    </p>
+    <a href="{% url 'applications:organize_start' %}" class="btn-orange" style="display:inline-block;">Apply to organise a workshop »</a>
+  </div>
+</section>
+
+
+<!-- What is the workshop? -->
+<section class="section-dg">
+  <div class="container-dg">
+    <div class="about-grid">
+
+      <div>
+        <h2>About the Workshop</h2>
+        <p style="margin-bottom:1rem;">
+          Official workshops are designed for complete beginners and are provided free to selected participants. Attendees do not need previous programming experience — they need access to a laptop, basic computer skills, curiosity and a willingness to learn.
+        </p>
+        <p style="margin-bottom:1rem;">
+          Local teams receive a shared programme framework and organiser guidance. Every workshop must follow the Python Weekend brand standards, learning objectives and Code of Conduct.
+        </p>
+
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin:1.5rem 0 0.75rem;">In-Person Workshops</h3>
+        <p style="margin-bottom:1rem;">
+          An in-person workshop brings participants, mentors and organisers together in one physical location. Participants can work in small groups, receive face-to-face support and build relationships with other learners in their city. Organisers are responsible for choosing a safe, accessible venue and planning for internet, electricity, participant welfare and equipment needs.
+        </p>
+
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin:1.5rem 0 0.75rem;">Remote Workshops</h3>
+        <p>
+          A remote workshop is delivered online, with participants, mentors and organisers joining from different locations. This format may be suitable when travel, venue, safety, cost or geography makes an in-person workshop difficult. Remote organisers must plan carefully for communication, technical support, internet limitations and participant engagement.
+        </p>
+      </div>
+
+      <div>
+        <h2>The Value of Organising</h2>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.9rem;">
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Join a supportive community of organisers, mentors and technology educators</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Give complete beginners a practical entry into Python and AI</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Strengthen the technology community in your city</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Create opportunities for women and other underserved groups to participate</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Develop leadership, programme management and community-building experience</span></li>
+          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);font-size:1.2rem;">✓</span><span>Help participants move from curiosity to their first working project</span></li>
+        </ul>
+
+        <div style="margin-top:2rem;">
+          <a href="{% url 'applications:organize_start' %}" class="btn-orange" style="display:inline-block;">Apply to organise a workshop »</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Resources for Organisers -->
+<section class="section-dg" style="background:var(--py-light);">
+  <div class="container-dg">
+    <h2 style="margin-bottom:2rem;">Resources for Organisers</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.25rem;">
+
+      <a href="{% url 'core:resources' %}" style="display:block;background:#fff;border-radius:0.75rem;padding:1.5rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s;" class="hover:shadow-md">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">📖</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">Organiser's Manual</h3>
+        <p style="font-size:0.85rem;color:var(--py-muted);">Everything you need to plan and deliver an official workshop.</p>
+      </a>
+
+      <a href="{% url 'core:resources' %}" style="display:block;background:#fff;border-radius:0.75rem;padding:1.5rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🧑‍🏫</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">Mentoring Guide</h3>
+        <p style="font-size:0.85rem;color:var(--py-muted);">How to support beginners and build a great workshop experience.</p>
+      </a>
+
+      <a href="{% url 'core:resources' %}" style="display:block;background:#fff;border-radius:0.75rem;padding:1.5rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">🐍</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">Python &amp; AI Tutorial</h3>
+        <p style="font-size:0.85rem;color:var(--py-muted);">The learning resource participants use during workshops.</p>
+      </a>
+
+      <a href="{% url 'core:contact' %}" style="display:block;background:#fff;border-radius:0.75rem;padding:1.5rem;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.05);transition:box-shadow 0.2s;">
+        <div style="font-size:1.5rem;margin-bottom:0.5rem;">💰</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">Local Sponsorship Guidance</h3>
+        <p style="font-size:0.85rem;color:var(--py-muted);">How to find and work with local partners for your event.</p>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

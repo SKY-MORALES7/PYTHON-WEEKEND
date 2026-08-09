@@ -206,6 +206,95 @@
     </section>
     {% endif %}
 
+    <!-- ── MENTORS ── -->
+    {% if event_mentors %}
+    <section id="mentors">
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-6 flex items-center gap-3">
+        <span class="w-1 h-8 bg-py-blue rounded-full"></span>Meet Our Mentors
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {% for em in event_mentors %}
+        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+          {% if em.coach.photo %}
+          <img src="{{ em.coach.photo.url }}" alt="{{ em.coach.name }}"
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2" />
+          {% else %}
+          <div class="w-16 h-16 rounded-full bg-py-blue/10 flex items-center justify-center mx-auto mb-2 text-py-blue font-display font-bold text-xl">
+            {{ em.coach.name|truncatechars:1 }}
+          </div>
+          {% endif %}
+          <p class="font-display font-bold text-py-navy text-sm">{{ em.coach.name }}</p>
+          {% if em.coach.role %}<p class="text-xs text-gray-500 mt-0.5">{{ em.coach.role }}</p>{% endif %}
+          {% if em.coach.linkedIn %}
+          <a href="{{ em.coach.linkedIn }}" target="_blank" rel="noopener"
+             class="text-xs text-py-blue hover:underline mt-1 inline-block">LinkedIn</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ── ORGANISERS ── -->
+    {% if event_organisers %}
+    <section id="organisers">
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-6 flex items-center gap-3">
+        <span class="w-1 h-8 bg-py-yellow rounded-full"></span>Organisers
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {% for org in event_organisers %}
+        <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
+          {% if org.photo %}
+          <img src="{{ org.photo.url }}" alt="{{ org.name }}"
+               class="w-16 h-16 rounded-full object-cover mx-auto mb-2" />
+          {% else %}
+          <div class="w-16 h-16 rounded-full bg-py-yellow/20 flex items-center justify-center mx-auto mb-2 text-py-yellow-dark font-display font-bold text-xl">
+            {{ org.name|truncatechars:1 }}
+          </div>
+          {% endif %}
+          <p class="font-display font-bold text-py-navy text-sm">{{ org.name }}</p>
+          {% if org.role %}<p class="text-xs text-gray-500 mt-0.5">{{ org.role }}</p>{% endif %}
+          {% if org.profile_url %}
+          <a href="{{ org.profile_url }}" target="_blank" rel="noopener"
+             class="text-xs text-py-blue hover:underline mt-1 inline-block">Profile</a>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
+    <!-- ── EVENT PARTNERS ── -->
+    {% if event_partners %}
+    <section id="event-partners">
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-6 flex items-center gap-3">
+        <span class="w-1 h-8 bg-py-blue rounded-full"></span>Partners
+      </h2>
+      <p class="text-gray-500 text-sm mb-6">
+        This workshop is made possible by organisations and communities that support it financially or through approved in-kind contributions.
+        {% if event.is_upcoming %}
+        If your organisation would like to support Python Weekend {{ event.city }},
+        <a href="{% url 'core:contact' %}" class="text-py-blue hover:underline">please contact the organising team</a>.
+        {% endif %}
+      </p>
+      <div class="flex flex-wrap gap-6 items-center">
+        {% for partner in event_partners %}
+        <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener"
+           title="{{ partner.name }}" class="block">
+          {% if partner.logo %}
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}"
+               class="max-h-12 max-w-[140px] object-contain opacity-80 hover:opacity-100 transition-opacity" />
+          {% else %}
+          <span class="inline-block px-4 py-2 border border-gray-300 rounded-lg text-py-navy font-semibold text-sm hover:border-py-blue transition-colors">
+            {{ partner.name }}
+          </span>
+          {% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+
   </div>
 </div>
 

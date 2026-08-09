@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Our Partners — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Our Partners</h1>
+    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto 2rem;">
+      Our partners are organisations that support Python Weekend through programme sponsorship, local event sponsorship or approved in-kind contributions. They help us create free learning opportunities and support volunteer teams bringing beginner Python and AI workshops to their communities.
+    </p>
+    <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us about partnership</a>
+  </div>
+</section>
+
+
+<!-- Global Partners -->
+{% if global_partners %}
+<section class="section-dg">
+  <div class="container-dg" style="text-align:center;">
+    <h2 style="margin-bottom:2rem;">Global Partners</h2>
+    <div class="sponsor-row">
+      {% for partner in global_partners %}
+      <div style="display:inline-flex;flex-direction:column;align-items:center;gap:0.75rem;max-width:220px;vertical-align:top;padding:1.5rem;border:1px solid #e8e8e8;border-radius:0.75rem;margin:0.5rem;">
+        {% if partner.logo %}
+        <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener">
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" loading="lazy" style="max-height:60px;object-fit:contain;" />
+        </a>
+        {% else %}
+        <span style="font-weight:700;color:var(--py-navy);font-size:1rem;">{{ partner.name }}</span>
+        {% endif %}
+        {% if partner.tagline %}<p style="font-size:0.85rem;color:var(--py-muted);">{{ partner.tagline }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- Event Partners -->
+{% if event_partners %}
+<section class="section-dg" style="background:var(--py-light);">
+  <div class="container-dg" style="text-align:center;">
+    <h2 style="margin-bottom:2rem;">Event Partners</h2>
+    <div class="sponsor-row">
+      {% for partner in event_partners %}
+      <div style="display:inline-flex;flex-direction:column;align-items:center;gap:0.75rem;max-width:200px;vertical-align:top;padding:1.25rem;border:1px solid #e8e8e8;border-radius:0.75rem;margin:0.5rem;background:#fff;">
+        {% if partner.logo %}
+        <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener">
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" loading="lazy" style="max-height:50px;object-fit:contain;" />
+        </a>
+        {% else %}
+        <span style="font-weight:700;color:var(--py-navy);">{{ partner.name }}</span>
+        {% endif %}
+        {% if partner.tagline %}<p style="font-size:0.8rem;color:var(--py-muted);">{{ partner.tagline }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- Community Supporters -->
+{% if community_partners %}
+<section class="section-dg">
+  <div class="container-dg" style="text-align:center;">
+    <h2 style="margin-bottom:2rem;">Community Supporters</h2>
+    <div class="sponsor-row">
+      {% for partner in community_partners %}
+      <div style="display:inline-flex;flex-direction:column;align-items:center;gap:0.5rem;max-width:180px;vertical-align:top;padding:1rem;margin:0.5rem;">
+        {% if partner.logo %}
+        <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener">
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" loading="lazy" style="max-height:40px;object-fit:contain;" />
+        </a>
+        {% else %}
+        <span style="font-weight:600;color:var(--py-navy);font-size:0.95rem;">{{ partner.name }}</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+{% if not global_partners and not event_partners and not community_partners %}
+<section class="section-dg">
+  <div class="container-dg" style="text-align:center;">
+    <p style="color:var(--py-muted);font-size:1.05rem;">
+      We are building our partner community. <a href="{% url 'core:contact' %}" style="color:var(--py-blue);">Get in touch to be our first partner »</a>
+    </p>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

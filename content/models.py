@@ -97,6 +97,13 @@ class Tutorial(models.Model):
         ("advanced",     "Advanced"),
     ]
 
+    RESOURCE_TYPE_CHOICES = [
+        ("workshop_tutorial", "Python & AI Tutorial"),
+        ("organisers_manual", "Organiser's Manual"),
+        ("mentoring_guide",   "Mentoring Guide"),
+        ("extension",         "Tutorial Extension"),
+    ]
+
     title = models.CharField(max_length=300)
     slug = models.SlugField(unique=True)
     excerpt = models.TextField(blank=True)
@@ -109,6 +116,12 @@ class Tutorial(models.Model):
     )
     difficulty = models.CharField(
         max_length=20, choices=DIFFICULTY_CHOICES, default="beginner"
+    )
+    resource_type = models.CharField(
+        max_length=30,
+        choices=RESOURCE_TYPE_CHOICES,
+        default="workshop_tutorial",
+        help_text="Classifies this tutorial on the Resources page."
     )
     estimated_minutes = models.PositiveSmallIntegerField(
         blank=True, null=True,
@@ -310,6 +323,22 @@ class Event(models.Model):
         help_text="e.g. Code Campus Nigeria, Floor 3"
     )
     city = models.CharField(max_length=200, blank=True)
+    country = models.CharField(
+        max_length=200, blank=True,
+        help_text="Country where the event is held (used for map and footer counters)."
+    )
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True,
+        help_text="GPS latitude — used on the event map page."
+    )
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6, blank=True, null=True,
+        help_text="GPS longitude — used on the event map page."
+    )
+    attendees_count = models.PositiveIntegerField(
+        default=0,
+        help_text="Verified number of people who attended this event. Update after the event."
+    )
 
     # ── About ─────────────────────────────────────────────
     description = models.TextField(
@@ -404,3 +433,103 @@ class Event(models.Model):
         if current_q:
             pairs.append((current_q, " ".join(current_a).strip()))
         return pairs
+
+
+# ─────────────────────────────────────────────
+#  STORY  (Python Weekend Stories section)
+# ─────────────────────────────────────────────
+
+class Story(models.Model):
+    """A Python Weekend community story — participant, mentor or organiser."""
+    name = models.CharField(max_length=200)
+    role = models.CharField(
+        max_length=200, blank=True,
+        help_text="e.g. 'Workshop Participant, Abuja 2025' or 'Mentor'"
+    )
+    intro = models.TextField(
+        help_text="Short introduction to the person's journey and work (2-3 sentences)."
+    )
+    photo = models.ImageField(upload_to="stories/", blank=True, null=True)
+    link = models.URLField(
+        blank=True,
+        help_text="URL to the full story — a blog post or external article."
+    )
+    published = models.BooleanField(default=False)
+    order = models.PositiveSmallIntegerField(default=0, help_text="Lower = shown first.")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["order", "-created_at"]
+        verbose_name_plural = "Stories"
+
+    def __str__(self):
+        return self.name
+
+
+# ─────────────────────────────────────────────
+#  EVENT MENTOR  (per-event mentor profiles)
+# ─────────────────────────────────────────────
+
+class EventMentor(models.Model):
+    """Links a Coach to a specific Event as a confirmed mentor."""
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_mentors")
+    coach = models.ForeignKey(
+        "coach.Coach", on_delete=models.CASCADE, related_name="event_assignments"
+    )
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = [("event", "coach")]
+        verbose_name = "Event Mentor"
+        verbose_name_plural = "Event Mentors"
+
+    def __str__(self):
+        return f"{self.coach.name} @ {self.event.title}"
+
+
+# ─────────────────────────────────────────────
+#  EVENT ORGANISER  (per-event organiser cards)
+# ─────────────────────────────────────────────
+
+class EventOrganiser(models.Model):
+    """An organiser profile displayed on a local event page."""
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="organisers")
+    name = models.CharField(max_length=200)
+    role = models.CharField(max_length=200, blank=True, help_text="e.g. Lead Organiser, Logistics")
+    photo = models.ImageField(upload_to="organisers/", blank=True, null=True)
+    profile_url = models.URLField(blank=True, help_text="LinkedIn, Twitter or personal site.")
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Event Organiser"
+        verbose_name_plural = "Event Organisers"
+
+    def __str__(self):
+        return f"{self.name} — {self.event.title}"
+
+
+# ─────────────────────────────────────────────
+#  EVENT PARTNER  (per-event sponsors/partners)
+# ─────────────────────────────────────────────
+
+class EventPartner(models.Model):
+    """A sponsor or partner specifically attached to one event."""
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_partners")
+    name = models.CharField(max_length=200)
+    logo = models.ImageField(upload_to="event_partners/", blank=True, null=True)
+    website = models.URLField(blank=True)
+    description = models.TextField(
+        blank=True,
+        help_text="Accurate description of this partner's contribution to this event."
+    )
+    order = models.PositiveSmallIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        verbose_name = "Event Partner"
+        verbose_name_plural = "Event Partners"
+
+    def __str__(self):
+        return f"{self.name} — {self.event.title}"

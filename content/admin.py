@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import BlogPost, BlogSection, Tutorial, TutorialSection, Event
+from .models import (
+    BlogPost, BlogSection, Tutorial, TutorialSection, Event,
+    Story, EventMentor, EventOrganiser, EventPartner,
+)
 
 
 # ─────────────────────────────────────────────
@@ -58,16 +61,16 @@ class TutorialSectionInline(admin.StackedInline):
 
 @admin.register(Tutorial)
 class TutorialAdmin(admin.ModelAdmin):
-    list_display  = ["title", "difficulty", "estimated_minutes", "published", "created_at"]
+    list_display  = ["title", "resource_type", "difficulty", "estimated_minutes", "published", "created_at"]
     list_editable = ["published"]
     prepopulated_fields = {"slug": ("title",)}
-    list_filter  = ["published", "difficulty"]
+    list_filter  = ["published", "difficulty", "resource_type"]
     search_fields = ["title"]
     inlines = [TutorialSectionInline]
 
     fieldsets = (
         ("Tutorial info", {
-            "fields": ("title", "slug", "difficulty", "estimated_minutes", "published")
+            "fields": ("title", "slug", "resource_type", "difficulty", "estimated_minutes", "published")
         }),
         ("Cover image", {
             "fields": ("cover_image",),
@@ -92,20 +95,51 @@ class TutorialAdmin(admin.ModelAdmin):
 #  EVENT  (unchanged)
 # ─────────────────────────────────────────────
 
+# ─────────────────────────────────────────────
+#  EVENT INLINES
+# ─────────────────────────────────────────────
+
+class EventMentorInline(admin.TabularInline):
+    model = EventMentor
+    extra = 1
+    fields = ("coach", "order")
+    ordering = ("order",)
+
+
+class EventOrganiserInline(admin.StackedInline):
+    model = EventOrganiser
+    extra = 1
+    fields = ("name", "role", "photo", "profile_url", "order")
+    ordering = ("order",)
+
+
+class EventPartnerInline(admin.StackedInline):
+    model = EventPartner
+    extra = 1
+    fields = ("name", "logo", "website", "description", "order")
+    ordering = ("order",)
+
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display  = ["title", "start_date", "city", "application_open", "published"]
+    list_display  = ["title", "start_date", "city", "country", "application_open", "published"]
     list_editable = ["published", "application_open"]
     prepopulated_fields = {"slug": ("title",)}
-    list_filter  = ["published", "application_open"]
-    search_fields = ["title", "city", "location"]
+    list_filter  = ["published", "application_open", "country"]
+    search_fields = ["title", "city", "location", "country"]
+    inlines = [EventMentorInline, EventOrganiserInline, EventPartnerInline]
 
     fieldsets = (
         ("Core", {
             "fields": ("title", "slug", "tagline", "image", "published")
         }),
         ("Dates & Location", {
-            "fields": ("start_date", "end_date", "location", "venue_name", "city")
+            "fields": ("start_date", "end_date", "location", "venue_name", "city", "country")
+        }),
+        ("Map Coordinates", {
+            "fields": ("latitude", "longitude"),
+            "classes": ("collapse",),
+            "description": "Optional — used on the event map page."
         }),
         ("About", {
             "fields": ("description",)
@@ -126,6 +160,10 @@ class EventAdmin(admin.ModelAdmin):
         ("Applications", {
             "fields": ("application_open", "application_deadline")
         }),
+        ("Impact", {
+            "fields": ("attendees_count",),
+            "description": "Update after the event with verified attendance numbers."
+        }),
         ("Customization", {
             "fields": ("custom_html", "custom_css", "sponsors_title", "schedule_title")
         }),
@@ -142,3 +180,40 @@ class EventAdmin(admin.ModelAdmin):
         if not request.user.is_superuser and not obj.owner:
             obj.owner = request.user
         super().save_model(request, obj, form, change)
+
+
+# ─────────────────────────────────────────────
+#  STORY
+# ─────────────────────────────────────────────
+
+@admin.register(Story)
+class StoryAdmin(admin.ModelAdmin):
+    list_display  = ["name", "role", "published", "order", "created_at"]
+    list_editable = ["published", "order"]
+    search_fields = ["name", "role", "intro"]
+    list_filter   = ["published"]
+
+
+# ─────────────────────────────────────────────
+#  EVENT MENTOR / ORGANISER / PARTNER (standalone)
+# ─────────────────────────────────────────────
+
+@admin.register(EventMentor)
+class EventMentorAdmin(admin.ModelAdmin):
+    list_display  = ["coach", "event", "order"]
+    list_filter   = ["event"]
+    search_fields = ["coach__name", "event__title"]
+
+
+@admin.register(EventOrganiser)
+class EventOrganiserAdmin(admin.ModelAdmin):
+    list_display  = ["name", "role", "event", "order"]
+    list_filter   = ["event"]
+    search_fields = ["name", "event__title"]
+
+
+@admin.register(EventPartner)
+class EventPartnerAdmin(admin.ModelAdmin):
+    list_display  = ["name", "event", "order"]
+    list_filter   = ["event"]
+    search_fields = ["name", "event__title"]

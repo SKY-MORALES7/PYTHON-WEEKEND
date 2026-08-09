@@ -12,7 +12,9 @@ urlpatterns = [
     path("tutorials/", views.TutorialListView.as_view(), name="tutorial_list"),
     path("tutorials/<slug:slug>/", views.TutorialDetailView.as_view(), name="tutorial_detail"),
 
-    # Events — listing & detail only; creation is admin-only
+    # Events — listing, map, ICAL & detail
     path("events/", views.EventListView.as_view(), name="event_list"),
+    path("events/map/", views.EventMapView.as_view(), name="event_map"),
+    path("events/ical/", views.EventICALView.as_view(), name="event_ical"),
     path("events/<slug:slug>/", views.EventDetailView.as_view(), name="event_detail"),
 ]
