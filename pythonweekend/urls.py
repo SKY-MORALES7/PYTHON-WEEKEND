@@ -10,8 +10,11 @@ urlpatterns = [
     # Core pages: home, about, contact, and all new static pages
     path("", include("core.urls", namespace="core")),
 
-    # Content: blog, tutorials, events (under /content/ prefix — canonical)
+    # Content: blog, events (under /content/ prefix — canonical)
     path("content/", include("content.urls", namespace="content")),
+
+    # Tutorials
+    path("tutorials/", include("tutorials.urls", namespace="tutorials")),
 
     # Root-level event aliases (clean URLs for nav and footer)
     path("events/", RedirectView.as_view(url="/content/events/", permanent=False), name="events_root"),

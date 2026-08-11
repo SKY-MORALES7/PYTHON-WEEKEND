@@ -23,7 +23,7 @@ except LookupError:
         sys.exit(1)
 
 try:
-    Tutorial = apps.get_model('content', 'Tutorial')
+    Tutorial = apps.get_model('tutorials', 'Tutorial')
     BlogPost = apps.get_model('content', 'BlogPost')
 except LookupError:
     print("Could not find Tutorial or BlogPost models!")

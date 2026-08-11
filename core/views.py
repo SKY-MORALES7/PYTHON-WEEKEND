@@ -69,7 +69,8 @@ from django.views import View
 from django.utils import timezone
 from django.db.models import Count, Sum
 
-from content.models import Tutorial, BlogPost, Event
+from content.models import BlogPost, Event
+from tutorials.models import Tutorial
 from coach.models import Coach
 from sponsors.models import Sponsor
 
@@ -271,7 +272,7 @@ class ResourcesView(View):
     template_name = "core/resources.html"
 
     def get(self, request):
-        from content.models import Tutorial
+        from tutorials.models import Tutorial
         tutorials = Tutorial.objects.filter(published=True)
         context = {
             "workshop_tutorials": tutorials.filter(resource_type="workshop_tutorial") if hasattr(Tutorial, 'resource_type') else tutorials[:1],

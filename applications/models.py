@@ -227,19 +227,4 @@ class OrganizerApplication(models.Model):
     def __str__(self):
         return f"{self.lead_first_name} {self.lead_last_name} ({self.get_status_display()})"
 
-
-class OrganizerExperience(models.Model):
-    organizer_application = models.ForeignKey(OrganizerApplication, on_delete=models.CASCADE, related_name="experiences")
-    experience_description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Experience for {self.organizer_application.lead_email}"
-
-
-class OrganizerValue(models.Model):
-    value_name = models.CharField(max_length=100)
-    description = models.TextField()
-    
-    def __str__(self):
-        return self.value_name
+

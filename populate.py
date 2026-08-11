@@ -7,7 +7,8 @@ from datetime import datetime
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pythonweekend.settings')
 django.setup()
 
-from content.models import Event, Tutorial, TutorialSection, BlogPost, BlogSection
+from content.models import Event, BlogPost, BlogSection
+from tutorials.models import Tutorial, TutorialSection
 from sponsors.models import Sponsor
 from coach.models import Coach
 from django.contrib.auth.models import User

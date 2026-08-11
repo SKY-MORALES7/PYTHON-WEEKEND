@@ -4,7 +4,7 @@ from django.views import View
 from django.utils import timezone
 from django.http import HttpResponse
 
-from .models import BlogPost, Tutorial, Event
+from .models import BlogPost, Event
 
 
 class BlogListView(ListView):
@@ -25,22 +25,7 @@ class BlogDetailView(DetailView):
         return BlogPost.objects.filter(published=True)
 
 
-class TutorialListView(ListView):
-    model = Tutorial
-    template_name = "content/tutorial_list.html"
-    paginate_by = 12
 
-    def get_queryset(self):
-        return Tutorial.objects.filter(published=True).order_by("-created_at")
-
-
-class TutorialDetailView(DetailView):
-    model = Tutorial
-    template_name = "content/tutorial_detail.html"
-    context_object_name = "tutorial"
-
-    def get_queryset(self):
-        return Tutorial.objects.filter(published=True)
 
 
 class EventListView(ListView):

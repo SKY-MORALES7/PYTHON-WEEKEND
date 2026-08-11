@@ -10,7 +10,8 @@ sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pythonweekend.settings")
 django.setup()
 
-from content.models import Event, Tutorial, BlogPost
+from content.models import Event, BlogPost
+from tutorials.models import Tutorial
 from sponsors.models import Sponsor
 from coach.models import Coach
 

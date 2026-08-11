@@ -10,8 +10,8 @@ if ROOT not in sys.path:
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pythonweekend.settings')
 django.setup()
 
-from content.models import BlogPost, Tutorial, Event
-
+from content.models import BlogPost, Event
+from tutorials.models import Tutorial
 models = [
     ('BlogPost', BlogPost),
     ('Tutorial', Tutorial),

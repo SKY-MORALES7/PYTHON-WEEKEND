@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    BlogPost, BlogSection, Tutorial, TutorialSection, Event,
+    BlogPost, BlogSection, Event,
     WebsiteContent, WebsiteMenus,
 )
 
@@ -48,47 +48,6 @@ class BlogPostAdmin(admin.ModelAdmin):
     )
 
 
-# ─────────────────────────────────────────────
-#  TUTORIAL
-# ─────────────────────────────────────────────
-
-class TutorialSectionInline(admin.StackedInline):
-    model = TutorialSection
-    extra = 1
-    fields = ("order", "heading", "body", "code_block", "language")
-    ordering = ("order",)
-
-
-@admin.register(Tutorial)
-class TutorialAdmin(admin.ModelAdmin):
-    list_display  = ["title", "resource_type", "difficulty", "estimated_minutes", "published", "created_at"]
-    list_editable = ["published"]
-    prepopulated_fields = {"slug": ("title",)}
-    list_filter  = ["published", "difficulty", "resource_type"]
-    search_fields = ["title"]
-    inlines = [TutorialSectionInline]
-
-    fieldsets = (
-        ("Tutorial info", {
-            "fields": ("title", "slug", "resource_type", "difficulty", "estimated_minutes", "published")
-        }),
-        ("Cover image", {
-            "fields": ("cover_image",),
-            "classes": ("collapse",),
-        }),
-        ("Excerpt", {
-            "fields": ("excerpt",),
-            "description": "Short summary shown on the tutorial card."
-        }),
-        ("Legacy content (optional)", {
-            "fields": ("content",),
-            "classes": ("collapse",),
-            "description": (
-                "Leave this blank and use the Sections below instead. "
-                "Only kept for backwards compatibility."
-            ),
-        }),
-    )
 
 
 # ─────────────────────────────────────────────
