@@ -9,6 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('content', '0006_remove_tutorialsection_tutorial_delete_tutorial_and_more'),
     ]
 
     operations = [

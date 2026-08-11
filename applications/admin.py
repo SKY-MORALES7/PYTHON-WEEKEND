@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db import models
 from .models import Form, Question, Answer, OrganizerApplication, EventApplication
 
 
@@ -18,8 +19,12 @@ class EventApplicationAdmin(admin.ModelAdmin):
 class QuestionInline(admin.TabularInline):
     model = Question
     extra = 1
-    fields = ("order", "title", "question_type", "is_required")
+    fields = ("order", "title", "question_type", "choices", "is_required")
     ordering = ("order",)
+    formfield_overrides = {
+        models.TextField: {'widget': admin.widgets.AdminTextareaWidget(attrs={'rows': 3, 'cols': 30})},
+        models.CharField: {'widget': admin.widgets.AdminTextInputWidget(attrs={'size': 30})},
+    }
 
 
 # ─────────────────────────────────────────────

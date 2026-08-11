@@ -107,9 +107,15 @@ class Form(models.Model):
         related_name="application_forms",
         help_text="The event this application form belongs to.",
     )
-    text_header = models.CharField(max_length=500, blank=True)
-    text_description = models.TextField(blank=True)
-    confirmation_mail = models.TextField(blank=True)
+    text_header = models.CharField(max_length=500, blank=True, help_text="The main heading for the application form.")
+    text_description = models.TextField(blank=True, help_text="Detailed description or instructions for the applicants.")
+    hero_image = models.ImageField(
+        upload_to="forms/heroes/", 
+        blank=True, 
+        null=True,
+        help_text="Optional banner image displayed at the top of the form."
+    )
+    confirmation_mail = models.TextField(blank=True, help_text="Email text sent to the applicant after submission.")
     is_open = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -139,16 +145,17 @@ class Question(models.Model):
         on_delete=models.CASCADE,
         related_name="questions",
     )
-    title = models.CharField(max_length=500)
-    help_text = models.CharField(max_length=500, blank=True)
+    title = models.CharField(max_length=500, help_text="The question being asked (e.g. 'What is your current occupation?').")
+    help_text = models.CharField(max_length=500, blank=True, help_text="Additional instructions or context for the applicant.")
     question_type = models.CharField(
         max_length=20,
         choices=QUESTION_TYPE_CHOICES,
         default="text",
+        help_text="Determines the input type shown to the applicant."
     )
-    choices = models.TextField(blank=True)
-    is_required = models.BooleanField(default=True)
-    order = models.PositiveSmallIntegerField(default=0)
+    choices = models.TextField(blank=True, help_text="Only used if question type is 'Multiple choice'. Enter each option on a new line.")
+    is_required = models.BooleanField(default=True, help_text="If checked, the applicant must answer this question.")
+    order = models.PositiveSmallIntegerField(default=0, help_text="Lower numbers appear first.")
 
     class Meta:
         ordering = ["order"]
