@@ -5,8 +5,6 @@
 
 {% block extra_head %}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap');
-
   /* ── Hero ──────────────────────────────────────────────── */
   .hero-parallax {
     position: relative;
@@ -23,19 +21,19 @@
   }
 
   .hero-headline {
-    font-family: 'Covered By Your Grace', cursive !important;
+    font-family: "Rajdhani", "DM Sans", sans-serif !important;
     font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
-    font-weight: 400 !important;
-    color: var(--py-yellow) !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
     line-height: 1.25;
     margin-bottom: 1.25rem;
   }
 
   .hero-sub {
-    font-family: 'Covered By Your Grace', cursive !important;
+    font-family: "DM Sans", system-ui, sans-serif !important;
     font-size: clamp(1.1rem, 2.5vw, 1.4rem) !important;
     font-weight: 400 !important;
-    color: var(--py-yellow) !important;
+    color: #ffffff !important;
     line-height: 1.7;
   }
 </style>
@@ -57,8 +55,8 @@
       online tutorials and curates amazing first experiences with technology.
     </p>
     <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="{% url 'content:event_list' %}" class="btn-hero-outline">Find an event</a>
-      <a href="{% url 'applications:organize_start' %}" class="btn-hero-outline">Organise a workshop</a>
+      <a href="{% url 'content:event_list' %}" class="btn-orange">Find an event</a>
+      <a href="{% url 'applications:organize_start' %}" class="btn-orange">Organise a workshop</a>
     </div>
   </div>
 </section>
