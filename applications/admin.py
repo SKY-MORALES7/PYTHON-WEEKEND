@@ -16,15 +16,17 @@ class EventApplicationAdmin(admin.ModelAdmin):
 #  QUESTION INLINE (inside Form)
 # ─────────────────────────────────────────────
 
-class QuestionInline(admin.TabularInline):
+class QuestionInline(admin.StackedInline):
     model = Question
     extra = 1
     fields = ("order", "title", "question_type", "choices", "is_required")
     ordering = ("order",)
     formfield_overrides = {
-        models.TextField: {'widget': admin.widgets.AdminTextareaWidget(attrs={'rows': 3, 'cols': 30})},
-        models.CharField: {'widget': admin.widgets.AdminTextInputWidget(attrs={'size': 30})},
+        models.TextField: {'widget': admin.widgets.AdminTextareaWidget(attrs={'rows': 3, 'cols': 60})},
+        models.CharField: {'widget': admin.widgets.AdminTextInputWidget(attrs={'size': 60})},
     }
+    class Media:
+        js = ("js/admin_question_inline.js",)
 
 
 # ─────────────────────────────────────────────
