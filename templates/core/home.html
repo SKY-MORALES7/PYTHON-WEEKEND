@@ -162,8 +162,8 @@
 
     <h2 style="font-size:1.75rem;margin-bottom:1.5rem;">
       Upcoming events
-      <a href="{% url 'content:event_ical' %}" class="tag-badge" style="text-decoration:none;">ICAL</a>
-      <a href="{% url 'content:event_map' %}" class="tag-badge" style="text-decoration:none;">MAP</a>
+      <a href="{% url 'content:event_list' %}" class="tag-badge" style="text-decoration:none;">All events</a>
+      <a href="{% url 'content:event_list' %}#past-events" class="tag-badge" style="text-decoration:none;">Past events</a>
     </h2>
 
     {% if upcoming_events %}
@@ -276,14 +276,7 @@
         <h2>Support our work</h2>
         <p>Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen.</p>
 
-        <div style="margin:1.25rem 0;font-size:1rem;">
-          <span class="stat-badge stat-badge--orange">Goal</span>
-          <span style="font-weight:600;color:var(--py-navy);"> — help us fund more workshops</span>
-        </div>
 
-        <div class="progress-bar-wrap">
-          <div class="progress-bar-fill" style="width:42%;">42%</div>
-        </div>
 
         <div style="margin-top:1.5rem;">
           <a href="{% url 'core:contact' %}" class="btn-orange">
