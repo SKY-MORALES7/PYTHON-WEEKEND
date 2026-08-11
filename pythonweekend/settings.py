@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     "coach",
     "sponsors",
     "applications",
+    "newsletter",
+    "subscribers",
 ]
 
 SITE_ID = 1

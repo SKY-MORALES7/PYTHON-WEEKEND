@@ -69,11 +69,12 @@ from django.views import View
 from django.utils import timezone
 from django.db.models import Count, Sum
 
-from content.models import Tutorial, BlogPost, Event, Story
+from content.models import Tutorial, BlogPost, Event
 from coach.models import Coach
 from sponsors.models import Sponsor
 
-from .models import Subscriber, Newsletter
+from subscribers.models import Subscriber
+from newsletter.models import Newsletter
 from .forms import ContactForm
 from .utils import send_contact_notifications, send_newsletter_welcome
 
@@ -151,8 +152,7 @@ class HomeView(View):
             "tutorials": Tutorial.objects.filter(published=True).order_by("-created_at")[:3],
             # Sponsors
             "sponsors": Sponsor.objects.filter(active=True),
-            # Stories (Section 8)
-            "stories": Story.objects.filter(published=True)[:3],
+
         }
         context.update(_footer_context())
         return render(request, self.template_name, context)

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (
     BlogPost, BlogSection, Tutorial, TutorialSection, Event,
-    Story, EventMentor, EventOrganiser, EventPartner,
+    WebsiteContent, WebsiteMenus,
 )
 
 
@@ -99,27 +99,6 @@ class TutorialAdmin(admin.ModelAdmin):
 #  EVENT INLINES
 # ─────────────────────────────────────────────
 
-class EventMentorInline(admin.TabularInline):
-    model = EventMentor
-    extra = 1
-    fields = ("coach", "order")
-    ordering = ("order",)
-
-
-class EventOrganiserInline(admin.StackedInline):
-    model = EventOrganiser
-    extra = 1
-    fields = ("name", "role", "photo", "profile_url", "order")
-    ordering = ("order",)
-
-
-class EventPartnerInline(admin.StackedInline):
-    model = EventPartner
-    extra = 1
-    fields = ("name", "logo", "website", "description", "order")
-    ordering = ("order",)
-
-
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display  = ["title", "start_date", "city", "country", "application_open", "published"]
@@ -127,7 +106,6 @@ class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_filter  = ["published", "application_open", "country"]
     search_fields = ["title", "city", "location", "country"]
-    inlines = [EventMentorInline, EventOrganiserInline, EventPartnerInline]
 
     fieldsets = (
         ("Core", {
@@ -183,37 +161,22 @@ class EventAdmin(admin.ModelAdmin):
 
 
 # ─────────────────────────────────────────────
-#  STORY
+#  WEBSITE CONTENT
 # ─────────────────────────────────────────────
 
-@admin.register(Story)
-class StoryAdmin(admin.ModelAdmin):
-    list_display  = ["name", "role", "published", "order", "created_at"]
-    list_editable = ["published", "order"]
-    search_fields = ["name", "role", "intro"]
-    list_filter   = ["published"]
+@admin.register(WebsiteContent)
+class WebsiteContentAdmin(admin.ModelAdmin):
+    list_display = ["title", "location_identifier", "updated_at"]
+    search_fields = ["title", "location_identifier"]
 
 
 # ─────────────────────────────────────────────
-#  EVENT MENTOR / ORGANISER / PARTNER (standalone)
+#  WEBSITE MENUS
 # ─────────────────────────────────────────────
 
-@admin.register(EventMentor)
-class EventMentorAdmin(admin.ModelAdmin):
-    list_display  = ["coach", "event", "order"]
-    list_filter   = ["event"]
-    search_fields = ["coach__name", "event__title"]
-
-
-@admin.register(EventOrganiser)
-class EventOrganiserAdmin(admin.ModelAdmin):
-    list_display  = ["name", "role", "event", "order"]
-    list_filter   = ["event"]
-    search_fields = ["name", "event__title"]
-
-
-@admin.register(EventPartner)
-class EventPartnerAdmin(admin.ModelAdmin):
-    list_display  = ["name", "event", "order"]
-    list_filter   = ["event"]
-    search_fields = ["name", "event__title"]
+@admin.register(WebsiteMenus)
+class WebsiteMenusAdmin(admin.ModelAdmin):
+    list_display = ["name", "position", "order", "is_active"]
+    list_filter = ["position", "is_active"]
+    list_editable = ["order", "is_active"]
+    search_fields = ["name", "url"]

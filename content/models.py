@@ -436,100 +436,42 @@ class Event(models.Model):
 
 
 # ─────────────────────────────────────────────
-#  STORY  (Python Weekend Stories section)
+#  WEBSITE CONTENT
 # ─────────────────────────────────────────────
 
-class Story(models.Model):
-    """A Python Weekend community story — participant, mentor or organiser."""
-    name = models.CharField(max_length=200)
-    role = models.CharField(
-        max_length=200, blank=True,
-        help_text="e.g. 'Workshop Participant, Abuja 2025' or 'Mentor'"
-    )
-    intro = models.TextField(
-        help_text="Short introduction to the person's journey and work (2-3 sentences)."
-    )
-    photo = models.ImageField(upload_to="stories/", blank=True, null=True)
-    link = models.URLField(
-        blank=True,
-        help_text="URL to the full story — a blog post or external article."
-    )
-    published = models.BooleanField(default=False)
-    order = models.PositiveSmallIntegerField(default=0, help_text="Lower = shown first.")
+class WebsiteContent(models.Model):
+    title = models.CharField(max_length=255)
+    body = models.TextField(blank=True)
+    location_identifier = models.CharField(max_length=100, unique=True, help_text="e.g. 'home_about_section', 'footer_text'")
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["order", "-created_at"]
-        verbose_name_plural = "Stories"
+        ordering = ["-created_at"]
+        verbose_name_plural = "Website Content"
 
     def __str__(self):
-        return self.name
-
+        return self.title
 
 # ─────────────────────────────────────────────
-#  EVENT MENTOR  (per-event mentor profiles)
+#  WEBSITE MENUS
 # ─────────────────────────────────────────────
 
-class EventMentor(models.Model):
-    """Links a Coach to a specific Event as a confirmed mentor."""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_mentors")
-    coach = models.ForeignKey(
-        "coach.Coach", on_delete=models.CASCADE, related_name="event_assignments"
-    )
-    order = models.PositiveSmallIntegerField(default=0)
+class WebsiteMenus(models.Model):
+    POSITION_CHOICES = [
+        ("header", "Header"),
+        ("footer", "Footer"),
+        ("sidebar", "Sidebar"),
+    ]
+    name = models.CharField(max_length=100)
+    url = models.CharField(max_length=255, help_text="Can be a named URL pattern or absolute URL")
+    position = models.CharField(max_length=50, choices=POSITION_CHOICES, default="header")
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ["order"]
-        unique_together = [("event", "coach")]
-        verbose_name = "Event Mentor"
-        verbose_name_plural = "Event Mentors"
+        ordering = ["position", "order"]
+        verbose_name_plural = "Website Menus"
 
     def __str__(self):
-        return f"{self.coach.name} @ {self.event.title}"
-
-
-# ─────────────────────────────────────────────
-#  EVENT ORGANISER  (per-event organiser cards)
-# ─────────────────────────────────────────────
-
-class EventOrganiser(models.Model):
-    """An organiser profile displayed on a local event page."""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="organisers")
-    name = models.CharField(max_length=200)
-    role = models.CharField(max_length=200, blank=True, help_text="e.g. Lead Organiser, Logistics")
-    photo = models.ImageField(upload_to="organisers/", blank=True, null=True)
-    profile_url = models.URLField(blank=True, help_text="LinkedIn, Twitter or personal site.")
-    order = models.PositiveSmallIntegerField(default=0)
-
-    class Meta:
-        ordering = ["order"]
-        verbose_name = "Event Organiser"
-        verbose_name_plural = "Event Organisers"
-
-    def __str__(self):
-        return f"{self.name} — {self.event.title}"
-
-
-# ─────────────────────────────────────────────
-#  EVENT PARTNER  (per-event sponsors/partners)
-# ─────────────────────────────────────────────
-
-class EventPartner(models.Model):
-    """A sponsor or partner specifically attached to one event."""
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_partners")
-    name = models.CharField(max_length=200)
-    logo = models.ImageField(upload_to="event_partners/", blank=True, null=True)
-    website = models.URLField(blank=True)
-    description = models.TextField(
-        blank=True,
-        help_text="Accurate description of this partner's contribution to this event."
-    )
-    order = models.PositiveSmallIntegerField(default=0)
-
-    class Meta:
-        ordering = ["order"]
-        verbose_name = "Event Partner"
-        verbose_name_plural = "Event Partners"
-
-    def __str__(self):
-        return f"{self.name} — {self.event.title}"
+        return f"{self.name} ({self.get_position_display()})"
