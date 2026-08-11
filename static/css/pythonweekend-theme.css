@@ -122,6 +122,9 @@ a:hover {
   gap: 3rem;
   align-items: center;
 }
+.support-grid {
+  align-items: flex-start;
+}
 @media (min-width: 768px) {
   .about-grid, .impact-grid, .community-grid, .support-grid {
     grid-template-columns: 1fr 1fr;

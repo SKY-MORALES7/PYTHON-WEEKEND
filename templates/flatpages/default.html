@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
+
+{% block content %}
+<section class="section-dg">
+  <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg">
+    {{ flatpage.content|safe }}
+  </div>
+</section>
+{% endblock %}
