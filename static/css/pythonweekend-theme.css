@@ -180,10 +180,12 @@ a:hover {
   border-radius: 0.5rem;
   font-weight: bold;
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease;
 }
 .btn-orange:hover {
   background-color: var(--py-yellow-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
 }
 
 /* Event Cards */
