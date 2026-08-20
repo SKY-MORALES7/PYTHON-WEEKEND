@@ -20,6 +20,15 @@
     background-repeat: no-repeat;
   }
 
+  /* Fix for mobile background-attachment: fixed issues */
+  @media (max-width: 768px) {
+    .hero-parallax {
+      background-attachment: scroll;
+      background-position: center 20%;
+      min-height: 60vh;
+    }
+  }
+
   .hero-headline {
     font-family: "Rajdhani", "DM Sans", sans-serif !important;
     font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
