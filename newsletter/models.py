@@ -13,3 +13,11 @@ class Newsletter(TimeStampedModel):
 
     def __str__(self):
         return self.subject
+
+from subscribers.models import Subscriber
+
+class NewsletterSubscriber(Subscriber):
+    class Meta:
+        proxy = True
+        verbose_name = "Subscriber"
+        verbose_name_plural = "Subscribers"
