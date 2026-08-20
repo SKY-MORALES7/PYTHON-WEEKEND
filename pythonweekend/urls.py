@@ -42,3 +42,8 @@ urlpatterns += [
 
 # Custom error handlers
 handler404 = "core.views.handler404"
+
+# Customize Admin Site
+admin.site.site_header = "Python Weekend Administration"
+admin.site.site_title = "Python Weekend Admin"
+admin.site.index_title = "Welcome to the Python Weekend Dashboard"

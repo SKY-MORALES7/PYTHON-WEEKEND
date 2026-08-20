@@ -1,0 +1,120 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Rajdhani:wght@600;700&display=swap');
+
+    /* Variables from our tailwind theme */
+    :root {
+        --py-navy: #16213E;
+        --py-blue: #4B8BBE;
+        --py-blue-dark: #306998;
+        --py-yellow: #FFD43B;
+        --py-yellow-dark: #C9A227;
+        --py-light: #f8f9fa;
+        --py-body: #4a4a4a;
+        --font-display: 'Rajdhani', sans-serif;
+        --font-body: 'DM Sans', sans-serif;
+    }
+
+    /* Base Font */
+    body {
+        font-family: var(--font-body);
+        color: var(--py-body);
+    }
+
+    /* Header */
+    #header {
+        background-color: var(--py-navy);
+        color: var(--py-yellow);
+        padding: 10px 40px;
+    }
+    
+    #branding h1 {
+        font-family: var(--font-display);
+        color: var(--py-yellow);
+        font-weight: 700;
+        font-size: 2.25rem;
+        margin: 0;
+    }
+    
+    #branding h1 a:link, #branding h1 a:visited {
+        color: var(--py-yellow);
+    }
+
+    /* Ensure header links are visible */
+    #user-tools, #user-tools a {
+        color: white;
+    }
+    #user-tools a:hover {
+        color: var(--py-yellow);
+        border-bottom-color: var(--py-yellow);
+    }
+
+    /* Module Titles (e.g. App names on index) */
+    .module h2, .module caption, .inline-group h2 {
+        background: var(--py-blue);
+        color: white;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+    }
+    .module h2 a, .module caption a {
+        color: white;
+    }
+
+    /* Buttons */
+    .button, input[type=submit], input[type=button], .submit-row input, a.button {
+        background: var(--py-blue);
+        border-radius: 0.5rem;
+        border: none;
+        font-family: var(--font-body);
+        font-weight: bold;
+    }
+    .button:hover, input[type=submit]:hover, input[type=button]:hover, a.button:hover {
+        background: var(--py-blue-dark);
+    }
+    .button.default, input[type=submit].default, .submit-row input.default {
+        background: var(--py-navy);
+        color: var(--py-yellow);
+    }
+    .button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover {
+        background: var(--py-yellow);
+        color: var(--py-navy);
+    }
+
+    /* Links */
+    a:link, a:visited {
+        color: var(--py-blue-dark);
+    }
+    a:hover, a:active {
+        color: var(--py-blue);
+    }
+    
+    /* Current breadcrumbs / active state */
+    div.breadcrumbs {
+        background: var(--py-light);
+        color: var(--py-body);
+        font-family: var(--font-body);
+        border-bottom: 1px solid #ddd;
+    }
+    div.breadcrumbs a {
+        color: var(--py-blue);
+    }
+    
+    /* Save buttons container */
+    .submit-row {
+        background: var(--py-light);
+        border: 1px solid #ddd;
+        border-radius: 0.5rem;
+    }
+</style>
+{% endblock %}
