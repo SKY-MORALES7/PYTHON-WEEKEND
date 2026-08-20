@@ -212,20 +212,28 @@
         <p>Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:</p>
 
         {% if coaches %}
-        <div class="coach-spotlight-stack">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {% for coach in coaches %}
-          <div class="coach-card-overlay">
+          <div class="bg-white border border-gray-200 rounded-xl p-6 hover:border-py-blue/25 transition-all text-center hover:shadow-lg">
             {% if coach.photo %}
-            <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="coach-card-overlay__img" loading="lazy" />
+            <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-2 border-gray-200" loading="lazy" />
             {% else %}
-            <div class="coach-card-overlay__img coach-card-overlay__img--placeholder">
-              {{ coach.name|truncatechars:1 }}
+            <div class="w-20 h-20 rounded-full mx-auto mb-4 bg-py-blue/10 flex items-center justify-center text-2xl text-py-blue font-bold">
+              {{ coach.name|first }}
             </div>
             {% endif %}
-            <div class="coach-card-overlay__gradient"></div>
-            <div class="coach-card-overlay__name">
-              {{ coach.name }}{% if coach.role %}<br><small>{{ coach.role }}</small>{% endif %}
+            <h3 class="font-display font-bold text-py-navy text-lg">{{ coach.name }}</h3>
+            {% if coach.role %}<p class="text-py-blue text-sm mb-2">{{ coach.role }}</p>{% endif %}
+            {% if coach.github or coach.linkedIn %}
+            <div class="flex justify-center gap-3 mt-3">
+              {% if coach.github %}
+              <a href="{{ coach.github }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">GitHub</a>
+              {% endif %}
+              {% if coach.linkedIn %}
+              <a href="{{ coach.linkedIn }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">LinkedIn</a>
+              {% endif %}
             </div>
+            {% endif %}
           </div>
           {% endfor %}
         </div>
