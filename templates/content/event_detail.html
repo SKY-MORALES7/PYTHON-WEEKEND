@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tags %}
 {% block title %}{{ event.title }} — Python Weekend{% endblock %}
 
 {% block content %}
@@ -11,7 +12,7 @@
 
 <!-- ── HERO ── -->
 <section class="relative min-h-[50vh] flex items-end overflow-hidden bg-py-light">
-  {% if event.image %}
+  {% if event.image|file_exists %}
   <img src="{{ event.image.url }}" alt="{{ event.title }}"
        class="absolute inset-0 w-full h-full object-cover opacity-40" />
   {% endif %}

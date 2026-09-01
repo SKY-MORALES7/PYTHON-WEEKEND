@@ -54,11 +54,11 @@ class EventDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event = self.object
-        # Per-event mentor, organiser and partner data (Phase 2 models)
-        context["event_mentors"]   = event.event_mentors.select_related("coach").all()
-        context["event_organisers"] = event.organisers.all()
-        context["event_partners"]  = event.event_partners.all()
+        # Phase 2 models (event mentors, organisers, event partners) are not yet built.
+        # Return empty lists so the template {% if %} guards skip those sections safely.
+        context["event_mentors"]    = []
+        context["event_organisers"] = []
+        context["event_partners"]   = []
         return context
 
 

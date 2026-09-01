@@ -13,6 +13,7 @@ env/
 *.log
 db.sqlite3
 media/
+staticfiles/
 # Keep dist/ tracked after `npm run build:css` — uncomment to ignore:
 # static/css/dist/
 
