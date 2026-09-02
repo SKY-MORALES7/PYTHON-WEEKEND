@@ -125,12 +125,12 @@ def send_application_notifications(application):
     (organizers, coaches, sponsors) upon a new submission.
     """
     site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
-    # Define simple team recipient lists (adjust as needed)
-    ORGANIZERS = ["kenter.yandev@gmail.com"]
-    COACHES = ["kenter.yandev@gmail.com"]
-    SPONSORS = ["kenter.yandev@gmail.com"]
-
-    staff_recipients = ORGANIZERS + COACHES + SPONSORS
+    
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    staff_recipients = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
+    if not staff_recipients:
+        staff_recipients = [settings.DEFAULT_FROM_EMAIL]
 
     # Applicant confirmation
     attendee_subject = f"Application Received: {site_name} - {getattr(application, 'city', '')}"

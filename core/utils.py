@@ -12,28 +12,24 @@ def send_contact_notifications(contact_submission):
     site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
     
     user_email = contact_submission.email
-    # Support either 'name' or 'full_name' depending on your model schema
     user_name = getattr(contact_submission, 'name', getattr(contact_submission, 'full_name', 'Inquirer'))
     interest = getattr(contact_submission, 'interest', 'general').lower()
     user_message = getattr(contact_submission, 'message', '')
 
-    # Core stakeholder distribution lists
-    ORGANIZERS = ["kenter.yandev7@gmail.com"]
-    COACHES = ["kenter.yandev7@gmail.com"]
-    SPONSORS = ["kenter.yandev7@gmail.com"]
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    target_team = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
+    if not target_team:
+        target_team = [settings.DEFAULT_FROM_EMAIL]
     
-    # Route target teams dynamically based on form interest selection
     if "sponsor" in interest:
-        target_team = SPONSORS
         team_label = "Sponsorship Team"
     elif "coach" in interest:
-        target_team = COACHES
         team_label = "Coaching Team"
-    else:  # Handles 'attend' and general inquiries
-        target_team = ORGANIZERS
+    else:
         team_label = "Event Organizing Team"
 
-    # 1. Message configuration for the user (Attendee/Coach/Sponsor)
+    # 1. Message configuration for the user
     user_subject = f"Thank you for reaching out to {site_name}"
     user_message_body = (
         f"Hi {user_name},\n\n"
