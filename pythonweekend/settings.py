@@ -116,16 +116,16 @@ STORAGES = {
 }
 
 
-# Email — Resend SMTP
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
+# Email — Resend SMTP & HTTP configuration
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "").strip().strip('"').strip("'")
 
 if RESEND_API_KEY:
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-    EMAIL_HOST = "smtp.resend.com"
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
-    EMAIL_HOST_USER = "resend"
+    EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.resend.com")
+    EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
+    EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True").lower() in ("true", "1", "t")
+    EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "False").lower() in ("true", "1", "t")
+    EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "resend")
     EMAIL_HOST_PASSWORD = RESEND_API_KEY
 elif DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
