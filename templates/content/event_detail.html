@@ -44,6 +44,7 @@
 <!-- ── STICKY SECTION NAV ── -->
 <nav class="bg-white border-b border-gray-200 sticky top-16 z-40 hidden sm:block">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-6 text-sm font-medium overflow-x-auto">
+    {% if event.venue_name or event.location or event.city or event.latitude %}<a href="#venue" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">Venue</a>{% endif %}
     {% if event.description %}<a href="#about" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">About</a>{% endif %}
     {% if event.day1_schedule %}<a href="#schedule" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">Schedule</a>{% endif %}
     {% if event.what_you_learn %}<a href="#learn" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">What you'll learn</a>{% endif %}
@@ -54,6 +55,85 @@
 
 <div class="bg-py-light">
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+
+    <!-- ── VENUE & DIRECTIONS ── -->
+    {% if event.venue_name or event.location or event.city or event.latitude %}
+    <section id="venue">
+      <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-6 flex items-center gap-3">
+        <span class="w-1 h-8 bg-py-blue rounded-full"></span>
+        <svg class="w-5 h-5 text-py-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Venue &amp; Directions
+      </h2>
+
+      <!-- Venue info card -->
+      <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+
+        <!-- Address row + Directions button -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-6 py-5">
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-8 h-8 rounded-full bg-py-blue/10 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-py-blue" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            </span>
+            <div>
+              {% if event.venue_name %}
+              <p class="font-display font-bold text-py-navy text-base leading-snug">{{ event.venue_name }}</p>
+              {% endif %}
+              {% if event.location %}
+              <p class="text-gray-500 text-sm mt-0.5">{{ event.location }}</p>
+              {% endif %}
+              {% if event.city or event.country %}
+              <p class="text-gray-400 text-sm">
+                {% if event.city %}{{ event.city }}{% endif %}{% if event.city and event.country %}, {% endif %}{% if event.country %}{{ event.country }}{% endif %}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Directions button — uses coords if available, else text address -->
+          {% if event.latitude and event.longitude %}
+          <a id="directions-btn"
+             href="https://www.google.com/maps/dir/?api=1&destination={{ event.latitude }},{{ event.longitude }}"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 py-2.5 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-py-blue/25 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Get Directions
+          </a>
+          {% else %}
+          <a id="directions-btn"
+             href="https://www.google.com/maps/search/?api=1&query={{ event.venue_name }} {{ event.location }} {{ event.city }}"
+             target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 py-2.5 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl text-sm transition-all hover:shadow-lg hover:shadow-py-blue/25 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+            Get Directions
+          </a>
+          {% endif %}
+        </div>
+
+        <!-- Show map toggle -->
+        <div class="border-t border-gray-100">
+          <button id="toggle-map-btn"
+                  onclick="toggleEventMap(this)"
+                  class="w-full flex items-center justify-center gap-2 px-6 py-3 text-sm text-py-blue hover:bg-py-blue/5 transition-colors font-medium">
+            <svg id="toggle-map-icon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+            </svg>
+            <span id="toggle-map-label">Show on map</span>
+          </button>
+
+          <!-- Map embed — loaded lazily when toggled to avoid unnecessary tracking -->
+          <div id="event-map-container"
+               style="display:none;height:320px;overflow:hidden;"
+               {% if event.latitude and event.longitude %}
+               data-map-src="https://maps.google.com/maps?q={{ event.latitude }},{{ event.longitude }}&z=15&output=embed"
+               {% else %}
+               data-map-src="https://maps.google.com/maps?q={{ event.venue_name|urlencode }}+{{ event.location|urlencode }}+{{ event.city|urlencode }}&z=14&output=embed"
+               {% endif %}>
+          </div>
+        </div>
+
+      </div><!-- /card -->
+    </section>
+    {% endif %}
 
     <!-- ── ABOUT ── -->
     {% if event.description %}
@@ -299,4 +379,37 @@
   </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function toggleEventMap(btn) {
+    var container = document.getElementById('event-map-container');
+    var label     = document.getElementById('toggle-map-label');
+    var icon      = document.getElementById('toggle-map-icon');
+
+    if (container.style.display === 'none') {
+      // Lazy-load the iframe only the first time
+      if (!container.querySelector('iframe')) {
+        var src = container.getAttribute('data-map-src');
+        var iframe = document.createElement('iframe');
+        iframe.src           = src;
+        iframe.width         = '100%';
+        iframe.height        = '320';
+        iframe.style.border  = '0';
+        iframe.loading       = 'lazy';
+        iframe.referrerPolicy = 'no-referrer-when-downgrade';
+        iframe.setAttribute('allowfullscreen', '');
+        container.appendChild(iframe);
+      }
+      container.style.display = 'block';
+      label.textContent = 'Hide map';
+      icon.style.transform = 'rotate(180deg)';
+    } else {
+      container.style.display = 'none';
+      label.textContent = 'Show on map';
+      icon.style.transform = 'rotate(0deg)';
+    }
+  }
+</script>
 {% endblock %}
