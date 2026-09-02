@@ -184,20 +184,29 @@ class OrganizeWizardView(View):
         )
 
         # Send emails
+        import logging
         from django.core.mail import send_mail
         from django.conf import settings
-        
+        from django.contrib.auth import get_user_model
+
+        logger = logging.getLogger(__name__)
+        User = get_user_model()
+
         organizer_name = f"{application.lead_first_name} {application.lead_last_name}".strip()
         organizer_email = application.lead_email
-        admin_email = settings.DEFAULT_FROM_EMAIL
 
-        # 1. Email to the organizer
+        # Collect superuser email addresses for admin notification
+        admin_emails = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
+        if not admin_emails:
+            admin_emails = [settings.DEFAULT_FROM_EMAIL]
+
+        # 1. Confirmation email to the organizer applicant
         subject_organizer = "Your Python Weekend Organizer Application"
         message_organizer = (
             f"Hi {application.lead_first_name},\n\n"
             f"Thank you for volunteering to organize a Python Weekend workshop! "
-            f"We have received your application and will review it shortly.\n\n"
-            f"Best,\nThe Python Weekend Team"
+            f"We have received your application and our team will review it shortly.\n\n"
+            f"Best regards,\nThe Python Weekend Team"
         )
         try:
             send_mail(
@@ -205,12 +214,12 @@ class OrganizeWizardView(View):
                 message_organizer,
                 settings.DEFAULT_FROM_EMAIL,
                 [organizer_email],
-                fail_silently=True,
+                fail_silently=False,
             )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.error(f"Failed to send confirmation email to applicant {organizer_email}: {e}")
 
-        # 2. Email to the site admin
+        # 2. Notification email to the super admin(s)
         subject_admin = f"New Organizer Application: {organizer_name}"
         message_admin = (
             f"A new organizer application has been submitted.\n\n"
@@ -218,18 +227,18 @@ class OrganizeWizardView(View):
             f"Email: {organizer_email}\n"
             f"Workshop Type: {application.get_workshop_type_display()}\n"
             f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
-            f"Log in to the admin panel to review the full details."
+            f"Please log in to the admin panel to review and approve/reject the application."
         )
         try:
             send_mail(
                 subject_admin,
                 message_admin,
                 settings.DEFAULT_FROM_EMAIL,
-                [admin_email],
-                fail_silently=True,
+                admin_emails,
+                fail_silently=False,
             )
-        except Exception:
-            pass
+        except Exception as e:
+            logger.error(f"Failed to send application notification to admins {admin_emails}: {e}")
 
         # Clear wizard session
         request.session.pop("organize_wizard", None)

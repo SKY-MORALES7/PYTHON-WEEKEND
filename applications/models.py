@@ -234,4 +234,156 @@ class OrganizerApplication(models.Model):
     def __str__(self):
         return f"{self.lead_first_name} {self.lead_last_name} ({self.get_status_display()})"
 
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        old_status = None
+        if not is_new:
+            try:
+                old_status = OrganizerApplication.objects.get(pk=self.pk).status
+            except OrganizerApplication.DoesNotExist:
+                pass
+
+        super().save(*args, **kwargs)
+
+        if not is_new and old_status != self.status:
+            if self.status == "approved":
+                self._handle_approval()
+            elif self.status == "rejected":
+                self._handle_rejection()
+
+    def _get_all_applicants(self):
+        people = [
+            {
+                "first_name": self.lead_first_name,
+                "last_name": self.lead_last_name,
+                "email": self.lead_email
+            }
+        ]
+        if isinstance(self.team_members, list):
+            for member in self.team_members:
+                if isinstance(member, dict) and member.get("email"):
+                    people.append({
+                        "first_name": member.get("first_name", ""),
+                        "last_name": member.get("last_name", ""),
+                        "email": member.get("email", "")
+                    })
+        return people
+
+    def _handle_approval(self):
+        logger = logging.getLogger(__name__)
+        from django.contrib.auth.models import User, Group, Permission
+        from django.contrib.contenttypes.models import ContentType
+        from content.models import EventCoach, EventSponsor
+
+        # Ensure "Organizers" group exists with appropriate restricted permissions
+        organizer_group, _ = Group.objects.get_or_create(name="Organizers")
+        models_to_grant = [Event, EventCoach, EventSponsor, Form, Question, Answer]
+        perms = []
+        for model in models_to_grant:
+            ct = ContentType.objects.get_for_model(model)
+            perms.extend(Permission.objects.filter(content_type=ct))
+        organizer_group.permissions.set(perms)
+
+        people = self._get_all_applicants()
+        default_password = "admin123"
+
+        for person in people:
+            email = person["email"].strip()
+            if not email:
+                continue
+            first_name = person["first_name"].strip()
+            last_name = person["last_name"].strip()
+
+            user = User.objects.filter(email=email).first()
+            if not user:
+                base_username = slugify(first_name.lower() or email.split('@')[0]) or "organizer"
+                username = base_username
+                num = 1
+                while User.objects.filter(username=username).exists():
+                    username = f"{base_username}{num}"
+                    num += 1
+
+                user = User.objects.create_user(
+                    username=username,
+                    email=email,
+                    password=default_password,
+                    first_name=first_name,
+                    last_name=last_name,
+                    is_staff=True,
+                    is_superuser=False
+                )
+            else:
+                user.is_staff = True
+                user.save()
+
+            user.groups.add(organizer_group)
+
+            # Check if this user already owns an event, if not create a draft event for them
+            if not Event.objects.filter(owner=user).exists():
+                event_title = f"Python Weekend - {first_name or 'Workshop'}"
+                event_slug = slugify(f"python-weekend-{first_name or 'workshop'}-{user.id}")
+                Event.objects.create(
+                    title=event_title,
+                    slug=event_slug,
+                    start_date=timezone.now() + timezone.timedelta(days=60),
+                    end_date=timezone.now() + timezone.timedelta(days=62),
+                    location="To be announced",
+                    city=first_name or "TBA",
+                    owner=user,
+                    published=False
+                )
+
+            # Send approval email to applicant
+            site_url = getattr(settings, 'SITE_URL', 'https://pythonweekend.org')
+            subject = "Your Python Weekend Organizer Application has been Approved!"
+            message = (
+                f"Hi {first_name or 'Organizer'},\n\n"
+                f"Congratulations! Your application to organize a Python Weekend workshop has been approved.\n\n"
+                f"You have been granted access to manage your event from the backend.\n\n"
+                f"Your Login Details:\n"
+                f"Login URL: {site_url}/admin/\n"
+                f"Username: {user.username}\n"
+                f"Password: {default_password}\n\n"
+                f"Please log in to manage your event and update your password.\n\n"
+                f"Best,\nThe Python Weekend Team"
+            )
+            try:
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    fail_silently=False
+                )
+            except Exception as e:
+                logger.error(f"Failed to send approval email to {email}: {e}")
+
+    def _handle_rejection(self):
+        logger = logging.getLogger(__name__)
+        people = self._get_all_applicants()
+
+        for person in people:
+            email = person["email"].strip()
+            if not email:
+                continue
+            first_name = person["first_name"].strip()
+
+            subject = "Python Weekend Organizer Application Update"
+            message = (
+                f"Hi {first_name or 'Applicant'},\n\n"
+                f"Thank you for your interest in organizing a Python Weekend workshop.\n\n"
+                f"After reviewing your application, we regret to inform you that we are unable to approve your application at this time.\n\n"
+                f"Best,\nThe Python Weekend Team"
+            )
+            try:
+                send_mail(
+                    subject=subject,
+                    message=message,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[email],
+                    fail_silently=False
+                )
+            except Exception as e:
+                logger.error(f"Failed to send rejection email to {email}: {e}")
+
 
