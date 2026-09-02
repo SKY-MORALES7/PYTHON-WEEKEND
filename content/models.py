@@ -204,7 +204,9 @@ class BlogSection(models.Model):
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User  # 👈 1. Import Django's default User model
+from django.contrib.auth.models import User
+from coach.models import Coach
+from sponsors.models import Sponsor
 
 class Event(models.Model):
     # ── Core ──────────────────────────────────────────────
@@ -280,8 +282,8 @@ class Event(models.Model):
     custom_css = models.TextField(blank=True, help_text="Custom CSS to include on the event page")
     sponsors_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Sponsors' section title")
     schedule_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Schedule' section title")
-    
-    # 👈 2. ADD THIS: Connects this event instance to a specific authorized user account
+
+    # ── Owner ────────────────────────────────────────────
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -289,6 +291,20 @@ class Event(models.Model):
         blank=True,
         related_name="owned_events",
         help_text="The approved event organizer responsible for this specific execution."
+    )
+
+    # ── Coaches & Sponsors (M2M via through-models) ───────
+    coaches = models.ManyToManyField(
+        Coach,
+        through="EventCoach",
+        related_name="events",
+        blank=True,
+    )
+    sponsors = models.ManyToManyField(
+        Sponsor,
+        through="EventSponsor",
+        related_name="events",
+        blank=True,
     )
 
     class Meta:
@@ -380,3 +396,65 @@ class WebsiteMenus(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.get_position_display()})"
+
+
+# ─────────────────────────────────────────────
+#  EVENT ↔ COACH  (through-model)
+# ─────────────────────────────────────────────
+
+class EventCoach(models.Model):
+    """Links a Coach to an Event, with an optional per-event role and display order."""
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name="event_coaches"
+    )
+    coach = models.ForeignKey(
+        Coach, on_delete=models.CASCADE, related_name="event_assignments"
+    )
+    role = models.CharField(
+        max_length=200, blank=True,
+        help_text="Override the coach's default role for this event, e.g. 'Lead Mentor'."
+    )
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        help_text="Lower numbers appear first in the coach list."
+    )
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = [("event", "coach")]
+        verbose_name = "Event Coach"
+        verbose_name_plural = "Event Coaches"
+
+    def __str__(self):
+        return f"{self.coach.name} @ {self.event.title}"
+
+
+# ─────────────────────────────────────────────
+#  EVENT ↔ SPONSOR  (through-model)
+# ─────────────────────────────────────────────
+
+class EventSponsor(models.Model):
+    """Links a Sponsor to an Event, with an optional description override and display order."""
+    event = models.ForeignKey(
+        Event, on_delete=models.CASCADE, related_name="event_sponsors"
+    )
+    sponsor = models.ForeignKey(
+        Sponsor, on_delete=models.CASCADE, related_name="event_appearances"
+    )
+    description = models.CharField(
+        max_length=300, blank=True,
+        help_text="Short blurb about this sponsor's contribution to this specific event."
+    )
+    order = models.PositiveSmallIntegerField(
+        default=0,
+        help_text="Lower numbers appear first in the sponsor list."
+    )
+
+    class Meta:
+        ordering = ["order"]
+        unique_together = [("event", "sponsor")]
+        verbose_name = "Event Sponsor"
+        verbose_name_plural = "Event Sponsors"
+
+    def __str__(self):
+        return f"{self.sponsor.name} @ {self.event.title}"

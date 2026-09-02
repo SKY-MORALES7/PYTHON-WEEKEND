@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import (
     BlogPost, BlogSection, Event,
     WebsiteContent, WebsiteMenus,
+    EventCoach, EventSponsor,
 )
 
 
@@ -51,12 +52,28 @@ class BlogPostAdmin(admin.ModelAdmin):
 
 
 # ─────────────────────────────────────────────
-#  EVENT  (unchanged)
-# ─────────────────────────────────────────────
-
-# ─────────────────────────────────────────────
 #  EVENT INLINES
 # ─────────────────────────────────────────────
+
+class EventCoachInline(admin.TabularInline):
+    model = EventCoach
+    extra = 1
+    autocomplete_fields = ["coach"]
+    fields = ("coach", "role", "order")
+    ordering = ("order",)
+    verbose_name = "Coach"
+    verbose_name_plural = "Coaches"
+
+
+class EventSponsorInline(admin.TabularInline):
+    model = EventSponsor
+    extra = 1
+    autocomplete_fields = ["sponsor"]
+    fields = ("sponsor", "description", "order")
+    ordering = ("order",)
+    verbose_name = "Sponsor"
+    verbose_name_plural = "Sponsors"
+
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
@@ -65,6 +82,7 @@ class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_filter  = ["published", "application_open", "country"]
     search_fields = ["title", "city", "location", "country"]
+    inlines = [EventCoachInline, EventSponsorInline]
 
     fieldsets = (
         ("Core", {
