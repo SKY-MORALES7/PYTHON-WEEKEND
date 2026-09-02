@@ -107,7 +107,11 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # CompressedStaticFilesStorage: gzip-compresses static files without
+        # requiring a manifest (staticfiles.json). This avoids the first-request
+        # 500 error that ManifestStaticFilesStorage can cause when a file
+        # reference is missing from the manifest after a fresh deploy.
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
