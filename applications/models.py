@@ -128,6 +128,26 @@ class Form(models.Model):
     def __str__(self):
         return f"Form for {self.event.title}"
 
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+        if is_new:
+            # Automatically add Name and Email questions by default
+            Question.objects.create(
+                form=self,
+                title="Full Name",
+                question_type="text",
+                is_required=True,
+                order=1
+            )
+            Question.objects.create(
+                form=self,
+                title="Email Address",
+                question_type="email",
+                is_required=True,
+                order=2
+            )
+
 
 QUESTION_TYPE_CHOICES = [
     ("text",        "Text (short answer)"),

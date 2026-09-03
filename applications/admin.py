@@ -19,6 +19,7 @@ class EventApplicationAdmin(admin.ModelAdmin):
 class QuestionInline(admin.StackedInline):
     model = Question
     extra = 1
+    verbose_name_plural = "Questions (Note: 'Full Name' and 'Email Address' are automatically added to new forms)"
     fields = ("order", "title", "question_type", "choices", "is_required")
     ordering = ("order",)
     formfield_overrides = {

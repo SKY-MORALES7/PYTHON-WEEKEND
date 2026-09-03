@@ -54,19 +54,17 @@ class EventDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Phase 2 models (event mentors, organisers, event partners) are not yet built.
-        # Return empty lists so the template {% if %} guards skip those sections safely.
-        context["event_mentors"]    = []
+        
+        # Populate mentors and partners using the through-models
+        context["event_mentors"]    = self.object.event_coaches.select_related("coach").all()
+        context["event_partners"]   = self.object.event_sponsors.select_related("sponsor").all()
+        
+        # Organisers are currently tied to the OrganizerApplication or User model, 
+        # so for now we leave it empty if no dedicated model exists for displaying them.
         context["event_organisers"] = []
-        context["event_partners"]   = []
-
-        # Link to the application form created in admin for this event (if one exists).
-        from applications.models import Form as ApplicationForm
-        context["application_form"] = (
-            ApplicationForm.objects
-            .filter(event=self.object, is_open=True)
-            .first()
-        )
+        
+        from applications.models import Form
+        context["application_form"] = Form.objects.filter(event=self.object, is_open=True).first()
         return context
 
 

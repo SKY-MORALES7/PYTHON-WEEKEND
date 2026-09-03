@@ -29,7 +29,9 @@
 
 <!-- ── HERO ── -->
 <section class="relative min-h-[40vh] flex flex-col justify-center items-center overflow-hidden bg-py-light">
-  {% if application_form.event.image|file_exists %}
+  {% if application_form.hero_image|file_exists %}
+  <img src="{{ application_form.hero_image.url }}" alt="{{ application_form.text_header }}" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+  {% elif application_form.event.image|file_exists %}
   <img src="{{ application_form.event.image.url }}" alt="{{ application_form.event.title }}" class="absolute inset-0 w-full h-full object-cover opacity-30" />
   {% else %}
   <div class="absolute inset-0 bg-py-navy opacity-10"></div>
@@ -38,8 +40,8 @@
 
   <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-12 pb-8">
     <a href="{% url 'content:event_detail' application_form.event.slug %}" class="text-white text-sm font-medium hover:underline mb-4 inline-block">← Back to {{ application_form.event.title }}</a>
-    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white mb-4">{{ application_form.title }}</h1>
-    <p class="text-white/90 text-lg max-w-2xl mx-auto">{{ application_form.description }}</p>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white mb-4">{{ application_form.text_header|default:application_form.event.title }}</h1>
+    <p class="text-white/90 text-lg max-w-2xl mx-auto">{{ application_form.text_description|default:application_form.event.tagline }}</p>
   </div>
 </section>
 
