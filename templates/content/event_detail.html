@@ -7,29 +7,30 @@
 
 
 <!-- ── HERO ── -->
-<section class="relative min-h-[50vh] flex items-end overflow-hidden bg-py-light">
+<section class="relative min-h-[50vh] flex items-end overflow-hidden bg-py-navy">
   {% if event.image|file_exists %}
   <img src="{{ event.image.url }}" alt="{{ event.title }}"
-       class="absolute inset-0 w-full h-full object-cover opacity-40" />
+       class="absolute inset-0 w-full h-full object-cover opacity-50" />
+  {% else %}
+  <div class="absolute inset-0 bg-py-navy opacity-10"></div>
   {% endif %}
-  {% include "components/blobs.html" %}
-  <div class="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-py-navy via-py-navy/80 to-py-navy/20"></div>
 
   <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
-    <a href="{% url 'content:event_list' %}" class="text-py-blue text-sm hover:underline">← All events</a>
+    <a href="{% url 'content:event_list' %}" class="text-py-blue text-sm hover:underline hover:text-white transition-colors">← All events</a>
     <div class="flex items-center gap-2 mt-4 mb-3">
-      <span class="w-2 h-2 rounded-full {% if event.is_upcoming %}bg-green-500 animate-pulse{% else %}bg-gray-400{% endif %}"></span>
-      <span class="text-xs font-semibold uppercase tracking-widest {% if event.is_upcoming %}text-green-600{% else %}text-gray-400{% endif %}">
+      <span class="w-2 h-2 rounded-full {% if event.is_upcoming %}bg-green-400 animate-pulse{% else %}bg-gray-400{% endif %}"></span>
+      <span class="text-xs font-semibold uppercase tracking-widest {% if event.is_upcoming %}text-green-400{% else %}text-gray-400{% endif %}">
         {% if event.is_upcoming %}Upcoming{% else %}Past event{% endif %}
       </span>
     </div>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-py-navy leading-tight mb-3">
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-white leading-tight mb-3">
       {{ event.title }}
     </h1>
     {% if event.tagline %}
     <p class="text-py-blue text-lg font-medium mb-4">{{ event.tagline }}</p>
     {% endif %}
-    <div class="flex flex-wrap gap-4 text-gray-500 text-sm">
+    <div class="flex flex-wrap gap-4 text-gray-300 text-sm">
       <span>{{ event.start_date|date:"l, F j, Y" }}{% if event.end_date %} — {{ event.end_date|date:"F j, Y" }}{% endif %}</span>
       {% if event.venue_name %}<span>{{ event.venue_name }}</span>{% endif %}
       {% if event.location %}<span> {{ event.location }}</span>{% endif %}

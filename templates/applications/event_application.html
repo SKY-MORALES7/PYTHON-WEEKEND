@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tags %}
 
-{% block title %}Apply to run an event — Python Weekend{% endblock %}
+{% block title %}{{ application_form.title }} — Python Weekend{% endblock %}
 
 {% block content %}
 
@@ -24,40 +25,48 @@
     border-color: #4B8BBE;
     box-shadow: 0 0 0 2px rgba(75, 139, 190, 0.2);
   }
-  .app-hero-bg {
-    background-image: url('{% static "img/game2.jpg" %}');
-    background-size: cover;
-    background-position: center;
-  }
 </style>
 
-<div class="relative bg-white overflow-hidden min-h-[88vh] flex items-center app-hero-bg">
+<!-- ── HERO ── -->
+<section class="relative min-h-[40vh] flex flex-col justify-center items-center overflow-hidden bg-py-light">
+  {% if application_form.event.image|file_exists %}
+  <img src="{{ application_form.event.image.url }}" alt="{{ application_form.event.title }}" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+  {% else %}
+  <div class="absolute inset-0 bg-py-navy opacity-10"></div>
+  {% endif %}
+  <div class="absolute inset-0 bg-gradient-to-b from-py-navy/80 to-py-navy/40"></div>
 
-  <div class="absolute inset-0 bg-white/90"></div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 text-center pt-12 pb-8">
+    <a href="{% url 'content:event_detail' application_form.event.slug %}" class="text-white text-sm font-medium hover:underline mb-4 inline-block">← Back to {{ application_form.event.title }}</a>
+    <h1 class="font-display text-4xl sm:text-5xl font-bold text-white mb-4">{{ application_form.title }}</h1>
+    <p class="text-white/90 text-lg max-w-2xl mx-auto">{{ application_form.description }}</p>
+  </div>
+</section>
 
-  <div class="relative z-10 max-w-2xl min-h-screen lg:mx-auto py-16 m-8 sm:mx-6 lg:px-6 bg-white/95 rounded-2xl border border-gray-200 shadow-lg">
-    <h1 class="font-display text-3xl font-bold mb-4 text-py-navy px-8">Apply to become an organiser</h1>
-    <p class="text-gray-500 mb-6 px-8">Fill this form to apply to run or organise a Python Weekend event. We'll review your application and get back to you in a week.</p>
-
-    <form method="post" novalidate class="space-y-4 px-8">
-      {% csrf_token %}
+<!-- ── FORM SECTION ── -->
+<section class="bg-gray-50 py-12">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6">
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 sm:p-10">
       
-      {% if messages %}
-        <div class="mb-4">
-          {% for message in messages %}
-            <div class="rounded px-4 py-3 mb-2 text-sm font-medium"
-                 {% if 'success' in message.tags %}style="background-color:#dcfce7;color:#166534;"{% elif 'error' in message.tags %}style="background-color:#fef2f2;color:#991b1b;"{% else %}style="background-color:#f3f4f6;color:#1f2937;"{% endif %}>
-              {{ message }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
+      <form method="post" novalidate class="space-y-6">
+        {% csrf_token %}
+        
+        {% if messages %}
+          <div class="mb-6">
+            {% for message in messages %}
+              <div class="rounded px-4 py-3 text-sm font-medium"
+                   {% if 'success' in message.tags %}style="background-color:#dcfce7;color:#166534;"{% elif 'error' in message.tags %}style="background-color:#fef2f2;color:#991b1b;"{% else %}style="background-color:#f3f4f6;color:#1f2937;"{% endif %}>
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-      {% for field in form %}
-        <div class="flex flex-col space-y-1">
-          <label class="block text-sm font-medium text-py-blue" for="{{ field.id_for_label }}">
-            {{ field.label }}
-          </label>
+        {% for field in form %}
+          <div class="flex flex-col space-y-1">
+            <label class="block text-sm font-semibold text-py-navy" for="{{ field.id_for_label }}">
+              {{ field.label }}
+            </label>
           
           <div>
             {{ field }}
@@ -73,13 +82,14 @@
         </div>
       {% endfor %}
 
-      <div class="pt-2">
-        <button type="submit" class="px-6 py-3 bg-py-blue text-white rounded font-semibold transition hover:bg-py-blue-dark duration-200">
+      <div class="pt-6">
+        <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-py-blue text-white rounded font-semibold transition hover:bg-py-blue-dark duration-200 shadow-sm hover:shadow-md">
           Submit application
         </button>
       </div>
     </form>
+    </div>
   </div>
-</div>
+</section>
 
 {% endblock %}
