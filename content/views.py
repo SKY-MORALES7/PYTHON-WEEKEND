@@ -59,6 +59,14 @@ class EventDetailView(DetailView):
         context["event_mentors"]    = []
         context["event_organisers"] = []
         context["event_partners"]   = []
+
+        # Link to the application form created in admin for this event (if one exists).
+        from applications.models import Form as ApplicationForm
+        context["application_form"] = (
+            ApplicationForm.objects
+            .filter(event=self.object, is_open=True)
+            .first()
+        )
         return context
 
 

@@ -249,10 +249,23 @@
         Applications close on <strong class="text-py-navy">{{ event.application_deadline|date:"F j, Y" }}</strong>
       </p>
       {% endif %}
-      <a href="{% url 'core:contact' %}?event={{ event.slug }}"
-         class="px-10 py-3.5 bg-py-blue hover:bg-py-blue-dark text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-py-blue/25 inline-block text-base">
-        Register interest
-      </a>
+
+      {% if application_form %}
+        {# ── An application form has been created in admin for this event ── #}
+        <a href="{% url 'applications:apply' form_id=application_form.pk %}"
+           class="px-10 py-3.5 bg-py-blue hover:bg-py-blue-dark text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-py-blue/25 inline-block text-base">
+          Register interest
+        </a>
+        {% if application_form.text_description %}
+        <p class="text-gray-400 text-xs mt-4 max-w-sm mx-auto">{{ application_form.text_description|truncatewords:20 }}</p>
+        {% endif %}
+      {% else %}
+        {# ── No form linked yet — fall back to the contact page ── #}
+        <a href="{% url 'core:contact' %}?event={{ event.slug }}"
+           class="px-10 py-3.5 bg-py-blue hover:bg-py-blue-dark text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-py-blue/25 inline-block text-base">
+          Register interest
+        </a>
+      {% endif %}
     </section>
     {% endif %}
 
