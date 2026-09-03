@@ -126,7 +126,7 @@ class EventAdmin(admin.ModelAdmin):
             "description": "Update after the event with verified attendance numbers."
         }),
         ("Customization", {
-            "fields": ("custom_html", "custom_css", "sponsors_title", "schedule_title")
+            "fields": ("custom_html", "sponsors_title", "schedule_title")
         }),
     )
 

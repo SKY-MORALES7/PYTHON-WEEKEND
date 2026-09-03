@@ -262,15 +262,15 @@ class Event(models.Model):
     day3_schedule = models.TextField(blank=True, help_text="One item per line...")
 
     # ── What you'll learn & Who should apply ─────────────
-    what_you_learn   = models.TextField(blank=True)
-    who_should_apply = models.TextField(blank=True)
+    what_you_learn   = models.TextField(blank=True, help_text="List the skills participants will gain. Enter one item per line.")
+    who_should_apply = models.TextField(blank=True, help_text="Describe the ideal candidate. Enter one item per line.")
 
     # ── FAQ ───────────────────────────────────────────────
-    faq = models.TextField(blank=True)
+    faq = models.TextField(blank=True, help_text="Q&A pairs separated by a blank line. Format:\nQ: Do I need experience?\nA: No, beginners are welcome!")
 
     # ── Applications ─────────────────────────────────────
-    application_deadline = models.DateField(blank=True, null=True)
-    application_open     = models.BooleanField(default=True)
+    application_deadline = models.DateField(blank=True, null=True, help_text="The date when applications will close.")
+    application_open     = models.BooleanField(default=True, help_text="If checked, the 'Register Interest' button will be visible on the event page.")
 
     # ── Meta ─────────────────────────────────────────────
     published  = models.BooleanField(default=False)
@@ -278,8 +278,7 @@ class Event(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     # ── Customization ────────────────────────────────────
-    custom_html = models.TextField(blank=True, help_text="Custom HTML to include on the event page")
-    custom_css = models.TextField(blank=True, help_text="Custom CSS to include on the event page")
+    custom_html = models.TextField(blank=True, help_text="Custom HTML block (Tailwind CSS classes supported) to include on the event page. You do not need a separate CSS field.")
     sponsors_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Sponsors' section title")
     schedule_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Schedule' section title")
 

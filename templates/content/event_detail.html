@@ -4,11 +4,7 @@
 {% block title %}{{ event.title }} — Python Weekend{% endblock %}
 
 {% block content %}
-{% if event.custom_css %}
-<style>
-  {{ event.custom_css|safe }}
-</style>
-{% endif %}
+
 
 <!-- ── HERO ── -->
 <section class="relative min-h-[50vh] flex items-end overflow-hidden bg-py-light">
