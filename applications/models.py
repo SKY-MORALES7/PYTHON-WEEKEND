@@ -318,20 +318,21 @@ class OrganizerApplication(models.Model):
 
             user.groups.add(organizer_group)
 
-            # Check if this user already owns an event, if not create a draft event for them
-            if not Event.objects.filter(owner=user).exists():
-                event_title = f"Python Weekend - {first_name or 'Workshop'}"
-                event_slug = slugify(f"python-weekend-{first_name or 'workshop'}-{user.id}")
-                Event.objects.create(
-                    title=event_title,
-                    slug=event_slug,
-                    start_date=timezone.now() + timezone.timedelta(days=60),
-                    end_date=timezone.now() + timezone.timedelta(days=62),
-                    location="To be announced",
-                    city=first_name or "TBA",
-                    owner=user,
-                    published=False
-                )
+            # Only create the draft event for the lead organizer (the first person in the loop)
+            if person == people[0]:
+                if not Event.objects.filter(owner=user).exists():
+                    event_title = f"Python Weekend - {first_name or 'Workshop'}"
+                    event_slug = slugify(f"python-weekend-{first_name or 'workshop'}-{user.id}")
+                    Event.objects.create(
+                        title=event_title,
+                        slug=event_slug,
+                        start_date=timezone.now() + timezone.timedelta(days=60),
+                        end_date=timezone.now() + timezone.timedelta(days=62),
+                        location="To be announced",
+                        city=first_name or "TBA",
+                        owner=user,
+                        published=False
+                    )
 
             # Send approval email to applicant
             site_url = getattr(settings, 'SITE_URL', 'https://pythonweekend.org')
