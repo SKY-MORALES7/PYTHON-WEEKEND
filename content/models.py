@@ -443,6 +443,79 @@ class PageContent(models.Model):
         return f"[{self.get_page_display()}] {self.label}"
 
 
+# ── Per-page proxy models ─────────────────────────────────────────────────────
+# Each proxy shows only its own page's content rows in the admin,
+# giving the admin sidebar clean entries: "Home", "About", "FAQ", etc.
+
+class HomeContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Home"
+        verbose_name_plural = "Home — Website Content"
+
+class AboutContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "About"
+        verbose_name_plural = "About — Website Content"
+
+class SupportContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Support Us"
+        verbose_name_plural = "Support Us — Website Content"
+
+class PartnersContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Partners"
+        verbose_name_plural = "Partners — Website Content"
+
+class OrganiseContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Organise"
+        verbose_name_plural = "Organise — Website Content"
+
+class ContributeContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Contribute"
+        verbose_name_plural = "Contribute — Website Content"
+
+class ResourcesContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Resources"
+        verbose_name_plural = "Resources — Website Content"
+
+class NewsletterContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Newsletter"
+        verbose_name_plural = "Newsletter — Website Content"
+
+class FAQContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "FAQ"
+        verbose_name_plural = "FAQ — Website Content"
+
+class CoCContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Code of Conduct"
+        verbose_name_plural = "Code of Conduct — Website Content"
+
+class GlobalContent(PageContent):
+    class Meta:
+        proxy = True
+        verbose_name = "Global / Footer Text"
+        verbose_name_plural = "Global / Footer Text — Website Content"
+
+
+
+
 # ─────────────────────────────────────────────
 #  WEBSITE MENU ITEMS
 # ─────────────────────────────────────────────
