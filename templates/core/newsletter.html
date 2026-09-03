@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load content_tags %}
+{% get_content "newsletter_hero_heading" as newsletter_hero_heading %}
+{% get_content "newsletter_hero_intro" as newsletter_hero_intro %}
 
 {% block title %}Python Weekend Dispatch — Newsletter{% endblock %}
 
@@ -8,9 +11,9 @@
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
   <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Python Weekend Dispatch</h1>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ newsletter_hero_heading|default:"Python Weekend Dispatch" }}</h1>
     <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto 2rem;">
-      We send a regular newsletter to participants, volunteers, partners and people who are curious about what the Python Weekend community is building.
+      {{ newsletter_hero_intro|default:"We send a regular newsletter to participants, volunteers, partners and people who are curious about what the Python Weekend community is building." }}
     </p>
 
     <!-- Subscribe form -->

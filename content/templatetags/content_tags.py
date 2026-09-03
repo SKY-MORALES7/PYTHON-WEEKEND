@@ -1,0 +1,171 @@
+"""
+content_tags
+────────────
+Custom template tags for the content app.
+
+Usage in templates:
+
+    {% load content_tags %}
+
+    {# Fetch a page content value by key #}
+    {% get_content "home_hero_headline" as hero_text %}
+    <h1>{{ hero_text|default:"We inspire everyone to fall in love with programming." }}</h1>
+
+    {# Fetch top-level menu items for a position (with children pre-fetched) #}
+    {% get_menu "header" as header_menu %}
+    {% for item in header_menu %}
+      ...
+    {% endfor %}
+
+    {# Fetch the footer config singleton #}
+    {% get_footer_config as footer_cfg %}
+    <p>{{ footer_cfg.tagline }}</p>
+"""
+
+from django import template
+from django.core.cache import cache
+
+register = template.Library()
+
+
+# ─── helpers ─────────────────────────────────────────────────────────────────
+
+def _get_content_map():
+    """
+    Return a dict of {key: value} for all PageContent rows, cached for 5 min.
+    Cache is invalidated whenever a PageContent row is saved (via the admin
+    save hook in admin.py).
+    """
+    cached = cache.get("site_page_content_map")
+    if cached is not None:
+        return cached
+    try:
+        from content.models import PageContent
+        mapping = {row.key: row.value for row in PageContent.objects.all()}
+    except Exception:
+        mapping = {}
+    cache.set("site_page_content_map", mapping, 300)  # 5 minutes
+    return mapping
+
+
+def _get_menu_items(position):
+    """
+    Return top-level active menu items for `position`, each with its active
+    children pre-loaded as a list attached to `.child_items`.
+    Cached per position for 5 minutes.
+    """
+    cache_key = f"site_menu_{position}"
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return cached
+
+    try:
+        from content.models import WebsiteMenuItem
+        top_level = list(
+            WebsiteMenuItem.objects.filter(
+                position=position,
+                parent__isnull=True,
+                is_active=True,
+            ).order_by("order", "label")
+        )
+        # Attach children to each top-level item
+        if top_level:
+            all_children = WebsiteMenuItem.objects.filter(
+                position=position,
+                parent__in=top_level,
+                is_active=True,
+            ).order_by("order", "label").select_related("parent")
+
+            children_map = {}
+            for child in all_children:
+                children_map.setdefault(child.parent_id, []).append(child)
+
+            for item in top_level:
+                item.child_items = children_map.get(item.pk, [])
+        result = top_level
+    except Exception:
+        result = []
+
+    cache.set(cache_key, result, 300)
+    return result
+
+
+def _get_footer_config():
+    """Return the FooterConfig singleton (or None) with 5-min caching."""
+    cached = cache.get("site_footer_config")
+    if cached is not None:
+        return cached
+    try:
+        from content.models import FooterConfig
+        cfg = FooterConfig.objects.first()
+    except Exception:
+        cfg = None
+    cache.set("site_footer_config", cfg, 300)
+    return cfg
+
+
+# ─── template tags ────────────────────────────────────────────────────────────
+
+@register.simple_tag
+def get_content(key, default=""):
+    """
+    Fetch a page content value by key.
+
+    Usage:
+        {% get_content "home_hero_headline" as text %}
+        {{ text|default:"Fallback" }}
+    """
+    mapping = _get_content_map()
+    return mapping.get(key, default)
+
+
+@register.simple_tag
+def get_menu(position):
+    """
+    Fetch top-level active menu items for a position ("header" or "footer").
+    Each item has a `.child_items` list of its active children.
+
+    Usage:
+        {% get_menu "header" as header_menu %}
+        {% for item in header_menu %}
+          {{ item.label }} — children: {% for c in item.child_items %}{{ c.label }}{% endfor %}
+        {% endfor %}
+    """
+    return _get_menu_items(position)
+
+
+@register.simple_tag
+def get_footer_config():
+    """
+    Fetch the FooterConfig singleton.
+
+    Usage:
+        {% get_footer_config as footer_cfg %}
+        {{ footer_cfg.tagline }}
+    """
+    return _get_footer_config()
+
+
+@register.simple_tag
+def get_footer_columns(footer_items):
+    """
+    Group a list of footer menu items by their footer_column field.
+    Returns a list of (column_name, [items]) tuples, preserving insertion order.
+
+    Usage:
+        {% get_menu "footer" as footer_menu %}
+        {% get_footer_columns footer_menu as columns %}
+        {% for col_name, col_items in columns %}
+          <h4>{{ col_name }}</h4>
+          {% for item in col_items %}<a href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+        {% endfor %}
+    """
+    columns = {}
+    order = []
+    for item in footer_items:
+        col = item.footer_column or "Other"
+        if col not in columns:
+            columns[col] = []
+            order.append(col)
+        columns[col].append(item)
+    return [(col, columns[col]) for col in order]

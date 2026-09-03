@@ -1,10 +1,11 @@
-{% load static %}
+{% load static content_tags %}
+{% get_menu "header" as header_menu %}
 <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 h-[70px]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 py-6">
 
       <!-- Logo -->
-      <a href="{% url 'core:home' %}" class="flex items-center gap-2 group focus:outline-none">
+      <a href="/" class="flex items-center gap-2 group focus:outline-none">
         <span class="w-8 h-8 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
         <span class="text-py-navy font-display font-bold text-lg tracking-wide transition-colors">
           Python <span class="text-py-blue">Weekend</span>
@@ -14,53 +15,50 @@
       <!-- Desktop Links -->
       <div class="hidden md:flex items-center gap-1 text-sm font-medium">
 
-        <!-- Support Us dropdown -->
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1">
-            Support Us
-            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="{% url 'sponsors:list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Corporate Sponsorships</a>
-            <a href="{% url 'core:support' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Support a Workshop</a>
-            <a href="{% url 'core:partners' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Our Partners</a>
-          </div>
-        </div>
+        {% for item in header_menu %}
 
-        <!-- Volunteer dropdown -->
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1">
-            Volunteer
-            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="{% url 'applications:organize_start' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Organise a Workshop</a>
-            <a href="{% url 'core:contribute' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Contribute</a>
-          </div>
-        </div>
+          {% if item.child_items %}
+            <!-- Dropdown group: {{ item.label }} -->
+            <div class="relative group">
+              <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1">
+                {{ item.label }}
+                <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {% for child in item.child_items %}
+                  <a href="{{ child.url }}"
+                     class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors"
+                     {% if child.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+                    {{ child.label }}
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
 
-        <!-- Resources -->
-        <a href="{% url 'core:resources' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors {% if request.resolver_match.url_name == 'resources' %}text-py-blue{% endif %}">Resources</a>
+          {% elif item.label == "Contact Us" %}
+            <!-- CTA button style for Contact Us -->
+            <a href="{{ item.url }}"
+               class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105"
+               {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+              {{ item.label }}
+            </a>
 
-      <!-- Events -->
-        <a href="{% url 'content:event_list' %}" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors {% if request.resolver_match.namespace == 'content' and 'event' in request.resolver_match.url_name %}text-py-blue{% endif %}">Events</a>
+          {% else %}
+            <!-- Plain link -->
+            <a href="{{ item.url }}"
+               class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors"
+               {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+              {{ item.label }}
+            </a>
 
-        <!-- What's New dropdown -->
-        <div class="relative group">
-          <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1">
-            What's New?
-            <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-            <a href="{% url 'core:newsletter' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Newsletter</a>
-            <a href="{% url 'content:blog_list' %}" class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Our Blog</a>
-          </div>
-        </div>
+          {% endif %}
 
-        <!-- Contact Us -->
-        <a href="{% url 'core:contact' %}" class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105">
-          Contact Us
-        </a>
+        {% empty %}
+          <!-- Fallback: no menu items configured in database -->
+          <a href="/events/" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Events</a>
+          <a href="/contact/" class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors">Contact Us</a>
+        {% endfor %}
+
       </div>
 
       <!-- Mobile Hamburger -->
@@ -76,23 +74,41 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
     <div class="px-4 py-3 space-y-1">
-      <p class="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Support Us</p>
-      <a href="{% url 'sponsors:list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Corporate Sponsorships</a>
-      <a href="{% url 'core:support' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Support a Workshop</a>
-      <a href="{% url 'core:partners' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Our Partners</a>
 
-      <p class="px-3 pt-3 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Volunteer</p>
-      <a href="{% url 'applications:organize_start' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Organise a Workshop</a>
-      <a href="{% url 'core:contribute' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Contribute</a>
+      {% for item in header_menu %}
 
-      <a href="{% url 'core:resources' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Resources</a>
-      <a href="{% url 'content:event_list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Events</a>
+        {% if item.child_items %}
+          <!-- Mobile dropdown group -->
+          <p class="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">{{ item.label }}</p>
+          {% for child in item.child_items %}
+            <a href="{{ child.url }}"
+               class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6"
+               {% if child.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+              {{ child.label }}
+            </a>
+          {% endfor %}
 
-      <p class="px-3 pt-3 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">What's New?</p>
-      <a href="{% url 'core:newsletter' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Newsletter</a>
-      <a href="{% url 'content:blog_list' %}" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Our Blog</a>
+        {% elif item.label == "Contact Us" %}
+          <a href="{{ item.url }}"
+             class="block mx-3 my-2 px-4 py-2 bg-py-blue text-white rounded-lg font-semibold text-sm text-center transition-colors"
+             {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+            {{ item.label }}
+          </a>
 
-      <a href="{% url 'core:contact' %}" class="block mx-3 my-2 px-4 py-2 bg-py-blue text-white rounded-lg font-semibold text-sm text-center transition-colors">Contact Us</a>
+        {% else %}
+          <a href="{{ item.url }}"
+             class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors"
+             {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+            {{ item.label }}
+          </a>
+
+        {% endif %}
+
+      {% empty %}
+        <a href="/events/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Events</a>
+        <a href="/contact/" class="block mx-3 my-2 px-4 py-2 bg-py-blue text-white rounded-lg font-semibold text-sm text-center transition-colors">Contact Us</a>
+      {% endfor %}
+
     </div>
   </div>
 </nav>

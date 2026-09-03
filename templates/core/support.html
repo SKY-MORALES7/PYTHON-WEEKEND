@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load content_tags %}
+{% get_content "support_hero_heading" as support_hero_heading %}
+{% get_content "support_hero_intro" as support_hero_intro %}
 
 {% block title %}Support a Workshop — Python Weekend{% endblock %}
 
@@ -8,9 +11,9 @@
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
   <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Support a Workshop</h1>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ support_hero_heading|default:"Support a Workshop" }}</h1>
     <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
-      Python Weekend workshops are free to participants. Your support makes that possible.
+      {{ support_hero_intro|default:"Python Weekend workshops are free to participants. Your support makes that possible." }}
     </p>
   </div>
 </section>

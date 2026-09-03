@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 {% load media_tags %}
+{% load content_tags %}
+{% get_content "home_hero_headline" as home_hero_headline %}
+{% get_content "home_hero_subheadline" as home_hero_subheadline %}
+{% get_content "home_what_is_heading" as home_what_is_heading %}
+{% get_content "home_what_is_body" as home_what_is_body %}
+{% get_content "home_impact_heading" as home_impact_heading %}
+{% get_content "home_bring_pw_heading" as home_bring_pw_heading %}
+{% get_content "home_bring_pw_body" as home_bring_pw_body %}
+{% get_content "home_coaches_heading" as home_coaches_heading %}
+{% get_content "home_coaches_intro" as home_coaches_intro %}
+{% get_content "home_blog_heading" as home_blog_heading %}
+{% get_content "home_support_heading" as home_support_heading %}
+{% get_content "home_support_body" as home_support_body %}
+{% get_content "home_newsletter_heading" as home_newsletter_heading %}
+{% get_content "home_newsletter_body" as home_newsletter_body %}
+{% get_content "home_community_heading" as home_community_heading %}
+{% get_content "home_community_body" as home_community_body %}
 
 {% block title %}Python Weekend — Learn Python &amp; Build Real Apps{% endblock %}
 
@@ -58,11 +75,10 @@
   <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.52);"></div>
   <div style="position:relative;z-index:10;max-width:820px;padding:5rem 1.5rem;">
     <h1 class="hero-headline">
-      We inspire everyone to fall in love with&nbsp;programming.
+      {{ home_hero_headline|default:"We inspire everyone to fall in love with programming." }}
     </h1>
     <p class="hero-sub">
-      Python Weekend organises free Python &amp; Django workshops, creates open-source
-      online tutorials and curates amazing first experiences with technology.
+      {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
     <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
       <a href="{% url 'content:event_list' %}" class="btn-orange">Find an event</a>
@@ -81,18 +97,24 @@
 
       <!-- Left: description -->
       <div>
-        <h2>What is Python Weekend?</h2>
-        <p style="margin-bottom:1rem;">
-          Python Weekend is a <a href="{% url 'core:about' %}">community-driven initiative</a>
-          that empowers and helps anyone organise free, hands-on programming workshops by
-          providing tools, resources and support. We are a volunteer-run community with coaches
-          contributing to bring more amazing people into the world of technology. We are making
-          technology more approachable by creating resources designed with empathy.
-        </p>
-        <p>
-          During each of our events, participants build their first web application using
-          HTML, CSS, Python and Django — in just one weekend.
-        </p>
+        <h2>{{ home_what_is_heading|default:"What is Python Weekend?" }}</h2>
+        {% if home_what_is_body %}
+          {% for paragraph in home_what_is_body.splitlines %}
+            {% if paragraph.strip %}<p style="margin-bottom:1rem;">{{ paragraph }}</p>{% endif %}
+          {% endfor %}
+        {% else %}
+          <p style="margin-bottom:1rem;">
+            Python Weekend is a <a href="{% url 'core:about' %}">community-driven initiative</a>
+            that empowers and helps anyone organise free, hands-on programming workshops by
+            providing tools, resources and support. We are a volunteer-run community with coaches
+            contributing to bring more amazing people into the world of technology. We are making
+            technology more approachable by creating resources designed with empathy.
+          </p>
+          <p>
+            During each of our events, participants build their first web application using
+            HTML, CSS, Python and Django — in just one weekend.
+          </p>
+        {% endif %}
       </div>
 
       <!-- Right: video -->
@@ -120,7 +142,7 @@
 
       <!-- Left: stats -->
       <div>
-        <h2>Python Weekend impact</h2>
+        <h2>{{ home_impact_heading|default:"Python Weekend impact" }}</h2>
         <p>
           Since we started, an army of
           <span class="stat-badge stat-badge--orange">{{ total_coaches }} coach{{ total_coaches|pluralize:"es" }}</span>
@@ -145,12 +167,8 @@
 
       <!-- Right: organise CTA -->
       <div>
-        <h2>Bring Python Weekend to your city!</h2>
-        <p>
-          Is there no Python Weekend event in your city? You can help make it happen!
-          We provide the curriculum, tools, and a supportive community of organisers
-          all over the world.
-        </p>
+        <h2>{{ home_bring_pw_heading|default:"Bring Python Weekend to your city!" }}</h2>
+        <p>{{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}</p>
         <div style="margin-top:1.5rem;">
           <a href="{% url 'applications:organize_start' %}" class="btn-orange">
             Apply to organise a workshop
@@ -218,8 +236,8 @@
 
       <!-- Left: coaches spotlight -->
       <div>
-        <h2>Python Weekend Coaches</h2>
-        <p>Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:</p>
+        <h2>{{ home_coaches_heading|default:"Python Weekend Coaches" }}</h2>
+        <p>{{ home_coaches_intro|default:"Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:" }}</p>
 
         {% if coaches %}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -259,7 +277,7 @@
 
       <!-- Right: latest blog -->
       <div>
-        <h2>Latest from our blog</h2>
+        <h2>{{ home_blog_heading|default:"Latest from our blog" }}</h2>
 
         {% if blog_posts %}
         {% for post in blog_posts %}
@@ -290,8 +308,8 @@
 
       <!-- Left: support -->
       <div>
-        <h2>Support our work</h2>
-        <p>Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen.</p>
+        <h2>{{ home_support_heading|default:"Support our work" }}</h2>
+        <p>{{ home_support_body|default:"Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen." }}</p>
 
 
 
@@ -309,11 +327,8 @@
 
       <!-- Right: newsletter + community -->
       <div>
-        <h2>Stay up to date!</h2>
-        <p>
-          Subscribe to Python Weekend Dispatch to receive the latest and greatest from our
-          community every two weeks, straight to your inbox!
-        </p>
+        <h2>{{ home_newsletter_heading|default:"Stay up to date!" }}</h2>
+        <p>{{ home_newsletter_body|default:"Subscribe to Python Weekend Dispatch to receive the latest and greatest from our community every two weeks, straight to your inbox!" }}</p>
 
         {% if messages %}
         <div class="mb-4 space-y-2 mt-4">
@@ -338,12 +353,11 @@
         </p>
 
         <div style="margin-top:2rem;">
-          <h2>Check out our community!</h2>
+          <h2>{{ home_community_heading|default:"Check out our community!" }}</h2>
           <p>
-            We have an amazing community of coaches, organisers and alumni who continue
-            building after each workshop. Check out our
-            <a href="{% url 'coach:list' %}">coaches</a>
-            and <a href="{% url 'content:blog_list' %}">blog</a> to stay connected.
+            {{ home_community_body|default:"We have an amazing community of coaches, organisers and alumni who continue building after each workshop." }}
+            <a href="{% url 'coach:list' %}">coaches</a> and
+            <a href="{% url 'content:blog_list' %}">blog</a> to stay connected.
           </p>
         </div>
       </div>

@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load content_tags %}
+{% get_content "about_hero_heading" as about_hero_heading %}
+{% get_content "about_hero_intro" as about_hero_intro %}
+{% get_content "about_what_we_do_body" as about_what_we_do_body %}
+{% get_content "about_more_info_body" as about_more_info_body %}
 
 {% block title %}About Python Weekend{% endblock %}
 
@@ -8,9 +13,9 @@
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
   <div style="max-width:760px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">About Python Weekend</h1>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ about_hero_heading|default:"About Python Weekend" }}</h1>
     <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:600px;margin:0 auto;">
-      An initiative of Code Campus International created to make Python and artificial intelligence more approachable for complete beginners.
+      {{ about_hero_intro|default:"An initiative of Code Campus International created to make Python and artificial intelligence more approachable for complete beginners." }}
     </p>
   </div>
 </section>
@@ -117,9 +122,7 @@
 <section class="section-dg" style="text-align:center;">
   <div class="container-dg" style="max-width:580px;">
     <h2>More Information</h2>
-    <p style="color:var(--py-body);margin-bottom:1.5rem;">
-      If you would like to learn more about Python Weekend or discuss a partnership, contact us at <a href="mailto:hello@pythonweekend.org" style="color:var(--py-blue);">hello@pythonweekend.org</a>.
-    </p>
+    <p style="color:var(--py-body);margin-bottom:1.5rem;">{{ about_more_info_body|default:"If you would like to learn more about Python Weekend or discuss a partnership, contact us at hello@pythonweekend.org." }}</p>
     <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us</a>
   </div>
 </section>

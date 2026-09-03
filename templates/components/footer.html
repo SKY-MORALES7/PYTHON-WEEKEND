@@ -1,4 +1,10 @@
-{% load static %}
+{% load static content_tags %}
+{% get_menu "footer" as footer_menu %}
+{% get_footer_columns footer_menu as footer_columns %}
+{% get_footer_config as footer_cfg %}
+{% get_content "footer_tagline" as footer_tagline %}
+{% get_content "footer_copyright" as footer_copyright %}
+
 <footer class="bg-py-navy text-white mt-auto">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -11,76 +17,80 @@
           <span class="w-6 h-6 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
           <span class="font-display font-bold text-white text-sm">Python <span class="text-py-yellow">Weekend</span></span>
         </div>
-        <p class="text-white/50 text-xs leading-relaxed mb-3">Start with Python. Build with AI.</p>
+        <p class="text-white/50 text-xs leading-relaxed mb-3">
+          {{ footer_tagline|default:footer_cfg.tagline|default:"Start with Python. Build with AI." }}
+        </p>
         <div class="flex gap-3">
-          <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" class="text-white/40 hover:text-py-yellow transition-colors">
+          {% if footer_cfg.facebook_url %}
+          <a href="{{ footer_cfg.facebook_url }}" target="_blank" rel="noopener" aria-label="Facebook" class="text-white/40 hover:text-py-yellow transition-colors">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram" class="text-white/40 hover:text-py-yellow transition-colors">
+          {% endif %}
+          {% if footer_cfg.instagram_url %}
+          <a href="{{ footer_cfg.instagram_url }}" target="_blank" rel="noopener" aria-label="Instagram" class="text-white/40 hover:text-py-yellow transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/><path stroke-width="2" d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/></svg>
           </a>
-          <a href="https://x.com" target="_blank" rel="noopener" aria-label="X (Twitter)" class="text-white/40 hover:text-py-yellow transition-colors">
+          {% endif %}
+          {% if footer_cfg.twitter_url %}
+          <a href="{{ footer_cfg.twitter_url }}" target="_blank" rel="noopener" aria-label="X (Twitter)" class="text-white/40 hover:text-py-yellow transition-colors">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-white/40 hover:text-py-yellow transition-colors">
+          {% endif %}
+          {% if footer_cfg.linkedin_url %}
+          <a href="{{ footer_cfg.linkedin_url }}" target="_blank" rel="noopener" aria-label="LinkedIn" class="text-white/40 hover:text-py-yellow transition-colors">
             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
+          {% endif %}
         </div>
       </div>
 
-      <!-- Link columns -->
+      <!-- Link columns (dynamic from DB) -->
+      {% if footer_columns %}
       <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
+        {% for col_name, col_items in footer_columns %}
+        <div>
+          <h4 class="text-white font-display font-semibold text-xs uppercase tracking-widest mb-3">{{ col_name }}</h4>
+          <ul class="space-y-2 text-xs">
+            {% for item in col_items %}
+            <li>
+              <a href="{{ item.url }}"
+                 class="text-white/55 hover:text-py-yellow transition-colors"
+                 {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
+                {{ item.label }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
 
-        <!-- Python Weekend -->
+      {% else %}
+      <!-- Fallback columns if no footer menu items configured -->
+      <div class="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-6 text-sm">
         <div>
           <h4 class="text-white font-display font-semibold text-xs uppercase tracking-widest mb-3">Python Weekend</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="{% url 'core:about' %}" class="text-white/55 hover:text-py-yellow transition-colors">About</a></li>
-            <li><a href="{% url 'core:faq' %}" class="text-white/55 hover:text-py-yellow transition-colors">FAQ</a></li>
-            <li><a href="{% url 'core:newsletter' %}" class="text-white/55 hover:text-py-yellow transition-colors">Newsletter</a></li>
-            <li><a href="{% url 'core:coc' %}" class="text-white/55 hover:text-py-yellow transition-colors">Code of Conduct</a></li>
-            <li><a href="{% url 'core:contact' %}" class="text-white/55 hover:text-py-yellow transition-colors">Contact</a></li>
+            <li><a href="/about/" class="text-white/55 hover:text-py-yellow transition-colors">About</a></li>
+            <li><a href="/faq/" class="text-white/55 hover:text-py-yellow transition-colors">FAQ</a></li>
+            <li><a href="/newsletter/" class="text-white/55 hover:text-py-yellow transition-colors">Newsletter</a></li>
+            <li><a href="/contact/" class="text-white/55 hover:text-py-yellow transition-colors">Contact</a></li>
           </ul>
         </div>
-
-        <!-- Support -->
-        <div>
-          <h4 class="text-white font-display font-semibold text-xs uppercase tracking-widest mb-3">Support Us</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="{% url 'core:support' %}" class="text-white/55 hover:text-py-yellow transition-colors">Support a Workshop</a></li>
-            <li><a href="{% url 'core:contribute' %}" class="text-white/55 hover:text-py-yellow transition-colors">Contribute</a></li>
-            <li><a href="{% url 'sponsors:list' %}" class="text-white/55 hover:text-py-yellow transition-colors">Sponsorships</a></li>
-            <li><a href="{% url 'core:partners' %}" class="text-white/55 hover:text-py-yellow transition-colors">Our Partners</a></li>
-          </ul>
-        </div>
-
-        <!-- Resources -->
-        <div>
-          <h4 class="text-white font-display font-semibold text-xs uppercase tracking-widest mb-3">Resources</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="{% url 'core:resources' %}" class="text-white/55 hover:text-py-yellow transition-colors">Python &amp; AI Tutorial</a></li>
-            <li><a href="{% url 'core:resources' %}" class="text-white/55 hover:text-py-yellow transition-colors">Organiser's Manual</a></li>
-            <li><a href="{% url 'core:resources' %}" class="text-white/55 hover:text-py-yellow transition-colors">Mentoring Guide</a></li>
-            <li><a href="{% url 'core:resources' %}" class="text-white/55 hover:text-py-yellow transition-colors">Tutorial Extensions</a></li>
-          </ul>
-        </div>
-
-        <!-- Legal -->
-        <div>
-          <h4 class="text-white font-display font-semibold text-xs uppercase tracking-widest mb-3">Legal</h4>
-          <ul class="space-y-2 text-xs">
-            <li><a href="/terms/" class="text-white/55 hover:text-py-yellow transition-colors">Terms &amp; Conditions</a></li>
-            <li><a href="/privacy/" class="text-white/55 hover:text-py-yellow transition-colors">Privacy &amp; Cookies</a></li>
-            <li><a href="{% url 'core:jobs' %}" class="text-white/55 hover:text-py-yellow transition-colors">Job Board</a></li>
-          </ul>
-        </div>
-
       </div>
+      {% endif %}
+
     </div>
 
     <!-- Bottom bar -->
     <div class="pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/35">
-      <p>© {% now "Y" %} Python Weekend · An initiative of Code Campus International.</p>
+      {% if footer_copyright %}
+        <p>{{ footer_copyright|striptags }}</p>
+      {% elif footer_cfg %}
+        <p>{{ footer_cfg.get_copyright }}</p>
+      {% else %}
+        <p>© {% now "Y" %} Python Weekend · An initiative of Code Campus International.</p>
+      {% endif %}
       <p>Not affiliated with Django Girls or the Django Software Foundation.</p>
     </div>
 

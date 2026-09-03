@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load content_tags %}
+{% get_content "organise_hero_heading" as organise_hero_heading %}
+{% get_content "organise_hero_intro" as organise_hero_intro %}
 
 {% block title %}Organise a Workshop — Python Weekend{% endblock %}
 
@@ -8,9 +11,9 @@
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
   <div style="max-width:760px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Organise a Python Weekend Workshop</h1>
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ organise_hero_heading|default:"Organise a Python Weekend Workshop" }}</h1>
     <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:600px;margin:0 auto 2rem;">
-      Python Weekend events are organised by groups of committed volunteers in local communities.
+      {{ organise_hero_intro|default:"Python Weekend events are organised by groups of committed volunteers in local communities." }}
     </p>
     <a href="{% url 'applications:organize_start' %}" class="btn-orange" style="display:inline-block;">Apply to organise a workshop »</a>
   </div>
