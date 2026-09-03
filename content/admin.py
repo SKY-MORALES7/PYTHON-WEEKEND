@@ -7,10 +7,6 @@ from .models import (
     WebsiteContent, WebsiteMenus,
     EventCoach, EventSponsor,
     PageContent, WebsiteMenuItem, FooterConfig,
-    # Per-page proxy models
-    HomeContent, AboutContent, SupportContent, PartnersContent,
-    OrganiseContent, ContributeContent, ResourcesContent,
-    NewsletterContent, FAQContent, CoCContent, GlobalContent,
 )
 
 
@@ -146,19 +142,17 @@ class EventAdmin(admin.ModelAdmin):
 #  WEBSITE CONTENT — per-page admin base class
 # ─────────────────────────────────────────────
 
-class PageContentAdminBase(admin.ModelAdmin):
+class PageContentAdmin(admin.ModelAdmin):
     """
-    Base admin for per-page content proxy models.
-    Subclasses set `page_slug` to filter rows to a single page.
-    Admins see a list of all the editable fields for that page,
-    with a 💡 guidance hint and a clean edit form.
+    Admin for website content.
+    If no 'page' filter is active, it renders a custom template showing buttons for each page.
+    If a 'page' filter is active, it shows the list of fields for that page.
     """
-    page_slug = None   # override in each subclass, e.g. "home"
-
     list_display  = ["label", "value_preview", "content_type_badge", "updated_at"]
     search_fields = ["label", "value"]
     ordering      = ["key"]
     readonly_fields = ["key", "label", "content_type", "hint_display"]
+    list_filter   = ["page"]
 
     fieldsets = (
         (None, {
@@ -173,14 +167,30 @@ class PageContentAdminBase(admin.ModelAdmin):
         }),
     )
 
-    def get_queryset(self, request):
-        return super().get_queryset(request).filter(page=self.page_slug)
+    def changelist_view(self, request, extra_context=None):
+        if not request.GET.get('page__exact'):
+            # Show the category grid if no page is selected
+            from django.template.response import TemplateResponse
+            from .models import PageContent
+            pages = []
+            for slug, name in PageContent.PAGE_CHOICES:
+                pages.append({"slug": slug, "name": name})
+            
+            context = {
+                **self.admin_site.each_context(request),
+                "title": "Select a Website Page to Edit",
+                "pages": pages,
+                "opts": self.model._meta,
+            }
+            return TemplateResponse(request, "admin/content/pagecontent/page_grid.html", context)
+        
+        return super().changelist_view(request, extra_context)
 
     def has_add_permission(self, request):
-        return False   # rows are pre-created by migration
+        return False
 
     def has_delete_permission(self, request, obj=None):
-        return False   # prevent accidental deletion
+        return False
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
@@ -220,59 +230,8 @@ class PageContentAdminBase(admin.ModelAdmin):
         )
     content_type_badge.short_description = "Type"
 
+admin.site.register(PageContent, PageContentAdmin)
 
-# ─── Register one admin per page ─────────────────────────────────────────────
-
-@admin.register(HomeContent)
-class HomeContentAdmin(PageContentAdminBase):
-    page_slug = "home"
-
-@admin.register(AboutContent)
-class AboutContentAdmin(PageContentAdminBase):
-    page_slug = "about"
-
-@admin.register(SupportContent)
-class SupportContentAdmin(PageContentAdminBase):
-    page_slug = "support"
-
-@admin.register(PartnersContent)
-class PartnersContentAdmin(PageContentAdminBase):
-    page_slug = "partners"
-
-@admin.register(OrganiseContent)
-class OrganiseContentAdmin(PageContentAdminBase):
-    page_slug = "organise"
-
-@admin.register(ContributeContent)
-class ContributeContentAdmin(PageContentAdminBase):
-    page_slug = "contribute"
-
-@admin.register(ResourcesContent)
-class ResourcesContentAdmin(PageContentAdminBase):
-    page_slug = "resources"
-
-@admin.register(NewsletterContent)
-class NewsletterContentAdmin(PageContentAdminBase):
-    page_slug = "newsletter"
-
-@admin.register(FAQContent)
-class FAQContentAdmin(PageContentAdminBase):
-    page_slug = "faq"
-
-@admin.register(CoCContent)
-class CoCContentAdmin(PageContentAdminBase):
-    page_slug = "coc"
-
-@admin.register(GlobalContent)
-class GlobalContentAdmin(PageContentAdminBase):
-    page_slug = "global"
-
-
-# ── Hide the base PageContent model from the sidebar (use the per-page proxies above) ──
-@admin.register(PageContent)
-class PageContentAdmin(admin.ModelAdmin):
-    def get_model_perms(self, request):
-        return {}   # hidden from admin index; data managed via proxy models above
 
 
 # ─────────────────────────────────────────────
@@ -357,6 +316,13 @@ class WebsiteMenuItemAdmin(admin.ModelAdmin):
     position_badge.short_description = "Position"
     position_badge.admin_order_field = "position"
 
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        from .models import FooterConfig
+        cfg, _ = FooterConfig.objects.get_or_create(pk=1)
+        extra_context['footer_config_url'] = reverse("admin:content_footerconfig_change", args=[cfg.pk])
+        return super().changelist_view(request, extra_context=extra_context)
+
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
         from django.core.cache import cache
@@ -385,6 +351,9 @@ class FooterConfigAdmin(admin.ModelAdmin):
             "description": "Leave any field blank to hide that social icon in the footer.",
         }),
     )
+
+    def get_model_perms(self, request):
+        return {}  # Hide from admin index (accessed via WebsiteMenuItemAdmin)
 
     def has_add_permission(self, request):
         return not FooterConfig.objects.exists()

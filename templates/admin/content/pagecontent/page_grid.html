@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <h1>{{ title }}</h1>
+  <p>Select a page below to view and edit its content fields.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+    {% for page in pages %}
+    <a href="?page__exact={{ page.slug }}" style="display: block; padding: 20px; background: white; border: 1px solid #ccc; border-radius: 8px; text-decoration: none; color: #333; font-weight: bold; font-size: 1.1em; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" onmouseover="this.style.borderColor='#4B8BBE'; this.style.boxShadow='0 4px 8px rgba(75,139,190,0.2)';" onmouseout="this.style.borderColor='#ccc'; this.style.boxShadow='0 2px 4px rgba(0,0,0,0.05)';">
+      {{ page.name }}
+      <span style="display: block; font-size: 0.8em; color: #666; font-weight: normal; margin-top: 5px;">Edit content for this page &rarr;</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

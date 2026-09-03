@@ -435,84 +435,11 @@ class PageContent(models.Model):
 
     class Meta:
         ordering = ["page", "key"]
-        verbose_name = "Page Content"
-        verbose_name_plural = "Page Content"
+        verbose_name = "Website Content"
+        verbose_name_plural = "Website Content"
 
     def __str__(self):
         return f"[{self.get_page_display()}] {self.label}"
-
-
-# ── Per-page proxy models ─────────────────────────────────────────────────────
-# Each proxy shows only its own page's content rows in the admin,
-# giving the admin sidebar clean entries: "Home", "About", "FAQ", etc.
-
-class HomeContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Home"
-        verbose_name_plural = "Home — Website Content"
-
-class AboutContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "About"
-        verbose_name_plural = "About — Website Content"
-
-class SupportContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Support Us"
-        verbose_name_plural = "Support Us — Website Content"
-
-class PartnersContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Partners"
-        verbose_name_plural = "Partners — Website Content"
-
-class OrganiseContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Organise"
-        verbose_name_plural = "Organise — Website Content"
-
-class ContributeContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Contribute"
-        verbose_name_plural = "Contribute — Website Content"
-
-class ResourcesContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Resources"
-        verbose_name_plural = "Resources — Website Content"
-
-class NewsletterContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Newsletter"
-        verbose_name_plural = "Newsletter — Website Content"
-
-class FAQContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "FAQ"
-        verbose_name_plural = "FAQ — Website Content"
-
-class CoCContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Code of Conduct"
-        verbose_name_plural = "Code of Conduct — Website Content"
-
-class GlobalContent(PageContent):
-    class Meta:
-        proxy = True
-        verbose_name = "Global / Footer Text"
-        verbose_name_plural = "Global / Footer Text — Website Content"
-
-
 
 
 # ─────────────────────────────────────────────
@@ -593,8 +520,8 @@ class WebsiteMenuItem(models.Model):
 
     class Meta:
         ordering = ["position", "order", "label"]
-        verbose_name = "Website Menu Item"
-        verbose_name_plural = "Website Menu Items"
+        verbose_name = "Website Menu"
+        verbose_name_plural = "Website Menus"
 
     def __str__(self):
         parent_str = f" › {self.parent.label}" if self.parent_id else ""
