@@ -13,42 +13,48 @@
       theme: {
         extend: {
           colors: {
-            brand: {
-              orange: "#f5a623",
-              "orange-dark": "#e0941e",
+            py: {
+              blue: "#4B8BBE",
+              "blue-dark": "#306998",
+              yellow: "#FFD43B",
+              "yellow-dark": "#C9A227",
+              navy: "#16213E",
+              light: "#f8f9fa",
+              body: "#4a4a4a",
+              muted: "#6c757d",
             },
           },
           fontFamily: {
-            cursive: ['"Caveat"', 'cursive'],
-            body: ['"Inter"', 'sans-serif'],
+            display: ['"Rajdhani"', "sans-serif"],
+            body: ['"DM Sans"', "sans-serif"],
           },
         },
       },
     }
   </script>
 
-  <!-- Google Fonts: Caveat (handwritten) + Inter (body) -->
+  <!-- Google Fonts: Rajdhani (display) + DM Sans (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* Custom checkbox styling */
     .wizard-check {
-      accent-color: #f5a623;
+      accent-color: #4B8BBE;
       width: 18px;
       height: 18px;
       cursor: pointer;
     }
     .wizard-radio {
-      accent-color: #f5a623;
+      accent-color: #4B8BBE;
       width: 18px;
       height: 18px;
       cursor: pointer;
     }
-    /* Links in orange */
+    /* Links in blue */
     .wizard-link {
-      color: #f5a623;
+      color: #4B8BBE;
       text-decoration: none;
       font-weight: 600;
     }
@@ -62,7 +68,7 @@
 
   <!-- Progress bar -->
   <div class="w-full bg-gray-200 h-1.5">
-    <div class="bg-brand-orange h-1.5 transition-all duration-500"
+    <div class="bg-py-blue h-1.5 transition-all duration-500"
          style="width: {{ step|default:1 }}{% widthratio step total_steps 100 %}%"></div>
   </div>
 
