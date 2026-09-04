@@ -275,7 +275,7 @@ class ResourcesView(View):
         from tutorials.models import Tutorial
         tutorials = Tutorial.objects.filter(published=True)
         context = {
-            "workshop_tutorials": tutorials.filter(resource_type="workshop_tutorial") if hasattr(Tutorial, 'resource_type') else tutorials[:1],
+            "workshop_tutorials": tutorials.filter(slug="python-ai-tutorial") if hasattr(Tutorial, 'resource_type') else tutorials[:1],
             "organisers_manual":  tutorials.filter(resource_type="organisers_manual") if hasattr(Tutorial, 'resource_type') else None,
             "mentoring_guide":    tutorials.filter(resource_type="mentoring_guide") if hasattr(Tutorial, 'resource_type') else None,
             "extensions":         tutorials.filter(resource_type="extension") if hasattr(Tutorial, 'resource_type') else None,

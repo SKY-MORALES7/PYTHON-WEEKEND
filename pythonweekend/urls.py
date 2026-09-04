@@ -14,7 +14,7 @@ urlpatterns = [
     path("content/", include("content.urls", namespace="content")),
 
     # Tutorials
-    path("tutorials/", include("tutorials.urls", namespace="tutorials")),
+    path("resources/", include("tutorials.urls", namespace="tutorials")),
 
     # Root-level event aliases (clean URLs for nav and footer)
     path("events/", RedirectView.as_view(url="/content/events/", permanent=False), name="events_root"),
