@@ -377,13 +377,7 @@ class FooterConfigAdmin(admin.ModelAdmin):
 #  LEGACY MODELS — hidden from sidebar
 # ─────────────────────────────────────────────
 
-@admin.register(WebsiteContent)
-class WebsiteContentAdmin(admin.ModelAdmin):
-    def get_model_perms(self, request):
-        return {}
-
-
-@admin.register(WebsiteMenus)
-class WebsiteMenusAdmin(admin.ModelAdmin):
-    def get_model_perms(self, request):
-        return {}
+# ─────────────────────────────────────────────
+#  LEGACY STUBS
+#  (These models are kept to avoid migration conflicts, but are intentionally hidden from the admin)
+# ─────────────────────────────────────────────

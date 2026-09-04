@@ -107,16 +107,17 @@ def _get_footer_config():
 # ─── template tags ────────────────────────────────────────────────────────────
 
 @register.simple_tag
-def get_content(key, default=""):
+def get_content(key):
     """
-    Fetch a page content value by key.
-
-    Usage:
-        {% get_content "home_hero_headline" as text %}
-        {{ text|default:"Fallback" }}
+    Return the PageContent value for the given key.
+    If the key doesn't exist, return empty string.
     """
+    from django.utils import timezone
     mapping = _get_content_map()
-    return mapping.get(key, default)
+    val = mapping.get(key, "")
+    if isinstance(val, str) and "{year}" in val:
+        return val.replace("{year}", str(timezone.now().year))
+    return val
 
 
 @register.simple_tag

@@ -17,5 +17,5 @@ python reset_db.py
 python manage.py migrate
 python manage.py loaddata core/fixtures/data_dump.json
 python populate_content.py
-
+python scripts/populate_flatpages.py
 
