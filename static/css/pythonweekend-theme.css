@@ -183,7 +183,7 @@ a:hover {
   transition: all 0.3s ease;
 }
 .btn-orange:hover {
-  background-color: var(--py-yellow-dark);
+  background-color: var(--py-yellow);
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
