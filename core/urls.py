@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from tutorials.views import ResourceCategoryView
 
 app_name = "core"
 
@@ -20,6 +21,26 @@ urlpatterns = [
 
     # ── Resources ────────────────────────────────────────────────
     path("resources/", views.ResourcesView.as_view(), name="resources"),
+    path("resources/tutorial/", ResourceCategoryView.as_view(
+        resource_type="workshop_tutorial", 
+        page_title="Python & AI Tutorial", 
+        page_description="The official step-by-step guide used in Python Weekend workshops."
+    ), name="resource_tutorial"),
+    path("resources/manual/", ResourceCategoryView.as_view(
+        resource_type="organisers_manual", 
+        page_title="Organiser's Manual", 
+        page_description="A complete guide to planning and running a successful Python Weekend."
+    ), name="resource_manual"),
+    path("resources/mentoring/", ResourceCategoryView.as_view(
+        resource_type="mentoring_guide", 
+        page_title="Mentoring Guide", 
+        page_description="Best practices for supporting beginners and creating a welcoming environment."
+    ), name="resource_mentoring"),
+    path("resources/extensions/", ResourceCategoryView.as_view(
+        resource_type="extension", 
+        page_title="Tutorial Extensions", 
+        page_description="Advanced exercises and projects for continuing your learning journey."
+    ), name="resource_extensions"),
 
     # ── Community pages ──────────────────────────────────────────
     path("newsletter/", views.NewsletterView.as_view(), name="newsletter"),
