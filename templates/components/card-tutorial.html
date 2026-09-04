@@ -19,11 +19,11 @@ Usage: {% include "components/card-tutorial.html" with tutorial=tutorial %}
   </div>
   <div>
     <h3 class="font-display font-bold text-py-navy text-base leading-snug mb-1">
-      <a href="{% url 'content:tutorial_detail' tutorial.slug %}" class="hover:text-py-blue transition-colors">{{ tutorial.title }}</a>
+      <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="hover:text-py-blue transition-colors">{{ tutorial.title }}</a>
     </h3>
     <p class="text-gray-500 text-sm leading-relaxed">{{ tutorial.excerpt|truncatewords:18 }}</p>
   </div>
-  <a href="{% url 'content:tutorial_detail' tutorial.slug %}" class="mt-auto inline-flex items-center gap-1 text-py-blue text-sm font-medium hover:gap-2 transition-all">
+  <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="mt-auto inline-flex items-center gap-1 text-py-blue text-sm font-medium hover:gap-2 transition-all">
     Start tutorial
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
   </a>

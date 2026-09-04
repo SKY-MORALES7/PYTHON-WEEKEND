@@ -29,7 +29,7 @@
         </p>
         {% if workshop_tutorials %}
           {% for t in workshop_tutorials %}
-          <a href="{% url 'content:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
+          <a href="{% url 'tutorials:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
           {% endfor %}
         {% else %}
           <span style="color:var(--py-muted);font-size:0.9rem;font-style:italic;">Coming soon — being finalised for the next workshop edition.</span>
@@ -45,7 +45,7 @@
         </p>
         {% if organisers_manual %}
           {% for t in organisers_manual %}
-          <a href="{% url 'content:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
+          <a href="{% url 'tutorials:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
           {% endfor %}
         {% else %}
           <span style="color:var(--py-muted);font-size:0.9rem;font-style:italic;">Being prepared — contact us in the meantime.</span>
@@ -61,7 +61,7 @@
         </p>
         {% if mentoring_guide %}
           {% for t in mentoring_guide %}
-          <a href="{% url 'content:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
+          <a href="{% url 'tutorials:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
           {% endfor %}
         {% else %}
           <span style="color:var(--py-muted);font-size:0.9rem;font-style:italic;">Being prepared — available before the next workshop.</span>
@@ -77,7 +77,7 @@
         </p>
         {% if extensions %}
           {% for t in extensions %}
-          <a href="{% url 'content:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
+          <a href="{% url 'tutorials:tutorial_detail' t.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.95rem;">Read it »</a>
           {% endfor %}
         {% else %}
           <span style="color:var(--py-muted);font-size:0.9rem;font-style:italic;">More coming after the main tutorial is finalised.</span>
