@@ -55,9 +55,11 @@ class EventDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Populate mentors and partners using the through-models
+        # Populate mentors and sponsors using the through-models
+        event_sponsors = self.object.event_sponsors.select_related("sponsor").all()
         context["event_mentors"]    = self.object.event_coaches.select_related("coach").all()
-        context["event_partners"]   = self.object.event_sponsors.select_related("sponsor").all()
+        context["event_sponsors"]   = event_sponsors
+        context["event_partners"]   = event_sponsors
         
         # Organisers are currently tied to the OrganizerApplication or User model, 
         # so for now we leave it empty if no dedicated model exists for displaying them.

@@ -672,3 +672,15 @@ class EventSponsor(models.Model):
 
     def __str__(self):
         return f"{self.sponsor.name} @ {self.event.title}"
+
+    @property
+    def name(self):
+        return self.sponsor.name if self.sponsor else ""
+
+    @property
+    def logo(self):
+        return self.sponsor.logo if self.sponsor else None
+
+    @property
+    def website(self):
+        return self.sponsor.website if self.sponsor else ""

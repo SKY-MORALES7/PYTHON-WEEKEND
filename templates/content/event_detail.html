@@ -46,6 +46,7 @@
     {% if event.day1_schedule %}<a href="#schedule" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">Schedule</a>{% endif %}
     {% if event.what_you_learn %}<a href="#learn" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">What you'll learn</a>{% endif %}
     {% if event.faq %}<a href="#faq" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">FAQ</a>{% endif %}
+    {% if event_sponsors or event_partners %}<a href="#sponsors" class="py-3 text-gray-500 hover:text-py-blue border-b-2 border-transparent hover:border-py-blue transition-colors whitespace-nowrap">Sponsors</a>{% endif %}
     {% if event.application_open and event.is_upcoming %}<a href="#apply" class="py-3 text-py-yellow-dark font-semibold border-b-2 border-transparent hover:border-py-yellow-dark transition-colors whitespace-nowrap">Apply →</a>{% endif %}
   </div>
 </nav>
@@ -355,32 +356,49 @@
     </section>
     {% endif %}
 
-    <!-- ── EVENT PARTNERS ── -->
-    {% if event_partners %}
-    <section id="event-partners">
+    <!-- ── EVENT SPONSORS ── -->
+    {% if event_sponsors or event_partners %}
+    <section id="sponsors">
       <h2 class="font-display font-bold text-2xl sm:text-3xl text-py-navy mb-6 flex items-center gap-3">
-        <span class="w-1 h-8 bg-py-blue rounded-full"></span>Partners
+        <span class="w-1 h-8 bg-py-blue rounded-full"></span>{{ event.sponsors_title|default:"Sponsors" }}
       </h2>
       <p class="text-gray-500 text-sm mb-6">
-        This workshop is made possible by organisations and communities that support it financially or through approved in-kind contributions.
+        This workshop is made possible by sponsors that support it financially or through approved in-kind contributions.
         {% if event.is_upcoming %}
-        If your organisation would like to support Python Weekend {{ event.city }},
+        If your organisation would like to sponsor Python Weekend {{ event.city }},
         <a href="{% url 'core:contact' %}" class="text-py-blue hover:underline">please contact the organising team</a>.
         {% endif %}
       </p>
       <div class="flex flex-wrap gap-6 items-center">
-        {% for partner in event_partners %}
-        <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener"
-           title="{{ partner.name }}" class="block">
-          {% if partner.logo %}
-          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}"
-               class="max-h-12 max-w-[140px] object-contain opacity-80 hover:opacity-100 transition-opacity" />
+        {% for item in event_sponsors|default:event_partners %}
+        {% with sponsor=item.sponsor|default:item %}
+        {% if sponsor.website %}
+        <a href="{{ sponsor.website }}" target="_blank" rel="noopener sponsored"
+           title="{{ sponsor.name }}" class="group block transition-transform hover:-translate-y-0.5">
+        {% else %}
+        <div class="group block">
+        {% endif %}
+          {% if sponsor.logo %}
+          <div class="bg-white border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md hover:border-py-blue/40 transition-all flex items-center justify-center min-h-[60px] min-w-[140px]">
+            <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}"
+                 class="max-h-12 max-w-[160px] object-contain opacity-85 group-hover:opacity-100 transition-opacity" />
+          </div>
           {% else %}
-          <span class="inline-block px-4 py-2 border border-gray-300 rounded-lg text-py-navy font-semibold text-sm hover:border-py-blue transition-colors">
-            {{ partner.name }}
+          <span class="inline-flex items-center px-5 py-2.5 bg-white border border-gray-200 rounded-xl text-py-navy font-semibold text-sm shadow-sm group-hover:border-py-blue group-hover:text-py-blue transition-all">
+            {{ sponsor.name }}
           </span>
           {% endif %}
+          {% if item.description %}
+          <p class="text-xs text-gray-500 mt-1 text-center max-w-[160px]">{{ item.description }}</p>
+          {% elif sponsor.tagline %}
+          <p class="text-xs text-gray-400 mt-1 text-center max-w-[160px]">{{ sponsor.tagline }}</p>
+          {% endif %}
+        {% if sponsor.website %}
         </a>
+        {% else %}
+        </div>
+        {% endif %}
+        {% endwith %}
         {% endfor %}
       </div>
     </section>
