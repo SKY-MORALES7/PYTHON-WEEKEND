@@ -284,6 +284,49 @@ class ResourcesView(View):
         return render(request, self.template_name, context)
 
 
+class ResourceTutorialView(View):
+    template_name = "core/resource_tutorial.html"
+
+    def get(self, request):
+        from tutorials.models import Tutorial
+        tutorial_chapters = Tutorial.objects.filter(
+            published=True,
+            resource_type="workshop_tutorial"
+        ).exclude(slug="python-ai-tutorial").order_by("id")
+        context = {
+            "tutorial_chapters": tutorial_chapters,
+        }
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class ResourceManualView(View):
+    template_name = "core/resource_manual.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class ResourceMentoringView(View):
+    template_name = "core/resource_mentoring.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class ResourceExtensionsView(View):
+    template_name = "core/resource_extensions.html"
+
+    def get(self, request):
+        context = {}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
 class NewsletterView(View):
     template_name = "core/newsletter.html"
 

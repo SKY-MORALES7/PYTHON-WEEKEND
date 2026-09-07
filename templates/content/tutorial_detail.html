@@ -61,7 +61,7 @@
   <!-- ── HEADER ── -->
   <header class="py-16 bg-py-light border-b border-gray-200">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <a href="{% url 'content:tutorial_list' %}" class="text-py-blue text-sm hover:underline">← All tutorials</a>
+      <a href="{% url 'core:resource_tutorial' %}" class="text-py-blue text-sm hover:underline">← Python &amp; AI Tutorial</a>
 
       <div class="flex flex-wrap items-center gap-3 mt-5 mb-4">
         {% if tutorial.difficulty %}
@@ -151,9 +151,9 @@
 
   <!-- ── FOOTER NAV ── -->
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <a href="{% url 'content:tutorial_list' %}"
+    <a href="{% url 'core:resource_tutorial' %}"
        class="inline-flex items-center gap-2 text-sm text-py-blue hover:underline">
-      ← Back to tutorials
+      ← Back to Python &amp; AI Tutorial
     </a>
   </div>
 

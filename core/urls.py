@@ -20,6 +20,14 @@ urlpatterns = [
 
     # ── Resources ────────────────────────────────────────────────
     path("resources/", views.ResourcesView.as_view(), name="resources"),
+    path("resources/python-ai-tutorial/", views.ResourceTutorialView.as_view(), name="resource_tutorial"),
+    path("resources/tutorial/", views.ResourceTutorialView.as_view(), name="resource_tutorial_alias"),
+    path("resources/organisers-manual/", views.ResourceManualView.as_view(), name="resource_manual"),
+    path("resources/manual/", views.ResourceManualView.as_view(), name="resource_manual_alias"),
+    path("resources/mentoring-guide/", views.ResourceMentoringView.as_view(), name="resource_mentoring"),
+    path("resources/mentoring/", views.ResourceMentoringView.as_view(), name="resource_mentoring_alias"),
+    path("resources/tutorial-extensions/", views.ResourceExtensionsView.as_view(), name="resource_extensions"),
+    path("resources/extensions/", views.ResourceExtensionsView.as_view(), name="resource_extensions_alias"),
 
     # ── Community pages ──────────────────────────────────────────
     path("newsletter/", views.NewsletterView.as_view(), name="newsletter"),

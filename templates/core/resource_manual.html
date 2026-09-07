@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Organiser's Manual — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero Banner -->
+<section style="background:var(--py-navy);padding:4.5rem 1.5rem 3.5rem;">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:rgba(255,255,255,0.6);margin-bottom:1.25rem;">
+      <a href="{% url 'core:home' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <span>/</span>
+      <a href="{% url 'core:resources' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Resources</a>
+      <span>/</span>
+      <span style="color:var(--py-yellow);">Organiser's Manual</span>
+    </div>
+
+    <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,212,59,0.15);border:1px solid rgba(255,212,59,0.3);color:var(--py-yellow);padding:0.35rem 0.85rem;border-radius:2rem;font-size:0.8rem;font-weight:600;margin-bottom:1rem;">
+      <span>📋 Official Workshop Operations Handbook</span>
+    </div>
+
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1.25rem;">
+      Organiser's <span style="color:var(--py-yellow);">Manual</span>
+    </h1>
+
+    <p style="font-size:1.15rem;color:rgba(255,255,255,0.85);line-height:1.7;max-width:760px;margin-bottom:2rem;">
+      A practical handbook containing everything local teams need to plan, fund, and deliver a safe, inclusive, and high-impact Python Weekend workshop in their city.
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+      <a href="{% url 'applications:organize_start' %}" class="btn-orange" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;padding:0.75rem 1.75rem;font-weight:600;border-radius:0.5rem;">
+        Apply to Organise a Workshop »
+      </a>
+      <a href="#handbook-sections" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;font-size:0.95rem;font-weight:600;transition:background 0.2s;">
+        Read the Handbook
+      </a>
+      <a href="{% url 'core:resources' %}" style="display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:rgba(255,255,255,0.7);padding:0.75rem 1.25rem;text-decoration:none;font-size:0.95rem;font-weight:500;">
+        ← Back to All Resources
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="section-dg" style="padding-top:3.5rem;padding-bottom:4rem;">
+  <div class="container-dg" style="max-width:960px;">
+
+    <!-- Intro Summary -->
+    <div style="background:#fff;border-radius:1rem;padding:2rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);margin-bottom:3rem;">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">
+        About Organising an Official Workshop
+      </h2>
+      <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+        Python Weekend workshops are entirely volunteer-driven. We provide you with the curriculum, attendee registration portal, branding guidelines, coaching frameworks, and sponsor pitch packages. You bring local passion, leadership, and care for your community.
+      </p>
+      <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin:0;">
+        Workshops are strictly free for all selected participants. Organisers may never charge attendance fees or profit from Python Weekend events.
+      </p>
+    </div>
+
+    <!-- Handbook Sections -->
+    <div id="handbook-sections" style="display:flex;flex-direction:column;gap:2rem;margin-bottom:3.5rem;">
+
+      <!-- Stage 1 -->
+      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;border-left:5px solid var(--py-blue);box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+          <span style="background:var(--py-blue);color:#fff;font-weight:700;font-size:0.8rem;padding:0.25rem 0.65rem;border-radius:0.35rem;">STAGE 1</span>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin:0;">
+            Team Formation &amp; Application
+          </h3>
+        </div>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Organising a workshop is a team endeavor. We recommend assembling a core group of 2 to 4 organisers who can share responsibilities:
+        </p>
+        <ul style="list-style:disc;padding-left:1.5rem;color:var(--py-body);font-size:0.92rem;line-height:1.7;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.4rem;">
+          <li><strong>Lead Organiser:</strong> Oversees timeline, liaison with the global Python Weekend team, and overall event delivery.</li>
+          <li><strong>Mentor Coordinator:</strong> Manages outreach to local developers, mentor vetting, and training prior to event day.</li>
+          <li><strong>Logistics &amp; Venue Lead:</strong> Handles space booking, power strips, internet stability, catering, and accessibility needs.</li>
+          <li><strong>Community &amp; Communications Lead:</strong> Manages attendee email updates, local social media, photography, and Code of Conduct enforcement.</li>
+        </ul>
+        <div style="background:var(--py-light);padding:1rem 1.25rem;border-radius:0.5rem;font-size:0.875rem;color:var(--py-navy);border:1px solid #e2e8f0;">
+          💡 <em>Pro-tip: Once your core team is assembled, submit an official application via our organiser portal so we can verify dates and create your dedicated city page.</em>
+        </div>
+      </div>
+
+      <!-- Stage 2 -->
+      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;border-left:5px solid var(--py-yellow);box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+          <span style="background:var(--py-navy);color:var(--py-yellow);font-weight:700;font-size:0.8rem;padding:0.25rem 0.65rem;border-radius:0.35rem;">STAGE 2</span>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin:0;">
+            Venue Selection &amp; Technical Preparation
+          </h3>
+        </div>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Your venue defines the participant comfort. Look for universities, co-working spaces, tech hubs, or community centers that support inclusive education:
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.25rem;">
+          <div style="background:var(--py-light);padding:1rem;border-radius:0.5rem;">
+            <strong style="color:var(--py-navy);display:block;margin-bottom:0.25rem;">🔌 Power &amp; Extension Cords</strong>
+            <span style="font-size:0.875rem;color:var(--py-body);">Ensure at least one socket per participant. Laptops will be coding for 7+ hours.</span>
+          </div>
+          <div style="background:var(--py-light);padding:1rem;border-radius:0.5rem;">
+            <strong style="color:var(--py-navy);display:block;margin-bottom:0.25rem;">📶 High-Bandwidth Wi-Fi</strong>
+            <span style="font-size:0.875rem;color:var(--py-body);">Wi-Fi must handle 40–60 devices concurrently downloading Python packages.</span>
+          </div>
+          <div style="background:var(--py-light);padding:1rem;border-radius:0.5rem;">
+            <strong style="color:var(--py-navy);display:block;margin-bottom:0.25rem;">♿ Accessibility &amp; Safety</strong>
+            <span style="font-size:0.875rem;color:var(--py-body);">Step-free access, clean restrooms, well-ventilated rooms, and secure premises.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 3 -->
+      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;border-left:5px solid var(--py-blue);box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+          <span style="background:var(--py-blue);color:#fff;font-weight:700;font-size:0.8rem;padding:0.25rem 0.65rem;border-radius:0.35rem;">STAGE 3</span>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin:0;">
+            Budgeting &amp; Local Sponsorship
+          </h3>
+        </div>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          Workshops require funding for catering (lunch, coffee, water), stickers/swag, and venue fees (if not sponsored in-kind). Use our official Sponsor Pack to approach local tech companies.
+        </p>
+        <ul style="list-style:disc;padding-left:1.5rem;color:var(--py-body);font-size:0.92rem;line-height:1.7;margin:0;display:flex;flex-direction:column;gap:0.4rem;">
+          <li>Offer logos on local workshop badges, banners, and opening slides.</li>
+          <li>Never share attendee personal contact details with sponsors under any circumstances.</li>
+          <li>Ensure financial transparency by keeping itemized receipts for every expenditure.</li>
+        </ul>
+      </div>
+
+      <!-- Stage 4 -->
+      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;border-left:5px solid var(--py-yellow);box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+          <span style="background:var(--py-navy);color:var(--py-yellow);font-weight:700;font-size:0.8rem;padding:0.25rem 0.65rem;border-radius:0.35rem;">STAGE 4</span>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin:0;">
+            Participant Selection &amp; Mentor Matching
+          </h3>
+        </div>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          We typically receive 3x to 5x more applications than available seats. Review applications anonymously based on motivation, curiosity, and priority for underrepresented groups in technology.
+        </p>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin:0;">
+          Maintain a <strong>1:3 or 1:4 mentor-to-attendee ratio</strong>. Small pods allow learners to ask questions freely without embarrassment.
+        </p>
+      </div>
+
+      <!-- Stage 5 -->
+      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;border-left:5px solid var(--py-blue);box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+          <span style="background:var(--py-blue);color:#fff;font-weight:700;font-size:0.8rem;padding:0.25rem 0.65rem;border-radius:0.35rem;">STAGE 5</span>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin:0;">
+            Workshop Day &amp; Schedule
+          </h3>
+        </div>
+        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.7;margin-bottom:1rem;">
+          A recommended 2-day format that balances technical depth with rest and celebration:
+        </p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+          <div style="background:var(--py-light);padding:1.25rem;border-radius:0.5rem;">
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Friday Evening (2 hours): Installation Party</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Meet coaches, install Python &amp; VS Code, verify dependencies, and eliminate setup frustration before Saturday begins.</p>
+          </div>
+          <div style="background:var(--py-light);padding:1.25rem;border-radius:0.5rem;">
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Saturday (Full Day): Build &amp; Deploy</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Welcome talk &amp; Code of Conduct, hands-on coding in pods, group lunch, AI project integration, and final project demo showcase.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Call to Action Banner -->
+    <div style="background:linear-gradient(135deg, var(--py-navy) 0%, #1e293b 100%);border-radius:1rem;padding:2.5rem;text-align:center;color:#fff;">
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-yellow);margin-bottom:0.75rem;">
+        Ready to Bring Python Weekend to Your Community?
+      </h3>
+      <p style="color:rgba(255,255,255,0.8);font-size:1rem;max-width:620px;margin:0 auto 1.5rem;line-height:1.6;">
+        Submit your organiser application today. Our team will review your proposal, schedule an onboarding chat, and set up your event workspace.
+      </p>
+      <a href="{% url 'applications:organize_start' %}" class="btn-orange" style="display:inline-block;padding:0.8rem 2rem;font-weight:700;border-radius:0.5rem;text-decoration:none;">
+        Apply to Organise a Workshop »
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

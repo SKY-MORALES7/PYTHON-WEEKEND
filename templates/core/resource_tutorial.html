@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Python and AI Tutorial — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero Banner -->
+<section style="background:var(--py-navy);padding:4.5rem 1.5rem 3.5rem;">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:rgba(255,255,255,0.6);margin-bottom:1.25rem;">
+      <a href="{% url 'core:home' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <span>/</span>
+      <a href="{% url 'core:resources' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Resources</a>
+      <span>/</span>
+      <span style="color:var(--py-yellow);">Python &amp; AI Tutorial</span>
+    </div>
+
+    <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,212,59,0.15);border:1px solid rgba(255,212,59,0.3);color:var(--py-yellow);padding:0.35rem 0.85rem;border-radius:2rem;font-size:0.8rem;font-weight:600;margin-bottom:1rem;">
+      <span>🐍 Official Workshop Curriculum</span>
+    </div>
+
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1.25rem;">
+      Python &amp; AI <span style="color:var(--py-yellow);">Tutorial</span>
+    </h1>
+
+    <p style="font-size:1.15rem;color:rgba(255,255,255,0.85);line-height:1.7;max-width:760px;margin-bottom:2rem;">
+      The official learning resource used during Python Weekend workshops. Designed specifically for complete beginners with zero previous programming experience to write their first Python code and build an intelligent assistant.
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+      {% if tutorial_chapters %}
+      <a href="{% url 'tutorials:tutorial_detail' tutorial_chapters.0.slug %}" class="btn-orange" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;padding:0.75rem 1.75rem;font-weight:600;border-radius:0.5rem;">
+        Start Learning »
+      </a>
+      {% endif %}
+      <a href="#curriculum" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;font-size:0.95rem;font-weight:600;transition:background 0.2s;">
+        Browse Curriculum
+      </a>
+      <a href="{% url 'core:resources' %}" style="display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:rgba(255,255,255,0.7);padding:0.75rem 1.25rem;text-decoration:none;font-size:0.95rem;font-weight:500;">
+        ← Back to All Resources
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Overview Cards -->
+<section class="section-dg" style="padding-top:3.5rem;padding-bottom:3.5rem;">
+  <div class="container-dg" style="max-width:960px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-bottom:3.5rem;">
+      <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="font-size:1.75rem;margin-bottom:0.75rem;">🎯</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Zero Prerequisites</h3>
+        <p style="color:var(--py-body);font-size:0.9rem;line-height:1.6;margin:0;">No technical background required. We explain everything from the ground up with plain language and intuitive analogies.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="font-size:1.75rem;margin-bottom:0.75rem;">💻</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Hands-On &amp; Practical</h3>
+        <p style="color:var(--py-body);font-size:0.9rem;line-height:1.6;margin:0;">Write real code from chapter one. Rather than memorizing abstract syntax, you'll solve realistic challenges step-by-step.</p>
+      </div>
+
+      <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="font-size:1.75rem;margin-bottom:0.75rem;">🤖</div>
+        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">First Steps into AI</h3>
+        <p style="color:var(--py-body);font-size:0.9rem;line-height:1.6;margin:0;">Demystify artificial intelligence. Learn how Python powers modern AI systems and build a guided beginner AI project.</p>
+      </div>
+    </div>
+
+    <!-- What You Learn -->
+    <div style="background:var(--py-light);border-radius:1rem;padding:2.5rem;border:1px solid #e2e8f0;margin-bottom:3.5rem;">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-navy);margin-bottom:1.25rem;">
+        What You'll Learn Over the Weekend
+      </h2>
+      <p style="color:var(--py-body);font-size:1rem;line-height:1.7;margin-bottom:1.5rem;">
+        The workshop tutorial takes you on a structured journey across two intensive, fun-filled days. By the time you finish, you will have built and deployed a working project:
+      </p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+        <div style="display:flex;gap:1rem;">
+          <span style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--py-blue);color:#fff;font-weight:700;font-size:0.85rem;flex-shrink:0;">1</span>
+          <div>
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);font-size:1.05rem;margin-bottom:0.25rem;">The Environment Setup</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Setting up Python, Visual Studio Code, understanding the terminal, and learning how a computer runs your instructions.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;">
+          <span style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--py-blue);color:#fff;font-weight:700;font-size:0.85rem;flex-shrink:0;">2</span>
+          <div>
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);font-size:1.05rem;margin-bottom:0.25rem;">Python Foundations</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Variables, numbers, strings, lists, loops, and conditional logic. The fundamental building blocks of all software.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;">
+          <span style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--py-blue);color:#fff;font-weight:700;font-size:0.85rem;flex-shrink:0;">3</span>
+          <div>
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);font-size:1.05rem;margin-bottom:0.25rem;">Functions &amp; Reusability</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Writing your own custom functions, understanding inputs and outputs, and organizing code neatly so it is readable and reusable.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;">
+          <span style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;border-radius:50%;background:var(--py-blue);color:#fff;font-weight:700;font-size:0.85rem;flex-shrink:0;">4</span>
+          <div>
+            <h4 style="font-family:'Rajdhani',sans-serif;font-weight:700;color:var(--py-navy);font-size:1.05rem;margin-bottom:0.25rem;">Beginner AI Project</h4>
+            <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">Connecting Python to an intelligent model to build an interactive command-line assistant that responds to user questions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Curriculum / Chapters -->
+    <div id="curriculum" style="margin-bottom:3.5rem;">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+        <div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">
+            Interactive Tutorial Chapters
+          </h2>
+          <p style="color:var(--py-muted);font-size:0.95rem;margin:0;">Read at your own pace or follow along during a workshop.</p>
+        </div>
+      </div>
+
+      {% if tutorial_chapters %}
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;">
+        {% for chapter in tutorial_chapters %}
+        <div style="background:#fff;border-radius:0.75rem;padding:1.5rem;border:1px solid #e2e8f0;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,0.05);transition:transform 0.2s,box-shadow 0.2s;" class="hover:shadow-md hover:-translate-y-0.5">
+          <div>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+              <span style="font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--py-blue);letter-spacing:0.05em;">Chapter {{ forloop.counter }}</span>
+              <span style="font-size:0.75rem;padding:0.2rem 0.5rem;border-radius:1rem;background:#edf2f7;color:var(--py-muted);font-weight:600;">{{ chapter.get_difficulty_display }}</span>
+            </div>
+            <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">
+              {{ chapter.title }}
+            </h3>
+            <p style="color:var(--py-body);font-size:0.875rem;line-height:1.6;margin-bottom:1rem;">
+              {{ chapter.excerpt|default:"Learn the foundational concepts and practical code examples for this chapter." }}
+            </p>
+          </div>
+          <a href="{% url 'tutorials:tutorial_detail' chapter.slug %}" style="color:var(--py-blue);font-weight:600;font-size:0.9rem;display:inline-flex;align-items:center;gap:0.35rem;text-decoration:none;">
+            Read chapter »
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div style="background:#fff;border-radius:0.75rem;padding:2rem;text-align:center;border:1px dashed #cbd5e1;">
+        <p style="color:var(--py-muted);margin:0;">Tutorial chapters are being updated for the upcoming workshop cohort.</p>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Related Resources Navigation -->
+    <div style="background:var(--py-light);border-radius:1rem;padding:2rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.5rem;">
+      <div>
+        <h4 style="font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">Looking for more resources?</h4>
+        <p style="font-size:0.875rem;color:var(--py-muted);margin:0;">Explore our guide for mentors, the organiser manual, or post-workshop extensions.</p>
+      </div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <a href="{% url 'core:resource_mentoring' %}" style="padding:0.5rem 1rem;background:#fff;border:1px solid #cbd5e1;border-radius:0.5rem;color:var(--py-navy);font-size:0.875rem;font-weight:600;text-decoration:none;">Mentoring Guide »</a>
+        <a href="{% url 'core:resource_extensions' %}" style="padding:0.5rem 1rem;background:#fff;border:1px solid #cbd5e1;border-radius:0.5rem;color:var(--py-navy);font-size:0.875rem;font-weight:600;text-decoration:none;">Tutorial Extensions »</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

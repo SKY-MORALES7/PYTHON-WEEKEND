@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Mentoring Guide — Python Weekend{% endblock %}
+
+{% block content %}
+
+<!-- Hero Banner -->
+<section style="background:var(--py-navy);padding:4.5rem 1.5rem 3.5rem;">
+  <div style="max-width:960px;margin:0 auto;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:rgba(255,255,255,0.6);margin-bottom:1.25rem;">
+      <a href="{% url 'core:home' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Home</a>
+      <span>/</span>
+      <a href="{% url 'core:resources' %}" style="color:rgba(255,255,255,0.7);text-decoration:none;">Resources</a>
+      <span>/</span>
+      <span style="color:var(--py-yellow);">Mentoring Guide</span>
+    </div>
+
+    <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,212,59,0.15);border:1px solid rgba(255,212,59,0.3);color:var(--py-yellow);padding:0.35rem 0.85rem;border-radius:2rem;font-size:0.8rem;font-weight:600;margin-bottom:1rem;">
+      <span>🧑‍🏫 Official Mentor &amp; Coach Guidebook</span>
+    </div>
+
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:1.25rem;">
+      Mentoring <span style="color:var(--py-yellow);">Guide</span>
+    </h1>
+
+    <p style="font-size:1.15rem;color:rgba(255,255,255,0.85);line-height:1.7;max-width:760px;margin-bottom:2rem;">
+      Good mentoring is the heart of Python Weekend. Learn how to guide complete beginners with empathy, patience, and effective pedagogy—without taking over their keyboard.
+    </p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+      <a href="{% url 'core:contribute' %}" class="btn-orange" style="display:inline-flex;align-items:center;gap:0.5rem;text-decoration:none;padding:0.75rem 1.75rem;font-weight:600;border-radius:0.5rem;">
+        Volunteer as a Mentor »
+      </a>
+      <a href="#principles" style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.25);color:#fff;padding:0.75rem 1.5rem;border-radius:0.5rem;text-decoration:none;font-size:0.95rem;font-weight:600;transition:background 0.2s;">
+        Core Principles
+      </a>
+      <a href="{% url 'core:resources' %}" style="display:inline-flex;align-items:center;gap:0.5rem;background:transparent;color:rgba(255,255,255,0.7);padding:0.75rem 1.25rem;text-decoration:none;font-size:0.95rem;font-weight:500;">
+        ← Back to All Resources
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Main Guide Content -->
+<section class="section-dg" style="padding-top:3.5rem;padding-bottom:4rem;">
+  <div class="container-dg" style="max-width:960px;">
+
+    <!-- The Golden Rule Callout -->
+    <div style="background:#fef3c7;border-left:5px solid #d97706;border-radius:0.75rem;padding:1.5rem 1.75rem;margin-bottom:3rem;">
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:#92400e;margin-bottom:0.5rem;">
+        ⚠️ The #1 Rule of Python Weekend Mentoring
+      </h3>
+      <p style="color:#78350f;font-size:0.95rem;line-height:1.6;margin:0;">
+        <strong>Never touch the attendee's keyboard or mouse.</strong> Even when you want to quickly fix a typo or indentation error, resist the urge. When you type for them, they lose confidence and ownership of their learning. Instead, verbalize where to look: <em>"Check line 7—what do you notice at the end of the line?"</em>
+      </p>
+    </div>
+
+    <!-- 4 Core Principles -->
+    <div id="principles" style="margin-bottom:3.5rem;">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-navy);margin-bottom:1.5rem;">
+        Our Core Mentoring Principles
+      </h2>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;">
+        <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🌱</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Empathy &amp; Beginners' Mindset</h3>
+          <p style="color:var(--py-body);font-size:0.875rem;line-height:1.6;margin:0;">Remember when you first saw a terminal or got a <code>SyntaxError</code>. Concepts that feel obvious to senior developers (like file paths, strings, loops) are brand new foreign languages for beginners.</p>
+        </div>
+
+        <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">❓</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Ask Guiding Questions</h3>
+          <p style="color:var(--py-body);font-size:0.875rem;line-height:1.6;margin:0;">Instead of giving answers directly, use the Socratic method: <em>"What error message is the console printing?"</em> or <em>"What value do you expect this variable to hold right now?"</em></p>
+        </div>
+
+        <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🎉</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Celebrate Small Wins</h3>
+          <p style="color:var(--py-body);font-size:0.875rem;line-height:1.6;margin:0;">Getting a variable to print, fixing an indentation error, or seeing their first function return a value are huge victories. Genuine encouragement builds resilience and joy.</p>
+        </div>
+
+        <div style="background:#fff;border-radius:0.85rem;padding:1.75rem;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🛡️</div>
+          <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Psychological Safety</h3>
+          <p style="color:var(--py-body);font-size:0.875rem;line-height:1.6;margin:0;">There are no "stupid questions." Normalize mistakes: tell them developers spend 70% of their time fixing bugs, and errors are proof that they are learning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Practical Scenarios & Tips -->
+    <div style="background:var(--py-light);border-radius:1rem;padding:2.5rem;border:1px solid #e2e8f0;margin-bottom:3.5rem;">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-navy);margin-bottom:1.25rem;">
+        Handling Common Workshop Situations
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:1.5rem;">
+        <div style="background:#fff;padding:1.5rem;border-radius:0.75rem;border:1px solid #e2e8f0;">
+          <h4 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.35rem;">
+            Scenario 1: One participant is much faster than the others in your pod
+          </h4>
+          <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">
+            Give the faster participant optional challenge exercises or encourage them to explain concepts to their peer. Explaining code reinforces learning for both learners without leaving anyone behind.
+          </p>
+        </div>
+
+        <div style="background:#fff;padding:1.5rem;border-radius:0.75rem;border:1px solid #e2e8f0;">
+          <h4 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.35rem;">
+            Scenario 2: A participant is overwhelmed or experiencing impostor syndrome
+          </h4>
+          <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">
+            Encourage a 5-minute stretch or tea break. Remind them that fatigue is normal, and validate their feelings: <em>"Programming is intense when you first start. You've already written 20 lines of code today that you didn't know yesterday!"</em>
+          </p>
+        </div>
+
+        <div style="background:#fff;padding:1.5rem;border-radius:0.75rem;border:1px solid #e2e8f0;">
+          <h4 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.35rem;">
+            Scenario 3: You encounter a bizarre bug you don't immediately know how to fix
+          </h4>
+          <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;margin:0;">
+            This is the best teaching moment! Say: <em>"I haven't seen this exact error before either—let's read the traceback together and figure out what it tells us."</em> Demonstrating how a professional debugs is invaluable.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Do's and Don'ts Grid -->
+    <div style="margin-bottom:3.5rem;">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-navy);margin-bottom:1.25rem;">
+        Mentor Do's and Don'ts
+      </h2>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;">
+        <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:0.75rem;padding:1.5rem;">
+          <h4 style="color:#065f46;font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.75rem;">
+            ✅ DO
+          </h4>
+          <ul style="list-style:disc;padding-left:1.25rem;color:#064e3b;font-size:0.875rem;line-height:1.7;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+            <li>Sit next to or slightly behind the attendee, at their eye level.</li>
+            <li>Use plain language and explain acronyms (CLI, IDE, API).</li>
+            <li>Praise curiosity and experimentation ("Try changing that number and see what happens!").</li>
+            <li>Check in with quiet participants who might be hesitant to raise their hand.</li>
+          </ul>
+        </div>
+
+        <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:0.75rem;padding:1.5rem;">
+          <h4 style="color:#991b1b;font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.75rem;">
+            ❌ DON'T
+          </h4>
+          <ul style="list-style:disc;padding-left:1.25rem;color:#7f1d1d;font-size:0.875rem;line-height:1.7;display:flex;flex-direction:column;gap:0.35rem;margin:0;">
+            <li>Never touch their keyboard or grab their mouse.</li>
+            <li>Don't say "this is easy" or "obviously"—it diminishes their struggle.</li>
+            <li>Don't introduce advanced computer science theory or framework debates prematurely.</li>
+            <li>Don't show off complex one-liner shortcuts that confuse beginner readability.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteer CTA -->
+    <div style="background:var(--py-navy);border-radius:1rem;padding:2.5rem;text-align:center;color:#fff;">
+      <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.75rem;font-weight:700;color:var(--py-yellow);margin-bottom:0.75rem;">
+        Help Inspire the Next Cohort of Programmers
+      </h3>
+      <p style="color:rgba(255,255,255,0.8);font-size:1rem;max-width:620px;margin:0 auto 1.5rem;line-height:1.6;">
+        Interested in coaching at an upcoming workshop in your area? Let us know your availability and city!
+      </p>
+      <a href="{% url 'core:contribute' %}" class="btn-orange" style="display:inline-block;padding:0.8rem 2rem;font-weight:700;border-radius:0.5rem;text-decoration:none;">
+        Sign Up to Mentor »
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
