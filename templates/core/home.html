@@ -342,6 +342,9 @@
 
         <form action="{% url 'core:subscribe' %}" method="post" class="newsletter-form">
           {% csrf_token %}
+          <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" />
+          </div>
           <input type="email" name="email" placeholder="email address" required />
           <button type="submit">Subscribe</button>
         </form>

@@ -69,6 +69,7 @@
 import logging
 from django.core.mail import send_mail
 from django.conf import settings
+from core.security import is_email_sending_enabled
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +78,10 @@ def send_status_update_email(application):
     Fires an email to the applicant notifying them if their application 
     to organize an event was approved or rejected.
     """
+    if not is_email_sending_enabled():
+        logger.info("Outbound emails disabled via EMAIL_ENABLED=False. Skipping send_status_update_email.")
+        return
+
     site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
     user_email = application.email
     user_name = application.full_name
@@ -124,6 +129,10 @@ def send_application_notifications(application):
     Handles sending emails to the attendee (applicant) and internal stakeholders
     (organizers, coaches, sponsors) upon a new submission.
     """
+    if not is_email_sending_enabled():
+        logger.info("Outbound emails disabled via EMAIL_ENABLED=False. Skipping send_application_notifications.")
+        return
+
     site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
     
     from django.contrib.auth import get_user_model

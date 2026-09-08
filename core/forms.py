@@ -1,4 +1,5 @@
 from django import forms
+import re
 
 
 INTEREST_CHOICES = [
@@ -37,12 +38,20 @@ class ContactForm(forms.Form):
         }),
     )
 
+    # ── Invisible honeypot trap for bots ──────────────────────────────────────
+    # Humans will never see or interact with this field. Bots blindly fill it out.
+    website = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            "style": "display:none !important; position:absolute; left:-9999px;",
+            "tabindex": "-1",
+            "autocomplete": "off",
+            "aria-hidden": "true",
+        }),
+    )
+
     def save(self):
-        """
-        Override this method to integrate with your preferred backend:
-        email (send_mail), a ContactMessage model, or a third-party service.
-        """
-        # Persist the submission to the ContactMessage model by default.
+        """Persist the submission to the ContactMessage model."""
         from .models import ContactMessage
 
         return ContactMessage.objects.create(
@@ -52,6 +61,12 @@ class ContactForm(forms.Form):
             message=self.cleaned_data.get("message", ""),
         )
 
+    def clean_website(self):
+        website = self.cleaned_data.get("website", "").strip()
+        if website:
+            raise forms.ValidationError("Invalid submission.")
+        return website
+
     def clean_name(self):
         name = self.cleaned_data.get("name", "").strip()
         if any(char.isdigit() for char in name):
@@ -59,3 +74,9 @@ class ContactForm(forms.Form):
         if len(name) < 2:
             raise forms.ValidationError("Please provide your full name.")
         return name
+
+    def clean_message(self):
+        message = self.cleaned_data.get("message", "").strip()
+        if len(message) < 5:
+            raise forms.ValidationError("Please provide a slightly more descriptive message.")
+        return message

@@ -27,6 +27,9 @@
 
     <form action="{% url 'core:newsletter' %}" method="post" style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto;">
       {% csrf_token %}
+      <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
+        <input type="text" name="website" tabindex="-1" autocomplete="off" />
+      </div>
       <input type="email" name="email" placeholder="email address" required
              style="flex:1;min-width:220px;padding:0.75rem 1rem;border-radius:0.5rem;border:none;font-size:0.95rem;outline:none;" />
       <button type="submit" class="btn-orange" style="white-space:nowrap;">Subscribe</button>

@@ -25,6 +25,13 @@ class ApplicationFormView(View):
         })
 
     def post(self, request, form_id):
+        from core.security import check_rate_limit
+        is_allowed, _ = check_rate_limit(request, "event_application", max_requests=5, window_seconds=600)
+        if not is_allowed:
+            from django.contrib import messages
+            messages.error(request, "Too many applications submitted recently. Please wait a few minutes before trying again.")
+            return redirect("applications:apply", form_id=form_id)
+
         application_form = get_object_or_404(Form, pk=form_id, is_open=True)
         form = DynamicApplicationForm(request.POST, application_form=application_form)
 
@@ -78,6 +85,13 @@ class OrganizeWizardView(View):
         wizard_data = request.session.get("organize_wizard", {})
 
         if step == 1:
+            from core.security import check_rate_limit
+            is_allowed, _ = check_rate_limit(request, "organize_wizard", max_requests=10, window_seconds=600)
+            if not is_allowed:
+                context = self._build_context(request, step)
+                context["error"] = "Too many requests. Please wait a few minutes before trying again."
+                return render(request, WIZARD_TEMPLATES[step], context)
+
             errors = {}
             first_name = request.POST.get("lead_first_name", "").strip()
             last_name = request.POST.get("lead_last_name", "").strip()
@@ -188,8 +202,15 @@ class OrganizeWizardView(View):
         from django.core.mail import send_mail
         from django.conf import settings
         from django.contrib.auth import get_user_model
+        from core.security import is_email_sending_enabled
 
         logger = logging.getLogger(__name__)
+
+        if not is_email_sending_enabled():
+            logger.info("Outbound emails disabled via EMAIL_ENABLED=False. Skipping organizer notification emails.")
+            request.session.pop("organize_wizard", None)
+            return redirect("applications:organize_success")
+
         User = get_user_model()
 
         organizer_name = f"{application.lead_first_name} {application.lead_last_name}".strip()

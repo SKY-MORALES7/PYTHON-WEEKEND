@@ -112,7 +112,8 @@ STORAGES = {
 }
 
 
-# Email — Resend SMTP
+# Email — Resend SMTP & Emergency Kill-switch
+EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "True").strip().lower() in ("true", "1", "yes")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 EMAIL_HOST = "smtp.resend.com"

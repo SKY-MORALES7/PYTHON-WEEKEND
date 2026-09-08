@@ -78,6 +78,7 @@ from subscribers.models import Subscriber
 from newsletter.models import Newsletter
 from .forms import ContactForm
 from .utils import send_contact_notifications, send_newsletter_welcome
+from .security import validate_honeypot, check_rate_limit
 
 
 def _footer_context():
@@ -183,12 +184,23 @@ class ContactView(View):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
+        # 1. Honeypot check: If the hidden trap was filled, silently drop the request
+        if not validate_honeypot(request, "website"):
+            messages.success(request, "Thanks! We'll be in touch soon.")
+            return redirect("core:contact")
+
+        # 2. Rate limit check: Prevent brute-force floods (staff exempt)
+        is_allowed, _ = check_rate_limit(request, "contact_form", max_requests=5, window_seconds=600)
+        if not is_allowed:
+            messages.error(request, "You have submitted too many requests recently. Please wait a few minutes before trying again.")
+            return redirect("core:contact")
+
         form = ContactForm(request.POST)
         if form.is_valid():
             # Save the submission object 
             contact_submission = form.save()
             
-            # Fire off the email router!
+            # Fire off the email router! (Sends to staff only; auto-reflection to submitter is disabled)
             send_contact_notifications(contact_submission)
             
             messages.success(request, "Thanks! We'll be in touch soon.")
@@ -204,6 +216,18 @@ def handler404(request, exception):
 
 class SubscribeView(View):
     def post(self, request):
+        # 1. Honeypot check
+        if not validate_honeypot(request, "website"):
+            referer = request.META.get('HTTP_REFERER')
+            return redirect(referer if referer else 'core:home')
+
+        # 2. Rate limit check (staff exempt)
+        is_allowed, _ = check_rate_limit(request, "newsletter_subscribe", max_requests=5, window_seconds=600)
+        if not is_allowed:
+            messages.error(request, "Too many requests. Please try again later.")
+            referer = request.META.get('HTTP_REFERER')
+            return redirect(referer if referer else 'core:home')
+
         email = request.POST.get("email")
         if email:
             subscriber, created = Subscriber.objects.get_or_create(email=email)
@@ -331,6 +355,16 @@ class NewsletterView(View):
     template_name = "core/newsletter.html"
 
     def post(self, request):
+        # 1. Honeypot check
+        if not validate_honeypot(request, "website"):
+            return redirect("core:newsletter")
+
+        # 2. Rate limit check (staff exempt)
+        is_allowed, _ = check_rate_limit(request, "newsletter_subscribe", max_requests=5, window_seconds=600)
+        if not is_allowed:
+            messages.error(request, "Too many requests. Please try again later.")
+            return redirect("core:newsletter")
+
         email = request.POST.get("email")
         if email:
             subscriber, created = Subscriber.objects.get_or_create(email=email)
