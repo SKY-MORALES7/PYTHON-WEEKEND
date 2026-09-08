@@ -184,15 +184,15 @@ class ContactView(View):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request):
-        # 1. Honeypot check: If the hidden trap was filled, silently drop the request
-        if not validate_honeypot(request, "website"):
-            messages.success(request, "Thanks! We'll be in touch soon.")
-            return redirect("core:contact")
-
-        # 2. Rate limit check: Prevent brute-force floods (staff exempt)
+        # 1. Rate limit check: Prevent brute-force floods (staff exempt)
         is_allowed, _ = check_rate_limit(request, "contact_form", max_requests=5, window_seconds=600)
         if not is_allowed:
             messages.error(request, "You have submitted too many requests recently. Please wait a few minutes before trying again.")
+            return redirect("core:contact")
+
+        # 2. Honeypot check: If the hidden trap was filled, silently drop the request
+        if not validate_honeypot(request, "website"):
+            messages.success(request, "Thanks! We'll be in touch soon.")
             return redirect("core:contact")
 
         form = ContactForm(request.POST)
