@@ -1,30 +1,30 @@
 {% comment %}
 Usage: {% include "components/card-tutorial.html" with tutorial=tutorial %}
 {% endcomment %}
-<article class="bg-white border border-gray-200 rounded-xl p-5 hover:border-py-blue/30 transition-all duration-300 hover:shadow-lg hover:shadow-py-blue/5 flex flex-col gap-3">
+<article class="bg-white border-2 border-shield-navy p-6 transition-all duration-300 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] flex flex-col gap-4">
   <div class="flex items-start justify-between gap-3">
-    <div class="w-10 h-10 rounded-lg bg-py-blue/10 flex items-center justify-center flex-shrink-0">
-      <svg class="w-5 h-5 text-py-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+    <div class="w-12 h-12 border-2 border-shield-navy bg-shield-blue/10 flex items-center justify-center flex-shrink-0">
+      <svg class="w-6 h-6 text-shield-navy" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="square" stroke-linejoin="miter" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
       </svg>
     </div>
     {% if tutorial.difficulty %}
-    <span class="text-xs px-2 py-0.5 rounded-full border
-      {% if tutorial.difficulty == 'beginner' %}border-green-500/40 text-green-600
-      {% elif tutorial.difficulty == 'intermediate' %}border-yellow-500/40 text-yellow-600
-      {% else %}border-red-400/40 text-red-500{% endif %}">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 border-shield-navy
+      {% if tutorial.difficulty == 'beginner' %}bg-green-100 text-green-900
+      {% elif tutorial.difficulty == 'intermediate' %}bg-shield-ice text-shield-navy
+      {% else %}bg-shield-red text-white{% endif %}">
       {{ tutorial.get_difficulty_display }}
     </span>
     {% endif %}
   </div>
   <div>
-    <h3 class="font-display font-bold text-py-navy text-base leading-snug mb-1">
-      <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="hover:text-py-blue transition-colors">{{ tutorial.title }}</a>
+    <h3 class="font-display font-bold text-shield-navy text-xl leading-none mb-2 uppercase tracking-tight">
+      <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="hover:underline underline-offset-4 decoration-2">{{ tutorial.title }}</a>
     </h3>
-    <p class="text-gray-500 text-sm leading-relaxed">{{ tutorial.excerpt|truncatewords:18 }}</p>
+    <p class="font-body text-shield-navy text-sm leading-relaxed font-medium">{{ tutorial.excerpt|truncatewords:18 }}</p>
   </div>
-  <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="mt-auto inline-flex items-center gap-1 text-py-blue text-sm font-medium hover:gap-2 transition-all">
+  <a href="{% url 'tutorials:tutorial_detail' tutorial.slug %}" class="mt-auto font-mono text-xs font-bold uppercase tracking-widest inline-flex items-center gap-2 text-shield-navy hover:text-shield-blue transition-colors group">
     Start tutorial
-    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7"/></svg>
   </a>
 </article>

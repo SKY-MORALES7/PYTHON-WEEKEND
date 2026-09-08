@@ -7,37 +7,10 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%234B8BBE'/><text x='50' y='55' font-family='sans-serif' font-size='40' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>PW</text></svg>">
   <title>{% block title %}Python Weekend{% endblock %}</title>
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            py: {
-              blue: "#4B8BBE",
-              "blue-dark": "#306998",
-              yellow: "#FFD43B",
-              "yellow-dark": "#C9A227",
-              navy: "#16213E",
-              light: "#f8f9fa",
-              body: "#4a4a4a",
-              muted: "#6c757d",
-            },
-          },
-          fontFamily: {
-            display: ['"Rajdhani"', "sans-serif"],
-            body: ['"DM Sans"', "sans-serif"],
-          },
-        },
-      },
-    }
-  </script>
-
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Rajdhani:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@700;800&family=Inter:wght@400;500;600;700;800&family=Martian+Mono:wght@400..800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{% static 'css/dist/output.css' %}">
   <link rel="stylesheet" href="{% static 'css/pythonweekend-theme.css' %}">
 

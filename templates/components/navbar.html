@@ -1,33 +1,33 @@
 {% load static content_tags %}
 {% get_menu "header" as header_menu %}
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50 h-[70px]">
+<nav class="bg-white border-b-2 border-shield-navy sticky top-0 z-50 h-[70px]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 py-6">
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group focus:outline-none">
-        <span class="w-8 h-8 rounded-full bg-gradient-to-br from-py-blue to-py-blue-dark flex items-center justify-center text-xs font-bold text-white">PW</span>
-        <span class="text-py-navy font-display font-bold text-lg tracking-wide transition-colors">
-          Python <span class="text-py-blue">Weekend</span>
+        <span class="w-8 h-8 border-2 border-shield-navy bg-shield-blue flex items-center justify-center text-xs font-bold text-white shadow-[2px_2px_0_#16213e]">PW</span>
+        <span class="text-shield-navy font-display font-bold text-xl uppercase tracking-widest transition-colors">
+          Python <span class="text-shield-blue">Weekend</span>
         </span>
       </a>
 
       <!-- Desktop Links -->
-      <div class="hidden md:flex items-center gap-1 text-sm font-medium">
+      <div class="hidden md:flex items-center gap-1 text-sm font-medium font-mono uppercase tracking-widest">
 
         {% for item in header_menu %}
 
           {% if item.child_items %}
             <!-- Dropdown group: {{ item.label }} -->
             <div class="relative group">
-              <button class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors flex items-center gap-1">
+              <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold">
                 {{ item.label }}
-                <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
               </button>
-              <div class="absolute top-full left-0 mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="absolute top-full left-0 mt-1 w-52 bg-white border-2 border-shield-navy shadow-brutal py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 {% for child in item.child_items %}
                   <a href="{{ child.url }}"
-                     class="block px-4 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors"
+                     class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold"
                      {% if child.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
                     {{ child.label }}
                   </a>
@@ -38,7 +38,7 @@
           {% elif item.label == "Contact Us" %}
             <!-- CTA button style for Contact Us -->
             <a href="{{ item.url }}"
-               class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors hover:scale-105"
+               class="ml-2 px-4 py-2 bg-shield-ice border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
                {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
               {{ item.label }}
             </a>
@@ -46,7 +46,7 @@
           {% else %}
             <!-- Plain link -->
             <a href="{{ item.url }}"
-               class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors"
+               class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors font-bold"
                {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
               {{ item.label }}
             </a>
@@ -55,8 +55,8 @@
 
         {% empty %}
           <!-- Fallback: no menu items configured in database -->
-          <a href="/events/" class="px-3 py-2 rounded-lg text-gray-600 hover:text-py-blue hover:bg-gray-50 transition-colors">Events</a>
-          <a href="/contact/" class="ml-2 px-4 py-2 bg-py-blue hover:bg-py-blue-dark text-white rounded-lg font-semibold text-sm transition-colors">Contact Us</a>
+          <a href="/events/" class="px-3 py-2 text-shield-navy hover:text-shield-blue transition-colors font-bold">Events</a>
+          <a href="/contact/" class="ml-2 px-4 py-2 bg-shield-ice border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">Contact Us</a>
         {% endfor %}
 
       </div>

@@ -177,16 +177,21 @@ a:hover {
   background-color: var(--py-yellow);
   color: var(--py-navy);
   padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
+  font-family: "Martian Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  border: 2px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-navy);
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 .btn-orange:hover {
   background-color: var(--py-yellow);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
+  color: var(--py-navy);
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-navy);
 }
 
 /* Event Cards */
@@ -194,18 +199,26 @@ a:hover {
   position: relative;
   display: block;
   height: 250px;
-  border-radius: 1rem;
+  border-radius: 0;
+  border: 2px solid var(--py-navy);
+  box-shadow: 6px 6px 0 var(--py-navy);
   overflow: hidden;
+  transition: all 0.2s ease;
+}
+.event-card-overlay:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 var(--py-navy);
 }
 .event-card-overlay__bg {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.3s;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
 }
 .event-card-overlay:hover .event-card-overlay__bg {
-  transform: scale(1.05);
+  filter: grayscale(0%);
 }
 .event-card-overlay__gradient {
   position: absolute;
@@ -219,14 +232,19 @@ a:hover {
   color: #fff;
 }
 .event-card-overlay__city {
-  font-family: "Rajdhani", "DM Sans", sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 0.25rem;
 }
 .event-card-overlay__date {
-  font-size: 0.9rem;
-  color: #ddd;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--py-yellow);
 }
 
 /* Coaches */
@@ -339,32 +357,42 @@ a:hover {
   background-color: var(--py-yellow);
   color: var(--py-navy) !important;
   padding: 0.85rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
+  font-family: "Martian Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-size: 1rem;
+  border: 2px solid var(--py-navy);
+  box-shadow: 6px 6px 0 var(--py-navy);
   text-decoration: none;
-  transition: background-color 0.2s, transform 0.15s;
+  transition: all 0.2s ease;
 }
 .btn-hero-primary:hover {
-  background-color: white;
-  transform: translateY(-2px);
+  background-color: var(--py-yellow);
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 var(--py-navy);
   color: var(--py-navy) !important;
 }
 .btn-hero-outline {
   display: inline-block;
-  border: 2px solid transparent;
-  color: var(--py-yellow) !important;
+  background-color: var(--py-navy);
+  color: var(--py-light) !important;
   padding: 0.85rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
+  font-family: "Martian Mono", monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   font-size: 1rem;
+  border: 2px solid var(--py-navy);
+  box-shadow: 6px 6px 0 var(--py-navy);
   text-decoration: none;
-  transition: background-color 0.2s, transform 0.15s;
+  transition: all 0.2s ease;
 }
 .btn-hero-outline:hover {
-  background-color: rgba(255, 212, 59, 0.15); /* Tint of py-yellow */
-  color: var(--py-yellow) !important;
-  transform: translateY(-2px);
+  background-color: var(--py-navy);
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0 var(--py-navy);
+  color: var(--py-light) !important;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -381,46 +409,61 @@ a:hover {
   width: 100%;
   max-width: 320px;
   height: 180px;
-  border-radius: 0.75rem;
+  border-radius: 0;
+  border: 2px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-navy);
   overflow: hidden;
   background: var(--py-navy);
+  transition: all 0.2s ease;
+}
+.coach-card-overlay:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-navy);
 }
 .coach-card-overlay__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+.coach-card-overlay:hover .coach-card-overlay__img {
+  filter: grayscale(0%);
 }
 .coach-card-overlay__img--placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--py-blue) 0%, var(--py-navy) 100%);
+  background: var(--py-blue);
   color: #fff;
   font-size: 3rem;
-  font-family: "Rajdhani", sans-serif;
-  font-weight: bold;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-weight: 800;
 }
 .coach-card-overlay__gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%);
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 55%);
 }
 .coach-card-overlay__name {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
   color: #fff;
-  font-family: "Covered By Your Grace", "Rajdhani", cursive;
-  font-size: 1.2rem;
-  font-weight: 400;
-  line-height: 1.3;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
 }
 .coach-card-overlay__name small {
   display: block;
-  font-size: 0.85rem;
-  font-family: "DM Sans", sans-serif;
-  opacity: 0.85;
+  font-size: 0.75rem;
+  font-family: "Martian Mono", monospace;
+  opacity: 1;
+  color: var(--py-yellow);
 }
 
 /* ═══════════════════════════════════════════════════════
