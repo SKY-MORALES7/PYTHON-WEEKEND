@@ -177,6 +177,11 @@ class OrganizeWizardView(View):
         }
 
     def _save_application(self, request, data):
+        if not data.get("lead_email") or not data.get("lead_first_name"):
+            context = self._build_context(request, 5)
+            context["error"] = "Your session expired or contact info is missing. Please start from Step 1."
+            return render(request, WIZARD_TEMPLATES[5], context)
+
         previous_event = None
         event_id = data.get("previous_event_id", "")
         if event_id:
