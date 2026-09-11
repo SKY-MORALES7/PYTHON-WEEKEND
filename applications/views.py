@@ -153,9 +153,13 @@ class OrganizeWizardView(View):
         elif step == 5:
             experience = request.POST.get("experience", "")
             previous_event_id = request.POST.get("previous_event", "")
+            target_country = request.POST.get("target_country", "").strip()
+            target_state = request.POST.get("target_state", "").strip()
 
             wizard_data["has_organized_before"] = (experience == "yes")
             wizard_data["previous_event_id"] = previous_event_id if experience == "yes" else ""
+            wizard_data["target_country"] = target_country if experience == "no" else ""
+            wizard_data["target_state"] = target_state if experience == "no" else ""
 
             # Final step — save to database
             request.session["organize_wizard"] = wizard_data
@@ -209,6 +213,8 @@ class OrganizeWizardView(View):
                 commitment_signed=data.get("commitment_signed", False),
                 has_organized_before=data.get("has_organized_before", False),
                 previous_event=previous_event,
+                target_country=data.get("target_country", ""),
+                target_state=data.get("target_state", ""),
             )
 
             # Send email notifications safely

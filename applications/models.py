@@ -241,6 +241,8 @@ class OrganizerApplication(models.Model):
         blank=True,
         related_name="returning_organizers",
     )
+    target_country = models.CharField(max_length=200, blank=True, help_text="Target country for new organizers")
+    target_state = models.CharField(max_length=200, blank=True, help_text="Target state/region for new organizers")
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     submitted_at = models.DateTimeField(auto_now_add=True)
