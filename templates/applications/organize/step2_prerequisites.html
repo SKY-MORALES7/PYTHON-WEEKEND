@@ -28,22 +28,22 @@
         Confirm that you have read the following sections of our <a href="{% url 'tutorials:tutorial_list' %}" class="underline font-bold text-shield-blue" target="_blank" rel="noopener">Organizer's Manual</a>:
       </p>
 
-      <div class="space-y-3 font-body text-sm font-semibold text-shield-navy">
-        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="read_intro" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_intro %}checked{% endif %} />
-          <span>Introduction to the Organizer's Manual</span>
+      <div class="space-y-3">
+        <label class="flex items-center gap-3.5 cursor-pointer bg-white border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="read_intro" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.read_intro %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">Introduction to the Organizer's Manual</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="read_step_by_step" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_step_by_step %}checked{% endif %} />
-          <span>Organizing a Python Weekend Workshop step by step</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-white border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="read_step_by_step" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.read_step_by_step %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">Organizing a Python Weekend Workshop step by step</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="read_environment" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_environment %}checked{% endif %} />
-          <span>Environment &amp; culture at a Python Weekend workshop</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-white border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="read_environment" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.read_environment %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">Environment &amp; culture at a Python Weekend workshop</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="read_faq" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_faq %}checked{% endif %} />
-          <span>Frequently Asked Questions &amp; Event Logistics</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-white border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="read_faq" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.read_faq %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">Frequently Asked Questions &amp; Event Logistics</span>
         </label>
       </div>
     </div>
@@ -57,22 +57,22 @@
         Confirm that your planned event complies with our core values:
       </p>
 
-      <div class="space-y-3 font-body text-sm font-semibold text-shield-navy">
-        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="is_18" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.is_18 %}checked{% endif %} />
-          <span>You are at least 18 years old</span>
+      <div class="space-y-3">
+        <label class="flex items-center gap-3.5 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="is_18" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.is_18 %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">You are at least 18 years old</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="free_workshop" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.free_workshop %}checked{% endif %} />
-          <span>Your workshop will be 100% free for all participants</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="free_workshop" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.free_workshop %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">Your workshop will be 100% free for all participants</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="non_profit" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.non_profit %}checked{% endif %} />
-          <span>The event is non-profit and volunteer-driven</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="non_profit" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.non_profit %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">The event is non-profit and volunteer-driven</span>
         </label>
-        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
-          <input type="checkbox" name="no_pay" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.no_pay %}checked{% endif %} />
-          <span>You will not pay coaches, speakers, or organizers (and will not request sponsor funds for salaries or honorariums).</span>
+        <label class="flex items-center gap-3.5 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-4 shadow-brutal-sm hover:border-shield-blue transition-colors">
+          <input type="checkbox" name="no_pay" class="w-6 h-6 flex-shrink-0 accent-shield-navy cursor-pointer" {% if form_data.no_pay %}checked{% endif %} />
+          <span class="font-body text-base font-bold text-shield-navy leading-snug">You will not pay coaches, speakers, or organizers (and will not request sponsor funds for salaries or honorariums).</span>
         </label>
       </div>
     </div>
