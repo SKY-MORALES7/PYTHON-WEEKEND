@@ -54,8 +54,45 @@
           {% endif %}
 
         {% empty %}
-          <!-- Fallback: no menu items configured in database -->
+          <!-- Full fallback menu when database menu items are empty -->
+          <div class="relative group">
+            <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold">
+              Support Us
+              <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute top-full left-0 mt-1 w-52 bg-white border-2 border-shield-navy shadow-brutal py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a href="/support/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Support a Workshop</a>
+              <a href="/partners/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Our Partners</a>
+              <a href="/sponsors/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Corporate Sponsorships</a>
+            </div>
+          </div>
+
+          <div class="relative group">
+            <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold">
+              Volunteer
+              <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute top-full left-0 mt-1 w-52 bg-white border-2 border-shield-navy shadow-brutal py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a href="/applications/organize/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Organise a Workshop</a>
+              <a href="/coaches/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Become a Coach</a>
+              <a href="/contribute/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Contribute</a>
+            </div>
+          </div>
+
+          <a href="/resources/" class="px-3 py-2 text-shield-navy hover:text-shield-blue transition-colors font-bold">Resources</a>
           <a href="/events/" class="px-3 py-2 text-shield-navy hover:text-shield-blue transition-colors font-bold">Events</a>
+
+          <div class="relative group">
+            <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold">
+              What's New?
+              <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute top-full left-0 mt-1 w-52 bg-white border-2 border-shield-navy shadow-brutal py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a href="/content/blog/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Our Blog</a>
+              <a href="/newsletter/" class="block px-4 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/20 transition-colors font-bold">Newsletter</a>
+            </div>
+          </div>
+
           <a href="/contact/" class="ml-2 px-4 py-2 bg-shield-ice border-2 border-shield-navy text-shield-navy hover:text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">Contact Us</a>
         {% endfor %}
 
@@ -105,7 +142,23 @@
         {% endif %}
 
       {% empty %}
+        <p class="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Support Us</p>
+        <a href="/support/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Support a Workshop</a>
+        <a href="/partners/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Our Partners</a>
+        <a href="/sponsors/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Corporate Sponsorships</a>
+
+        <p class="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">Volunteer</p>
+        <a href="/applications/organize/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Organise a Workshop</a>
+        <a href="/coaches/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Become a Coach</a>
+        <a href="/contribute/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Contribute</a>
+
+        <a href="/resources/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Resources</a>
         <a href="/events/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors">Events</a>
+
+        <p class="px-3 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-widest">What's New?</p>
+        <a href="/content/blog/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Our Blog</a>
+        <a href="/newsletter/" class="block px-3 py-2 text-gray-600 hover:text-py-blue hover:bg-gray-50 rounded-lg transition-colors pl-6">Newsletter</a>
+
         <a href="/contact/" class="block mx-3 my-2 px-4 py-2 bg-py-blue text-white rounded-lg font-semibold text-sm text-center transition-colors">Contact Us</a>
       {% endfor %}
 

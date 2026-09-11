@@ -48,6 +48,63 @@ def _get_content_map():
     return mapping
 
 
+class MenuItemFallback:
+    def __init__(self, label, url, child_items=None, open_in_new_tab=False):
+        self.label = label
+        self.url = url
+        self.child_items = child_items or []
+        self.open_in_new_tab = open_in_new_tab
+
+
+def _get_default_header_menu():
+    return [
+        MenuItemFallback("Support Us", "#", [
+            MenuItemFallback("Support a Workshop", "/support/"),
+            MenuItemFallback("Our Partners", "/partners/"),
+            MenuItemFallback("Corporate Sponsorships", "/sponsors/"),
+        ]),
+        MenuItemFallback("Volunteer", "#", [
+            MenuItemFallback("Organise a Workshop", "/applications/organize/"),
+            MenuItemFallback("Become a Coach", "/coaches/"),
+            MenuItemFallback("Contribute", "/contribute/"),
+        ]),
+        MenuItemFallback("Resources", "/resources/"),
+        MenuItemFallback("Events", "/events/"),
+        MenuItemFallback("What's New?", "#", [
+            MenuItemFallback("Our Blog", "/content/blog/"),
+            MenuItemFallback("Newsletter", "/newsletter/"),
+        ]),
+        MenuItemFallback("Contact Us", "/contact/"),
+    ]
+
+
+def _seed_header_menu_items_to_db():
+    try:
+        from content.models import WebsiteMenuItem
+        if WebsiteMenuItem.objects.filter(position="header").exists():
+            return
+        s1 = WebsiteMenuItem.objects.create(label="Support Us", url="#", position="header", order=1)
+        WebsiteMenuItem.objects.create(label="Support a Workshop", url="/support/", position="header", order=1, parent=s1)
+        WebsiteMenuItem.objects.create(label="Our Partners", url="/partners/", position="header", order=2, parent=s1)
+        WebsiteMenuItem.objects.create(label="Corporate Sponsorships", url="/sponsors/", position="header", order=3, parent=s1)
+
+        s2 = WebsiteMenuItem.objects.create(label="Volunteer", url="#", position="header", order=2)
+        WebsiteMenuItem.objects.create(label="Organise a Workshop", url="/applications/organize/", position="header", order=1, parent=s2)
+        WebsiteMenuItem.objects.create(label="Become a Coach", url="/coaches/", position="header", order=2, parent=s2)
+        WebsiteMenuItem.objects.create(label="Contribute", url="/contribute/", position="header", order=3, parent=s2)
+
+        WebsiteMenuItem.objects.create(label="Resources", url="/resources/", position="header", order=3)
+        WebsiteMenuItem.objects.create(label="Events", url="/events/", position="header", order=4)
+
+        s5 = WebsiteMenuItem.objects.create(label="What's New?", url="#", position="header", order=5)
+        WebsiteMenuItem.objects.create(label="Our Blog", url="/content/blog/", position="header", order=1, parent=s5)
+        WebsiteMenuItem.objects.create(label="Newsletter", url="/newsletter/", position="header", order=2, parent=s5)
+
+        WebsiteMenuItem.objects.create(label="Contact Us", url="/contact/", position="header", order=6)
+    except Exception:
+        pass
+
+
 def _get_menu_items(position):
     """
     Return top-level active menu items for `position`, each with its active
@@ -68,6 +125,16 @@ def _get_menu_items(position):
                 is_active=True,
             ).order_by("order", "label")
         )
+        if not top_level and position == "header":
+            _seed_header_menu_items_to_db()
+            top_level = list(
+                WebsiteMenuItem.objects.filter(
+                    position=position,
+                    parent__isnull=True,
+                    is_active=True,
+                ).order_by("order", "label")
+            )
+
         # Attach children to each top-level item
         if top_level:
             all_children = WebsiteMenuItem.objects.filter(
@@ -85,6 +152,9 @@ def _get_menu_items(position):
         result = top_level
     except Exception:
         result = []
+
+    if not result and position == "header":
+        result = _get_default_header_menu()
 
     cache.set(cache_key, result, 300)
     return result
