@@ -26,42 +26,23 @@
   /* ── Hero ──────────────────────────────────────────────── */
   .hero-parallax {
     position: relative;
-    min-height: 65vh;
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-image: url('{% static "img/dg-style/hero-bg-whatsapp.jpg" %}');
+    background-image: url('{% static "img/code-campus-hero.jpg" %}');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     background-repeat: no-repeat;
+    border-bottom: 2.5px solid #16213e;
   }
 
-  /* Fix for mobile background-attachment: fixed issues */
   @media (max-width: 768px) {
     .hero-parallax {
-      background-attachment: scroll;
-      background-position: center 20%;
-      min-height: 60vh;
+      min-height: 65vh;
+      background-position: center;
     }
-  }
-
-  .hero-headline {
-    font-family: "Rajdhani", "DM Sans", sans-serif !important;
-    font-size: clamp(2.2rem, 5vw, 3.5rem) !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    line-height: 1.25;
-    margin-bottom: 1.25rem;
-  }
-
-  .hero-sub {
-    font-family: "DM Sans", system-ui, sans-serif !important;
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem) !important;
-    font-weight: 400 !important;
-    color: #ffffff !important;
-    line-height: 1.7;
   }
 </style>
 {% endblock %}
@@ -69,45 +50,27 @@
 {% block content %}
 
 <!-- ═══════════════════════════════════════════════════════
-     SECTION 1 — HERO (MLH 2-Column Spacious Hero)
+     SECTION 1 — HERO (Full Background Image with Centered Text on Top)
      ═══════════════════════════════════════════════════════ -->
-<section class="relative bg-shield-navy text-white border-b-2 border-shield-navy py-28 sm:py-36 min-h-[80vh] flex items-center overflow-hidden bg-cover bg-center"
-         style="background-image: linear-gradient(rgba(22, 33, 62, 0.88), rgba(22, 33, 62, 0.88)), url('{% static "img/code-campus-hero.jpg" %}');">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-      <!-- Left Column: Copy & Actions -->
-      <div class="lg:col-span-7 text-left">
-        <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-white inline-block mb-6 shadow-brutal-sm">Community Powered • Python &amp; Django</span>
-        <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none">
-          {{ home_hero_headline|default:"Learn Python &amp; Build Real Web Apps." }}
-        </h1>
-        <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl">
-          {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="{% url 'content:event_list' %}" class="btn-orange text-base px-7 py-4">
-            Find an event
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-          <a href="{% url 'applications:organize_start' %}" class="btn-blue text-base px-7 py-4">
-            Organise a workshop
-            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-        </div>
-      </div>
-
-      <!-- Right Column: Code Campus Photo Frame -->
-      <div class="lg:col-span-5">
-        <div class="border-4 border-white shadow-[10px_10px_0_#FFB800] overflow-hidden bg-white group transition-all duration-300 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0_#FFB800]">
-          <img src="{% static 'img/code-campus-hero.jpg' %}" alt="Code Campus Python Weekend Community" class="w-full h-80 sm:h-96 object-cover block filter grayscale group-hover:grayscale-0 transition-all duration-500" />
-          <div class="p-4 bg-white border-t-2 border-shield-navy flex items-center justify-between font-mono text-xs font-bold text-shield-navy uppercase">
-            <span>Code Campus Community</span>
-            <span class="bg-shield-ice px-2 py-0.5 border border-shield-navy">Python Weekend</span>
-          </div>
-        </div>
-      </div>
-
+<section class="hero-parallax">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.68);z-index:1;"></div>
+  <div style="position:relative;z-index:10;max-width:860px;margin:0 auto;padding:7rem 1.5rem;text-align:center;">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-6 shadow-brutal-sm">Community Powered • Python &amp; Django</span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none" style="text-shadow: 0 4px 16px rgba(0,0,0,0.6);">
+      {{ home_hero_headline|default:"Learn Python &amp; Build Real Web Apps." }}
+    </h1>
+    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.6);">
+      {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="{% url 'content:event_list' %}" class="btn-orange text-base px-7 py-4">
+        Find an event
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
+      <a href="{% url 'applications:organize_start' %}" class="btn-blue text-base px-7 py-4">
+        Organise a workshop
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
     </div>
   </div>
 </section>
