@@ -52,12 +52,13 @@
 </nav>
 
 <div class="bg-shield-ice/15 border-b-2.5 border-shield-navy">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16 sm:space-y-20">
 
     <!-- ── VENUE & DIRECTIONS ── -->
     {% if event.venue_name or event.location or event.city or event.latitude %}
-    <section id="venue">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="venue" class="pt-6 sm:pt-10">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         Venue &amp; Directions
       </h2>
 
@@ -138,8 +139,9 @@
 
     <!-- ── ABOUT ── -->
     {% if event.description %}
-    <section id="about">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="about" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         About This Event
       </h2>
       <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal font-body text-shield-navy text-base font-medium leading-relaxed">
@@ -150,8 +152,9 @@
 
     <!-- ── SCHEDULE ── -->
     {% if event.day1_schedule or event.day2_schedule or event.day3_schedule %}
-    <section id="schedule">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="schedule" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         {{ event.schedule_title|default:"Workshop Schedule" }}
       </h2>
       <div class="grid grid-cols-1 {% if event.day2_schedule %}md:grid-cols-2{% endif %} {% if event.day3_schedule %}lg:grid-cols-3{% endif %} gap-6">
@@ -204,16 +207,17 @@
 
     <!-- ── WHAT YOU'LL LEARN ── -->
     {% if event.what_you_learn %}
-    <section id="learn">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="learn" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         What You'll Learn
       </h2>
       <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
-        <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+        <ul class="space-y-4 font-body text-sm sm:text-base font-semibold text-shield-navy">
           {% for item in event.what_you_learn_lines %}
           <li class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-5 h-5 bg-shield-ice border border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5">&check;</span>
-            <span>{{ item }}</span>
+            <span class="inline-flex items-center justify-center w-6 h-6 bg-shield-ice border-2 border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5 shadow-brutal-sm">&check;</span>
+            <span class="pt-0.5">{{ item }}</span>
           </li>
           {% endfor %}
         </ul>
@@ -223,16 +227,17 @@
 
     <!-- ── WHO SHOULD APPLY ── -->
     {% if event.who_should_apply %}
-    <section id="who-should-apply">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="who-should-apply" class="pt-10 sm:pt-14">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         Who Should Apply
       </h2>
       <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
-        <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+        <ul class="space-y-4 font-body text-sm sm:text-base font-semibold text-shield-navy">
           {% for item in event.who_should_apply_lines %}
           <li class="flex items-start gap-3">
-            <span class="inline-flex items-center justify-center w-5 h-5 bg-[#FFB800] border border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5">&rarr;</span>
-            <span>{{ item }}</span>
+            <span class="inline-flex items-center justify-center w-6 h-6 bg-[#FFB800] border-2 border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5 shadow-brutal-sm">&rarr;</span>
+            <span class="pt-0.5">{{ item }}</span>
           </li>
           {% endfor %}
         </ul>
@@ -242,47 +247,51 @@
 
     <!-- ── APPLY ── -->
     {% if event.application_open and event.is_upcoming %}
-    <section id="apply" class="bg-white border-2.5 border-shield-navy shadow-brutal p-8 sm:p-12 text-center">
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-3 border-l-[4px] border-[#FFB800] pl-3.5 leading-none inline-block">
-        Applications are open!
-      </h2>
-      {% if event.application_deadline %}
-      <p class="font-body text-shield-navy text-base font-semibold mb-8">
-        Applications close on <strong class="text-shield-navy font-bold">{{ event.application_deadline|date:"F j, Y" }}</strong>
-      </p>
-      {% endif %}
-
-      {% if application_form %}
-        {# ── An application form has been created in admin for this event ── #}
-        <a href="{% url 'applications:apply' form_id=application_form.pk %}"
-           class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
-          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Register Interest</span>
-          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#ffffff" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
-          </svg>
-        </a>
-        {% if application_form.text_description %}
-        <p class="font-mono text-xs text-shield-navy/80 mt-4 max-w-md mx-auto font-medium">{{ application_form.text_description|truncatewords:20 }}</p>
+    <section id="apply" class="pt-12 sm:pt-16">
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal p-8 sm:p-12 text-center">
+        <h2 class="header-stroke-yellow font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-4 inline-block text-left"
+            style="border-left: 5px solid #FFB800; padding-left: 1rem;">
+          Applications are open!
+        </h2>
+        {% if event.application_deadline %}
+        <p class="font-body text-shield-navy text-base font-semibold mb-8 mt-2">
+          Applications close on <strong class="text-shield-navy font-bold">{{ event.application_deadline|date:"F j, Y" }}</strong>
+        </p>
         {% endif %}
-      {% else %}
-        {# ── No form linked yet — fall back to the contact page with specific event parameter ── #}
-        <a href="{% url 'core:contact' %}?event={{ event.slug }}"
-           class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
-          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Contact Organizers</span>
-          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#ffffff" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      {% endif %}
+
+        {% if application_form %}
+          {# ── An application form has been created in admin for this event ── #}
+          <a href="{% url 'applications:apply' form_id=application_form.pk %}"
+             class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto mt-4">
+            <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Register Interest</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#ffffff" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          {% if application_form.text_description %}
+          <p class="font-mono text-xs text-shield-navy/80 mt-4 max-w-md mx-auto font-medium">{{ application_form.text_description|truncatewords:20 }}</p>
+          {% endif %}
+        {% else %}
+          {# ── No form linked yet — fall back to the contact page with specific event parameter ── #}
+          <a href="{% url 'core:contact' %}?event={{ event.slug }}"
+             class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto mt-4">
+            <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Contact Organizers</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#ffffff" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {% endif %}
+      </div>
     </section>
     {% endif %}
 
     <!-- ── FAQ ── -->
     {% if event.faq %}
-    <section id="faq">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="faq" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         Frequently Asked Questions
       </h2>
       <div class="space-y-4">
@@ -298,8 +307,9 @@
 
     <!-- ── MENTORS / COACHES ── -->
     {% if event_mentors %}
-    <section id="mentors">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="mentors" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         Meet Our Mentors &amp; Coaches
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -341,8 +351,9 @@
 
     <!-- ── ORGANISERS ── -->
     {% if event_organisers %}
-    <section id="organisers">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="organisers" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         Event Organisers
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -374,11 +385,12 @@
 
     <!-- ── EVENT SPONSORS ── -->
     {% if event_sponsors or event_partners %}
-    <section id="sponsors">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+    <section id="sponsors" class="pt-8 sm:pt-12">
+      <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4 leading-none"
+          style="border-left: 5px solid #306998; padding-left: 1rem;">
         {{ event.sponsors_title|default:"Sponsors &amp; Partners" }}
       </h2>
-      <p class="font-body text-shield-navy text-sm font-semibold mb-8">
+      <p class="font-body text-shield-navy text-sm font-semibold mb-8 mt-4">
         This workshop is made possible by sponsors that support it financially or through approved in-kind contributions.
         {% if event.is_upcoming %}
         If your organisation would like to sponsor Python Weekend {{ event.city }},

@@ -670,4 +670,17 @@ button:hover .btn-arrow-3d {
   box-shadow: 2px 2px 0 #16213e !important;
   background-color: #ffffff !important;
 }
+
+/* ═══════════════════════════════════════════════════════
+   VERTICAL HEADER ACCENT STROKES
+   ═══════════════════════════════════════════════════════ */
+.header-stroke-blue {
+  border-left: 5px solid #306998 !important;
+  padding-left: 1rem !important;
+}
+
+.header-stroke-yellow {
+  border-left: 5px solid #FFB800 !important;
+  padding-left: 1rem !important;
+}
 
