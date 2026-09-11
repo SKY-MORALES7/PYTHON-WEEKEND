@@ -1,60 +1,129 @@
 {% extends "base.html" %}
-{% block title %}Coaches — Python Weekend{% endblock %}
+{% load static %}
+{% block title %}Coaches &amp; Mentors — Python Weekend{% endblock %}
 
 {% block content %}
-<section class="bg-py-light py-16 border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="font-semibold text-py-blue uppercase tracking-widest sm:text-5xl md:text-6xl lg:text-xs">Coaches</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-py-navy mt-2">Meet our coaches</h1>
-    <p class="text-gray-500 mt-2">The people who make it happen — experienced devs who give their weekend to help others learn.</p>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Volunteer Mentors &amp; Tech Leaders
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-6 leading-none">
+      Meet Our Coaches
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl mx-auto">
+      The people who make it happen — experienced developers and educators who give their weekend to empower beginners in Python and AI.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become a Coach</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<section class="py-16 bg-white">
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — COACH CARDS GRID
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {% if coaches %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {% for coach in coaches %}
-      <div class="bg-white border border-gray-200 rounded-xl p-6 hover:border-py-blue/25 transition-all text-center hover:shadow-lg">
-        {% if coach.photo %}
-        <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-2 border-gray-200" />
-        {% else %}
-        <div class="w-20 h-20 rounded-full mx-auto mb-4 bg-py-blue/10 flex items-center justify-center text-2xl text-py-blue font-bold">
-          {{ coach.name|first }}
-        </div>
-        {% endif %}
-        <h3 class="font-display font-bold text-py-navy text-lg">{{ coach.name }}</h3>
-        {% if coach.role %}<p class="text-py-blue text-sm mb-2">{{ coach.role }}</p>{% endif %}
-        {% if coach.bio %}<p class="text-gray-500 text-sm leading-relaxed">{{ coach.bio|truncatewords:20 }}</p>{% endif %}
-        {% if coach.github or coach.linkedIn %}
-        <div class="flex justify-center gap-3 mt-3">
-          {% if coach.github %}
-          <a href="{{ coach.github }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">GitHub</a>
+      <div class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-center flex flex-col justify-between group overflow-hidden">
+        <div>
+          {% if coach.photo %}
+          <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-24 h-24 mx-auto mb-4 object-cover border-2 border-shield-navy shadow-brutal-sm group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+          {% else %}
+          <div class="w-24 h-24 mx-auto mb-4 bg-shield-blue border-2 border-shield-navy shadow-brutal-sm flex items-center justify-center text-3xl text-white font-bold font-display uppercase">
+            {{ coach.name|first }}
+          </div>
           {% endif %}
 
+          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-1">{{ coach.name }}</h3>
+          {% if coach.role %}
+          <div class="inline-block bg-shield-ice/40 border border-shield-navy px-2.5 py-0.5 mb-3">
+            <span class="font-mono text-xs font-bold text-shield-navy uppercase tracking-wider">{{ coach.role }}</span>
+          </div>
+          {% endif %}
+
+          {% if coach.bio %}
+          <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-4">
+            {{ coach.bio|truncatewords:22 }}
+          </p>
+          {% endif %}
+        </div>
+
+        {% if coach.github or coach.linkedIn %}
+        <div class="flex justify-center gap-2 mt-4 pt-3 border-t-2 border-shield-navy/20">
+          {% if coach.github %}
+          <a href="{{ coach.github }}" class="font-mono text-xs font-bold text-shield-navy bg-white border border-shield-navy px-3 py-1 shadow-brutal-sm hover:bg-[#FFB800] transition-colors" target="_blank" rel="noopener">
+            GitHub
+          </a>
+          {% endif %}
           {% if coach.linkedIn %}
-          <a href="{{ coach.linkedIn }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="{{ coach.linkedIn }}" class="font-mono text-xs font-bold text-shield-navy bg-white border border-shield-navy px-3 py-1 shadow-brutal-sm hover:bg-[#FFB800] transition-colors" target="_blank" rel="noopener">
+            LinkedIn
+          </a>
           {% endif %}
         </div>
         {% endif %}
       </div>
       {% endfor %}
     </div>
+
     {% else %}
-    <div class="text-center py-20 text-gray-500">
-      <p class="text-lg">Coach profiles coming soon.</p>
+    <div class="bg-white border-2.5 border-shield-navy p-12 shadow-brutal text-center max-w-xl mx-auto">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Mentors Directory</span>
+      <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-3">Coach Profiles Coming Soon</h3>
+      <p class="font-body text-shield-navy text-base font-medium mb-6">Our volunteer team profiles are currently being updated for upcoming workshop editions.</p>
+      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Apply to Coach</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
     {% endif %}
   </div>
 </section>
 
-<section class="py-16 bg-py-light border-t border-gray-200">
-  <div class="max-w-xl mx-auto px-4 text-center">
-    <h2 class="font-display font-bold text-2xl text-py-navy mb-3">Want to coach?</h2>
-    <p class="text-gray-500 mb-6">We're always looking for experienced developers to help guide attendees.</p>
-    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-py-blue text-white font-bold rounded-xl transition-all hover:bg-py-blue-dark inline-block">
-      Get in touch
-    </a>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — WANT TO COACH CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-2xl mx-auto px-4 text-center">
+    <div class="bg-white border-2.5 border-shield-navy p-8 sm:p-10 shadow-brutal">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-[#FFB800] px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Join the Team</span>
+      <h2 class="font-display font-bold text-3xl text-shield-navy uppercase tracking-tight mb-3">Want to Become a Coach?</h2>
+      <p class="font-body text-shield-navy text-base font-medium leading-relaxed mb-8">
+        We are always looking for passionate Python developers to help mentor beginners during our weekend workshops.
+      </p>
+      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Get in Touch to Coach</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
+
 {% endblock %}
+
