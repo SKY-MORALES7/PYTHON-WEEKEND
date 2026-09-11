@@ -83,17 +83,22 @@ class EventMapView(View):
         # Build a JSON-serialisable list for Leaflet
         map_events = []
         for e in all_events:
-            if e.latitude and e.longitude:
-                map_events.append({
-                    "title":     e.title,
-                    "city":      e.city or e.title,
-                    "country":   e.country or "",
-                    "date":      e.start_date.strftime("%d %b %Y"),
-                    "url":       f"/content/events/{e.slug}/",
-                    "lat":       float(e.latitude),
-                    "lng":       float(e.longitude),
-                    "upcoming":  e.start_date >= now,
-                })
+            if e.latitude is not None and e.longitude is not None:
+                try:
+                    lat_val = float(e.latitude)
+                    lng_val = float(e.longitude)
+                    map_events.append({
+                        "title":     e.title,
+                        "city":      e.city or e.title,
+                        "country":   e.country or "",
+                        "date":      e.start_date.strftime("%d %b %Y") if e.start_date else "",
+                        "url":       f"/content/events/{e.slug}/",
+                        "lat":       lat_val,
+                        "lng":       lng_val,
+                        "upcoming":  e.start_date >= now if e.start_date else True,
+                    })
+                except (ValueError, TypeError):
+                    pass
 
         context = {
             "all_events":      all_events,
