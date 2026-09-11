@@ -69,21 +69,45 @@
 {% block content %}
 
 <!-- ═══════════════════════════════════════════════════════
-     SECTION 1 — HERO
+     SECTION 1 — HERO (MLH 2-Column Spacious Hero)
      ═══════════════════════════════════════════════════════ -->
-<section class="relative bg-shield-navy text-white border-b-2 border-shield-navy py-24 overflow-hidden bg-cover bg-center"
-         style="background-image: linear-gradient(rgba(22, 33, 62, 0.82), rgba(22, 33, 62, 0.82)), url('{% static "img/code-campus-hero.jpg" %}');">
-  <div class="relative max-w-4xl mx-auto px-4 text-center z-10">
-    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-white inline-block mb-4 shadow-brutal-sm">Community Powered</span>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight text-white mb-4 leading-none">
-      {{ home_hero_headline|default:"We inspire everyone to fall in love with programming." }}
-    </h1>
-    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-8 leading-relaxed">
-      {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
-    </p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="{% url 'content:event_list' %}" class="btn-orange text-sm px-6 py-3" style="background-color:#FFD43B !important; color:#16213e !important; border:2.5px solid #16213e; box-shadow:5px 5px 0 #16213e;">Find an event</a>
-      <a href="{% url 'applications:organize_start' %}" class="btn-blue text-sm px-6 py-3" style="background-color:#4B8BBE !important; color:#ffffff !important; border:2.5px solid #16213e; box-shadow:5px 5px 0 #16213e;">Organise a workshop</a>
+<section class="relative bg-shield-navy text-white border-b-2 border-shield-navy py-28 sm:py-36 min-h-[80vh] flex items-center overflow-hidden bg-cover bg-center"
+         style="background-image: linear-gradient(rgba(22, 33, 62, 0.88), rgba(22, 33, 62, 0.88)), url('{% static "img/code-campus-hero.jpg" %}');">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+
+      <!-- Left Column: Copy & Actions -->
+      <div class="lg:col-span-7 text-left">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-white inline-block mb-6 shadow-brutal-sm">Community Powered • Python &amp; Django</span>
+        <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none">
+          {{ home_hero_headline|default:"Learn Python &amp; Build Real Web Apps." }}
+        </h1>
+        <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl">
+          {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="{% url 'content:event_list' %}" class="btn-orange text-base px-7 py-4">
+            Find an event
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="{% url 'applications:organize_start' %}" class="btn-blue text-base px-7 py-4">
+            Organise a workshop
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Code Campus Photo Frame -->
+      <div class="lg:col-span-5">
+        <div class="border-4 border-white shadow-[10px_10px_0_#FFB800] overflow-hidden bg-white group transition-all duration-300 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[6px_6px_0_#FFB800]">
+          <img src="{% static 'img/code-campus-hero.jpg' %}" alt="Code Campus Python Weekend Community" class="w-full h-80 sm:h-96 object-cover block filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+          <div class="p-4 bg-white border-t-2 border-shield-navy flex items-center justify-between font-mono text-xs font-bold text-shield-navy uppercase">
+            <span>Code Campus Community</span>
+            <span class="bg-shield-ice px-2 py-0.5 border border-shield-navy">Python Weekend</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -167,8 +191,9 @@
             <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
           </p>
         </div>
-        <a href="{% url 'core:about' %}" class="btn-hero-outline self-start text-xs py-2 px-4 mt-4">
-          Read about our impact »
+        <a href="{% url 'core:about' %}" class="btn-hero-outline self-start text-xs py-2.5 px-5 mt-4">
+          Read about our impact
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
 
@@ -184,6 +209,7 @@
         </div>
         <a href="{% url 'applications:organize_start' %}" class="btn-orange self-start text-xs py-2.5 px-5">
           Apply to organise a workshop
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
 
@@ -236,7 +262,10 @@
       <p class="font-body text-shield-navy text-base font-medium mb-4">
         No upcoming events right now.
       </p>
-      <a href="{% url 'applications:organize_start' %}" class="btn-orange text-xs py-2 px-4">Organise one!</a>
+      <a href="{% url 'applications:organize_start' %}" class="btn-orange text-xs py-2 px-4 inline-flex items-center gap-2">
+        Organise one!
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
     </div>
     {% endif %}
 
@@ -289,8 +318,9 @@
           </div>
           {% endif %}
         </div>
-        <a href="{% url 'coach:list' %}" class="btn-hero-outline text-xs py-2 px-4 mt-6 self-start">
-          Read all Python Weekend Stories »
+        <a href="{% url 'coach:list' %}" class="btn-hero-outline text-xs py-2.5 px-5 mt-6 self-start">
+          Read all Stories
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
       </div>
 
@@ -311,8 +341,9 @@
               <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-3">
                 {{ post.excerpt|truncatewords:25 }}
               </p>
-              <a href="{% url 'content:blog_detail' post.slug %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue">
-                Read all »
+              <a href="{% url 'content:blog_detail' post.slug %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue inline-flex items-center gap-1">
+                Read Article
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </a>
             </div>
             {% endfor %}
@@ -349,23 +380,24 @@
           <!-- Support perks checklist -->
           <div class="space-y-2 mb-6 font-body text-sm font-bold text-shield-navy">
             <div class="flex items-center gap-2">
-              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs">✓</span>
+              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs font-bold">✓</span>
               <span>Sponsor participant laptops &amp; internet access</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs">✓</span>
+              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs font-bold">✓</span>
               <span>Provide workshop catering &amp; venue space</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs">✓</span>
+              <span class="w-5 h-5 bg-shield-ice border-2 border-shield-navy flex items-center justify-center text-xs font-bold">✓</span>
               <span>Help expand free tech education to more cities</span>
             </div>
           </div>
         </div>
 
         <div>
-          <a href="{% url 'core:contact' %}" class="btn-orange text-xs py-3 px-6 mb-4 inline-block">
+          <a href="{% url 'core:contact' %}" class="btn-orange text-xs py-3 px-6 mb-4 inline-flex items-center gap-2">
             Get in touch to support us
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
           <p class="font-body text-shield-navy text-xs font-medium">
             You can also send us a one-time donation. If you would like to discuss a bigger partnership,
@@ -401,7 +433,10 @@
               <input type="text" name="website" tabindex="-1" autocomplete="off" />
             </div>
             <input type="email" name="email" placeholder="enter your email address" required class="flex-1 px-4 py-3 bg-white text-shield-navy font-body font-medium text-sm border-2 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
-            <button type="submit" class="btn-orange text-xs py-3 px-6 whitespace-nowrap">Subscribe</button>
+            <button type="submit" class="btn-orange text-xs py-3 px-6 whitespace-nowrap inline-flex items-center gap-2">
+              Subscribe
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
           </form>
 
           <a href="{% url 'content:blog_list' %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue block mb-6">

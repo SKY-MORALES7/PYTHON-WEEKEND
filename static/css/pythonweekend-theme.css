@@ -184,137 +184,144 @@ a:hover {
 }
 
 /* ═══════════════════════════════════════════════════════
-   NEO-BRUTALIST BUTTON SYSTEM (Hacktoberfest Style)
+   MLH-STYLE NEO-BRUTALIST BUTTON SYSTEM (Major League Hacking)
    ═══════════════════════════════════════════════════════ */
 .btn-orange,
 .btn-hero-primary,
-.btn-brutal-primary {
+.btn-brutal-primary,
+.btn-mlh-yellow {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--py-yellow);
-  color: var(--py-navy) !important;
-  padding: 0.8rem 1.6rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background-color: #FFB800 !important; /* MLH Golden Yellow */
+  color: #16213e !important;
+  padding: 0.95rem 1.85rem;
   font-family: "Martian Mono", monospace;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
-  border: 2.5px solid var(--py-navy);
-  box-shadow: 5px 5px 0 var(--py-navy);
-  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  border: 2.5px solid #16213e;
+  box-shadow: 5px 5px 0 #16213e;
+  text-decoration: none !important;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 .btn-orange:hover,
 .btn-hero-primary:hover,
-.btn-brutal-primary:hover {
-  background-color: var(--py-yellow);
-  color: var(--py-navy) !important;
+.btn-brutal-primary:hover,
+.btn-mlh-yellow:hover {
+  background-color: #FFC72C !important;
+  color: #16213e !important;
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--py-navy);
+  box-shadow: 3px 3px 0 #16213e;
 }
 .btn-orange:active,
 .btn-hero-primary:active,
-.btn-brutal-primary:active {
+.btn-brutal-primary:active,
+.btn-mlh-yellow:active {
   transform: translate(5px, 5px);
-  box-shadow: 0px 0px 0 var(--py-navy);
+  box-shadow: 0px 0px 0 #16213e;
 }
 
 .btn-hero-outline,
 .btn-brutal-outline {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  color: var(--py-navy) !important;
-  padding: 0.8rem 1.6rem;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background-color: #ffffff !important;
+  color: #16213e !important;
+  padding: 0.95rem 1.85rem;
   font-family: "Martian Mono", monospace;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
-  border: 2.5px solid var(--py-navy);
-  box-shadow: 5px 5px 0 var(--py-navy);
-  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  border: 2.5px solid #16213e;
+  box-shadow: 5px 5px 0 #16213e;
+  text-decoration: none !important;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 .btn-hero-outline:hover,
 .btn-brutal-outline:hover {
-  background-color: var(--py-light);
-  color: var(--py-navy) !important;
+  background-color: #f8fafc !important;
+  color: #16213e !important;
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--py-navy);
+  box-shadow: 3px 3px 0 #16213e;
 }
 .btn-hero-outline:active,
 .btn-brutal-outline:active {
   transform: translate(5px, 5px);
-  box-shadow: 0px 0px 0 var(--py-navy);
+  box-shadow: 0px 0px 0 #16213e;
 }
 
 .btn-blue,
 .btn-brutal-secondary {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--py-blue);
+  justify-content: space-between;
+  gap: 0.75rem;
+  background-color: #4B8BBE !important;
   color: #ffffff !important;
-  padding: 0.8rem 1.6rem;
+  padding: 0.95rem 1.85rem;
   font-family: "Martian Mono", monospace;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
-  border: 2.5px solid var(--py-navy);
-  box-shadow: 5px 5px 0 var(--py-navy);
-  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  border: 2.5px solid #16213e;
+  box-shadow: 5px 5px 0 #16213e;
+  text-decoration: none !important;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 .btn-blue:hover,
 .btn-brutal-secondary:hover {
-  background-color: var(--py-blue-dark);
+  background-color: #306998 !important;
   color: #ffffff !important;
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--py-navy);
+  box-shadow: 3px 3px 0 #16213e;
 }
 .btn-blue:active,
 .btn-brutal-secondary:active {
   transform: translate(5px, 5px);
-  box-shadow: 0px 0px 0 var(--py-navy);
+  box-shadow: 0px 0px 0 #16213e;
 }
 
 .btn-navy,
 .btn-brutal-dark {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  background-color: var(--py-navy);
+  justify-content: space-between;
+  gap: 0.75rem;
+  background-color: #16213e !important;
   color: #ffffff !important;
-  padding: 0.8rem 1.6rem;
+  padding: 0.95rem 1.85rem;
   font-family: "Martian Mono", monospace;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.9rem;
-  border: 2.5px solid var(--py-navy);
-  box-shadow: 5px 5px 0 var(--py-yellow);
-  text-decoration: none;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  border: 2.5px solid #16213e;
+  box-shadow: 5px 5px 0 #FFB800;
+  text-decoration: none !important;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
 .btn-navy:hover,
 .btn-brutal-dark:hover {
-  background-color: #1a273e;
+  background-color: #1a273e !important;
   color: #ffffff !important;
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--py-yellow);
+  box-shadow: 3px 3px 0 #FFB800;
 }
 .btn-navy:active,
 .btn-brutal-dark:active {
   transform: translate(5px, 5px);
-  box-shadow: 0px 0px 0 var(--py-yellow);
+  box-shadow: 0px 0px 0 #FFB800;
 }
 
 /* Neo-Brutalist Cards */
