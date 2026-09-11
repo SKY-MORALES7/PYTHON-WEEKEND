@@ -1,102 +1,307 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Events — Python Weekend{% endblock %}
+{% load media_tags %}
+
+{% block title %}Workshops &amp; Events — Python Weekend{% endblock %}
 
 {% block content %}
-<section class="relative overflow-hidden min-h-[88vh] flex items-center">
 
-  <!-- Ken Burns background layer -->
-  <div class="absolute inset-0 scale-110 animate-ken-burns">
-    <div class="w-full h-full bg-cover bg-center"
-         style="background-image: url('{% static 'img/events2.jpg' %}');">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO / FEATURE (MLH Style with 3D PW Isometric Artwork)
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+
+      <!-- Left Column: Copy & CTA -->
+      <div class="lg:col-span-7">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+          Global Developer Events • Python &amp; Django
+        </span>
+        <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-6 leading-none">
+          Python Weekend Workshops &amp; Events
+        </h1>
+        <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl">
+          Join free, hands-on programming workshops near you! Learn Python fundamentals, build real web applications with Django in one weekend, and connect with experienced mentors.
+        </p>
+
+        <div class="flex flex-wrap gap-4 items-center">
+          <a href="#upcoming-events" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+            <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Attend an Event</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+            <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Host a Workshop</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: 3D Isometric "PW" Feature Illustration -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="w-full max-w-md bg-white border-2.5 border-shield-navy p-6 shadow-brutal relative">
+          <!-- 3D Isometric "PW" SVG -->
+          <svg viewBox="0 0 420 280" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto drop-shadow-md">
+            <!-- Grid base lines -->
+            <path d="M20 230L210 270L400 230" stroke="#16213E" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.3"/>
+            <path d="M210 140V270" stroke="#16213E" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.3"/>
+
+            <!-- LETTER "P" Block (Red & Blue Neo-Brutalist 3D Extrusion) -->
+            <!-- P Stem -->
+            <path d="M50 80L90 60V200L50 220V80Z" fill="#E11D48" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M90 60L130 80V220L90 200V60Z" fill="#BE123C" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M50 80L90 60L130 80L90 100L50 80Z" fill="#FB7185" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- P Loop Top -->
+            <path d="M90 60L170 100V150L90 110V60Z" fill="#3B82F6" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M170 100L200 115V165L170 150V100Z" fill="#1E40AF" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M90 60L120 45L200 85L170 100L90 60Z" fill="#93C5FD" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- LETTER "W" Block (Golden Yellow & Navy 3D Extrusion) -->
+            <!-- W Left Leg -->
+            <path d="M210 120L245 100V220L210 240V120Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M245 100L275 115V235L245 220V100Z" fill="#D97706" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M210 120L245 100L275 115L240 135L210 120Z" fill="#FEF08A" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- W Center Peak -->
+            <path d="M275 170L310 150V230L275 250V170Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M310 150L340 165V245L310 230V150Z" fill="#D97706" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M275 170L310 150L340 165L305 185L275 170Z" fill="#FEF08A" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- W Right Leg -->
+            <path d="M340 120L375 100V220L340 240V120Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M375 100L405 115V235L375 220V100Z" fill="#D97706" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M340 120L375 100L405 115L370 135L340 120Z" fill="#FEF08A" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+
+            <!-- Accent Badges -->
+            <rect x="20" y="20" width="85" height="26" fill="#16213E" stroke="#16213E" stroke-width="2" rx="0"/>
+            <text x="62" y="37" font-family="'Martian Mono', monospace" font-size="11" font-weight="800" fill="#FFB800" text-anchor="middle">PYTHON</text>
+
+            <rect x="315" y="20" width="85" height="26" fill="#FFB800" stroke="#16213E" stroke-width="2" rx="0"/>
+            <text x="357" y="37" font-family="'Martian Mono', monospace" font-size="11" font-weight="800" fill="#16213E" text-anchor="middle">WEEKEND</text>
+          </svg>
+
+          <!-- Label below Graphic -->
+          <div class="mt-4 pt-4 border-t-2 border-shield-navy flex justify-between items-center font-mono text-xs font-bold text-shield-navy uppercase">
+            <span>3D Community Hub</span>
+            <span class="text-shield-blue">Free Workshops</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-  </div>
-
-<div class="absolute inset-0 bg-black/50 z-0"></div>
-
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="font-semibold text-py-yellow uppercase tracking-widest sm:text-5xl md:text-6xl lg:text-xs">Events</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-2">Workshops &amp; events</h1>
-    <p class="text-py-yellow/80 mt-2">Find a Python Weekend workshop near you.</p>
   </div>
 </section>
 
-<section class="py-16 bg-py-light">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    {% if page_obj.object_list %}
-    <h2 class="sr-only">Upcoming events</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for event in page_obj %}
-      <div class="bg-white border border-gray-200 rounded-xl p-0 hover:border-py-blue/30 transition-all overflow-hidden hover:shadow-lg">
-        {% if event.image %}
-        <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{{ event.image.url }}');"></a>
-        {% else %}
-        <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{% static 'img/events2.jpg' %}');"></a>
-        {% endif %}
-        <div class="p-5 flex flex-col gap-3">
-        <div class="flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full {% if event.is_upcoming %}bg-green-500{% else %}bg-gray-400{% endif %}"></span>
-          <span class="text-xs font-semibold uppercase tracking-widest {% if event.is_upcoming %}text-green-600{% else %}text-gray-400{% endif %}">
-            {% if event.is_upcoming %}Upcoming{% else %}Passed{% endif %}
-          </span>
-        </div>
-        <div>
-          <h3 class="font-display font-bold text-py-navy text-lg mb-1">
-            <a href="{% url 'content:event_detail' event.slug %}" class="hover:text-py-blue transition-colors">{{ event.title }}</a>
-          </h3>
-          <p class="text-gray-500 text-sm">{{ event.start_date|date:"F j, Y" }}</p>
-          {% if event.location %}<p class="text-gray-500 text-sm">{{event.location }}</p>{% endif %}
 
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — UPCOMING WORKSHOPS & EVENTS
+     ═══════════════════════════════════════════════════════ -->
+<section id="upcoming-events" class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+      <div>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-2.5 py-1 border-2 border-shield-navy inline-block mb-2 shadow-brutal-sm">Schedule</span>
+        <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight">
+          Upcoming Workshops
+        </h2>
+      </div>
+
+      <div class="flex flex-wrap gap-2 font-mono text-xs font-bold uppercase">
+        <a href="#upcoming-events" class="bg-shield-navy text-white px-4 py-2 border-2 border-shield-navy shadow-brutal-sm">Upcoming</a>
+        {% if past_events %}
+        <a href="#past-events" class="bg-white text-shield-navy hover:bg-shield-ice px-4 py-2 border-2 border-shield-navy shadow-brutal-sm transition-colors">Past Events ({{ past_events|length }})</a>
+        {% endif %}
+        <a href="{% url 'content:event_map' %}" class="bg-white text-shield-navy hover:bg-shield-ice px-4 py-2 border-2 border-shield-navy shadow-brutal-sm transition-colors flex items-center gap-1.5">
+          <span>🗺️ Event Map</span>
+        </a>
+      </div>
+    </div>
+
+    {% if page_obj.object_list %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for event in page_obj %}
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group">
+        <div>
+          <!-- Event Banner Image -->
+          <a href="{% url 'content:event_detail' event.slug %}" class="block h-48 w-full overflow-hidden border-b-2.5 border-shield-navy relative bg-shield-navy">
+            {% if event.image %}
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+            {% else %}
+            <img src="{% static 'img/events2.jpg' %}" alt="{{ event.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+            {% endif %}
+
+            <!-- Badge Overlay -->
+            <span class="absolute top-3 left-3 bg-emerald-100 text-emerald-900 font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 border-2 border-shield-navy shadow-brutal-sm">
+              Upcoming
+            </span>
+          </a>
+
+          <!-- Event Content -->
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-shield-blue font-mono text-xs font-bold uppercase tracking-wider mb-2">
+              <span>📅 {{ event.start_date|date:"jS F Y" }}</span>
+            </div>
+
+            <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-2 group-hover:text-shield-blue transition-colors leading-snug">
+              <a href="{% url 'content:event_detail' event.slug %}">{{ event.title }}</a>
+            </h3>
+
+            {% if event.city or event.location %}
+            <p class="font-body text-shield-navy text-sm font-semibold mb-3 flex items-center gap-1.5">
+              <span>📍</span>
+              <span>{{ event.city|default:event.location }}</span>
+            </p>
+            {% endif %}
+
+            {% if event.tagline %}
+            <p class="font-body text-shield-navy text-sm font-medium leading-relaxed line-clamp-2 mb-4">
+              {{ event.tagline }}
+            </p>
+            {% endif %}
+          </div>
         </div>
-        <div class="mt-auto flex gap-3">
-          <a href="{% url 'content:event_detail' event.slug %}" class="text-py-blue text-sm font-medium hover:underline">Details →</a>
-          {% if event.is_upcoming %}
-          <a href="{% url 'core:contact' %}?event={{ event.slug }}" class="text-py-yellow-dark text-sm font-medium hover:underline">Register →</a>
-          {% endif %}
-        </div>
+
+        <!-- Action Button Box (MLH style 3D yellow arrow) -->
+        <div class="p-6 pt-0">
+          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
+            <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">View Workshop</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
         </div>
       </div>
       {% endfor %}
     </div>
+
     {% include "components/pagination.html" %}
+
     {% else %}
-    <div class="text-center py-20 text-gray-500">
-      <p class="text-lg">No upcoming events — <a href="{% url 'core:contact' %}" class="text-py-blue hover:underline">get notified</a>.</p>
+    <div class="bg-white border-2.5 border-shield-navy p-10 shadow-brutal text-center max-w-2xl mx-auto">
+      <p class="font-body text-shield-navy text-lg font-medium mb-6">
+        No upcoming events scheduled right now. Be the first to bring Python Weekend to your city!
+      </p>
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Host a Workshop</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
     {% endif %}
 
-    {% if past_events %}
-    <section id="past-events" class="mt-12">
-      <h2 class="font-display font-bold text-2xl text-py-navy mb-4">Past events</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {% for event in past_events %}
-        <div class="bg-white border border-gray-200 rounded-xl p-0 hover:border-py-blue/30 transition-all overflow-hidden hover:shadow-lg">
-          {% if event.image %}
-          <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{{ event.image.url }}');"></a>
-          {% else %}
-          <a href="{% url 'content:event_detail' event.slug %}" class="block h-40 bg-cover bg-center" style="background-image: url('{% static 'img/events2.jpg' %}');"></a>
-          {% endif %}
-          <div class="p-5 flex flex-col gap-3">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-gray-400"></span>
-              <span class="text-xs font-semibold uppercase tracking-widest text-gray-400">Passed</span>
-            </div>
-            <div>
-              <h3 class="font-display font-bold text-py-navy text-lg mb-1">
-                <a href="{% url 'content:event_detail' event.slug %}" class="hover:text-py-blue transition-colors">{{ event.title }}</a>
-              </h3>
-              <p class="text-gray-500 text-sm">{{ event.start_date|date:"F j, Y" }}</p>
-              {% if event.location %}<p class="text-gray-500 text-sm">{{ event.location }}</p>{% endif %}
-            </div>
-            <div class="mt-auto flex gap-3">
-              <a href="{% url 'content:event_detail' event.slug %}" class="text-py-blue text-sm font-medium hover:underline">Details →</a>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
   </div>
 </section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — PAST EVENTS FEATURE
+     ═══════════════════════════════════════════════════════ -->
+{% if past_events %}
+<section id="past-events" class="py-16 bg-shield-ice/15 border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <div class="mb-10">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-white px-2.5 py-1 border-2 border-shield-navy inline-block mb-2 shadow-brutal-sm">Archive</span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight">
+        Past Events &amp; Workshops
+      </h2>
+      <p class="font-body text-shield-navy text-base font-medium mt-1">Explore our previous workshops and community gatherings across cities.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for event in past_events %}
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group">
+        <div>
+          <!-- Event Banner Image -->
+          <a href="{% url 'content:event_detail' event.slug %}" class="block h-48 w-full overflow-hidden border-b-2.5 border-shield-navy relative bg-shield-navy">
+            {% if event.image %}
+            <img src="{{ event.image.url }}" alt="{{ event.title }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" loading="lazy" />
+            {% else %}
+            <img src="{% static 'img/events2.jpg' %}" alt="{{ event.title }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300" loading="lazy" />
+            {% endif %}
+
+            <!-- Badge Overlay -->
+            <span class="absolute top-3 left-3 bg-slate-200 text-slate-800 font-mono text-xs font-bold uppercase tracking-wider px-2.5 py-1 border-2 border-shield-navy shadow-brutal-sm">
+              Past Event
+            </span>
+          </a>
+
+          <!-- Event Content -->
+          <div class="p-6">
+            <div class="flex items-center gap-2 text-slate-500 font-mono text-xs font-bold uppercase tracking-wider mb-2">
+              <span>📅 {{ event.start_date|date:"jS F Y" }}</span>
+            </div>
+
+            <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-2 group-hover:text-shield-blue transition-colors leading-snug">
+              <a href="{% url 'content:event_detail' event.slug %}">{{ event.title }}</a>
+            </h3>
+
+            {% if event.city or event.location %}
+            <p class="font-body text-shield-navy text-sm font-semibold mb-3 flex items-center gap-1.5">
+              <span>📍</span>
+              <span>{{ event.city|default:event.location }}</span>
+            </p>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Action Button Box (MLH style 3D yellow arrow) -->
+        <div class="p-6 pt-0">
+          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
+            <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Event Recap</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 — BRING PW TO YOUR CITY CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="bg-white border-2.5 border-shield-navy p-8 sm:p-12 shadow-brutal">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Get Involved</span>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+        Bring Python Weekend to your city!
+      </h2>
+      <p class="font-body text-shield-navy text-base sm:text-lg font-medium leading-relaxed mb-8 max-w-xl mx-auto">
+        Is there no Python Weekend workshop in your area? You can help make it happen! We provide the free curriculum, tools, and mentor support.
+      </p>
+
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Apply to Organise a Workshop</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
 {% endblock %}
