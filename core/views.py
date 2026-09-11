@@ -85,78 +85,125 @@ from .security import validate_honeypot, check_rate_limit
 
 def _footer_context():
     """Return counter variables used by the footer template on every page."""
-    from applications.models import EventApplication
-    from django.core.exceptions import FieldError
-    now = timezone.now()
-    published = Event.objects.filter(published=True)
     try:
-        total_attendees = published.aggregate(s=Sum("attendees_count"))["s"] or 0
-    except FieldError:
-        total_attendees = 0
-    return {
-        "total_upcoming_events": published.filter(start_date__gte=now).count(),
-        "total_past_events":     published.filter(start_date__lt=now).count(),
-        "total_applicants":      EventApplication.objects.count(),
-        "total_attendees":       total_attendees,
-        # Use the dedicated country field; fall back to location if empty
-        "total_countries": (
-            published.exclude(country="").values("country").distinct().count()
-            or published.exclude(location="").values("location").distinct().count()
-        ) or 0,
-    }
+        from applications.models import EventApplication
+        now = timezone.now()
+        published = Event.objects.filter(published=True)
+        try:
+            total_attendees = published.aggregate(s=Sum("attendees_count"))["s"] or 0
+        except Exception:
+            total_attendees = 0
+
+        try:
+            total_countries = (
+                published.exclude(country="").values("country").distinct().count()
+                or published.exclude(location="").values("location").distinct().count()
+            ) or 0
+        except Exception:
+            total_countries = 0
+
+        try:
+            total_applicants = EventApplication.objects.count()
+        except Exception:
+            total_applicants = 0
+
+        return {
+            "total_upcoming_events": published.filter(start_date__gte=now).count(),
+            "total_past_events":     published.filter(start_date__lt=now).count(),
+            "total_applicants":      total_applicants,
+            "total_attendees":       total_attendees,
+            "total_countries":       total_countries,
+        }
+    except Exception:
+        return {
+            "total_upcoming_events": 0,
+            "total_past_events": 0,
+            "total_applicants": 0,
+            "total_attendees": 0,
+            "total_countries": 0,
+        }
 
 
 class HomeView(View):
     template_name = "core/home.html"
 
     def get(self, request):
-        published_events = Event.objects.filter(published=True)
-        upcoming_events  = published_events.filter(start_date__gte=timezone.now()).order_by("start_date")
+        try:
+            published_events = Event.objects.filter(published=True)
+            upcoming_events  = published_events.filter(start_date__gte=timezone.now()).order_by("start_date")
+        except Exception:
+            published_events = Event.objects.none()
+            upcoming_events  = Event.objects.none()
 
-        # Impact stats
-        total_events   = published_events.count()
-        total_coaches  = Coach.objects.filter(active=True).count()
-        # Distinct non-empty cities
-        total_cities   = (
-            published_events
-            .exclude(city="")
-            .values("city")
-            .distinct()
-            .count()
-        )
-        # Distinct non-empty countries (fallback to locations until all events have country set)
-        total_countries = (
-            published_events
-            .exclude(country="")
-            .values("country")
-            .distinct()
-            .count()
-        ) or (
-            published_events
-            .exclude(location="")
-            .values("location")
-            .distinct()
-            .count()
-        ) or 1
+        try:
+            total_events   = published_events.count()
+        except Exception:
+            total_events   = 0
+
+        try:
+            total_coaches  = Coach.objects.filter(active=True).count()
+        except Exception:
+            total_coaches  = 0
+
+        try:
+            total_cities   = (
+                published_events
+                .exclude(city="")
+                .values("city")
+                .distinct()
+                .count()
+            )
+        except Exception:
+            total_cities   = 0
+
+        try:
+            total_countries = (
+                published_events
+                .exclude(country="")
+                .values("country")
+                .distinct()
+                .count()
+            ) or (
+                published_events
+                .exclude(location="")
+                .values("location")
+                .distinct()
+                .count()
+            ) or 1
+        except Exception:
+            total_countries = 1
+
+        try:
+            coaches_list = Coach.objects.filter(active=True)[:3]
+        except Exception:
+            coaches_list = []
+
+        try:
+            blog_list = BlogPost.objects.filter(published=True).order_by("-published_at")[:3]
+        except Exception:
+            blog_list = []
+
+        try:
+            tutorials_list = Tutorial.objects.filter(published=True).order_by("-created_at")[:3]
+        except Exception:
+            tutorials_list = []
+
+        try:
+            sponsors_list = Sponsor.objects.filter(active=True)
+        except Exception:
+            sponsors_list = []
 
         context = {
-            # Dynamic stats
-            "total_events":    total_events,
-            "total_coaches":   total_coaches,
-            "total_cities":    total_cities,
-            "total_countries": total_countries,
-            # Upcoming events — show up to 6 on home page
+            "total_events":          total_events,
+            "total_coaches":         total_coaches,
+            "total_cities":          total_cities,
+            "total_countries":       total_countries,
             "upcoming_events":       upcoming_events[:6],
-            "upcoming_events_total": upcoming_events.count(),
-            # Coaches spotlight — first 3 active coaches
-            "coaches": Coach.objects.filter(active=True)[:3],
-            # Blog
-            "blog_posts": BlogPost.objects.filter(published=True).order_by("-published_at")[:3],
-            # Tutorials (kept for potential future use)
-            "tutorials": Tutorial.objects.filter(published=True).order_by("-created_at")[:3],
-            # Sponsors
-            "sponsors": Sponsor.objects.filter(active=True),
-
+            "upcoming_events_total": upcoming_events.count() if hasattr(upcoming_events, "count") else 0,
+            "coaches":               coaches_list,
+            "blog_posts":            blog_list,
+            "tutorials":             tutorials_list,
+            "sponsors":              sponsors_list,
         }
         context.update(_footer_context())
         return render(request, self.template_name, context)

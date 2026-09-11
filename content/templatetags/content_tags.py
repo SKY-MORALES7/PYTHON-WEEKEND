@@ -156,7 +156,10 @@ def _get_menu_items(position):
     if not result and position == "header":
         result = _get_default_header_menu()
 
-    cache.set(cache_key, result, 300)
+    try:
+        cache.set(cache_key, result, 300)
+    except Exception:
+        pass
     return result
 
 
