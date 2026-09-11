@@ -408,4 +408,66 @@ class JobsView(View):
     def get(self, request):
         context = {}
         context.update(_footer_context())
-        return render(request, self.template_name, context)
+        return render(request, self.template_name, context)
+
+
+import os
+import re
+from django.http import StreamingHttpResponse, Http404
+
+class VideoStreamView(View):
+    """Serve MP4 video with HTTP 206 Partial Content (Byte Range) support for seamless video playback."""
+    def get(self, request):
+        video_path = settings.BASE_DIR / "static" / "video" / "VID-20260523-WA0061.mp4"
+        if not os.path.exists(video_path):
+            raise Http404("Video file not found")
+
+        file_size = os.path.getsize(video_path)
+        range_header = request.META.get("HTTP_RANGE", "").strip()
+
+        range_match = re.match(r"bytes=(\d+)-(\d+)?", range_header) if range_header else None
+
+        if range_match:
+            first_byte = int(range_match.group(1))
+            last_byte = int(range_match.group(2)) if range_match.group(2) else file_size - 1
+            if first_byte >= file_size:
+                first_byte = file_size - 1
+            length = last_byte - first_byte + 1
+
+            def file_iterator(file_name, offset, len_bytes, chunk_size=8192):
+                with open(file_name, "rb") as f:
+                    f.seek(offset)
+                    remaining = len_bytes
+                    while remaining > 0:
+                        read_len = min(remaining, chunk_size)
+                        data = f.read(read_len)
+                        if not data:
+                            break
+                        remaining -= len(data)
+                        yield data
+
+            response = StreamingHttpResponse(
+                file_iterator(str(video_path), first_byte, length),
+                status=206,
+                content_type="video/mp4"
+            )
+            response["Content-Range"] = f"bytes {first_byte}-{last_byte}/{file_size}"
+            response["Content-Length"] = str(length)
+            response["Accept-Ranges"] = "bytes"
+            return response
+        else:
+            def full_file_iterator(file_name, chunk_size=8192):
+                with open(file_name, "rb") as f:
+                    while True:
+                        data = f.read(chunk_size)
+                        if not data:
+                            break
+                        yield data
+
+            response = StreamingHttpResponse(
+                full_file_iterator(str(video_path)),
+                content_type="video/mp4"
+            )
+            response["Content-Length"] = str(file_size)
+            response["Accept-Ranges"] = "bytes"
+            return response

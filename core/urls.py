@@ -34,4 +34,6 @@ urlpatterns = [
     path("faq/", views.FAQView.as_view(), name="faq"),
     path("code-of-conduct/", views.CoCView.as_view(), name="coc"),
     path("jobs/", views.JobsView.as_view(), name="jobs"),
+    path("video/stream/", views.VideoStreamView.as_view(), name="video_stream"),
 ]
+

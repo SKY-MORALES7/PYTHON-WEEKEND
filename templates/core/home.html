@@ -52,28 +52,30 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO (Full Background Image with Centered Text on Top)
      ═══════════════════════════════════════════════════════ -->
-<section class="hero-parallax">
-  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.68);z-index:1;"></div>
+<section class="hero-parallax" style="background-image: url('{% static 'img/code-campus-hero.jpg' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; min-height: 75vh; border-bottom: 2.5px solid #16213e; display: flex; align-items: center; justify-content: center;">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.52);z-index:1;"></div>
   <div style="position:relative;z-index:10;max-width:860px;margin:0 auto;padding:7rem 1.5rem;text-align:center;">
     <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-6 shadow-brutal-sm">Community Powered • Python &amp; Django</span>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none" style="text-shadow: 0 4px 16px rgba(0,0,0,0.6);">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none" style="text-shadow: 0 4px 16px rgba(0,0,0,0.8);">
       {{ home_hero_headline|default:"Learn Python &amp; Build Real Web Apps." }}
     </h1>
-    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.6);">
+    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8);">
       {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
     <div class="flex flex-wrap justify-center gap-5">
-      <a href="{% url 'content:event_list' %}" class="mlh-action-card group flex items-center justify-between gap-4">
-        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Find an event</span>
-        <div class="btn-arrow-3d">
-          <svg class="w-6 h-6 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </div>
+      <a href="{% url 'content:event_list' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Find an event</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
       </a>
-      <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group flex items-center justify-between gap-4">
-        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Become an Organizer</span>
-        <div class="btn-arrow-3d">
-          <svg class="w-6 h-6 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </div>
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become an Organizer</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
   </div>
@@ -124,6 +126,7 @@
       <!-- Right: video stream player -->
       <div class="border-2.5 border-shield-navy shadow-brutal overflow-hidden bg-black flex flex-col justify-center relative min-h-[320px]">
         <video controls autoplay muted loop playsinline preload="auto" poster="{% static 'img/code-campus-hero.jpg' %}" class="w-full h-full object-cover block min-h-[320px]">
+          <source src="{% url 'core:video_stream' %}" type="video/mp4">
           <source src="{% static 'video/VID-20260523-WA0061.mp4' %}" type="video/mp4">
           Your browser does not support HTML5 video streaming.
         </video>
@@ -158,11 +161,12 @@
             <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
           </p>
         </div>
-        <a href="{% url 'core:about' %}" class="mlh-action-card group w-full mt-6">
-          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read about our impact</span>
-          <div class="btn-arrow-3d">
-            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </div>
+        <a href="{% url 'core:about' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
+          <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Read about our impact</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
         </a>
       </div>
 
@@ -176,11 +180,12 @@
             {{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}
           </p>
         </div>
-        <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group w-full mt-6">
-          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Apply to organise a workshop</span>
-          <div class="btn-arrow-3d">
-            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </div>
+        <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
+          <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Apply to organise a workshop</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
         </a>
       </div>
 
@@ -233,11 +238,12 @@
       <p class="font-body text-shield-navy text-base font-medium mb-6">
         No upcoming events right now. Be the first to bring Python Weekend to your city!
       </p>
-      <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group max-w-xs mx-auto">
-        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Organise one!</span>
-        <div class="btn-arrow-3d">
-          <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </div>
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Organise one!</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
     {% endif %}
@@ -291,11 +297,12 @@
           </div>
           {% endif %}
         </div>
-        <a href="{% url 'coach:list' %}" class="mlh-action-card group w-full mt-6">
-          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read all Stories</span>
-          <div class="btn-arrow-3d">
-            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </div>
+        <a href="{% url 'coach:list' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
+          <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Read all Stories</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
         </a>
       </div>
 
@@ -370,11 +377,12 @@
         </div>
 
         <div>
-          <a href="{% url 'core:contact' %}" class="mlh-action-card group w-full mb-4">
-            <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Get in touch to support us</span>
-            <div class="btn-arrow-3d">
-              <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </div>
+          <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mb-4">
+            <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Get in touch to support us</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
           </a>
           <p class="font-body text-shield-navy text-xs font-medium">
             You can also send us a one-time donation. If you would like to discuss a bigger partnership,
@@ -409,12 +417,13 @@
             <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
               <input type="text" name="website" tabindex="-1" autocomplete="off" />
             </div>
-            <input type="email" name="email" placeholder="enter your email address" required class="w-full sm:flex-1 px-4 py-3 bg-white text-shield-navy font-body font-medium text-sm border-2.5 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
-            <button type="submit" class="mlh-action-card group w-full sm:w-auto px-5 py-3 whitespace-nowrap">
-              <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Subscribe</span>
-              <div class="btn-arrow-3d ml-3">
-                <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </div>
+            <input type="email" name="email" placeholder="enter your email address" required class="w-full sm:flex-1 px-4 py-3.5 bg-white text-shield-navy font-body font-medium text-base border-2.5 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
+            <button type="submit" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy px-5 py-3 shadow-brutal hover:shadow-brutal-hover transition-all w-full sm:w-auto whitespace-nowrap">
+              <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Subscribe</span>
+              <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+                <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+                <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
             </button>
           </form>
 
@@ -469,11 +478,12 @@
       <p class="font-body text-shield-navy text-base font-medium mb-6">
         Python Weekend events are free for all attendees thanks to our generous sponsors and community partners.
       </p>
-      <a href="{% url 'core:contact' %}" class="mlh-action-card group inline-flex max-w-sm mx-auto">
-        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Get in touch to Sponsor</span>
-        <div class="btn-arrow-3d">
-          <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </div>
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Get in touch to Sponsor</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
       </a>
     </div>
     {% endif %}
@@ -511,11 +521,12 @@
             <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-4">{{ story.intro|truncatewords:25 }}</p>
           </div>
           {% if story.link %}
-          <a href="{{ story.link }}" target="_blank" rel="noopener" class="mlh-action-card group w-full mt-2">
-            <span class="font-display font-bold text-sm text-shield-navy uppercase tracking-wider">Read story</span>
-            <div class="btn-arrow-3d">
-              <svg class="w-4 h-4 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </div>
+          <a href="{{ story.link }}" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-2">
+            <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read story</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
           </a>
           {% endif %}
         </div>
