@@ -40,16 +40,16 @@
   {% if application_form.hero_image %}
   <img src="{{ application_form.hero_image.url }}" alt="{{ application_form.text_header }}"
        class="absolute inset-0 w-full h-full object-cover" />
-  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.85) !important;"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.45) !important;"></div>
   {% elif application_form.event.image %}
   <img src="{{ application_form.event.image.url }}" alt="{{ application_form.text_header }}"
        class="absolute inset-0 w-full h-full object-cover" />
-  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.85) !important;"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.45) !important;"></div>
   {% else %}
   <!-- Technical radial dot grid over dark sky blue background -->
   <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
   {% endif %}
-  <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to top, #16213E 0%, rgba(22, 33, 62, 0.85) 60%, rgba(22, 33, 62, 0.7) 100%) !important;"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to top, rgba(22, 33, 62, 0.5) 0%, rgba(22, 33, 62, 0.1) 60%, rgba(22, 33, 62, 0.1) 100%) !important;"></div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
     <a href="{% url 'content:event_detail' application_form.event.slug %}"
@@ -57,12 +57,12 @@
       &larr; Back to {{ application_form.event.title }}
     </a>
     <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight mb-4 leading-none"
-        style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7);">
+        style="color: #ffffff !important; text-shadow: 0 2px 12px rgba(0,0,0,0.85), 0 0 20px rgba(22,33,62,0.9);">
       {{ application_form.text_header|default:application_form.event.title }}
     </h1>
     {% if application_form.text_description %}
     <p class="font-body text-lg sm:text-xl font-bold leading-relaxed max-w-2xl mx-auto"
-       style="color: #FFB800 !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7);">
+       style="color: #FFB800 !important; text-shadow: 0 1px 8px rgba(0,0,0,0.85), 0 0 15px rgba(22,33,62,0.9);">
       {{ application_form.text_description }}
     </p>
     {% endif %}
