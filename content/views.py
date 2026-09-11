@@ -87,7 +87,7 @@ class EventMapView(View):
                 map_events.append({
                     "title":     e.title,
                     "city":      e.city or e.title,
-                    "country":   e.country,
+                    "country":   e.country or "",
                     "date":      e.start_date.strftime("%d %b %Y"),
                     "url":       f"/content/events/{e.slug}/",
                     "lat":       float(e.latitude),
@@ -96,8 +96,10 @@ class EventMapView(View):
                 })
 
         context = {
+            "all_events":      all_events,
             "map_events_json": json.dumps(map_events),
             "total_events":    all_events.count(),
+            "has_map_pins":    len(map_events) > 0,
         }
         return render(request, self.template_name, context)
 
