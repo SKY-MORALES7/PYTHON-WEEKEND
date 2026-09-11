@@ -8,57 +8,126 @@
 
 {% block content %}
 
-<!-- Hero -->
-<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ support_hero_heading|default:"Support a Workshop" }}</h1>
-    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Community Backers &amp; Impact
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-6 leading-none">
+      {{ support_hero_heading|default:"Support a Workshop" }}
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl mx-auto">
       {{ support_hero_intro|default:"Python Weekend workshops are free to participants. Your support makes that possible." }}
     </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become a Supporter</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- Why Support -->
-<section class="section-dg">
-  <div class="container-dg">
-    <div class="about-grid">
 
-      <div>
-        <h2>Our Mission</h2>
-        <p style="margin-bottom:1rem;">
-          Python Weekend helps complete beginners learn Python and take their first practical step into artificial intelligence through free, mentor-supported workshops.
-        </p>
-        <p style="margin-bottom:1rem;">
-          We support local volunteer teams with a shared programme framework, organiser guidance, learning resources and central coordination. Partners make it possible for these teams to provide the spaces, tools and participant support required for a strong learning experience.
-        </p>
-        <p style="margin-bottom:1rem;">
-          Our goal is to make Python and AI education more accessible, especially for people who have had limited opportunities to enter technology.
-        </p>
-        <p>
-          We are committed to being transparent about the workshops and activities supported by our partners. Verified outcomes are published in periodic impact reports.
-        </p>
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — MISSION & WHAT YOUR SUPPORT COVERS
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Mission Card -->
+      <div class="bg-white border-2.5 border-shield-navy p-8 sm:p-10 shadow-brutal flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+            Our Purpose
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6">
+            Our Mission
+          </h2>
+          <div class="space-y-4 font-body text-shield-navy text-base sm:text-lg leading-relaxed font-medium">
+            <p>
+              Python Weekend helps complete beginners learn Python and take their first practical step into artificial intelligence through free, mentor-supported workshops.
+            </p>
+            <p>
+              We support local volunteer teams with a shared programme framework, organiser guidance, learning resources, and central coordination. Partners make it possible for these teams to provide the spaces, tools, and participant support required for a strong learning experience.
+            </p>
+            <p>
+              Our goal is to make Python and AI education more accessible, especially for individuals who have had limited opportunities to enter technology.
+            </p>
+            <p class="text-sm font-semibold text-shield-navy/80 border-t-2 border-shield-navy/20 pt-4">
+              We are committed to transparency about the workshops and activities supported by our partners. Verified outcomes are published in periodic impact reports.
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div>
-        <h2>What Your Support Covers</h2>
-        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;">
-          {% for item in support_items %}
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;">
-            <span style="color:var(--py-blue);font-size:1.1rem;margin-top:0.1rem;">✓</span>
-            <span>{{ item }}</span>
-          </li>
-          {% empty %}
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Learning venues</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Laptops and devices</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Internet connectivity</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Meals and refreshments</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Transport support</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Cloud or software credits</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Printing and learning materials</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Photography and media support</span></li>
-          <li style="display:flex;align-items:flex-start;gap:0.75rem;"><span style="color:var(--py-blue);">✓</span><span>Mentors and technical volunteers</span></li>
-          {% endfor %}
-        </ul>
+      <!-- What Your Support Covers Card -->
+      <div class="bg-white border-2.5 border-shield-navy p-8 sm:p-10 shadow-brutal flex flex-col justify-between">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-[#FFB800] px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+            Direct Allocation
+          </span>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6">
+            What Your Support Covers
+          </h2>
+
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            {% for item in support_items %}
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">{{ item }}</span>
+            </li>
+            {% empty %}
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Learning venues</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Laptops and devices</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Internet connectivity</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Meals and refreshments</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Transport support</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Cloud &amp; software credits</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Printing &amp; courseware</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Photography &amp; media</span>
+            </li>
+            <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm col-span-1 sm:col-span-2">
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Mentors and technical volunteer training</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -66,41 +135,146 @@
 </section>
 
 
-<!-- How to Support -->
-<section class="section-dg" style="background:var(--py-light);">
-  <div class="container-dg">
-    <h2 style="text-align:center;margin-bottom:2.5rem;">Start Supporting Python Weekend Today</h2>
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — HOW TO SUPPORT (CARDS WITH 3D BADGES)
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+        Get Involved
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight">
+        Start Supporting Python Weekend Today
+      </h2>
+    </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
       <!-- Sponsor a Local Workshop -->
-      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div style="font-size:2rem;margin-bottom:1rem;">📍</div>
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Sponsor a Local Workshop</h3>
-        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
-          Support a specific Python Weekend edition by contacting its local organising team. Local sponsorship may cover venue costs, internet access, participant meals, learning materials, transport support, photography or equipment.
-        </p>
-        <a href="{% url 'content:event_list' %}" class="btn-orange" style="display:inline-block;">View upcoming events</a>
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 flex items-center justify-center bg-[#FFB800] border-2 border-shield-navy shadow-brutal-sm text-2xl mb-6">
+            📍
+          </div>
+          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-4">
+            Sponsor a Local Workshop
+          </h3>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-8">
+            Support a specific Python Weekend edition by contacting its local organising team. Local sponsorship covers venue costs, internet access, participant meals, learning materials, and transport support.
+          </p>
+        </div>
+
+        <a href="{% url 'content:event_list' %}" class="group/btn flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
+          <span class="font-display font-bold text-base sm:text-lg text-shield-navy uppercase tracking-wider">View Upcoming Events</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover/btn:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
       <!-- Become a Programme Partner -->
-      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div style="font-size:2rem;margin-bottom:1rem;">🤝</div>
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Become a Programme Partner</h3>
-        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
-          Companies and institutions can support several Python Weekend editions or contribute to resources used across the community — curriculum development, organiser training, mentor preparation, website infrastructure or accessibility.
-        </p>
-        <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Discuss a partnership</a>
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 flex items-center justify-center bg-[#FFB800] border-2 border-shield-navy shadow-brutal-sm text-2xl mb-6">
+            🤝
+          </div>
+          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-4">
+            Become a Programme Partner
+          </h3>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-8">
+            Companies and institutions can support multiple Python Weekend editions or contribute to resources used across the community — curriculum development, organiser training, website infrastructure, or accessibility.
+          </p>
+        </div>
+
+        <a href="{% url 'core:contact' %}" class="group/btn flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
+          <span class="font-display font-bold text-base sm:text-lg text-shield-navy uppercase tracking-wider">Discuss a Partnership</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover/btn:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
 
       <!-- Provide In-Kind Support -->
-      <div style="background:#fff;border-radius:1rem;padding:2rem;box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div style="font-size:2rem;margin-bottom:1rem;">💡</div>
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.25rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Provide In-Kind Support</h3>
-        <p style="color:var(--py-body);font-size:0.95rem;line-height:1.6;margin-bottom:1.5rem;">
-          Your organisation can contribute venues, devices, internet, meals, transport, cloud credits, printing, photography or technical volunteers — all directly benefiting participants.
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between group">
+        <div>
+          <div class="w-12 h-12 flex items-center justify-center bg-[#FFB800] border-2 border-shield-navy shadow-brutal-sm text-2xl mb-6">
+            💡
+          </div>
+          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-4">
+            Provide In-Kind Support
+          </h3>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-8">
+            Your organisation can contribute venues, devices, internet connectivity, catering, transport vouchers, cloud credits, printing, or technical mentors — directly benefiting learners.
+          </p>
+        </div>
+
+        <a href="{% url 'core:contact' %}" class="group/btn flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
+          <span class="font-display font-bold text-base sm:text-lg text-shield-navy uppercase tracking-wider">Contact Us</span>
+          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover/btn:translate-x-1">
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 — CURRENT WORK CARDS
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+        Community Initiatives
+      </span>
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight">
+        Current Work That Will Benefit From Your Support
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="bg-white border-2.5 border-shield-navy border-t-6 border-t-shield-blue p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all">
+        <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-3">
+          Free Local Workshops
+        </h3>
+        <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
+          Help local volunteer teams deliver well-organised, beginner-friendly Python and AI workshops without charging participants.
         </p>
-        <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us</a>
+      </div>
+
+      <div class="bg-white border-2.5 border-shield-navy border-t-6 border-t-[#FFB800] p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all">
+        <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-3">
+          Python and AI Tutorial
+        </h3>
+        <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
+          Support the development and maintenance of a clear, practical tutorial that participants can use during workshops and continue using afterwards.
+        </p>
+      </div>
+
+      <div class="bg-white border-2.5 border-shield-navy border-t-6 border-t-shield-blue p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all">
+        <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-3">
+          Organiser &amp; Mentor Guides
+        </h3>
+        <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
+          Help us equip local organisers and mentors with guidance that protects programme quality and creates a supportive experience for beginners.
+        </p>
+      </div>
+
+      <div class="bg-white border-2.5 border-shield-navy border-t-6 border-t-[#FFB800] p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all">
+        <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-3">
+          Access &amp; Participation
+        </h3>
+        <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
+          Support participants who need access to devices, internet, transport, meals or practical assistance to complete a workshop.
+        </p>
       </div>
 
     </div>
@@ -108,50 +282,29 @@
 </section>
 
 
-<!-- Current work -->
-<section class="section-dg">
-  <div class="container-dg">
-    <h2 style="text-align:center;margin-bottom:2.5rem;">Current Work That Will Benefit From Your Support</h2>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;">
-
-      <div style="border-left:3px solid var(--py-blue);padding-left:1.25rem;">
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Free Local Workshops</h3>
-        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Help local volunteer teams deliver well-organised, beginner-friendly Python and AI workshops without charging participants.</p>
-      </div>
-
-      <div style="border-left:3px solid var(--py-yellow);padding-left:1.25rem;">
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Python and AI Tutorial</h3>
-        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Support the development and maintenance of a clear, practical tutorial that participants can use during workshops and continue using afterwards.</p>
-      </div>
-
-      <div style="border-left:3px solid var(--py-blue);padding-left:1.25rem;">
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Organiser and Mentor Resources</h3>
-        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Help us equip local organisers and mentors with guidance that protects programme quality and creates a supportive experience for beginners.</p>
-      </div>
-
-      <div style="border-left:3px solid var(--py-yellow);padding-left:1.25rem;">
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.5rem;">Access and Participation</h3>
-        <p style="font-size:0.9rem;color:var(--py-body);line-height:1.6;">Support participants who may need access to devices, internet, transport, meals or other practical assistance to attend and complete a workshop.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- Existing sponsors -->
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5 — THEY ALREADY SUPPORT US! (SPONSOR GRID)
+     ═══════════════════════════════════════════════════════ -->
 {% if sponsors %}
-<section class="section-dg" style="background:var(--py-light);text-align:center;">
-  <div class="container-dg">
-    <h2 style="margin-bottom:2rem;">They Already Support Us!</h2>
-    <div class="sponsor-row">
+<section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+      Our Supporters
+    </span>
+    <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-10">
+      They Already Support Us!
+    </h2>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
       {% for sponsor in sponsors %}
-      <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener" title="{{ sponsor.name }}">
+      <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener sponsored"
+         class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col items-center justify-center min-h-[120px] group overflow-hidden">
         {% if sponsor.logo %}
-        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" loading="lazy" />
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" loading="lazy" />
         {% else %}
-        <span style="display:inline-block;padding:0.5rem 1.25rem;border:1px solid #ddd;border-radius:4px;font-weight:600;color:var(--py-navy);">{{ sponsor.name }}</span>
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors">
+          {{ sponsor.name }}
+        </span>
         {% endif %}
       </a>
       {% endfor %}
@@ -161,3 +314,4 @@
 {% endif %}
 
 {% endblock %}
+
