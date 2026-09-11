@@ -8,18 +8,26 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 <style>
+  #event-map {
+    height: 550px !important;
+    min-height: 550px !important;
+    width: 100% !important;
+    border: 2.5px solid #16213E !important;
+    background-color: #e5e7eb;
+    z-index: 10;
+  }
   .leaflet-popup-content-wrapper {
     border: 2.5px solid #16213E !important;
     border-radius: 0 !important;
     box-shadow: 4px 4px 0px #16213E !important;
-    padding: 4px !important;
+    padding: 6px !important;
   }
   .leaflet-popup-tip {
     background: #16213E !important;
   }
   .pw-popup-city {
     font-family: 'Barlow Semi Condensed', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 800;
     color: #16213E;
     text-transform: uppercase;
@@ -30,14 +38,14 @@
     font-size: 0.75rem;
     font-weight: 700;
     color: #4b5563;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.6rem;
   }
   .pw-popup-link {
     display: inline-block;
-    padding: 0.4rem 0.8rem;
-    background: #FFB800;
-    color: #16213E;
-    border: 2px solid #16213E;
+    padding: 0.4rem 0.85rem;
+    background: #FFB800 !important;
+    color: #16213E !important;
+    border: 2px solid #16213E !important;
     font-family: 'Martian Mono', monospace;
     font-size: 0.75rem;
     font-weight: 800;
@@ -46,7 +54,7 @@
     box-shadow: 2px 2px 0px #16213E;
   }
   .pw-popup-link:hover {
-    background: #ffffff;
+    background: #ffffff !important;
   }
 </style>
 {% endblock %}
@@ -54,29 +62,37 @@
 {% block content %}
 
 <!-- ── HERO SECTION ── -->
-<section class="py-14 md:py-18 bg-[#16213E] text-white border-b-2.5 border-shield-navy relative overflow-hidden text-center" style="background-color: #16213E !important;">
+<section class="relative overflow-hidden text-center border-b-2.5 border-shield-navy text-white"
+         style="background-color: #16213E !important; padding-top: 5rem !important; padding-bottom: 6rem !important;">
   <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <span class="font-mono text-xs font-bold uppercase tracking-widest text-[#16213E] bg-[#FFB800] px-3.5 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest border-2 border-shield-navy inline-block mb-5 shadow-brutal-sm"
+          style="background-color: #FFB800 !important; color: #16213E !important; padding: 0.375rem 0.875rem !important;">
       Interactive World Map
     </span>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight mb-4 leading-none text-white" style="color: #ffffff !important;">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight mb-4 leading-none"
+        style="color: #ffffff !important;">
       Python Weekend Global Map
     </h1>
-    <p class="font-body text-[#FFB800] text-lg sm:text-xl font-bold leading-relaxed max-w-2xl mx-auto mb-8" style="color: #FFB800 !important;">
-      Explore {{ total_events }} workshop{{ total_events|pluralize }} hosted across the world. Click any marker to view location details.
+    <p class="font-body text-lg sm:text-xl font-bold leading-relaxed max-w-2xl mx-auto mb-10"
+       style="color: #FFB800 !important;">
+      Explore {{ total_events }} workshop{{ total_events|pluralize }} hosted across the world. Click any marker on the map below to view details.
     </p>
     <div class="flex flex-wrap justify-center gap-4 items-center font-mono text-xs font-bold uppercase">
-      <span class="inline-flex items-center gap-2 bg-white/10 px-3.5 py-2 border border-white/20 text-white">
+      <span class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 border border-white/20 text-white">
         <span class="w-3 h-3 rounded-full bg-emerald-400 border border-white"></span> Upcoming Event
       </span>
-      <span class="inline-flex items-center gap-2 bg-white/10 px-3.5 py-2 border border-white/20 text-white">
+      <span class="inline-flex items-center gap-2 bg-white/10 px-4 py-2 border border-white/20 text-white">
         <span class="w-3 h-3 rounded-full bg-gray-400 border border-white"></span> Past Event
       </span>
-      <a href="{% url 'content:event_ical' %}" class="bg-[#FFB800] text-[#16213E] px-4 py-2 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all">
+      <a href="{% url 'content:event_ical' %}"
+         class="border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all"
+         style="background-color: #FFB800 !important; color: #16213E !important; padding: 0.5rem 1rem !important;">
         ⬇ Download iCal Calendar
       </a>
-      <a href="{% url 'content:event_list' %}" class="bg-white text-[#16213E] px-4 py-2 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all">
+      <a href="{% url 'content:event_list' %}"
+         class="border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all"
+         style="background-color: #ffffff !important; color: #16213E !important; padding: 0.5rem 1rem !important;">
         ☰ List View
       </a>
     </div>
@@ -88,16 +104,19 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     {% if not has_map_pins %}
-    <div class="mb-8 bg-[#FFB800]/20 border-2.5 border-[#16213E] p-6 shadow-brutal flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div class="mb-8 border-2.5 border-[#16213E] p-6 shadow-brutal flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
+         style="background-color: rgba(255, 184, 0, 0.2) !important;">
       <div class="space-y-1">
-        <h3 class="font-mono text-sm font-bold text-[#16213E] uppercase flex items-center gap-2">
-          <span>📍</span> Backend Coordinates Notice
+        <h3 class="font-mono text-sm font-bold text-[#16213E] uppercase flex items-center gap-2" style="color: #16213E !important;">
+          <span>📍</span> Backend GPS Coordinates Notice
         </h3>
-        <p class="font-body text-xs text-[#16213E] font-semibold leading-relaxed max-w-3xl">
-          None of the published events currently have GPS coordinates set. To display pins on this map, open <strong>Django Admin &rarr; Content &rarr; Events &rarr; Edit Event</strong> and fill in the <strong>Latitude</strong> &amp; <strong>Longitude</strong> fields (e.g. Lagos: Latitude <code>6.5244</code>, Longitude <code>3.3792</code>).
+        <p class="font-body text-xs text-[#16213E] font-semibold leading-relaxed max-w-3xl" style="color: #16213E !important;">
+          None of the published events currently have GPS coordinates set. To display markers on this map, open <strong>Django Admin &rarr; Content &rarr; Events &rarr; Edit Event</strong> and fill in the <strong>Latitude</strong> &amp; <strong>Longitude</strong> fields (e.g. Lagos: Latitude <code>6.5244</code>, Longitude <code>3.3792</code>).
         </p>
       </div>
-      <a href="/admin/content/event/" target="_blank" class="flex-shrink-0 font-mono text-xs font-bold uppercase tracking-wider text-[#16213E] bg-[#FFB800] px-4 py-2.5 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all">
+      <a href="/admin/content/event/" target="_blank"
+         class="flex-shrink-0 font-mono text-xs font-bold uppercase tracking-wider border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all"
+         style="background-color: #FFB800 !important; color: #16213E !important; padding: 0.625rem 1rem !important;">
         Open Admin Panel &rarr;
       </a>
     </div>
@@ -105,74 +124,8 @@
 
     <!-- Map Canvas Container -->
     <div class="bg-white border-2.5 border-shield-navy p-3 shadow-brutal">
-      <div id="event-map" class="w-full h-[520px] rounded-none border-2 border-shield-navy z-10"></div>
+      <div id="event-map"></div>
     </div>
-  </div>
-</section>
-
-<!-- ── PUBLISHED EVENTS DIRECTORY ── -->
-<section class="py-16 bg-white border-b-2.5 border-shield-navy">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between mb-8 border-b-2.5 border-shield-navy pb-4">
-      <div>
-        <span class="font-mono text-xs font-bold text-shield-navy uppercase tracking-wider">Directory</span>
-        <h2 class="font-display font-bold text-3xl text-shield-navy uppercase tracking-tight">Published Events</h2>
-      </div>
-      <a href="{% url 'applications:organize_start' %}" class="hidden sm:inline-flex font-mono text-xs font-bold uppercase tracking-wider text-[#16213E] bg-[#FFB800] px-4 py-2 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all">
-        + Host a Workshop
-      </a>
-    </div>
-
-    {% if all_events %}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {% for e in all_events %}
-      <div class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal flex flex-col justify-between hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <span class="font-mono text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 border border-shield-navy {% if e.is_upcoming %}bg-emerald-100 text-emerald-900{% else %}bg-gray-100 text-gray-700{% endif %}">
-              {% if e.is_upcoming %}● Upcoming{% else %}○ Past Event{% endif %}
-            </span>
-            {% if e.city %}
-            <span class="font-mono text-xs font-bold text-shield-navy uppercase">
-              📍 {{ e.city }}{% if e.country %}, {{ e.country }}{% endif %}
-            </span>
-            {% endif %}
-          </div>
-          
-          <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-2">
-            {{ e.title }}
-          </h3>
-          <p class="font-mono text-xs text-gray-600 mb-4">
-            📅 {{ e.start_date|date:"D, d M Y" }}
-            {% if e.venue_name %} • {{ e.venue_name }}{% endif %}
-          </p>
-          
-          {% if e.latitude and e.longitude %}
-          <div class="font-mono text-[11px] text-emerald-800 font-bold bg-emerald-50 px-2.5 py-1 border border-emerald-400 inline-block mb-4">
-            📍 GPS: {{ e.latitude }}, {{ e.longitude }}
-          </div>
-          {% else %}
-          <div class="font-mono text-[11px] text-amber-800 font-bold bg-amber-50 px-2.5 py-1 border border-amber-400 inline-block mb-4">
-            ⚠️ No GPS coordinates set in Admin
-          </div>
-          {% endif %}
-        </div>
-
-        <a href="{% url 'content:event_detail' e.slug %}" class="mt-4 inline-flex items-center justify-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-white bg-[#16213E] px-4 py-2.5 border-2 border-shield-navy shadow-brutal-sm hover:bg-[#306998] transition-all w-full text-center">
-          View Event Details &rarr;
-        </a>
-      </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="bg-shield-ice/20 border-2.5 border-shield-navy p-12 text-center shadow-brutal max-w-xl mx-auto">
-      <p class="font-display font-bold text-2xl text-shield-navy uppercase mb-2">No Published Events Yet</p>
-      <p class="font-mono text-xs text-gray-600 mb-6 font-medium">Events will appear here automatically once created and published in Django Admin.</p>
-      <a href="{% url 'applications:organize_start' %}" class="inline-flex font-mono text-xs font-bold uppercase tracking-wider text-[#16213E] bg-[#FFB800] px-6 py-3 border-2.5 border-[#16213E] shadow-brutal hover:shadow-brutal-hover transition-all">
-        Host a Workshop in Your City
-      </a>
-    </div>
-    {% endif %}
   </div>
 </section>
 
@@ -184,25 +137,26 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPeWs=" crossorigin=""></script>
 
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
   var events = {{ map_events_json|safe }};
 
   // Initialise Leaflet Map
   var map = L.map('event-map', { scrollWheelZoom: false });
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     maxZoom: 18,
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    subdomains: 'abcd',
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>'
   }).addTo(map);
 
   function makeIcon(upcoming) {
     return L.divIcon({
       className: '',
-      html: '<div style="width:16px;height:16px;border-radius:50%;background:' +
+      html: '<div style="width:18px;height:18px;border-radius:50%;background:' +
             (upcoming ? '#22c55e' : '#6b7280') +
             ';border:3px solid #16213E;box-shadow:2px 2px 0px #16213E;"></div>',
-      iconSize: [16, 16],
-      iconAnchor: [8, 8],
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
       popupAnchor: [0, -12],
     });
   }
@@ -233,9 +187,13 @@
       map.fitBounds(bounds, { padding: [50, 50] });
     }
   } else {
-    // Default world view when no GPS coordinates exist yet
+    // Default world view centered when no GPS coordinates exist yet
     map.setView([20, 0], 2);
   }
-})();
+
+  setTimeout(function() {
+    map.invalidateSize();
+  }, 300);
+});
 </script>
 {% endblock %}
