@@ -14,7 +14,20 @@ class DynamicApplicationForm(forms.Form):
         if application_form is None:
             return
 
-        for question in application_form.questions.all():
+        # Order questions so Full Name and Email always appear first
+        questions = list(application_form.questions.all())
+
+        def question_sort_key(q):
+            title_lower = q.title.lower()
+            if "name" in title_lower:
+                return (0, q.order)
+            if q.question_type == "email" or "email" in title_lower:
+                return (1, q.order)
+            return (2, q.order)
+
+        questions.sort(key=question_sort_key)
+
+        for question in questions:
             field_name = f"question_{question.pk}"
             if question.question_type == "paragraph":
                 self.fields[field_name] = forms.CharField(

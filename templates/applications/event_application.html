@@ -10,43 +10,54 @@
   form input[type="text"], 
   form input[type="email"], 
   form input[type="number"], 
+  form input[type="url"],
   form select,
   form textarea {
     width: 100%;
     padding: 0.75rem 1rem;
     background-color: #ffffff;
     color: #16213e;
-    border: 2px solid #16213e;
+    border: 2.5px solid #16213e;
     border-radius: 0;
     outline: none;
     font-family: 'Martian Mono', monospace;
     font-weight: 700;
     font-size: 0.875rem;
-    box-shadow: 3px 3px 0px #16213e;
+    box-shadow: 4px 4px 0px #16213e;
     transition: all 0.2s ease;
   }
   form input:focus, 
   form select:focus,
   form textarea:focus {
-    border-color: #4B8BBE;
-    box-shadow: 5px 5px 0px #16213e;
+    border-color: #306998;
+    box-shadow: 6px 6px 0px #306998;
   }
 </style>
 
 <!-- ── HERO SECTION ── -->
-<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
-  <!-- Technical grid background -->
-  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+<section class="relative min-h-[35vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden bg-[#16213E] border-b-2.5 border-shield-navy text-center py-16">
+  {% if application_form.hero_image %}
+  <img src="{{ application_form.hero_image.url }}" alt="{{ application_form.text_header }}"
+       class="absolute inset-0 w-full h-full object-cover opacity-50" />
+  {% elif application_form.event.image|file_exists %}
+  <img src="{{ application_form.event.image.url }}" alt="{{ application_form.text_header }}"
+       class="absolute inset-0 w-full h-full object-cover opacity-50" />
+  {% else %}
+  <!-- Technical radial dot grid over dark sky blue background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
+  {% endif %}
+  <div class="absolute inset-0 bg-gradient-to-t from-[#16213E] via-[#16213E]/80 to-[#16213E]/40 pointer-events-none"></div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-    <a href="{% url 'content:event_detail' application_form.event.slug %}" class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy mb-6 shadow-brutal-sm hover:shadow-brutal-hover transition-all">
+    <a href="{% url 'content:event_detail' application_form.event.slug %}"
+       class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-white bg-shield-navy/90 px-3.5 py-2 border-2 border-white mb-6 shadow-brutal-sm hover:bg-[#FFB800] hover:text-[#16213E] hover:border-shield-navy transition-all">
       &larr; Back to {{ application_form.event.title }}
     </a>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-4 leading-none">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-white uppercase tracking-tight mb-4 leading-none">
       {{ application_form.text_header|default:application_form.event.title }}
     </h1>
     {% if application_form.text_description %}
-    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
+    <p class="font-body text-shield-ice text-lg sm:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
       {{ application_form.text_description }}
     </p>
     {% endif %}
@@ -78,31 +89,31 @@
               {{ field.label }} {% if field.field.required %}<span class="text-red-600">*</span>{% endif %}
             </label>
           
-          <div>
-            {{ field }}
+            <div>
+              {{ field }}
+            </div>
+
+            {% if field.help_text %}
+              <p class="font-mono text-xs text-gray-500 mt-1 font-medium">{{ field.help_text }}</p>
+            {% endif %}
+            
+            {% for error in field.errors %}
+              <p class="font-mono text-xs text-red-600 mt-1 font-bold">⚠️ {{ error }}</p>
+            {% endfor %}
           </div>
+        {% endfor %}
 
-          {% if field.help_text %}
-            <p class="font-mono text-xs text-gray-500 mt-1 font-medium">{{ field.help_text }}</p>
-          {% endif %}
-          
-          {% for error in field.errors %}
-            <p class="font-mono text-xs text-red-600 mt-1 font-bold">⚠️ {{ error }}</p>
-          {% endfor %}
+        <div class="pt-8 flex justify-end">
+          <button type="submit"
+                  class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
+            <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Submit Application</span>
+            <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+              <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
-      {% endfor %}
-
-      <div class="pt-8 flex justify-end">
-        <button type="submit"
-                class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
-          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Submit Application</span>
-          <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
-            <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    </form>
+      </form>
     </div>
   </div>
 </section>
