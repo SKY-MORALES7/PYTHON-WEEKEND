@@ -1,13 +1,16 @@
 {% extends "applications/organize/_base_wizard.html" %}
-{% block title %}Remote or In-Person Workshop?{% endblock %}
+{% block title %}Workshop Format{% endblock %}
 
 {% block wizard_content %}
-<h1 class="font-display text-4xl sm:text-5xl text-center text-gray-800 mb-12">
-  Remote or In-Person Workshop?
-</h1>
+<h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight text-center mb-2">
+  Workshop Format
+</h2>
+<p class="font-body text-shield-navy text-sm text-center font-medium mb-8">
+  Choose whether your workshop will be held in-person or remotely online.
+</p>
 
 {% if error %}
-<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-8 text-sm">
+<div class="bg-red-100 border-2 border-red-500 text-red-900 p-4 shadow-brutal-sm mb-8 font-mono text-sm font-bold">
   {{ error }}
 </div>
 {% endif %}
@@ -15,35 +18,49 @@
 <form method="post" action="{% url 'applications:organize_step' step=3 %}">
   {% csrf_token %}
 
-  <div class="mb-10">
-    <h2 class="text-lg font-bold text-gray-900 mb-1">
-      Remote or In-Person? <span class="text-red-500">*</span>
-    </h2>
-    <p class="text-gray-500 text-sm mb-5">Will your workshop be Remote or In-Person?</p>
-
-    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
-      WORKSHOP TYPE <span class="text-red-500">*</span>
+  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-10">
+    <label class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-4">
+      Select Workshop Type <span class="text-red-600">*</span>
     </label>
-    
-    <div class="space-y-4 ml-2 mt-4">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="radio" name="workshop_type" value="remote" class="wizard-radio" 
-               {% if wizard_data.workshop_type == 'remote' %}checked{% endif %} />
-        <span class="text-gray-800 font-medium text-sm">Remote</span>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- In-Person Option -->
+      <label class="relative flex flex-col justify-between bg-shield-ice/15 border-2 border-shield-navy p-5 shadow-brutal-sm cursor-pointer hover:border-shield-blue transition-all">
+        <div class="flex items-center gap-3 mb-3">
+          <input type="radio" name="workshop_type" value="in_person" class="w-5 h-5 accent-shield-navy"
+                 {% if wizard_data.workshop_type == 'in_person' or not wizard_data.workshop_type %}checked{% endif %} />
+          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight">🏢 In-Person</span>
+        </div>
+        <p class="font-body text-shield-navy/80 text-xs font-semibold leading-relaxed">
+          Participants and coaches meet physically at a designated local venue (university, tech hub, co-working space).
+        </p>
       </label>
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="radio" name="workshop_type" value="in_person" class="wizard-radio" 
-               {% if wizard_data.workshop_type == 'in_person' or not wizard_data.workshop_type %}checked{% endif %} />
-        <span class="text-gray-800 font-medium text-sm">In-Person</span>
+
+      <!-- Remote Option -->
+      <label class="relative flex flex-col justify-between bg-shield-ice/15 border-2 border-shield-navy p-5 shadow-brutal-sm cursor-pointer hover:border-shield-blue transition-all">
+        <div class="flex items-center gap-3 mb-3">
+          <input type="radio" name="workshop_type" value="remote" class="w-5 h-5 accent-shield-navy"
+                 {% if wizard_data.workshop_type == 'remote' %}checked{% endif %} />
+          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight">💻 Remote (Online)</span>
+        </div>
+        <p class="font-body text-shield-navy/80 text-xs font-semibold leading-relaxed">
+          Workshop is hosted online via video conferencing with virtual breakout rooms and online mentor support.
+        </p>
       </label>
     </div>
   </div>
 
-  <div class="flex justify-center mt-12">
+  <!-- Submit Button -->
+  <div class="flex justify-end mt-10">
     <button type="submit"
-            class="px-10 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
-      Proceed!
+            class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
+      <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Proceed to Commitment</span>
+      <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
     </button>
   </div>
 </form>
 {% endblock %}
+

@@ -1,48 +1,55 @@
 {% extends "applications/organize/_base_wizard.html" %}
-{% block title %}Python Weekend Organizer Commitment{% endblock %}
+{% block title %}Organizer Commitment{% endblock %}
 
 {% block wizard_content %}
-<div class="text-center mb-10">
-  <h1 class="font-display text-4xl sm:text-5xl inline-flex items-center justify-center gap-3 text-gray-800">
-    <span class="text-yellow-400 text-3xl">✨</span>
-    Python Weekend Organizer Commitment
-    <span class="text-yellow-400 text-3xl">✨</span>
-  </h1>
-</div>
+<h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight text-center mb-2">
+  ✨ Organizer Commitment ✨
+</h2>
+<p class="font-body text-shield-navy text-sm text-center font-medium mb-8">
+  Fostering Python Weekend community values.
+</p>
 
 <form method="post" action="{% url 'applications:organize_step' step=4 %}">
   {% csrf_token %}
 
-  <div class="mb-10 text-gray-700 leading-relaxed text-[15px]">
-    <p class="mb-6">
-      Python Weekend is an initiative aimed at introducing beginners to the world of technology and
-      increasing diversity within the tech industry. We do that by organizing workshops and inviting beginners to join us to learn
-      how to build the internet using HTML, CSS, Python and Django in a safe, friendly and inclusive environment.
+  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-10 space-y-6">
+    <p class="font-body text-shield-navy text-base leading-relaxed font-medium">
+      Python Weekend is a volunteer initiative dedicated to introducing complete beginners to software development and AI in a safe, friendly, and inclusive environment.
     </p>
 
-    <p class="mb-6">
-      As a Python Weekend Organizer, you make a commitment to foster and advance Python Weekend values:
-    </p>
+    <div class="bg-shield-ice/15 border-2 border-shield-navy p-6 shadow-brutal-sm space-y-4">
+      <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight">
+        Your Commitment as an Organizer:
+      </h3>
 
-    <ul class="space-y-4 ml-6 list-disc marker:text-py-blue">
-      <li>
-        The workshop you organize will strive to provide safe, inclusive, friendly and positive experience for everyone
-        attending and coaching
-      </li>
-      <li>
-        You will require everyone involved with the workshop to comply with <a href="#" class="wizard-link font-normal">Python Weekend Code of Conduct</a>
-      </li>
-      <li>
-        You'll strive to have tons of fun while organizing your amazing workshop! 🙌
-      </li>
-    </ul>
+      <ul class="space-y-3 font-body text-shield-navy text-sm font-semibold">
+        <li class="flex items-start gap-3 bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <span class="w-6 h-6 bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy shrink-0 mt-0.5">✓</span>
+          <span>Your workshop will strive to provide a safe, inclusive, positive experience for all participants and coaches.</span>
+        </li>
+        <li class="flex items-start gap-3 bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <span class="w-6 h-6 bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy shrink-0 mt-0.5">✓</span>
+          <span>You require everyone involved to abide by the <a href="{% url 'core:coc' %}" class="underline text-shield-blue font-bold" target="_blank" rel="noopener">Python Weekend Code of Conduct</a>.</span>
+        </li>
+        <li class="flex items-start gap-3 bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <span class="w-6 h-6 bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy shrink-0 mt-0.5">✓</span>
+          <span>You will foster community spirit and make the learning experience engaging and rewarding for everyone! 🙌</span>
+        </li>
+      </ul>
+    </div>
   </div>
 
-  <div class="flex justify-center mt-12">
+  <!-- Submit Button -->
+  <div class="flex justify-end mt-10">
     <button type="submit"
-            class="px-10 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
-      Sign the commitment
+            class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
+      <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Sign the Commitment</span>
+      <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
     </button>
   </div>
 </form>
 {% endblock %}
+

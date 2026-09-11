@@ -30,7 +30,7 @@ a {
   color: var(--py-blue);
 }
 
-a:hover {
+a:hover:not([class*="bg-"]):not([class*="btn-"]):not([class*="text-"]) {
   color: var(--py-yellow);
 }
 

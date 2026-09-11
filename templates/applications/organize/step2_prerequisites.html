@@ -1,13 +1,16 @@
 {% extends "applications/organize/_base_wizard.html" %}
-{% block title %}Prerequisites{% endblock %}
+{% block title %}Prerequisites &amp; Guidelines{% endblock %}
 
 {% block wizard_content %}
-<h1 class="font-display text-4xl sm:text-5xl text-center text-gray-800 mb-10">
-  Prerequisites to organize a Python Weekend workshop
-</h1>
+<h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight text-center mb-2">
+  Workshop Prerequisites
+</h2>
+<p class="font-body text-shield-navy text-sm text-center font-medium mb-8">
+  Before we get started, please confirm the following guidelines and requirements.
+</p>
 
 {% if error %}
-<div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-8 text-sm">
+<div class="bg-red-100 border-2 border-red-500 text-red-900 p-4 shadow-brutal-sm mb-8 font-mono text-sm font-bold">
   {{ error }}
 </div>
 {% endif %}
@@ -15,67 +18,77 @@
 <form method="post" action="{% url 'applications:organize_step' step=2 %}">
   {% csrf_token %}
 
-  <div class="mb-8">
-    <p class="text-gray-700 leading-relaxed mb-6">
-      Yay! You want to organize a Python Weekend workshop! That's wonderful. Before we can get you started, there are a few things
-      requirements that we'd like to confirm with you to make sure your workshop is going to be planned as smoothly as possible:
-    </p>
+  <div class="space-y-8">
+    <!-- Chapter confirmation -->
+    <div class="bg-shield-ice/15 border-2 border-shield-navy p-6 shadow-brutal-sm">
+      <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-2">
+        1. Organizer's Manual Chapters
+      </h3>
+      <p class="font-body text-shield-navy text-sm font-medium mb-4">
+        Confirm that you have read the following sections of our <a href="{% url 'tutorials:organizer_manual' %}" class="underline font-bold text-shield-blue" target="_blank" rel="noopener">Organizer's Manual</a>:
+      </p>
 
-    <!-- Reading checkboxes -->
-    <p class="text-gray-800 font-medium mb-4">
-      Confirm that you've read the following chapters of our <a href="#" class="wizard-link">Organizer's Manual</a>:
-    </p>
-
-    <div class="space-y-4 ml-4 mb-8">
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="read_intro" class="wizard-check mt-0.5" {% if form_data.read_intro %}checked{% endif %} />
-        <a href="#" class="wizard-link">Introduction to Organizer's Manual</a>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="read_step_by_step" class="wizard-check mt-0.5" {% if form_data.read_step_by_step %}checked{% endif %} />
-        <a href="#" class="wizard-link">Organizing Python Weekend workshop step by step</a>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="read_environment" class="wizard-check mt-0.5" {% if form_data.read_environment %}checked{% endif %} />
-        <a href="#" class="wizard-link">Environment at Python Weekend workshop</a>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="read_faq" class="wizard-check mt-0.5" {% if form_data.read_faq %}checked{% endif %} />
-        <a href="#" class="wizard-link">Frequently Asked Questions</a>
-      </label>
+      <div class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="read_intro" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_intro %}checked{% endif %} />
+          <span>Introduction to the Organizer's Manual</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="read_step_by_step" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_step_by_step %}checked{% endif %} />
+          <span>Organizing a Python Weekend Workshop step by step</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="read_environment" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_environment %}checked{% endif %} />
+          <span>Environment &amp; culture at a Python Weekend workshop</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-white border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="read_faq" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.read_faq %}checked{% endif %} />
+          <span>Frequently Asked Questions &amp; Event Logistics</span>
+        </label>
+      </div>
     </div>
 
-    <!-- Requirements checkboxes -->
-    <p class="text-gray-800 font-medium mb-4">
-      Confirm that you meet following requirements to organize a workshop:
-    </p>
+    <!-- Core Requirements -->
+    <div class="bg-white border-2 border-shield-navy p-6 shadow-brutal-sm">
+      <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-2">
+        2. Core Workshop Principles
+      </h3>
+      <p class="font-body text-shield-navy text-sm font-medium mb-4">
+        Confirm that your planned event complies with our core values:
+      </p>
 
-    <div class="space-y-4 ml-4">
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="is_18" class="wizard-check mt-0.5" {% if form_data.is_18 %}checked{% endif %} />
-        <span class="text-gray-800 font-medium">You're at least 18 years old</span>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="free_workshop" class="wizard-check mt-0.5" {% if form_data.free_workshop %}checked{% endif %} />
-        <span class="text-gray-800 font-medium">Your workshop will be free for participants, and women will have preference in attending</span>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="non_profit" class="wizard-check mt-0.5" {% if form_data.non_profit %}checked{% endif %} />
-        <span class="text-gray-800 font-medium">The event you're organizing will be non-profit</span>
-      </label>
-      <label class="flex items-start gap-3 cursor-pointer">
-        <input type="checkbox" name="no_pay" class="wizard-check mt-0.5" {% if form_data.no_pay %}checked{% endif %} />
-        <span class="text-gray-800 font-bold text-py-blue">You will not pay coaches, speakers or organizers therefore you will not request money from sponsors to pay coaches, speakers or organizers.</span>
-      </label>
+      <div class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="is_18" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.is_18 %}checked{% endif %} />
+          <span>You are at least 18 years old</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="free_workshop" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.free_workshop %}checked{% endif %} />
+          <span>Your workshop will be 100% free for all participants</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-shield-ice/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="non_profit" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.non_profit %}checked{% endif %} />
+          <span>The event is non-profit and volunteer-driven</span>
+        </label>
+        <label class="flex items-start gap-3 cursor-pointer bg-[#FFB800]/20 border-2 border-shield-navy p-3 shadow-brutal-sm">
+          <input type="checkbox" name="no_pay" class="w-5 h-5 accent-shield-navy mt-0.5" {% if form_data.no_pay %}checked{% endif %} />
+          <span class="font-bold text-shield-navy">You will not pay coaches, speakers, or organizers (and will not request sponsor funds for salaries or honorariums).</span>
+        </label>
+      </div>
     </div>
   </div>
 
-  <!-- Submit -->
-  <div class="flex justify-center mt-10">
+  <!-- Submit Button -->
+  <div class="flex justify-end mt-10">
     <button type="submit"
-            class="px-10 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
-      Go to next step
+            class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
+      <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Proceed to Format Selection</span>
+      <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
     </button>
   </div>
 </form>
 {% endblock %}
+

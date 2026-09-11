@@ -1,81 +1,60 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}Become an Organiser{% endblock %} | Python Weekend</title>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            py: {
-              blue: "#4B8BBE",
-              "blue-dark": "#306998",
-              yellow: "#FFD43B",
-              "yellow-dark": "#C9A227",
-              navy: "#16213E",
-              light: "#f8f9fa",
-              body: "#4a4a4a",
-              muted: "#6c757d",
-            },
-          },
-          fontFamily: {
-            display: ['"Rajdhani"', "sans-serif"],
-            body: ['"DM Sans"', "sans-serif"],
-          },
-        },
-      },
-    }
-  </script>
+{% block title %}{% block wizard_title %}Become an Organizer{% endblock %} — Python Weekend{% endblock %}
 
-  <!-- Google Fonts: Rajdhani (display) + DM Sans (body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet" />
+{% block content %}
 
-  <style>
-    /* Custom checkbox styling */
-    .wizard-check {
-      accent-color: #4B8BBE;
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-    }
-    .wizard-radio {
-      accent-color: #4B8BBE;
-      width: 18px;
-      height: 18px;
-      cursor: pointer;
-    }
-    /* Links in blue */
-    .wizard-link {
-      color: #4B8BBE;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .wizard-link:hover {
-      text-decoration: underline;
-    }
-  </style>
-  {% block extra_head %}{% endblock %}
-</head>
-<body class="bg-gray-50 font-body text-gray-800 min-h-screen">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — WIZARD HERO & PROGRESS BAR
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-12 md:py-16 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
 
-  <!-- Progress bar -->
-  <div class="w-full bg-gray-200 h-1.5">
-    <div class="bg-py-blue h-1.5 transition-all duration-500"
-         style="width: {{ step|default:1 }}{% widthratio step total_steps 100 %}%"></div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+      Organizer Application Wizard
+    </span>
+    <h1 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-4">
+      Organize a Python Weekend Workshop
+    </h1>
+    <p class="font-body text-shield-navy text-base sm:text-lg font-medium max-w-xl mx-auto mb-6">
+      Bring a free, beginner-friendly Python &amp; AI workshop to your local community.
+    </p>
+
+    <!-- Step Progress Bar -->
+    <div class="max-w-xl mx-auto mt-6">
+      <div class="flex justify-between items-center mb-2 font-mono text-xs font-bold uppercase tracking-widest text-shield-navy">
+        <span>Step {{ step|default:1 }} of {{ total_steps|default:5 }}</span>
+        <span>
+          {% if step == 1 %}Organizer Details
+          {% elif step == 2 %}Prerequisites
+          {% elif step == 3 %}Workshop Format
+          {% elif step == 4 %}Commitment
+          {% elif step == 5 %}Experience
+          {% else %}Complete{% endif %}
+        </span>
+      </div>
+      <div class="w-full bg-shield-ice/30 border-2 border-shield-navy h-4 p-0.5 shadow-brutal-sm overflow-hidden">
+        <div class="bg-[#FFB800] border-r-2 border-shield-navy h-full transition-all duration-500"
+             style="width: {% if step == 1 %}20%{% elif step == 2 %}40%{% elif step == 3 %}60%{% elif step == 4 %}80%{% elif step == 5 %}100%{% else %}100%{% endif %}"></div>
+      </div>
+    </div>
   </div>
+</section>
 
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-    {% block wizard_content %}{% endblock %}
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — WIZARD CONTENT CARD
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-12 md:py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-10 shadow-brutal">
+      {% block wizard_content %}{% endblock %}
+    </div>
   </div>
+</section>
 
-  {% block extra_js %}{% endblock %}
-</body>
-</html>
+{% endblock %}
+

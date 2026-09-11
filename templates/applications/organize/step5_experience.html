@@ -1,48 +1,54 @@
 {% extends "applications/organize/_base_wizard.html" %}
-{% block title %}Application to organize a workshop{% endblock %}
+{% block title %}Past Experience{% endblock %}
 
 {% block wizard_content %}
-<h1 class="font-display text-4xl sm:text-5xl text-center text-gray-800 mb-12">
-  Application to organize a workshop
-</h1>
+<h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight text-center mb-2">
+  Organizing Experience
+</h2>
+<p class="font-body text-shield-navy text-sm text-center font-medium mb-8">
+  Have you organized a Python Weekend workshop before?
+</p>
 
 <form method="post" action="{% url 'applications:organize_step' step=5 %}">
   {% csrf_token %}
 
-  <div class="mb-10">
-    <h2 class="text-lg font-bold text-gray-900 mb-1">
-      Have you organized a Python Weekend workshop before? <span class="text-red-500">*</span>
-    </h2>
-    <p class="text-gray-500 text-sm mb-5">
-      If so, the form will be much shorter as we already know a lot about you! :)
-    </p>
+  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-10">
+    <label class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-4">
+      Select Option <span class="text-red-600">*</span>
+    </label>
 
-    <div class="space-y-6 ml-2 mt-6">
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="radio" name="experience" value="yes" id="exp-yes" class="wizard-radio" 
-               {% if wizard_data.has_organized_before %}checked{% endif %} />
-        <span class="text-gray-800 font-medium text-sm flex items-center gap-3">
-          Yes, I organized Python Weekend
-          <select name="previous_event" id="event-select" class="ml-2 border border-gray-300 rounded-md px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-py-blue/40 focus:border-py-blue text-gray-500">
-            <option value="">Choose event</option>
-            {% for event in events %}
-              <option value="{{ event.id }}" {% if wizard_data.previous_event_id == event.id|stringformat:"s" %}selected{% endif %}>{{ event.title }}</option>
-            {% endfor %}
-          </select>
-        </span>
+    <div class="space-y-4">
+      <label class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-shield-ice/15 border-2 border-shield-navy p-4 shadow-brutal-sm cursor-pointer hover:border-shield-blue transition-all">
+        <div class="flex items-center gap-3">
+          <input type="radio" name="experience" value="yes" id="exp-yes" class="w-5 h-5 accent-shield-navy"
+                 {% if wizard_data.has_organized_before %}checked{% endif %} />
+          <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-tight">Yes, I organized Python Weekend before</span>
+        </div>
+        <select name="previous_event" id="event-select" class="bg-white border-2 border-shield-navy px-3 py-2 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
+          <option value="">Choose previous event...</option>
+          {% for event in events %}
+            <option value="{{ event.id }}" {% if wizard_data.previous_event_id == event.id|stringformat:"s" %}selected{% endif %}>{{ event.title }}</option>
+          {% endfor %}
+        </select>
       </label>
-      <label class="flex items-center gap-3 cursor-pointer">
-        <input type="radio" name="experience" value="no" id="exp-no" class="wizard-radio" 
+
+      <label class="flex items-center gap-3 bg-shield-ice/15 border-2 border-shield-navy p-4 shadow-brutal-sm cursor-pointer hover:border-shield-blue transition-all">
+        <input type="radio" name="experience" value="no" id="exp-no" class="w-5 h-5 accent-shield-navy"
                {% if not wizard_data.has_organized_before %}checked{% endif %} />
-        <span class="text-gray-800 font-medium text-sm">No, it's my first time organizing Python Weekend</span>
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-tight">No, this is my first time organizing Python Weekend</span>
       </label>
     </div>
   </div>
 
-  <div class="flex justify-center mt-12">
+  <!-- Submit Button -->
+  <div class="flex justify-end mt-10">
     <button type="submit"
-            class="px-10 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-md text-base transition-all hover:shadow-lg">
-      Submit application
+            class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full sm:w-auto">
+      <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Submit Application</span>
+      <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
     </button>
   </div>
 </form>
@@ -70,3 +76,4 @@
   updateSelect(); // initialize on load
 </script>
 {% endblock %}
+

@@ -2,18 +2,24 @@
 {% block title %}Application Submitted{% endblock %}
 
 {% block wizard_content %}
-<div class="text-center py-10">
-  <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 text-green-500 mb-6">
-    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+<div class="text-center py-6">
+  <div class="inline-flex items-center justify-center w-20 h-20 bg-[#FFB800] border-2.5 border-shield-navy shadow-brutal-sm text-shield-navy mb-6">
+    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
   </div>
-  <h1 class="font-display text-4xl sm:text-5xl text-gray-800 mb-4">
+  <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-4">
     Application Submitted Successfully!
-  </h1>
-  <p class="text-gray-600 mb-8 max-w-lg mx-auto">
-    Thank you for volunteering to organize a Python Weekend workshop! We'll review your application and get back to you shortly.
+  </h2>
+  <p class="font-body text-shield-navy text-base sm:text-lg font-medium leading-relaxed mb-8 max-w-lg mx-auto">
+    Thank you for volunteering to organize a Python Weekend workshop! Our central team will review your application and reach out shortly.
   </p>
-  <a href="{% url 'core:home' %}" class="px-8 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-md text-base transition-all inline-block">
-    Return to Home
+
+  <a href="{% url 'core:home' %}" class="group inline-flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+    <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Return to Homepage</span>
+    <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+      <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+      <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+    </svg>
   </a>
 </div>
 {% endblock %}
+

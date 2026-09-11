@@ -20,6 +20,8 @@ urlpatterns = [
     path("events/", RedirectView.as_view(url="/content/events/", permanent=False), name="events_root"),
     path("events/map/", RedirectView.as_view(url="/content/events/map/", permanent=False), name="events_map_root"),
     path("events/ical/", RedirectView.as_view(url="/content/events/ical/", permanent=False), name="events_ical_root"),
+    path("blog/", RedirectView.as_view(url="/content/blog/", permanent=False), name="blog_root"),
+    path("coc/", RedirectView.as_view(url="/code-of-conduct/", permanent=False), name="coc_root"),
     path("apply/organise/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
     path("apply/organize/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
     path("organise/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
