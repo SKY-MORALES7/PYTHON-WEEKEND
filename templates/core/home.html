@@ -71,18 +71,19 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO
      ═══════════════════════════════════════════════════════ -->
-<section class="hero-parallax">
-  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.52);"></div>
-  <div style="position:relative;z-index:10;max-width:820px;padding:5rem 1.5rem;">
-    <h1 class="hero-headline">
+<section class="relative bg-shield-navy text-white border-b-2 border-shield-navy py-24 overflow-hidden bg-cover bg-center"
+         style="background-image: linear-gradient(rgba(22, 33, 62, 0.82), rgba(22, 33, 62, 0.82)), url('{% static "img/dg-style/hero-bg-whatsapp.jpg" %}');">
+  <div class="relative max-w-4xl mx-auto px-4 text-center z-10">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-white inline-block mb-4 shadow-brutal-sm">Community Powered</span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight text-white mb-4 leading-none">
       {{ home_hero_headline|default:"We inspire everyone to fall in love with programming." }}
     </h1>
-    <p class="hero-sub">
+    <p class="font-body text-slate-200 text-lg sm:text-xl font-medium max-w-2xl mx-auto mb-8 leading-relaxed">
       {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
-    <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="{% url 'content:event_list' %}" class="btn-orange">Find an event</a>
-      <a href="{% url 'applications:organize_start' %}" class="btn-orange">Organise a workshop</a>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="{% url 'content:event_list' %}" class="btn-orange text-sm px-6 py-3">Find an event</a>
+      <a href="{% url 'applications:organize_start' %}" class="btn-blue text-sm px-6 py-3">Organise a workshop</a>
     </div>
   </div>
 </section>
@@ -99,26 +100,28 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 2 — WHAT IS PYTHON WEEKEND?  (text left, video right)
      ═══════════════════════════════════════════════════════ -->
-<section class="section-dg">
-  <div class="container-dg">
-    <div class="about-grid">
+<section class="py-16 bg-white border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
       <!-- Left: description -->
-      <div>
-        <h2>{{ home_what_is_heading|default:"What is Python Weekend?" }}</h2>
+      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+          {{ home_what_is_heading|default:"What is Python Weekend?" }}
+        </h2>
         {% if home_what_is_body %}
           {% for paragraph in home_what_is_body.splitlines %}
-            {% if paragraph.strip %}<p style="margin-bottom:1rem;">{{ paragraph }}</p>{% endif %}
+            {% if paragraph.strip %}<p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-4">{{ paragraph }}</p>{% endif %}
           {% endfor %}
         {% else %}
-          <p style="margin-bottom:1rem;">
-            Python Weekend is a <a href="{% url 'core:about' %}">community-driven initiative</a>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-4">
+            Python Weekend is a <a href="{% url 'core:about' %}" class="font-bold underline decoration-2 hover:text-shield-blue">community-driven initiative</a>
             that empowers and helps anyone organise free, hands-on programming workshops by
             providing tools, resources and support. We are a volunteer-run community with coaches
             contributing to bring more amazing people into the world of technology. We are making
             technology more approachable by creating resources designed with empathy.
           </p>
-          <p>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium">
             During each of our events, participants build their first web application using
             HTML, CSS, Python and Django — in just one weekend.
           </p>
@@ -126,14 +129,11 @@
       </div>
 
       <!-- Right: video -->
-      <div>
-        <div style="position:relative;width:100%;border-radius:0.5rem;overflow:hidden;background:#000;box-shadow:0 4px 24px rgba(0,0,0,0.15);">
-          <video controls playsinline preload="metadata"
-                 style="width:100%;height:auto;display:block;">
-            <source src="{% static 'video/VID-20260523-WA0061.mp4' %}#t=0.001" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
+      <div class="border-2 border-shield-navy shadow-brutal overflow-hidden bg-black">
+        <video controls playsinline preload="metadata" class="w-full h-auto block">
+          <source src="{% static 'video/VID-20260523-WA0061.mp4' %}#t=0.001" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       </div>
 
     </div>
@@ -144,44 +144,45 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 3 — IMPACT STATS  +  BRING PW TO YOUR CITY
      ═══════════════════════════════════════════════════════ -->
-<section class="section-dg">
-  <div class="container-dg">
-    <div class="impact-grid">
+<section class="py-16 bg-shield-ice/15 border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
       <!-- Left: stats -->
-      <div>
-        <h2>{{ home_impact_heading|default:"Python Weekend impact" }}</h2>
-        <p>
-          Since we started, an army of
-          <span class="stat-badge stat-badge--orange">{{ total_coaches }} coach{{ total_coaches|pluralize:"es" }}</span>
-          in the Python Weekend community organised
-          <span class="stat-badge stat-badge--orange">{{ total_events }} event{{ total_events|pluralize }}</span>.
-          We've been to
-          <span class="stat-badge stat-badge--blue">{{ total_cities }} cit{{ total_cities|pluralize:"y,ies" }}</span>
-          across
-          <span class="stat-badge stat-badge--orange">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
-          {% if total_attendees %}
-          <br><br>Over <span class="stat-badge stat-badge--blue">{{ total_attendees }} participant{{ total_attendees|pluralize }}</span>
-          have attended our workshops,
-          with <span class="stat-badge stat-badge--orange">{{ total_applicants }} application{{ total_applicants|pluralize }}</span> received so far.
-          {% endif %}
-        </p>
-        <p style="margin-top:1rem;">
-          <a href="{% url 'core:about' %}" style="color:var(--py-blue);font-size:0.95rem;">
-            Read about the impact we make »
-          </a>
-        </p>
+      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+        <div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+            {{ home_impact_heading|default:"Python Weekend impact" }}
+          </h2>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-4">
+            Since we started, an army of
+            <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_coaches }} coach{{ total_coaches|pluralize:"es" }}</span>
+            in the Python Weekend community organised
+            <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_events }} event{{ total_events|pluralize }}</span>.
+            We've been to
+            <span class="inline-block bg-shield-blue text-white border-2 border-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_cities }} cit{{ total_cities|pluralize:"y,ies" }}</span>
+            across
+            <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
+          </p>
+        </div>
+        <a href="{% url 'core:about' %}" class="btn-hero-outline self-start text-xs py-2 px-4 mt-4">
+          Read about our impact »
+        </a>
       </div>
 
       <!-- Right: organise CTA -->
-      <div>
-        <h2>{{ home_bring_pw_heading|default:"Bring Python Weekend to your city!" }}</h2>
-        <p>{{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}</p>
-        <div style="margin-top:1.5rem;">
-          <a href="{% url 'applications:organize_start' %}" class="btn-orange">
-            Apply to organise a workshop
-          </a>
+      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+        <div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+            {{ home_bring_pw_heading|default:"Bring Python Weekend to your city!" }}
+          </h2>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-6">
+            {{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}
+          </p>
         </div>
+        <a href="{% url 'applications:organize_start' %}" class="btn-orange self-start text-xs py-2.5 px-5">
+          Apply to organise a workshop
+        </a>
       </div>
 
     </div>
@@ -192,19 +193,23 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 4 — UPCOMING EVENTS  (3-col overlay cards)
      ═══════════════════════════════════════════════════════ -->
-<section class="section-dg">
-  <div class="container-dg">
+<section class="py-16 bg-white border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <h2 style="font-size:1.75rem;margin-bottom:1.5rem;">
-      Upcoming events
-      <a href="{% url 'content:event_list' %}" class="tag-badge" style="text-decoration:none;">All events</a>
-      <a href="{% url 'content:event_list' %}#past-events" class="tag-badge" style="text-decoration:none;">Past events</a>
-    </h2>
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight">
+        Upcoming events
+      </h2>
+      <div class="flex gap-2">
+        <a href="{% url 'content:event_list' %}" class="btn-hero-outline text-xs py-1.5 px-3">All events</a>
+        <a href="{% url 'content:event_list' %}#past-events" class="btn-hero-outline text-xs py-1.5 px-3">Past events</a>
+      </div>
+    </div>
 
     {% if upcoming_events %}
     <div class="events-grid">
       {% for event in upcoming_events %}
-      <a href="{% url 'content:event_detail' event.slug %}" class="event-card-overlay" style="text-decoration:none;">
+      <a href="{% url 'content:event_detail' event.slug %}" class="event-card-overlay">
         <div class="event-card-overlay__bg"
              {% if event.image|file_exists %}style="background-image:url({{ event.image.url }});"
              {% else %}style="background-image:url({% static 'img/dg-style/image-4.jpg' %});"{% endif %}>
@@ -225,10 +230,12 @@
     {% endif %}
 
     {% else %}
-    <p style="color:var(--py-muted);">
-      No upcoming events right now.
-      <a href="{% url 'applications:organize_start' %}">Organise one!</a>
-    </p>
+    <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal text-center">
+      <p class="font-body text-shield-navy text-base font-medium mb-4">
+        No upcoming events right now.
+      </p>
+      <a href="{% url 'applications:organize_start' %}" class="btn-orange text-xs py-2 px-4">Organise one!</a>
+    </div>
     {% endif %}
 
   </div>
@@ -238,14 +245,18 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 5 — COACHES SPOTLIGHT  +  LATEST BLOG
      ═══════════════════════════════════════════════════════ -->
-<section class="section-dg">
-  <div class="container-dg">
-    <div class="community-grid">
+<section class="py-16 bg-shield-ice/15 border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
       <!-- Left: coaches spotlight -->
       <div>
-        <h2>{{ home_coaches_heading|default:"Python Weekend Coaches" }}</h2>
-        <p>{{ home_coaches_intro|default:"Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:" }}</p>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-3">
+          {{ home_coaches_heading|default:"Python Weekend Coaches" }}
+        </h2>
+        <p class="font-body text-shield-navy text-base font-medium mb-6">
+          {{ home_coaches_intro|default:"Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:" }}
+        </p>
 
         {% if coaches %}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -273,32 +284,38 @@
           </div>
           {% endfor %}
         </div>
-        <p style="margin-top:1rem;">
-          <a href="{% url 'coach:list' %}" style="color:var(--py-blue);font-size:0.95rem;">
-            Read all Python Weekend Stories »
-          </a>
-        </p>
+        <a href="{% url 'coach:list' %}" class="btn-hero-outline text-xs py-2 px-4 mt-6 inline-block">
+          Read all Python Weekend Stories »
+        </a>
         {% else %}
-        <p style="color:var(--py-muted);margin-top:1rem;">Coach profiles coming soon!</p>
+        <p class="font-body text-shield-navy font-medium mt-4">Coach profiles coming soon!</p>
         {% endif %}
       </div>
 
       <!-- Right: latest blog -->
       <div>
-        <h2>{{ home_blog_heading|default:"Latest from our blog" }}</h2>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-3">
+          {{ home_blog_heading|default:"Latest from our blog" }}
+        </h2>
 
         {% if blog_posts %}
-        {% for post in blog_posts %}
-        <div class="blog-link-item">
-          <a href="{% url 'content:blog_detail' post.slug %}">{{ post.title }}</a>
-          <p>
-            {{ post.excerpt|truncatewords:25 }}
-            <a href="{% url 'content:blog_detail' post.slug %}" class="read-all">Read all »</a>
-          </p>
+        <div class="space-y-4">
+          {% for post in blog_posts %}
+          <div class="bg-white border-2 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+            <a href="{% url 'content:blog_detail' post.slug %}" class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight hover:text-shield-blue block mb-2">
+              {{ post.title }}
+            </a>
+            <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-3">
+              {{ post.excerpt|truncatewords:25 }}
+            </p>
+            <a href="{% url 'content:blog_detail' post.slug %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue">
+              Read all »
+            </a>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
         {% else %}
-        <p style="color:var(--py-muted);">No blog posts yet. Stay tuned!</p>
+        <p class="font-body text-shield-navy font-medium">No blog posts yet. Stay tuned!</p>
         {% endif %}
       </div>
 
@@ -310,45 +327,52 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 6 — SUPPORT OUR WORK  +  STAY UP TO DATE
      ═══════════════════════════════════════════════════════ -->
-<section class="section-dg">
-  <div class="container-dg">
-    <div class="support-grid">
+<section class="py-16 bg-white border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
       <!-- Left: support -->
-      <div>
-        <h2>{{ home_support_heading|default:"Support our work" }}</h2>
-        <p>{{ home_support_body|default:"Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen." }}</p>
-
-
-
-        <div style="margin-top:1.5rem;">
-          <a href="{% url 'core:contact' %}" class="btn-orange">
-            Get in touch to support us
-          </a>
+      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+        <div>
+          <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+            {{ home_support_heading|default:"Support our work" }}
+          </h2>
+          <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-6">
+            {{ home_support_body|default:"Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen." }}
+          </p>
         </div>
 
-        <p style="margin-top:1rem;font-size:0.9rem;color:var(--py-muted);">
-          You can also send us a one-time donation. If you would like to discuss a bigger partnership,
-          <a href="{% url 'core:contact' %}">please get in touch</a>.
-        </p>
+        <div>
+          <a href="{% url 'core:contact' %}" class="btn-orange text-xs py-2.5 px-5 mb-4 inline-block">
+            Get in touch to support us
+          </a>
+          <p class="font-body text-shield-navy text-xs font-medium">
+            You can also send us a one-time donation. If you would like to discuss a bigger partnership,
+            <a href="{% url 'core:contact' %}" class="underline font-bold">please get in touch</a>.
+          </p>
+        </div>
       </div>
 
       <!-- Right: newsletter + community -->
-      <div>
-        <h2>{{ home_newsletter_heading|default:"Stay up to date!" }}</h2>
-        <p>{{ home_newsletter_body|default:"Subscribe to Python Weekend Dispatch to receive the latest and greatest from our community every two weeks, straight to your inbox!" }}</p>
+      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal">
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+          {{ home_newsletter_heading|default:"Stay up to date!" }}
+        </h2>
+        <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-4">
+          {{ home_newsletter_body|default:"Subscribe to Python Weekend Dispatch to receive the latest and greatest from our community every two weeks, straight to your inbox!" }}
+        </p>
 
         {% if messages %}
-        <div class="mb-4 space-y-2 mt-4">
+        <div class="mb-4 space-y-2">
           {% for message in messages %}
-          <div class="px-4 py-3 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-300 text-green-700{% elif message.tags == 'error' %}bg-red-50 border border-red-300 text-red-700{% else %}bg-blue-50 border border-blue-300 text-blue-700{% endif %} text-sm">
+          <div class="px-4 py-3 border-2 border-shield-navy font-mono text-xs font-bold uppercase tracking-wider {% if message.tags == 'success' %}bg-green-100 text-green-900{% elif message.tags == 'error' %}bg-red-100 text-red-900{% else %}bg-blue-100 text-blue-900{% endif %}">
             {{ message }}
           </div>
           {% endfor %}
         </div>
         {% endif %}
 
-        <form action="{% url 'core:subscribe' %}" method="post" class="newsletter-form">
+        <form action="{% url 'core:subscribe' %}" method="post" class="newsletter-form mb-4">
           {% csrf_token %}
           <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
             <input type="text" name="website" tabindex="-1" autocomplete="off" />
@@ -357,18 +381,18 @@
           <button type="submit">Subscribe</button>
         </form>
 
-        <p style="margin-top:0.75rem;">
-          <a href="{% url 'content:blog_list' %}" style="color:var(--py-blue);font-size:0.9rem;">
-            See the Python Weekend Dispatch archives »
-          </a>
-        </p>
+        <a href="{% url 'content:blog_list' %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue block mb-6">
+          See the Python Weekend Dispatch archives »
+        </a>
 
-        <div style="margin-top:2rem;">
-          <h2>{{ home_community_heading|default:"Check out our community!" }}</h2>
-          <p>
+        <div class="pt-6 border-t-2 border-shield-navy">
+          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-2">
+            {{ home_community_heading|default:"Check out our community!" }}
+          </h3>
+          <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
             {{ home_community_body|default:"We have an amazing community of coaches, organisers and alumni who continue building after each workshop." }}
-            <a href="{% url 'coach:list' %}">coaches</a> and
-            <a href="{% url 'content:blog_list' %}">blog</a> to stay connected.
+            <a href="{% url 'coach:list' %}" class="font-bold underline">coaches</a> and
+            <a href="{% url 'content:blog_list' %}" class="font-bold underline">blog</a> to stay connected.
           </p>
         </div>
       </div>

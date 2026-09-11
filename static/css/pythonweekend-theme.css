@@ -98,21 +98,33 @@ a:hover {
 }
 
 .section-dg {
-  padding: 2rem 1.5rem;
-  background-color: #fff;
+  padding: 4rem 1.5rem;
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--py-navy);
 }
 .section-dg--bordered {
-  border-top: 1px solid #e2e8f0;
+  border-top: 2.5px solid var(--py-navy);
 }
 .container-dg {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 .container-dg h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.25rem;
   color: var(--py-navy);
+}
+.container-dg p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--py-navy);
+  margin-bottom: 1rem;
+  font-weight: 500;
 }
 
 /* Grids */
