@@ -318,10 +318,29 @@ a:hover {
   transform: translate(2px, 2px);
   box-shadow: 3px 3px 0 #FFB800;
 }
-.btn-navy:active,
-.btn-brutal-dark:active {
-  transform: translate(5px, 5px);
-  box-shadow: 0px 0px 0 #FFB800;
+/* 3D Yellow Arrow Badges (MLH Style) */
+.btn-arrow-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 38px;
+  background-color: #FFB800 !important;
+  color: #16213e !important;
+  border: 2.5px solid #16213e;
+  box-shadow: 3px 3px 0 #16213e;
+  font-family: "Martian Mono", monospace;
+  font-weight: 900;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  transition: all 0.15s ease-in-out;
+}
+.btn-arrow-3d:hover,
+a:hover .btn-arrow-3d,
+button:hover .btn-arrow-3d {
+  background-color: #FFC72C !important;
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 1.5px 1.5px 0 #16213e;
 }
 
 /* Neo-Brutalist Cards */
@@ -604,4 +623,49 @@ a:hover {
 }
 .show-all-link a:hover {
   color: var(--py-blue);
-}
+}
+
+/* ═══════════════════════════════════════════════════════
+   MLH NEO-BRUTALIST 3D ARROW CARD BUTTONS
+   ═══════════════════════════════════════════════════════ */
+.btn-arrow-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.25rem;
+  background-color: #FFB800 !important; /* MLH Golden Yellow */
+  border: 2.5px solid #16213e !important;
+  box-shadow: 2.5px 2.5px 0 #16213e !important;
+  border-radius: 4px;
+  color: #16213e !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+.group:hover .btn-arrow-3d,
+.mlh-action-card:hover .btn-arrow-3d {
+  transform: translateX(3px);
+  box-shadow: 1px 1px 0 #16213e !important;
+}
+
+.mlh-action-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff !important;
+  border: 2.5px solid #16213e !important;
+  box-shadow: 4px 4px 0 #16213e !important;
+  padding: 0.85rem 1.25rem;
+  text-decoration: none !important;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border-radius: 0px;
+}
+
+.mlh-action-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 #16213e !important;
+  background-color: #ffffff !important;
+}
+

@@ -111,6 +111,11 @@ STORAGES = {
     },
 }
 
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
+    'jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'tgz', 'bz2', 'tbz', 'xz', 'br', 'mp3', 'mp4', 'm4a', 'ogg', 'wav', 'webm', 'pdf'
+)
+
+
 
 # Email — Resend SMTP & Emergency Kill-switch
 EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "True").strip().lower() in ("true", "1", "yes")

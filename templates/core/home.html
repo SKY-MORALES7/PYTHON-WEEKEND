@@ -62,14 +62,18 @@
     <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.6);">
       {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="{% url 'content:event_list' %}" class="btn-orange text-base px-7 py-4">
-        Find an event
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'content:event_list' %}" class="mlh-action-card group flex items-center justify-between gap-4">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Find an event</span>
+        <div class="btn-arrow-3d">
+          <svg class="w-6 h-6 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
       </a>
-      <a href="{% url 'applications:organize_start' %}" class="btn-blue text-base px-7 py-4">
-        Organise a workshop
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group flex items-center justify-between gap-4">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Become an Organizer</span>
+        <div class="btn-arrow-3d">
+          <svg class="w-6 h-6 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
       </a>
     </div>
   </div>
@@ -117,11 +121,11 @@
         </div>
       </div>
 
-      <!-- Right: video with poster -->
-      <div class="border-2 border-shield-navy shadow-brutal overflow-hidden bg-black flex flex-col justify-center relative min-h-[300px]">
-        <video controls playsinline preload="metadata" poster="{% static 'img/code-campus-hero.jpg' %}" class="w-full h-full object-cover block">
-          <source src="{% static 'video/VID-20260523-WA0061.mp4' %}#t=0.001" type="video/mp4">
-          Your browser does not support the video tag.
+      <!-- Right: video stream player -->
+      <div class="border-2.5 border-shield-navy shadow-brutal overflow-hidden bg-black flex flex-col justify-center relative min-h-[320px]">
+        <video controls autoplay muted loop playsinline preload="auto" poster="{% static 'img/code-campus-hero.jpg' %}" class="w-full h-full object-cover block min-h-[320px]">
+          <source src="{% static 'video/VID-20260523-WA0061.mp4' %}" type="video/mp4">
+          Your browser does not support HTML5 video streaming.
         </video>
       </div>
 
@@ -137,8 +141,8 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
 
-      <!-- Left: stats -->
-      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+      <!-- Left: stats card -->
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
             {{ home_impact_heading|default:"Python Weekend impact" }}
@@ -154,14 +158,16 @@
             <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
           </p>
         </div>
-        <a href="{% url 'core:about' %}" class="btn-hero-outline self-start text-xs py-2.5 px-5 mt-4">
-          Read about our impact
-          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <a href="{% url 'core:about' %}" class="mlh-action-card group w-full mt-6">
+          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read about our impact</span>
+          <div class="btn-arrow-3d">
+            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
         </a>
       </div>
 
-      <!-- Right: organise CTA -->
-      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+      <!-- Right: organise CTA card -->
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
             {{ home_bring_pw_heading|default:"Bring Python Weekend to your city!" }}
@@ -170,9 +176,11 @@
             {{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}
           </p>
         </div>
-        <a href="{% url 'applications:organize_start' %}" class="btn-orange self-start text-xs py-2.5 px-5">
-          Apply to organise a workshop
-          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group w-full mt-6">
+          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Apply to organise a workshop</span>
+          <div class="btn-arrow-3d">
+            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
         </a>
       </div>
 
@@ -221,13 +229,15 @@
     {% endif %}
 
     {% else %}
-    <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal text-center">
-      <p class="font-body text-shield-navy text-base font-medium mb-4">
-        No upcoming events right now.
+    <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal text-center">
+      <p class="font-body text-shield-navy text-base font-medium mb-6">
+        No upcoming events right now. Be the first to bring Python Weekend to your city!
       </p>
-      <a href="{% url 'applications:organize_start' %}" class="btn-orange text-xs py-2 px-4 inline-flex items-center gap-2">
-        Organise one!
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      <a href="{% url 'applications:organize_start' %}" class="mlh-action-card group max-w-xs mx-auto">
+        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Organise one!</span>
+        <div class="btn-arrow-3d">
+          <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
       </a>
     </div>
     {% endif %}
@@ -281,9 +291,11 @@
           </div>
           {% endif %}
         </div>
-        <a href="{% url 'coach:list' %}" class="btn-hero-outline text-xs py-2.5 px-5 mt-6 self-start">
-          Read all Stories
-          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <a href="{% url 'coach:list' %}" class="mlh-action-card group w-full mt-6">
+          <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read all Stories</span>
+          <div class="btn-arrow-3d">
+            <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </div>
         </a>
       </div>
 
@@ -330,7 +342,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
 
       <!-- Left: support -->
-      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
           <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-2.5 py-1 border-2 border-shield-navy inline-block mb-3">Sponsorship &amp; Partners</span>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
@@ -358,9 +370,11 @@
         </div>
 
         <div>
-          <a href="{% url 'core:contact' %}" class="btn-orange text-xs py-3 px-6 mb-4 inline-flex items-center gap-2">
-            Get in touch to support us
-            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <a href="{% url 'core:contact' %}" class="mlh-action-card group w-full mb-4">
+            <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Get in touch to support us</span>
+            <div class="btn-arrow-3d">
+              <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
           </a>
           <p class="font-body text-shield-navy text-xs font-medium">
             You can also send us a one-time donation. If you would like to discuss a bigger partnership,
@@ -370,7 +384,7 @@
       </div>
 
       <!-- Right: newsletter + community -->
-      <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
+      <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
           <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-2.5 py-1 border-2 border-shield-navy inline-block mb-3">Dispatch Newsletter</span>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
@@ -390,15 +404,17 @@
           </div>
           {% endif %}
 
-          <form action="{% url 'core:subscribe' %}" method="post" class="flex flex-col sm:flex-row gap-3 mb-4">
+          <form action="{% url 'core:subscribe' %}" method="post" class="flex flex-col sm:flex-row gap-3 mb-4 items-center">
             {% csrf_token %}
             <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
               <input type="text" name="website" tabindex="-1" autocomplete="off" />
             </div>
-            <input type="email" name="email" placeholder="enter your email address" required class="flex-1 px-4 py-3 bg-white text-shield-navy font-body font-medium text-sm border-2 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
-            <button type="submit" class="btn-orange text-xs py-3 px-6 whitespace-nowrap inline-flex items-center gap-2">
-              Subscribe
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <input type="email" name="email" placeholder="enter your email address" required class="w-full sm:flex-1 px-4 py-3 bg-white text-shield-navy font-body font-medium text-sm border-2.5 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
+            <button type="submit" class="mlh-action-card group w-full sm:w-auto px-5 py-3 whitespace-nowrap">
+              <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Subscribe</span>
+              <div class="btn-arrow-3d ml-3">
+                <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </div>
             </button>
           </form>
 
@@ -424,20 +440,24 @@
 </section>
 
 
-{% if sponsors %}
-<section class="section-dg">
-  <div class="container-dg" style="text-align:center;">
-
-    <h2 style="font-size:1.75rem;margin-bottom:2rem;">Our Sponsors</h2>
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 7 — SPONSORS & PARTNERS
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20 border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-white px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Community Partners &amp; Sponsors</span>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
+      Empowered by Our Partners
+    </h2>
 
     {% if sponsors %}
-    <div class="sponsor-row">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-center mb-10">
       {% for sponsor in sponsors %}
-      <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener" title="{{ sponsor.name }}">
+      <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener" title="{{ sponsor.name }}" class="bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center justify-center min-h-[90px] group">
         {% if sponsor.logo %}
-        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" loading="lazy" />
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all" loading="lazy" />
         {% else %}
-        <span style="display:inline-block;padding:0.5rem 1.25rem;border:1px solid #ddd;border-radius:4px;font-weight:600;color:var(--py-navy);font-size:1rem;">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors">
           {{ sponsor.name }}
         </span>
         {% endif %}
@@ -445,49 +465,66 @@
       {% endfor %}
     </div>
     {% else %}
-    <p style="color:var(--py-muted);">
-      Interested in sponsoring? <a href="{% url 'core:contact' %}">Get in touch!</a>
-    </p>
+    <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal max-w-2xl mx-auto text-center">
+      <p class="font-body text-shield-navy text-base font-medium mb-6">
+        Python Weekend events are free for all attendees thanks to our generous sponsors and community partners.
+      </p>
+      <a href="{% url 'core:contact' %}" class="mlh-action-card group inline-flex max-w-sm mx-auto">
+        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Get in touch to Sponsor</span>
+        <div class="btn-arrow-3d">
+          <svg class="w-5 h-5 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </div>
+      </a>
+    </div>
     {% endif %}
-
   </div>
 </section>
-{% endif %}
 
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 8 — PYTHON WEEKEND STORIES
      ═══════════════════════════════════════════════════════ -->
 {% if stories %}
-<section class="section-dg" style="background:var(--py-light);">
-  <div class="container-dg">
-    <h2 style="font-size:1.75rem;margin-bottom:0.5rem;">Python Weekend Stories</h2>
-    <p style="color:var(--py-muted);margin-bottom:2rem;font-size:0.95rem;">Real people from our community.</p>
+<section class="py-16 bg-white border-b-2 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight">Python Weekend Stories</h2>
+        <p class="font-body text-shield-navy text-sm font-medium">Real people from our community.</p>
+      </div>
+    </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for story in stories %}
-      <div style="background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);display:flex;flex-direction:column;">
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal flex flex-col justify-between overflow-hidden">
         {% if story.photo %}
-        <img src="{{ story.photo.url }}" alt="{{ story.name }}"
-             style="width:100%;height:200px;object-fit:cover;" loading="lazy" />
+        <img src="{{ story.photo.url }}" alt="{{ story.name }}" class="w-full h-48 object-cover border-b-2 border-shield-navy" loading="lazy" />
         {% else %}
-        <div style="width:100%;height:160px;background:linear-gradient(135deg,var(--py-blue),var(--py-navy));display:flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:3rem;font-weight:700;color:rgba(255,255,255,0.2);">{{ story.name|truncatechars:1 }}</div>
+        <div class="w-full h-48 bg-shield-blue border-b-2 border-shield-navy flex items-center justify-center font-display text-4xl text-white font-bold uppercase">
+          {{ story.name|truncatechars:1 }}
+        </div>
         {% endif %}
-        <div style="padding:1.25rem;flex:1;display:flex;flex-direction:column;">
-          <p style="font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--py-navy);margin-bottom:0.2rem;">{{ story.name }}</p>
-          {% if story.role %}<p style="font-size:0.78rem;color:var(--py-muted);margin-bottom:0.75rem;">{{ story.role }}</p>{% endif %}
-          <p style="font-size:0.875rem;color:var(--py-body);line-height:1.6;flex:1;">{{ story.intro|truncatewords:30 }}</p>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-display font-bold text-xl text-shield-navy uppercase tracking-tight mb-1">{{ story.name }}</h3>
+            {% if story.role %}<p class="font-mono text-xs font-bold text-shield-blue uppercase tracking-wider mb-3">{{ story.role }}</p>{% endif %}
+            <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-4">{{ story.intro|truncatewords:25 }}</p>
+          </div>
           {% if story.link %}
-          <a href="{{ story.link }}" target="_blank" rel="noopener"
-             style="display:inline-block;margin-top:1rem;color:var(--py-blue);font-size:0.85rem;font-weight:600;">Read story »</a>
+          <a href="{{ story.link }}" target="_blank" rel="noopener" class="mlh-action-card group w-full mt-2">
+            <span class="font-display font-bold text-sm text-shield-navy uppercase tracking-wider">Read story</span>
+            <div class="btn-arrow-3d">
+              <svg class="w-4 h-4 stroke-shield-navy" fill="none" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </div>
+          </a>
           {% endif %}
         </div>
       </div>
       {% endfor %}
     </div>
-
   </div>
 </section>
 {% endif %}
 
 {% endblock %}
+
