@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
-{% get_content "coc_hero_heading" as coc_hero_heading %}
-{% get_content "coc_intro" as coc_intro %}
-
 {% block title %}Code of Conduct — Python Weekend{% endblock %}
 
 {% block content %}
+{% get_content "coc_hero_heading" as coc_hero_heading %}
+{% get_content "coc_intro" as coc_intro %}
 
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">

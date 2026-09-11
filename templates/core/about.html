@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
+{% block title %}About Python Weekend{% endblock %}
+
+{% block content %}
 {% get_content "about_hero_heading" as about_hero_heading %}
 {% get_content "about_hero_intro" as about_hero_intro %}
 {% get_content "about_what_we_do_body" as about_what_we_do_body %}
 {% get_content "about_more_info_body" as about_more_info_body %}
-
-{% block title %}About Python Weekend{% endblock %}
-
-{% block content %}
 
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">

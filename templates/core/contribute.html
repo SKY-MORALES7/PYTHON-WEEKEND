@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
-{% get_content "contribute_hero_heading" as contribute_hero_heading %}
-{% get_content "contribute_hero_intro" as contribute_hero_intro %}
-
 {% block title %}Contribute — Python Weekend{% endblock %}
 
 {% block content %}
+{% get_content "contribute_hero_heading" as contribute_hero_heading %}
+{% get_content "contribute_hero_intro" as contribute_hero_intro %}
 
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">

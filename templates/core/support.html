@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
-{% get_content "support_hero_heading" as support_hero_heading %}
-{% get_content "support_hero_intro" as support_hero_intro %}
-
 {% block title %}Support a Workshop — Python Weekend{% endblock %}
 
 {% block content %}
+{% get_content "support_hero_heading" as support_hero_heading %}
+{% get_content "support_hero_intro" as support_hero_intro %}
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO

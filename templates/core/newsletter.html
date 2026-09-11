@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
-{% load content_tags %}
-{% get_content "newsletter_hero_heading" as newsletter_hero_heading %}
-{% get_content "newsletter_hero_intro" as newsletter_hero_intro %}
-
 {% block title %}Python Weekend Dispatch — Newsletter{% endblock %}
 
 {% block content %}
+{% get_content "newsletter_hero_heading" as newsletter_hero_heading %}
+{% get_content "newsletter_hero_intro" as newsletter_hero_intro %}
 
 <!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
