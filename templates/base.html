@@ -36,46 +36,47 @@
       to   { transform: translateY(0);    opacity: 1; }
     }
     #cookie-banner {
-      /* Hidden by default — JS adds display:flex only on first visit */
       display: none;
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
       z-index: 9999;
-      max-width: 400px;
+      max-width: 420px;
       width: calc(100vw - 3rem);
       flex-direction: column;
       gap: 1rem;
-      background: #16213E;
-      color: #fff;
+      background: #ffffff;
+      color: #16213e;
       padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+      border: 2.5px solid #16213e;
+      box-shadow: 6px 6px 0px #16213e;
       font-size: 0.875rem;
       line-height: 1.6;
       animation: cookieSlideUp 0.4s ease-out;
     }
-    #cookie-decline:hover { background: rgba(255,255,255,0.12) !important; }
-    #cookie-accept:hover  { opacity: 0.88; }
   </style>
 
   <div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
-    <p style="margin:0;color:rgba(255,255,255,0.88);">
-      <strong style="color:#fff;display:block;margin-bottom:0.4rem;font-size:1rem;">We Value Your Privacy.</strong>
-      We use cookies to improve your experience on this website. You can accept or decline optional cookies.
-      Essential cookies may still be used where they are required for the website to function.
-      <a href="/privacy/" style="color:#FFD43B;text-decoration:underline;display:inline-block;margin-top:0.5rem;">Privacy &amp; Cookies Policy</a>
-    </p>
-    <div style="display:flex;gap:0.75rem;justify-content:flex-end;">
+    <div>
+      <span class="font-mono text-[11px] font-bold uppercase tracking-widest text-shield-navy bg-[#FFB800] px-2 py-0.5 border border-shield-navy inline-block mb-2 shadow-brutal-sm">
+        Cookies &amp; Privacy
+      </span>
+      <h3 class="font-display font-bold text-xl uppercase tracking-tight text-shield-navy mb-1">
+        We Value Your Privacy
+      </h3>
+      <p class="font-body text-shield-navy text-xs font-semibold leading-relaxed mb-3">
+        We use essential cookies to keep our platform safe and functional. You can accept or decline optional performance cookies.
+        <a href="/privacy/" class="underline font-bold text-shield-blue hover:text-[#FFB800] transition-colors block mt-1">Read Privacy &amp; Cookies Policy &raquo;</a>
+      </p>
+    </div>
+    <div class="flex gap-3 justify-end pt-2 border-t-2 border-shield-navy/20">
       <button id="cookie-decline"
-              style="padding:0.5rem 1.25rem;border-radius:0.5rem;border:1px solid rgba(255,255,255,0.35);
-                     background:transparent;color:#fff;cursor:pointer;font-size:0.875rem;transition:background 0.2s;">
-        I decline
+              class="px-4 py-2 bg-white border-2 border-shield-navy text-shield-navy font-mono text-xs font-bold uppercase tracking-wider shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+        Decline
       </button>
       <button id="cookie-accept"
-              style="padding:0.5rem 1.25rem;border-radius:0.5rem;border:none;
-                     background:#FFD43B;color:#16213E;font-weight:700;cursor:pointer;font-size:0.875rem;transition:opacity 0.2s;">
-        I agree
+              class="px-5 py-2 bg-[#FFB800] border-2 border-shield-navy text-shield-navy font-mono text-xs font-bold uppercase tracking-wider shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+        I Agree
       </button>
     </div>
   </div>

@@ -9,35 +9,59 @@
 {% endblock %}
 
 {% block content %}
-<section class="relative overflow-hidden min-h-[88vh] flex items-center">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — BLOG HERO (BRIGHT BACKGROUND & BOLD TEXT)
+     ═══════════════════════════════════════════════════════ -->
+<section class="relative overflow-hidden py-16 md:py-24 bg-white border-b-2.5 border-shield-navy flex items-center min-h-[450px]">
 
-  <!-- Ken Burns background layer -->
-  <div class="absolute inset-0 scale-110 animate-ken-burns">
-    <div class="w-full h-full bg-cover bg-center blog-list-hero-bg">
-    </div>
+  <!-- Bright background image layer with Ken Burns animation -->
+  <div class="absolute inset-0 scale-105 animate-ken-burns opacity-40">
+    <div class="w-full h-full bg-cover bg-center blog-list-hero-bg"></div>
   </div>
- 
-     <div class="absolute inset-0 bg-black/50"></div>
+
+  <!-- Bright subtle gradient overlay for maximum readability -->
+  <div class="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/70"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-15 pointer-events-none"></div>
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="font-semibold text-py-yellow uppercase tracking-widest sm:text-5xl md:text-6xl lg:text-xs">Blog</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mt-2">Community stories</h1>
-    <p class="text-py-yellow/80 mt-2">Learnings, tips, and updates from the Python Weekend community.</p>
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-[#FFB800] px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Community Stories &amp; Articles
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-4 leading-none">
+      Python Weekend Journal
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-semibold max-w-2xl leading-relaxed">
+      Learnings, organizer guides, workshop highlights, and technology insights from our global community.
+    </p>
   </div>
 </section>
 
-<section class="py-16 bg-py-light">
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — BLOG POST CARDS GRID
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {% if page_obj.object_list %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for post in page_obj %}
         {% include "components/card-blog.html" %}
       {% endfor %}
     </div>
-    {% include "components/pagination.html" %}
+    <div class="mt-12">
+      {% include "components/pagination.html" %}
+    </div>
     {% else %}
-    <div class="text-center py-20 text-gray-500">
-      <p class="text-lg">No posts yet — check back soon.</p>
+    <div class="bg-white border-2.5 border-shield-navy p-12 shadow-brutal text-center max-w-xl mx-auto">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Journal Archive</span>
+      <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-3">No Articles Published Yet</h3>
+      <p class="font-body text-shield-navy text-base font-medium mb-6">Our community team is preparing new stories and organizer case studies. Check back soon!</p>
+      <a href="{% url 'core:home' %}" class="group inline-flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Return to Homepage</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
     {% endif %}
   </div>
