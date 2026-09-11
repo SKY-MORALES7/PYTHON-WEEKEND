@@ -37,32 +37,32 @@
 <!-- ── HERO SECTION ── -->
 <section class="relative min-h-[35vh] md:min-h-[40vh] flex items-center justify-center overflow-hidden border-b-2.5 border-shield-navy text-center py-16"
          style="background-color: #16213E !important;">
-  {% if application_form.hero_image and application_form.hero_image|file_exists %}
+  {% if application_form.hero_image %}
   <img src="{{ application_form.hero_image.url }}" alt="{{ application_form.text_header }}"
        class="absolute inset-0 w-full h-full object-cover" />
-  <div class="absolute inset-0 bg-[#16213E]/80 backdrop-blur-[2px] pointer-events-none"></div>
-  {% elif application_form.event.image and application_form.event.image|file_exists %}
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.85) !important;"></div>
+  {% elif application_form.event.image %}
   <img src="{{ application_form.event.image.url }}" alt="{{ application_form.text_header }}"
        class="absolute inset-0 w-full h-full object-cover" />
-  <div class="absolute inset-0 bg-[#16213E]/80 backdrop-blur-[2px] pointer-events-none"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.85) !important;"></div>
   {% else %}
   <!-- Technical radial dot grid over dark sky blue background -->
   <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
   {% endif %}
-  <div class="absolute inset-0 bg-gradient-to-t from-[#16213E] via-[#16213E]/85 to-[#16213E]/40 pointer-events-none"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to top, #16213E 0%, rgba(22, 33, 62, 0.85) 60%, rgba(22, 33, 62, 0.7) 100%) !important;"></div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
     <a href="{% url 'content:event_detail' application_form.event.slug %}"
        class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[#16213E] bg-[#FFB800] px-4 py-2 border-2.5 border-[#16213E] mb-6 shadow-brutal-sm hover:shadow-brutal hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
       &larr; Back to {{ application_form.event.title }}
     </a>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl text-white uppercase tracking-tight mb-4 leading-none"
-        style="color: #ffffff !important;">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl uppercase tracking-tight mb-4 leading-none"
+        style="color: #ffffff !important; text-shadow: 0 2px 10px rgba(0,0,0,0.7);">
       {{ application_form.text_header|default:application_form.event.title }}
     </h1>
     {% if application_form.text_description %}
-    <p class="font-body text-[#FFB800] text-lg sm:text-xl font-bold leading-relaxed max-w-2xl mx-auto"
-       style="color: #FFB800 !important;">
+    <p class="font-body text-lg sm:text-xl font-bold leading-relaxed max-w-2xl mx-auto"
+       style="color: #FFB800 !important; text-shadow: 0 1px 6px rgba(0,0,0,0.7);">
       {{ application_form.text_description }}
     </p>
     {% endif %}
