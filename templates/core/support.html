@@ -283,32 +283,43 @@
 
 
 <!-- ═══════════════════════════════════════════════════════
-     SECTION 5 — THEY ALREADY SUPPORT US! (SPONSOR GRID)
+     SECTION 5 — COMMUNITY SUPPORTERS
      ═══════════════════════════════════════════════════════ -->
 {% if sponsors %}
-<section class="py-16 bg-white">
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
-      Our Supporters
+      Our Network
     </span>
     <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-10">
-      They Already Support Us!
+      Community Supporters
     </h2>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
       {% for sponsor in sponsors %}
       <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener sponsored"
-         class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col items-center justify-center min-h-[120px] group overflow-hidden">
+         class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:border-shield-blue transition-all duration-300 flex flex-col items-center justify-center min-h-[130px] group overflow-hidden relative">
+        <!-- Python blue/yellow gradient glow on hover -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#4B8BBE]/15 via-transparent to-[#FFD43B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
         {% if sponsor.logo %}
-        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" loading="lazy" />
+        <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-14 max-w-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 relative z-10" loading="lazy" />
         {% else %}
-        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors relative z-10">
           {{ sponsor.name }}
         </span>
         {% endif %}
       </a>
       {% endfor %}
     </div>
+
+    <!-- Sponsor Action CTA Button -->
+    <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
+      <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become a Supporter</span>
+      <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+        <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+      </svg>
+    </a>
   </div>
 </section>
 {% endif %}
