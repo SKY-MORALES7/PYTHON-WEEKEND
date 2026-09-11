@@ -222,35 +222,41 @@ class OrganizeWizardView(View):
                     if not admin_emails:
                         admin_emails = [settings.DEFAULT_FROM_EMAIL]
 
-                    send_mail(
-                        "Your Python Weekend Organizer Application",
-                        (
-                            f"Hi {application.lead_first_name},\n\n"
-                            f"Thank you for volunteering to organize a Python Weekend workshop! "
-                            f"We have received your application and our team will review it shortly.\n\n"
-                            f"Best regards,\nThe Python Weekend Team"
-                        ),
-                        settings.DEFAULT_FROM_EMAIL,
-                        [organizer_email],
-                        fail_silently=True,
-                    )
+                    try:
+                        send_mail(
+                            "Your Python Weekend Organizer Application",
+                            (
+                                f"Hi {application.lead_first_name},\n\n"
+                                f"Thank you for volunteering to organize a Python Weekend workshop! "
+                                f"We have received your application and our team will review it shortly.\n\n"
+                                f"Best regards,\nThe Python Weekend Team"
+                            ),
+                            settings.DEFAULT_FROM_EMAIL,
+                            [organizer_email],
+                            fail_silently=True,
+                        )
+                    except Exception as mail_err1:
+                        logger.warning(f"Could not send applicant confirmation email (rate limit or email provider offline): {mail_err1}")
 
-                    send_mail(
-                        f"New Organizer Application: {organizer_name}",
-                        (
-                            f"A new organizer application has been submitted.\n\n"
-                            f"Lead Organizer: {organizer_name}\n"
-                            f"Email: {organizer_email}\n"
-                            f"Workshop Type: {application.get_workshop_type_display()}\n"
-                            f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
-                            f"Please log in to the admin panel to review and approve/reject the application."
-                        ),
-                        settings.DEFAULT_FROM_EMAIL,
-                        admin_emails,
-                        fail_silently=True,
-                    )
+                    try:
+                        send_mail(
+                            f"New Organizer Application: {organizer_name}",
+                            (
+                                f"A new organizer application has been submitted.\n\n"
+                                f"Lead Organizer: {organizer_name}\n"
+                                f"Email: {organizer_email}\n"
+                                f"Workshop Type: {application.get_workshop_type_display()}\n"
+                                f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
+                                f"Please log in to the admin panel to review and approve/reject the application."
+                            ),
+                            settings.DEFAULT_FROM_EMAIL,
+                            admin_emails,
+                            fail_silently=True,
+                        )
+                    except Exception as mail_err2:
+                        logger.warning(f"Could not send admin notification email (rate limit or email provider offline): {mail_err2}")
             except Exception as mail_err:
-                logger.error(f"Failed to send application email notifications: {mail_err}")
+                logger.warning(f"Failed to process email notifications: {mail_err}")
 
         except Exception as err:
             logger.error(f"Error saving organizer application to database: {err}", exc_info=True)
