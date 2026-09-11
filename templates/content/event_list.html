@@ -47,12 +47,19 @@
         </div>
       </div>
 
-      <!-- Right Column: 3D Isometric "PW" Feature Illustration -->
+      <!-- Right Column: 3D Isometric "PW" Feature Illustration with Python Colored Glow Hover Effect -->
       <div class="lg:col-span-5 flex justify-center">
-        <div class="w-full max-w-md bg-white border-2.5 border-shield-navy p-3 shadow-brutal overflow-hidden">
-          <img src="{% static 'img/pw-3d-feature.png' %}" alt="Python Weekend 3D Feature" class="w-full h-auto object-cover block border-2 border-shield-navy" />
+        <div class="group relative w-full max-w-md">
+          <!-- Radiant Python Colored Glow Backdrop (Python Blue & Yellow Aura on Hover) -->
+          <div class="absolute -inset-1.5 bg-gradient-to-r from-[#4B8BBE] via-[#FFD43B] to-[#306998] opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-500 group-hover:duration-300"></div>
+
+          <!-- Main Neo-Brutalist Card Container -->
+          <div class="relative w-full bg-white border-2.5 border-shield-navy p-3 shadow-brutal group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] transition-all duration-300 overflow-hidden">
+            <img src="{% static 'img/pw-3d-feature.png' %}" alt="Python Weekend 3D Feature" class="w-full h-auto object-cover block border-2 border-shield-navy group-hover:scale-[1.015] transition-transform duration-300" />
+          </div>
         </div>
       </div>
+
 
 
     </div>
