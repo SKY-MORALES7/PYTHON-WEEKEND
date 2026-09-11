@@ -1,36 +1,78 @@
 {% extends "base.html" %}
-{% block title %}Sponsors — Python Weekend{% endblock %}
+{% load static %}
+{% block title %}Sponsors &amp; Partners — Python Weekend{% endblock %}
 
 {% block content %}
-<section class="bg-py-light py-16 border-b border-gray-200">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="font-semibold text-py-blue uppercase tracking-widest sm:text-5xl md:text-6xl lg:text-xs">Sponsors</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-py-navy mt-2">Our sponsors</h1>
-    <p class="text-gray-500 mt-2">Companies and individuals who make Python Weekend possible.</p>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Community Backers &amp; Global Partners
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-6 leading-none">
+      Empowering Free Tech Education
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl mx-auto">
+      Python Weekend events are 100% free for all participants thanks to our generous sponsors, venue partners, and community contributors.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become a Sponsor</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<section class="py-16 bg-white">
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — SPONSOR TIERS & LISTINGS
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     {% if sponsors %}
 
     {% regroup sponsors by tier as sponsor_tiers %}
     {% for tier in sponsor_tiers %}
-    <div class="mb-14">
-      <h2 class="font-display font-bold text-xl text-py-blue uppercase tracking-widest mb-6 border-b border-gray-200 pb-3">
-        {{ tier.grouper|capfirst }} sponsors
-      </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-shield-navy shadow-brutal-sm">
+          Tier
+        </span>
+        <h2 class="font-display font-bold text-2xl sm:text-4xl text-shield-navy uppercase tracking-tight">
+          {{ tier.grouper|capfirst }} Partners &amp; Sponsors
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {% for sponsor in tier.list %}
-        <a href="{{ sponsor.website }}" target="_blank" rel="noopener sponsored"
-           class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center gap-3 hover:border-py-blue/30 transition-all group hover:shadow-lg">
-          {% if sponsor.logo %}
-          <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="h-10 object-contain opacity-75 group-hover:opacity-100 transition-opacity" />
-          {% else %}
-          <span class="font-display font-bold text-gray-400 group-hover:text-py-blue transition-colors text-base">{{ sponsor.name }}</span>
-          {% endif %}
+        <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener sponsored"
+           class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col items-center justify-between min-h-[140px] text-center group overflow-hidden">
+          
+          <div class="flex-1 flex items-center justify-center w-full mb-3">
+            {% if sponsor.logo %}
+            <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-14 max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" loading="lazy" />
+            {% else %}
+            <span class="font-display font-bold text-2xl text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors">
+              {{ sponsor.name }}
+            </span>
+            {% endif %}
+          </div>
+
           {% if sponsor.tagline %}
-          <p class="text-gray-400 text-xs text-center">{{ sponsor.tagline }}</p>
+          <p class="font-body text-shield-navy text-xs font-semibold leading-relaxed border-t-2 border-shield-navy/20 pt-3 w-full">
+            {{ sponsor.tagline }}
+          </p>
           {% endif %}
         </a>
         {% endfor %}
@@ -39,20 +81,46 @@
     {% endfor %}
 
     {% else %}
-    <div class="text-center py-20 text-gray-500">
-      <p class="text-lg">Sponsor listings coming soon.</p>
+    <div class="bg-white border-2.5 border-shield-navy p-10 shadow-brutal text-center max-w-2xl mx-auto">
+      <p class="font-body text-shield-navy text-lg font-medium mb-6">
+        Sponsor listings are being updated for our upcoming event series.
+      </p>
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Get in touch to Sponsor</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
     {% endif %}
   </div>
 </section>
 
-<section class="py-16 bg-py-light border-t border-gray-200">
-  <div class="max-w-xl mx-auto px-4 text-center">
-    <h2 class="font-display font-bold text-2xl text-py-navy mb-3">Sponsor Python Weekend</h2>
-    <p class="text-gray-500 mb-6">Help us keep the event free and accessible. Your support directly funds attendee costs.</p>
-    <a href="{% url 'core:contact' %}" class="px-8 py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl transition-all inline-block">
-      Talk to us
-    </a>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — SPONSOR CTA
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="bg-white border-2.5 border-shield-navy p-8 sm:p-12 shadow-brutal">
+      <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Partner With Us</span>
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+        Sponsor Python Weekend
+      </h2>
+      <p class="font-body text-shield-navy text-base sm:text-lg font-medium leading-relaxed mb-8 max-w-xl mx-auto">
+        Help us keep workshops free and accessible. Your sponsorship directly provides laptops, internet access, venue space, and catering for aspiring developers.
+      </p>
+
+      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Get in Touch to Sponsor</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
+
 {% endblock %}

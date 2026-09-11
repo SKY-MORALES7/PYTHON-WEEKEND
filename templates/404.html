@@ -1,14 +1,42 @@
 {% extends "base.html" %}
-{% block title %}Page Not Found — Python Weekend{% endblock %}
+{% load static %}
+{% block title %}404 Page Not Found — Python Weekend{% endblock %}
+
 {% block content %}
-<section class="min-h-[70vh] flex items-center justify-center bg-py-light">
-  <div class="text-center px-4">
-    <p class="text-py-blue font-display font-bold text-8xl mb-4 opacity-20">404</p>
-    <h1 class="font-display font-bold text-3xl text-py-navy mb-3">Page not found</h1>
-    <p class="text-gray-500 mb-8 max-w-sm mx-auto">That page doesn't exist. It may have moved or been deleted.</p>
-    <a href="{% url 'core:home' %}" class="px-8 py-3 bg-py-blue text-white font-bold rounded-xl transition-all hover:bg-py-blue-dark inline-block">
-      Back to home
-    </a>
+<section class="py-20 md:py-28 bg-white border-b-2.5 border-shield-navy relative overflow-hidden flex items-center justify-center min-h-[75vh]">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+    <!-- Giant Neo-Brutalist 404 Badge -->
+    <div class="inline-block bg-[#FFB800] text-shield-navy border-3 border-shield-navy shadow-[6px_6px_0px_#16213e] font-display font-extrabold text-7xl sm:text-9xl px-10 py-5 mb-8 tracking-wider">
+      404
+    </div>
+
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-4">
+      Page Not Found
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-10 max-w-lg mx-auto">
+      The page you are looking for doesn't exist, may have moved, or has been updated. Let's get you back on track!
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'core:home' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Back to Homepage</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <a href="{% url 'content:event_list' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Find an Event</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 {% endblock %}

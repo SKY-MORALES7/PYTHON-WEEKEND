@@ -16,10 +16,15 @@ urlpatterns = [
     # Tutorials
     path("resources/", include("tutorials.urls", namespace="tutorials")),
 
-    # Root-level event aliases (clean URLs for nav and footer)
+    # Root-level event & organizer aliases (clean URLs for nav and footer)
     path("events/", RedirectView.as_view(url="/content/events/", permanent=False), name="events_root"),
     path("events/map/", RedirectView.as_view(url="/content/events/map/", permanent=False), name="events_map_root"),
     path("events/ical/", RedirectView.as_view(url="/content/events/ical/", permanent=False), name="events_ical_root"),
+    path("apply/organise/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
+    path("apply/organize/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
+    path("organise/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
+    path("organize/", RedirectView.as_view(url="/applications/organize/", permanent=False)),
+
 
     # Community
     path("coaches/", include("coach.urls", namespace="coach")),
