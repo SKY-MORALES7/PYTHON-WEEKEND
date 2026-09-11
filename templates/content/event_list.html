@@ -87,7 +87,7 @@
         <a href="#past-events" class="bg-white text-shield-navy hover:bg-shield-ice px-4 py-2 border-2 border-shield-navy shadow-brutal-sm transition-colors">Past Events ({{ past_events|length }})</a>
         {% endif %}
         <a href="{% url 'content:event_map' %}" class="bg-white text-shield-navy hover:bg-shield-ice px-4 py-2 border-2 border-shield-navy shadow-brutal-sm transition-colors flex items-center gap-1.5">
-          <span>🗺️ Event Map</span>
+          <span>Event Map</span>
         </a>
       </div>
     </div>
@@ -114,7 +114,7 @@
           <!-- Event Content -->
           <div class="p-6">
             <div class="flex items-center gap-2 text-shield-blue font-mono text-xs font-bold uppercase tracking-wider mb-2">
-              <span>📅 {{ event.start_date|date:"jS F Y" }}</span>
+              <span>{{ event.start_date|date:"jS F Y" }}</span>
             </div>
 
             <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-2 group-hover:text-shield-blue transition-colors leading-snug">
@@ -122,8 +122,7 @@
             </h3>
 
             {% if event.city or event.location %}
-            <p class="font-body text-shield-navy text-sm font-semibold mb-3 flex items-center gap-1.5">
-              <span>📍</span>
+            <p class="font-body text-shield-navy text-sm font-semibold mb-3">
               <span>{{ event.city|default:event.location }}</span>
             </p>
             {% endif %}
@@ -215,8 +214,7 @@
             </h3>
 
             {% if event.city or event.location %}
-            <p class="font-body text-shield-navy text-sm font-semibold mb-3 flex items-center gap-1.5">
-              <span>📍</span>
+            <p class="font-body text-shield-navy text-sm font-semibold mb-3">
               <span>{{ event.city|default:event.location }}</span>
             </p>
             {% endif %}

@@ -29,10 +29,10 @@
     {% if event.tagline %}
     <p class="font-body text-shield-ice text-lg sm:text-xl font-medium mb-4 max-w-2xl">{{ event.tagline }}</p>
     {% endif %}
-    <div class="flex flex-wrap gap-4 font-mono text-xs font-bold uppercase tracking-wider text-white">
-      <span class="bg-shield-ice/20 border border-white/40 px-3 py-1">📅 {{ event.start_date|date:"l, F j, Y" }}{% if event.end_date %} — {{ event.end_date|date:"F j, Y" }}{% endif %}</span>
-      {% if event.venue_name %}<span class="bg-shield-ice/20 border border-white/40 px-3 py-1">🏢 {{ event.venue_name }}</span>{% endif %}
-      {% if event.location %}<span class="bg-shield-ice/20 border border-white/40 px-3 py-1">📍 {{ event.location }}</span>{% endif %}
+    <div class="flex flex-wrap gap-3 font-mono text-xs font-bold uppercase tracking-wider text-white">
+      <span class="bg-shield-navy/80 border border-white/40 px-3 py-1.5 shadow-brutal-sm">Date: {{ event.start_date|date:"l, F j, Y" }}{% if event.end_date %} — {{ event.end_date|date:"F j, Y" }}{% endif %}</span>
+      {% if event.venue_name %}<span class="bg-shield-navy/80 border border-white/40 px-3 py-1.5 shadow-brutal-sm">Venue: {{ event.venue_name }}</span>{% endif %}
+      {% if event.location %}<span class="bg-shield-navy/80 border border-white/40 px-3 py-1.5 shadow-brutal-sm">Location: {{ event.location }}</span>{% endif %}
     </div>
   </div>
 </section>
@@ -44,6 +44,7 @@
     {% if event.description %}<a href="#about" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">About</a>{% endif %}
     {% if event.day1_schedule %}<a href="#schedule" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">Schedule</a>{% endif %}
     {% if event.what_you_learn %}<a href="#learn" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">What you'll learn</a>{% endif %}
+    {% if event.who_should_apply %}<a href="#who-should-apply" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">Who should apply</a>{% endif %}
     {% if event.faq %}<a href="#faq" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">FAQ</a>{% endif %}
     {% if event_sponsors or event_partners %}<a href="#sponsors" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">Sponsors</a>{% endif %}
     {% if event.application_open and event.is_upcoming %}<a href="#apply" class="text-shield-navy bg-[#FFB800] px-3 py-1 border border-shield-navy shadow-brutal-sm transition-all whitespace-nowrap">Apply &rarr;</a>{% endif %}
@@ -56,8 +57,8 @@
     <!-- ── VENUE & DIRECTIONS ── -->
     {% if event.venue_name or event.location or event.city or event.latitude %}
     <section id="venue">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6">
-        📍 Venue &amp; Directions
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        Venue &amp; Directions
       </h2>
 
       <!-- Venue info card -->
@@ -66,8 +67,8 @@
         <!-- Address row + Directions button -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 sm:p-8">
           <div class="flex items-start gap-4">
-            <span class="w-10 h-10 border-2 border-shield-navy bg-shield-ice flex items-center justify-center font-bold text-shield-navy shrink-0 shadow-brutal-sm">
-              📍
+            <span class="w-10 h-10 border-2 border-shield-navy bg-shield-ice flex items-center justify-center font-mono font-bold text-shield-navy shrink-0 shadow-brutal-sm text-xs">
+              NAV
             </span>
             <div>
               {% if event.venue_name %}
@@ -138,8 +139,8 @@
     <!-- ── ABOUT ── -->
     {% if event.description %}
     <section id="about">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6">
-        ℹ️ About This Event
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        About This Event
       </h2>
       <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal font-body text-shield-navy text-base font-medium leading-relaxed">
         {{ event.description|linebreaks }}
@@ -150,8 +151,8 @@
     <!-- ── SCHEDULE ── -->
     {% if event.day1_schedule or event.day2_schedule or event.day3_schedule %}
     <section id="schedule">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
-        ⏱️ {{ event.schedule_title|default:"Workshop Schedule" }}
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        {{ event.schedule_title|default:"Workshop Schedule" }}
       </h2>
       <div class="grid grid-cols-1 {% if event.day2_schedule %}md:grid-cols-2{% endif %} {% if event.day3_schedule %}lg:grid-cols-3{% endif %} gap-6">
 
@@ -201,39 +202,40 @@
     </section>
     {% endif %}
 
-    <!-- ── WHAT YOU'LL LEARN + WHO SHOULD APPLY ── -->
-    {% if event.what_you_learn or event.who_should_apply %}
+    <!-- ── WHAT YOU'LL LEARN ── -->
+    {% if event.what_you_learn %}
     <section id="learn">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {% if event.what_you_learn %}
-        <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
-          <h2 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-5">
-            🎯 What You'll Learn
-          </h2>
-          <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
-            {% for item in event.what_you_learn_lines %}
-            <li class="flex items-start gap-2.5">
-              <span class="text-shield-navy font-bold">✓</span>{{ item }}
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        What You'll Learn
+      </h2>
+      <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
+        <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+          {% for item in event.what_you_learn_lines %}
+          <li class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-5 h-5 bg-shield-ice border border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5">&check;</span>
+            <span>{{ item }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+    {% endif %}
 
-        {% if event.who_should_apply %}
-        <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
-          <h2 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-5">
-            🚀 Who Should Apply
-          </h2>
-          <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
-            {% for item in event.who_should_apply_lines %}
-            <li class="flex items-start gap-2.5">
-              <span class="text-shield-blue font-bold">→</span>{{ item }}
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        {% endif %}
+    <!-- ── WHO SHOULD APPLY ── -->
+    {% if event.who_should_apply %}
+    <section id="who-should-apply">
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-6 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        Who Should Apply
+      </h2>
+      <div class="bg-white border-2.5 border-shield-navy p-6 sm:p-8 shadow-brutal">
+        <ul class="space-y-3 font-body text-sm font-semibold text-shield-navy">
+          {% for item in event.who_should_apply_lines %}
+          <li class="flex items-start gap-3">
+            <span class="inline-flex items-center justify-center w-5 h-5 bg-[#FFB800] border border-shield-navy font-mono text-xs font-bold text-shield-navy shrink-0 mt-0.5">&rarr;</span>
+            <span>{{ item }}</span>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
     </section>
     {% endif %}
@@ -241,7 +243,7 @@
     <!-- ── APPLY ── -->
     {% if event.application_open and event.is_upcoming %}
     <section id="apply" class="bg-white border-2.5 border-shield-navy shadow-brutal p-8 sm:p-12 text-center">
-      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-3">
+      <h2 class="font-display font-bold text-3xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-3 border-l-[4px] border-[#FFB800] pl-3.5 leading-none inline-block">
         Applications are open!
       </h2>
       {% if event.application_deadline %}
@@ -253,7 +255,7 @@
       {% if application_form %}
         {# ── An application form has been created in admin for this event ── #}
         <a href="{% url 'applications:apply' form_id=application_form.pk %}"
-           class="group inline-flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
+           class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
           <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Register Interest</span>
           <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -266,7 +268,7 @@
       {% else %}
         {# ── No form linked yet — fall back to the contact page with specific event parameter ── #}
         <a href="{% url 'core:contact' %}?event={{ event.slug }}"
-           class="group inline-flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
+           class="group flex items-center justify-between gap-6 bg-[#FFB800] border-2.5 border-shield-navy px-8 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
           <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Contact Organizers</span>
           <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -280,8 +282,8 @@
     <!-- ── FAQ ── -->
     {% if event.faq %}
     <section id="faq">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
-        ❓ Frequently Asked Questions
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        Frequently Asked Questions
       </h2>
       <div class="space-y-4">
         {% for q, a in event.faq_pairs %}
@@ -297,8 +299,8 @@
     <!-- ── MENTORS / COACHES ── -->
     {% if event_mentors %}
     <section id="mentors">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
-        🧠 Meet Our Mentors &amp; Coaches
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        Meet Our Mentors &amp; Coaches
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {% for em in event_mentors %}
@@ -340,8 +342,8 @@
     <!-- ── ORGANISERS ── -->
     {% if event_organisers %}
     <section id="organisers">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
-        🙌 Event Organisers
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        Event Organisers
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for org in event_organisers %}
@@ -373,8 +375,8 @@
     <!-- ── EVENT SPONSORS ── -->
     {% if event_sponsors or event_partners %}
     <section id="sponsors">
-      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
-        🤝 {{ event.sponsors_title|default:"Sponsors &amp; Partners" }}
+      <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4 border-l-[4px] border-shield-blue pl-3.5 leading-none">
+        {{ event.sponsors_title|default:"Sponsors &amp; Partners" }}
       </h2>
       <p class="font-body text-shield-navy text-sm font-semibold mb-8">
         This workshop is made possible by sponsors that support it financially or through approved in-kind contributions.

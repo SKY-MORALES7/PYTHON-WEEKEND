@@ -412,10 +412,12 @@ button:hover .btn-arrow-3d {
   top: 0; left: 0; right: 0; bottom: 0;
   background-size: cover;
   background-position: center;
-  filter: grayscale(100%);
   transition: filter 0.3s;
 }
-.event-card-overlay:hover .event-card-overlay__bg {
+.event-card-overlay--past .event-card-overlay__bg {
+  filter: grayscale(100%);
+}
+.event-card-overlay--past:hover .event-card-overlay__bg {
   filter: grayscale(0%);
 }
 .event-card-overlay__gradient {
