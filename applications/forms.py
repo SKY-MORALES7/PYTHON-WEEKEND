@@ -20,10 +20,10 @@ class DynamicApplicationForm(forms.Form):
         def question_sort_key(q):
             title_lower = q.title.lower()
             if "name" in title_lower:
-                return (0, q.order)
+                return (0, q.order, q.pk)
             if q.question_type == "email" or "email" in title_lower:
-                return (1, q.order)
-            return (2, q.order)
+                return (1, q.order, q.pk)
+            return (2, q.order, q.pk)
 
         questions.sort(key=question_sort_key)
 
