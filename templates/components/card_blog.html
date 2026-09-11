@@ -1,15 +1,14 @@
-<article class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-py-blue/30 transition-all duration-300 flex flex-col h-full">
-    <div class="relative h-2 bg-gradient-to-r from-py-blue via-py-navy to-py-yellow"></div>
+<article class="bg-white border-2 border-shield-navy transition-all duration-200 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] flex flex-col h-full group">
     <div class="p-6 flex flex-col flex-grow z-10">
-        <span class="text-xs font-display font-semibold uppercase tracking-wider text-gray-400 mb-2">{{ post.category }}</span>
+        <span class="text-xs font-mono font-bold uppercase tracking-widest bg-shield-ice text-shield-navy px-2.5 py-1 border-2 border-shield-navy self-start mb-3">{{ post.category }}</span>
 
-        <h3 class="font-display text-xl font-bold text-py-navy mb-2 group-hover:text-py-blue transition-colors">
+        <h3 class="font-display text-2xl font-bold text-shield-navy mb-2 uppercase tracking-tight group-hover:text-shield-blue transition-colors">
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </h3>
 
-        <p class="text-gray-500 text-sm flex-grow mb-4 line-clamp-3">{{ post.excerpt }}</p>
+        <p class="font-body text-shield-navy text-sm font-medium flex-grow mb-4 leading-relaxed line-clamp-3">{{ post.excerpt }}</p>
 
-        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 text-xs text-gray-400">
+        <div class="flex items-center justify-between mt-auto pt-4 border-t-2 border-shield-navy font-mono text-xs font-bold text-shield-navy">
             <span>{{ post.author }}</span>
             <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"M d, Y" }}</time>
         </div>

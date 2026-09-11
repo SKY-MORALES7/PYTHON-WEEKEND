@@ -250,23 +250,23 @@
         {% if coaches %}
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {% for coach in coaches %}
-          <div class="bg-white border border-gray-200 rounded-xl p-6 hover:border-py-blue/25 transition-all text-center hover:shadow-lg">
+          <div class="bg-white border-2 border-shield-navy p-6 transition-all text-center shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px]">
             {% if coach.photo %}
-            <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover border-2 border-gray-200" loading="lazy" />
+            <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-20 h-20 mx-auto mb-4 object-cover border-2 border-shield-navy shadow-brutal-sm" loading="lazy" />
             {% else %}
-            <div class="w-20 h-20 rounded-full mx-auto mb-4 bg-py-blue/10 flex items-center justify-center text-2xl text-py-blue font-bold">
+            <div class="w-20 h-20 mx-auto mb-4 bg-shield-blue border-2 border-shield-navy shadow-brutal-sm flex items-center justify-center text-2xl text-white font-bold font-display uppercase">
               {{ coach.name|first }}
             </div>
             {% endif %}
-            <h3 class="font-display font-bold text-py-navy text-lg">{{ coach.name }}</h3>
-            {% if coach.role %}<p class="text-py-blue text-sm mb-2">{{ coach.role }}</p>{% endif %}
+            <h3 class="font-display font-bold text-shield-navy text-xl uppercase tracking-tight">{{ coach.name }}</h3>
+            {% if coach.role %}<p class="text-shield-blue font-mono font-bold text-xs uppercase tracking-wider mb-2">{{ coach.role }}</p>{% endif %}
             {% if coach.github or coach.linkedIn %}
-            <div class="flex justify-center gap-3 mt-3">
+            <div class="flex justify-center gap-3 mt-3 font-mono text-xs font-bold uppercase">
               {% if coach.github %}
-              <a href="{{ coach.github }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">GitHub</a>
+              <a href="{{ coach.github }}" class="text-shield-navy hover:text-shield-blue transition-colors underline" target="_blank" rel="noopener">GitHub</a>
               {% endif %}
               {% if coach.linkedIn %}
-              <a href="{{ coach.linkedIn }}" class="text-gray-400 hover:text-py-blue transition-colors text-xs" target="_blank" rel="noopener">LinkedIn</a>
+              <a href="{{ coach.linkedIn }}" class="text-shield-navy hover:text-shield-blue transition-colors underline" target="_blank" rel="noopener">LinkedIn</a>
               {% endif %}
             </div>
             {% endif %}

@@ -171,27 +171,187 @@ a:hover {
   vertical-align: middle;
 }
 
-/* Button */
-.btn-orange {
-  display: inline-block;
+/* ═══════════════════════════════════════════════════════
+   NEO-BRUTALIST BUTTON SYSTEM (Hacktoberfest Style)
+   ═══════════════════════════════════════════════════════ */
+.btn-orange,
+.btn-hero-primary,
+.btn-brutal-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--py-yellow);
+  color: var(--py-navy) !important;
+  padding: 0.8rem 1.6rem;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-navy);
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-orange:hover,
+.btn-hero-primary:hover,
+.btn-brutal-primary:hover {
+  background-color: var(--py-yellow);
+  color: var(--py-navy) !important;
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-navy);
+}
+.btn-orange:active,
+.btn-hero-primary:active,
+.btn-brutal-primary:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0 var(--py-navy);
+}
+
+.btn-hero-outline,
+.btn-brutal-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: var(--py-navy) !important;
+  padding: 0.8rem 1.6rem;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-navy);
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-hero-outline:hover,
+.btn-brutal-outline:hover {
+  background-color: var(--py-light);
+  color: var(--py-navy) !important;
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-navy);
+}
+.btn-hero-outline:active,
+.btn-brutal-outline:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0 var(--py-navy);
+}
+
+.btn-blue,
+.btn-brutal-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--py-blue);
+  color: #ffffff !important;
+  padding: 0.8rem 1.6rem;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-navy);
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-blue:hover,
+.btn-brutal-secondary:hover {
+  background-color: var(--py-blue-dark);
+  color: #ffffff !important;
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-navy);
+}
+.btn-blue:active,
+.btn-brutal-secondary:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0 var(--py-navy);
+}
+
+.btn-navy,
+.btn-brutal-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--py-navy);
+  color: #ffffff !important;
+  padding: 0.8rem 1.6rem;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.9rem;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 5px 5px 0 var(--py-yellow);
+  text-decoration: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.btn-navy:hover,
+.btn-brutal-dark:hover {
+  background-color: #1a273e;
+  color: #ffffff !important;
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 var(--py-yellow);
+}
+.btn-navy:active,
+.btn-brutal-dark:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0 var(--py-yellow);
+}
+
+/* Neo-Brutalist Cards */
+.card-brutal {
+  background: #ffffff;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 6px 6px 0 var(--py-navy);
+  transition: all 0.15s ease-in-out;
+}
+.card-brutal:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 var(--py-navy);
+}
+
+/* Neo-Brutalist Form Inputs & Newsletter */
+.newsletter-form {
+  display: flex;
+  margin-top: 1.25rem;
+  gap: 0.5rem;
+}
+.newsletter-form input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: 2.5px solid var(--py-navy);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--py-navy);
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+.newsletter-form input:focus {
+  box-shadow: 6px 6px 0 var(--py-blue);
+}
+.newsletter-form button {
   background-color: var(--py-yellow);
   color: var(--py-navy);
   padding: 0.75rem 1.5rem;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 4px 4px 0 var(--py-navy);
   font-family: "Martian Mono", monospace;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
-  border: 2px solid var(--py-navy);
-  box-shadow: 5px 5px 0 var(--py-navy);
-  text-decoration: none;
-  transition: all 0.2s ease;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
-.btn-orange:hover {
-  background-color: var(--py-yellow);
-  color: var(--py-navy);
+.newsletter-form button:hover {
   transform: translate(2px, 2px);
-  box-shadow: 3px 3px 0 var(--py-navy);
+  box-shadow: 2px 2px 0 var(--py-navy);
 }
 
 /* Event Cards */
@@ -200,10 +360,10 @@ a:hover {
   display: block;
   height: 250px;
   border-radius: 0;
-  border: 2px solid var(--py-navy);
+  border: 2.5px solid var(--py-navy);
   box-shadow: 6px 6px 0 var(--py-navy);
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease-in-out;
 }
 .event-card-overlay:hover {
   transform: translate(2px, 2px);
@@ -223,7 +383,7 @@ a:hover {
 .event-card-overlay__gradient {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
 }
 .event-card-overlay__text {
   position: absolute;
@@ -257,16 +417,27 @@ a:hover {
 .coach-photo {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 0.5rem;
+  border-radius: 0;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 4px 4px 0 var(--py-navy);
   object-fit: cover;
 }
 
 /* Blog Links */
 .blog-link-item {
   margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #ffffff;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 4px 4px 0 var(--py-navy);
+  transition: all 0.15s ease-in-out;
+}
+.blog-link-item:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--py-navy);
 }
 .blog-link-item a:first-child {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.1rem;
   color: var(--py-navy);
   display: block;
@@ -280,16 +451,18 @@ a:hover {
   font-size: 0.95rem;
 }
 .read-all {
-  font-weight: 600;
+  font-weight: 700;
   margin-left: 0.25rem;
 }
 
 /* Support/Progress */
 .progress-bar-wrap {
   width: 100%;
-  background-color: var(--py-light);
-  border-radius: 9999px;
-  height: 1.5rem;
+  background-color: #ffffff;
+  border: 2.5px solid var(--py-navy);
+  box-shadow: 4px 4px 0 var(--py-navy);
+  border-radius: 0;
+  height: 1.75rem;
   overflow: hidden;
 }
 .progress-bar-fill {
@@ -298,34 +471,10 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  font-weight: bold;
+  font-size: 0.85rem;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
   color: var(--py-navy);
-}
-
-/* Newsletter form */
-.newsletter-form {
-  display: flex;
-  margin-top: 1.25rem;
-}
-.newsletter-form input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.5rem 0 0 0.5rem;
-  outline: none;
-}
-.newsletter-form button {
-  background-color: var(--py-navy);
-  color: #fff;
-  padding: 0 1.5rem;
-  border: none;
-  border-radius: 0 0.5rem 0.5rem 0;
-  font-weight: 600;
-  cursor: pointer;
-}
-.newsletter-form button:hover {
-  background-color: var(--py-blue);
 }
 
 /* Sponsors */
@@ -347,52 +496,6 @@ a:hover {
 .sponsor-row img:hover {
   filter: grayscale(0%);
   opacity: 1;
-}
-
-/* ═══════════════════════════════════════════════════════
-   HERO BUTTONS
-   ═══════════════════════════════════════════════════════ */
-.btn-hero-primary {
-  display: inline-block;
-  background-color: var(--py-yellow);
-  color: var(--py-navy) !important;
-  padding: 0.85rem 2rem;
-  font-family: "Martian Mono", monospace;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 1rem;
-  border: 2px solid var(--py-navy);
-  box-shadow: 6px 6px 0 var(--py-navy);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.btn-hero-primary:hover {
-  background-color: var(--py-yellow);
-  transform: translate(3px, 3px);
-  box-shadow: 3px 3px 0 var(--py-navy);
-  color: var(--py-navy) !important;
-}
-.btn-hero-outline {
-  display: inline-block;
-  background-color: var(--py-navy);
-  color: var(--py-light) !important;
-  padding: 0.85rem 2rem;
-  font-family: "Martian Mono", monospace;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 1rem;
-  border: 2px solid var(--py-navy);
-  box-shadow: 6px 6px 0 var(--py-navy);
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-.btn-hero-outline:hover {
-  background-color: var(--py-navy);
-  transform: translate(3px, 3px);
-  box-shadow: 3px 3px 0 var(--py-navy);
-  color: var(--py-light) !important;
 }
 
 /* ═══════════════════════════════════════════════════════

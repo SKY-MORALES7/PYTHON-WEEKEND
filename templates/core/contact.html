@@ -11,12 +11,14 @@
     width: 100%;
     padding: 0.75rem 1rem;
     background-color: #ffffff;
-    color: #1a1a1a;
-    border: 1px solid #d1d5db;
-    border-radius: 0.75rem;
+    color: #16213e;
+    border: 2.5px solid #16213e;
+    box-shadow: 4px 4px 0 #16213e;
+    border-radius: 0;
     outline: none;
     font-size: 0.95rem;
-    transition: all 0.2s ease-in-out;
+    font-family: "Inter", sans-serif;
+    transition: all 0.15s ease-in-out;
   }
 
   #id_name:focus,
@@ -24,8 +26,7 @@
   #id_interest:focus,
   #id_event:focus,
   #id_message:focus {
-    border-color: #4B8BBE;
-    box-shadow: 0 0 0 2px rgba(75, 139, 190, 0.2);
+    box-shadow: 6px 6px 0 #4B8BBE;
   }
 
   textarea#id_message {
@@ -34,12 +35,11 @@
   }
 </style>
 
-<section class="relative bg-py-light py-20 overflow-hidden">
-  {% include "components/blobs.html" %}
+<section class="relative bg-shield-ice/20 border-b-2 border-shield-navy py-16 overflow-hidden">
   <div class="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-    <span class="text-xs font-semibold text-py-blue uppercase tracking-widest">Get involved</span>
-    <h1 class="font-display font-bold text-4xl sm:text-5xl text-py-navy mt-2 mb-3">Contact us</h1>
-    <p class="text-gray-500 leading-relaxed">
+    <span class="text-xs font-mono font-bold text-shield-navy uppercase tracking-widest bg-shield-ice px-2.5 py-1 border-2 border-shield-navy inline-block mb-3">Get involved</span>
+    <h1 class="font-display font-bold text-4xl sm:text-5xl text-shield-navy uppercase tracking-tight mb-3">Contact us</h1>
+    <p class="font-body text-shield-navy font-medium leading-relaxed">
       Interested in attending, coaching, or sponsoring? Fill in the form and we'll get back to you.
     </p>
   </div>
@@ -52,7 +52,7 @@
     <div class="mb-6 space-y-2">
       {% for message in messages %}
       <div
-        class="px-4 py-3 rounded-lg {% if message.tags == 'success' %}bg-green-50 border border-green-300 text-green-700{% else %}bg-red-50 border border-red-300 text-red-700{% endif %} text-sm">
+        class="px-4 py-3 border-2 border-shield-navy font-mono text-xs font-bold uppercase tracking-wider {% if message.tags == 'success' %}bg-green-100 text-green-900{% else %}bg-red-100 text-red-900{% endif %}">
         {{ message }}
       </div>
       {% endfor %}
@@ -60,23 +60,23 @@
     {% endif %}
 
     <div class="mb-8">
-      <p class="text-gray-700 text-lg mb-2 font-medium">Hi! We would love to hear from you!</p>
-      <p class="text-gray-600 mb-6 text-sm">To be sure your email reaches the right person, check this FAQ first!</p>
+      <p class="text-shield-navy text-lg mb-2 font-bold font-display uppercase tracking-wide">Hi! We would love to hear from you!</p>
+      <p class="text-shield-navy mb-6 text-sm font-medium">To be sure your email reaches the right person, check this FAQ first!</p>
 
       <!-- Accordion -->
       <div class="space-y-3 mb-8">
         <!-- Q1 -->
-        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+        <div class="border-2 border-shield-navy bg-white shadow-brutal-sm transition-colors">
           <button type="button"
-            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-bold text-shield-navy hover:bg-shield-ice/20 focus:outline-none faq-btn uppercase tracking-wide text-sm"
             data-target="faq-1">
             <span>Q: How can I register for an upcoming Python Weekend event?</span>
-            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+            <svg class="w-4 h-4 text-shield-navy transform transition-transform duration-200" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div id="faq-1" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+          <div id="faq-1" class="hidden p-4 bg-white border-t-2 border-shield-navy text-shield-navy leading-relaxed text-sm font-medium">
             <p class="mb-2">A: To register, head to our homepage and locate the list of upcoming events. Each city's
               event has its own dedicated detail page where applications can be submitted directly.</p>
             <p>If you do not see a "Register" button on an event's page, it usually means that registrations have not
@@ -86,17 +86,17 @@
         </div>
 
         <!-- Q2 -->
-        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+        <div class="border-2 border-shield-navy bg-white shadow-brutal-sm transition-colors">
           <button type="button"
-            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-bold text-shield-navy hover:bg-shield-ice/20 focus:outline-none faq-btn uppercase tracking-wide text-sm"
             data-target="faq-2">
             <span>Q: I missed the application deadline! Can I still secure a spot?</span>
-            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+            <svg class="w-4 h-4 text-shield-navy transform transition-transform duration-200" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div id="faq-2" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+          <div id="faq-2" class="hidden p-4 bg-white border-t-2 border-shield-navy text-shield-navy leading-relaxed text-sm font-medium">
             <p class="mb-2">A: Unfortunately, we are unable to accept applications once the official deadline has
               passed. Our organizing teams need to finalize catering, coach-to-student ratios, and venue details well in
               advance.</p>
@@ -107,17 +107,17 @@
         </div>
 
         <!-- Q3 -->
-        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+        <div class="border-2 border-shield-navy bg-white shadow-brutal-sm transition-colors">
           <button type="button"
-            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-bold text-shield-navy hover:bg-shield-ice/20 focus:outline-none faq-btn uppercase tracking-wide text-sm"
             data-target="faq-3">
             <span>Q: I want to coach or sponsor an event! How do I get involved?</span>
-            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+            <svg class="w-4 h-4 text-shield-navy transform transition-transform duration-200" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div id="faq-3" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+          <div id="faq-3" class="hidden p-4 bg-white border-t-2 border-shield-navy text-shield-navy leading-relaxed text-sm font-medium">
             <p class="mb-2">A: That's fantastic! Volunteers and sponsors are what make Python Weekend possible. If you
               want to coach, we look for developers with Python/Django experience who can guide beginners with patience
               and encouragement.</p>
@@ -128,29 +128,29 @@
         </div>
 
         <!-- Q4 -->
-        <div class="border border-gray-200 rounded-xl overflow-hidden bg-gray-50/30 transition-colors">
+        <div class="border-2 border-shield-navy bg-white shadow-brutal-sm transition-colors">
           <button type="button"
-            class="w-full flex items-center justify-between p-4 text-left font-display font-semibold text-py-navy hover:bg-gray-50 focus:outline-none faq-btn"
+            class="w-full flex items-center justify-between p-4 text-left font-display font-bold text-shield-navy hover:bg-shield-ice/20 focus:outline-none faq-btn uppercase tracking-wide text-sm"
             data-target="faq-4">
             <span>Q: I'm running into errors with the tutorial. Can you help me debug?</span>
-            <svg class="w-4 h-4 text-gray-500 transform transition-transform duration-200" fill="none"
+            <svg class="w-4 h-4 text-shield-navy transform transition-transform duration-200" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div id="faq-4" class="hidden p-4 bg-white border-t border-gray-100 text-gray-600 leading-relaxed text-sm">
+          <div id="faq-4" class="hidden p-4 bg-white border-t-2 border-shield-navy text-shield-navy leading-relaxed text-sm font-medium">
             <p class="mb-2">A: While we'd love to help, our central support team's focus is on helping organizers run
               their workshops. If you need tutorial help, we recommend asking in our community channels.</p>
           </div>
         </div>
       </div>
 
-      <p class="text-gray-600 text-sm">
+      <p class="text-shield-navy text-sm font-medium">
         If you didn't find what you wanted, please use the form below. :)
       </p>
     </div>
 
-    <div class="bg-white border border-gray-200 rounded-xl p-8 shadow-sm">
+    <div class="bg-white border-2 border-shield-navy p-8 shadow-brutal">
       <form method="post" class="space-y-5" novalidate>
         {% csrf_token %}
 
@@ -161,40 +161,41 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_name">Name</label>
+            <label class="block text-shield-navy text-xs font-mono font-bold uppercase tracking-wider mb-1.5" for="id_name">Name</label>
             {{ form.name }}
-            {% if form.name.errors %}<p class="text-red-500 text-xs mt-1">{{ form.name.errors.0 }}</p>{% endif %}
+            {% if form.name.errors %}<p class="text-red-600 text-xs mt-1 font-mono font-bold">{{ form.name.errors.0 }}</p>{% endif %}
           </div>
           <div>
-            <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_email">Email</label>
+            <label class="block text-shield-navy text-xs font-mono font-bold uppercase tracking-wider mb-1.5" for="id_email">Email</label>
             {{ form.email }}
-            {% if form.email.errors %}<p class="text-red-500 text-xs mt-1">{{ form.email.errors.0 }}</p>{% endif %}
+            {% if form.email.errors %}<p class="text-red-600 text-xs mt-1 font-mono font-bold">{{ form.email.errors.0 }}</p>{% endif %}
           </div>
         </div>
 
         <div>
-          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_interest">I'm interested in</label>
+          <label class="block text-shield-navy text-xs font-mono font-bold uppercase tracking-wider mb-1.5" for="id_interest">I'm interested in</label>
           {{ form.interest }}
-          {% if form.interest.errors %}<p class="text-red-500 text-xs mt-1">{{ form.interest.errors.0 }}</p>{% endif %}
+          {% if form.interest.errors %}<p class="text-red-600 text-xs mt-1 font-mono font-bold">{{ form.interest.errors.0 }}</p>{% endif %}
         </div>
 
         {% if form.event %}
         <div>
-          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_event">Specific event (optional)</label>
+          <label class="block text-shield-navy text-xs font-mono font-bold uppercase tracking-wider mb-1.5" for="id_event">Specific event (optional)</label>
           {{ form.event }}
         </div>
         {% endif %}
 
         <div>
-          <label class="block text-gray-600 text-sm font-medium mb-1.5" for="id_message">Message</label>
+          <label class="block text-shield-navy text-xs font-mono font-bold uppercase tracking-wider mb-1.5" for="id_message">Message</label>
           {{ form.message }}
-          {% if form.message.errors %}<p class="text-red-500 text-xs mt-1">{{ form.message.errors.0 }}</p>{% endif %}
+          {% if form.message.errors %}<p class="text-red-600 text-xs mt-1 font-mono font-bold">{{ form.message.errors.0 }}</p>{% endif %}
         </div>
 
-        <button type="submit"
-          class="w-full py-3 bg-py-blue hover:bg-py-blue-dark text-white font-semibold rounded-xl transition-all text-base">
+        <button type="submit" class="btn-orange w-full justify-center text-center">
           Send message
         </button>
+      </form>
+    </div>
       </form>
     </div>
 

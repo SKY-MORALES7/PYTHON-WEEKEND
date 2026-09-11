@@ -2,23 +2,23 @@
 Usage: {% include "components/pagination.html" with page_obj=page_obj %}
 {% endcomment %}
 {% if page_obj.has_other_pages %}
-<nav class="flex justify-center items-center gap-2 mt-10" aria-label="Pagination">
+<nav class="flex justify-center items-center gap-2 mt-10 font-mono" aria-label="Pagination">
   {% if page_obj.has_previous %}
-  <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 rounded-lg bg-white border border-gray-200 text-gray-500 hover:border-py-blue/40 hover:text-py-blue transition-all text-sm">
+  <a href="?page={{ page_obj.previous_page_number }}" class="px-3.5 py-2 bg-white border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all uppercase">
     ← Prev
   </a>
   {% endif %}
 
   {% for num in page_obj.paginator.page_range %}
     {% if page_obj.number == num %}
-      <span class="px-3 py-2 rounded-lg bg-py-blue text-white font-semibold text-sm">{{ num }}</span>
+      <span class="px-3.5 py-2 bg-shield-ice border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm uppercase">{{ num }}</span>
     {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
-      <a href="?page={{ num }}" class="px-3 py-2 rounded-lg bg-white border border-gray-200 text-gray-500 hover:border-py-blue/40 hover:text-py-blue transition-all text-sm">{{ num }}</a>
+      <a href="?page={{ num }}" class="px-3.5 py-2 bg-white border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all uppercase">{{ num }}</a>
     {% endif %}
   {% endfor %}
 
   {% if page_obj.has_next %}
-  <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 rounded-lg bg-white border border-gray-200 text-gray-500 hover:border-py-blue/40 hover:text-py-blue transition-all text-sm">
+  <a href="?page={{ page_obj.next_page_number }}" class="px-3.5 py-2 bg-white border-2 border-shield-navy text-shield-navy font-bold text-xs shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all uppercase">
     Next →
   </a>
   {% endif %}
