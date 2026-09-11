@@ -4,9 +4,10 @@
 {% block title %}Global Event Map — Python Weekend{% endblock %}
 
 {% block extra_head %}
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<!-- Leaflet CSS & JS via CDNJS without SRI hash restrictions -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+
 <style>
   #event-map {
     height: 550px !important;
@@ -132,13 +133,16 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPeWs=" crossorigin=""></script>
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+function initMap() {
+  if (typeof L === 'undefined') {
+    setTimeout(initMap, 100);
+    return;
+  }
+
   var events = {{ map_events_json|safe }};
+  var mapContainer = document.getElementById('event-map');
+  if (!mapContainer) return;
 
   // Initialise Leaflet Map
   var map = L.map('event-map', { scrollWheelZoom: false });
@@ -192,7 +196,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setTimeout(function() {
     map.invalidateSize();
-  }, 300);
-});
+  }, 200);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMap);
+} else {
+  initMap();
+}
 </script>
 {% endblock %}
