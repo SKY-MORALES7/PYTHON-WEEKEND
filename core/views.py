@@ -67,7 +67,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
 from django.utils import timezone
+from django.conf import settings
 from django.db.models import Count, Sum
+
 
 from content.models import BlogPost, Event
 from tutorials.models import Tutorial

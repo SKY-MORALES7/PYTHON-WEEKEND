@@ -111,9 +111,12 @@ STORAGES = {
     },
 }
 
+WHITENOISE_USE_FINDERS = True
+
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
     'jpg', 'jpeg', 'png', 'gif', 'webp', 'zip', 'gz', 'tgz', 'bz2', 'tbz', 'xz', 'br', 'mp3', 'mp4', 'm4a', 'ogg', 'wav', 'webm', 'pdf'
 )
+
 
 
 

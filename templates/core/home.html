@@ -52,26 +52,26 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO (Full Background Image with Centered Text on Top)
      ═══════════════════════════════════════════════════════ -->
-<section class="hero-parallax" style="background-image: url('{% static 'img/code-campus-hero.jpg' %}'); background-size: cover; background-position: center; background-repeat: no-repeat; position: relative; min-height: 75vh; border-bottom: 2.5px solid #16213e; display: flex; align-items: center; justify-content: center;">
-  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.52);z-index:1;"></div>
-  <div style="position:relative;z-index:10;max-width:860px;margin:0 auto;padding:7rem 1.5rem;text-align:center;">
+<section class="hero-parallax" style="background-image: url('{% static 'img/code-campus-hero.jpg' %}'); background-size: cover; background-position: center center; background-repeat: no-repeat; min-height: 80vh; border-bottom: 3px solid #16213e; display: flex; align-items: center; justify-content: center; position: relative;">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.48);z-index:1;"></div>
+  <div style="position:relative;z-index:10;max-width:960px;margin:0 auto;padding:7.5rem 1.5rem;text-align:center;">
     <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1.5 border-2 border-shield-navy inline-block mb-6 shadow-brutal-sm">Community Powered • Python &amp; Django</span>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none" style="text-shadow: 0 4px 16px rgba(0,0,0,0.8);">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white mb-6 leading-none" style="text-shadow: 0 4px 18px rgba(0,0,0,0.85);">
       {{ home_hero_headline|default:"Learn Python &amp; Build Real Web Apps." }}
     </h1>
-    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-8 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8);">
+    <p class="font-body text-slate-100 text-lg sm:text-xl font-medium mb-10 leading-relaxed max-w-2xl mx-auto" style="text-shadow: 0 2px 10px rgba(0,0,0,0.85);">
       {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
-    <div class="flex flex-wrap justify-center gap-5">
-      <a href="{% url 'content:event_list' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Find an event</span>
+    <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+      <a href="{% url 'content:event_list' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-5 sm:px-10 sm:py-5 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl sm:text-2xl text-shield-navy uppercase tracking-wider">Find an event</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
-        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Become an Organizer</span>
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-5 sm:px-10 sm:py-5 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+        <span class="font-display font-bold text-xl sm:text-2xl text-shield-navy uppercase tracking-wider">Become an Organizer</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
@@ -123,9 +123,9 @@
         </div>
       </div>
 
-      <!-- Right: video stream player -->
+      <!-- Right: video stream player with placeholder poster -->
       <div class="border-2.5 border-shield-navy shadow-brutal overflow-hidden bg-black flex flex-col justify-center relative min-h-[320px]">
-        <video controls autoplay muted loop playsinline preload="auto" poster="{% static 'img/code-campus-hero.jpg' %}" class="w-full h-full object-cover block min-h-[320px]">
+        <video controls playsinline preload="auto" poster="{% static 'img/code-campus-hero.jpg' %}" class="w-full h-full object-cover block min-h-[320px]">
           <source src="{% url 'core:video_stream' %}" type="video/mp4">
           <source src="{% static 'video/VID-20260523-WA0061.mp4' %}" type="video/mp4">
           Your browser does not support HTML5 video streaming.
@@ -297,8 +297,9 @@
           </div>
           {% endif %}
         </div>
-        <a href="{% url 'coach:list' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
-          <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Read all Stories</span>
+        <!-- Compact, non-stretching Read all Stories button -->
+        <a href="{% url 'coach:list' %}" class="group inline-flex items-center justify-between gap-5 bg-white border-2.5 border-shield-navy px-6 py-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all self-start mt-6">
+          <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Read all Stories</span>
           <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
@@ -342,16 +343,16 @@
 
 
 <!-- ═══════════════════════════════════════════════════════
-     SECTION 6 — SUPPORT OUR WORK  +  STAY UP TO DATE
+     SECTION 6 — SUPPORT OUR WORK  +  STAY UP TO DATE (Two Separate Cards Next to Each Other)
      ═══════════════════════════════════════════════════════ -->
 <section class="py-16 bg-white border-b-2 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-stretch">
 
-      <!-- Left: support -->
+      <!-- Separate Card 1: Support our work -->
       <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-2.5 py-1 border-2 border-shield-navy inline-block mb-3">Sponsorship &amp; Partners</span>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-2.5 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Sponsorship &amp; Partners</span>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
             {{ home_support_heading|default:"Support our work" }}
           </h2>
@@ -391,10 +392,10 @@
         </div>
       </div>
 
-      <!-- Right: newsletter + community -->
+      <!-- Separate Card 2: Stay up to date! -->
       <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal flex flex-col justify-between">
         <div>
-          <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-2.5 py-1 border-2 border-shield-navy inline-block mb-3">Dispatch Newsletter</span>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-2.5 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Dispatch Newsletter</span>
           <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
             {{ home_newsletter_heading|default:"Stay up to date!" }}
           </h2>
@@ -427,24 +428,26 @@
             </button>
           </form>
 
-          <a href="{% url 'content:blog_list' %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue block mb-6">
+          <a href="{% url 'content:blog_list' %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue block mb-2">
             See the Python Weekend Dispatch archives »
           </a>
-        </div>
-
-        <div class="pt-6 border-t-2 border-shield-navy">
-          <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-2">
-            {{ home_community_heading|default:"Check out our community!" }}
-          </h3>
-          <p class="font-body text-shield-navy text-sm font-medium leading-relaxed">
-            {{ home_community_body|default:"We have an amazing community of coaches, organisers and alumni who continue building after each workshop." }}
-            <a href="{% url 'coach:list' %}" class="font-bold underline">coaches</a> and
-            <a href="{% url 'content:blog_list' %}" class="font-bold underline">blog</a> to stay connected.
-          </p>
         </div>
       </div>
 
     </div>
+
+    <!-- Separate Card 3: Check Out Our Community -->
+    <div class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal mt-10">
+      <h3 class="font-display font-bold text-2xl sm:text-3xl text-shield-navy uppercase tracking-tight mb-2">
+        {{ home_community_heading|default:"Check out our community!" }}
+      </h3>
+      <p class="font-body text-shield-navy text-base font-medium leading-relaxed">
+        {{ home_community_body|default:"We have an amazing community of coaches, organisers and alumni who continue building after each workshop." }}
+        Explore our <a href="{% url 'coach:list' %}" class="font-bold underline text-shield-blue">coaches spotlight</a> and
+        <a href="{% url 'content:blog_list' %}" class="font-bold underline text-shield-blue">community blog</a> to stay connected.
+      </p>
+    </div>
+
   </div>
 </section>
 
@@ -538,4 +541,3 @@
 {% endif %}
 
 {% endblock %}
-
