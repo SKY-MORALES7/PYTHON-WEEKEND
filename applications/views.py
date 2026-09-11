@@ -177,32 +177,6 @@ class OrganizeWizardView(View):
         }
 
     def _save_application(self, request, data):
-        if not data.get("lead_email") or not data.get("lead_first_name"):
-            context = self._build_context(request, 5)
-            context["error"] = "Your session expired or contact info is missing. Please start from Step 1."
-            return render(request, WIZARD_TEMPLATES[5], context)
-
-        previous_event = None
-        event_id = data.get("previous_event_id", "")
-        if event_id:
-            try:
-                previous_event = Event.objects.get(pk=int(event_id))
-            except (Event.DoesNotExist, ValueError):
-                pass
-
-        application = OrganizerApplication.objects.create(
-            lead_first_name=data.get("lead_first_name", ""),
-            lead_last_name=data.get("lead_last_name", ""),
-            lead_email=data.get("lead_email", ""),
-            team_members=data.get("team_members", []),
-            prerequisites_confirmed=data.get("prerequisites_confirmed", False),
-            workshop_type=data.get("workshop_type", "in_person"),
-            commitment_signed=data.get("commitment_signed", False),
-            has_organized_before=data.get("has_organized_before", False),
-            previous_event=previous_event,
-        )
-
-        # Send emails
         import logging
         from django.core.mail import send_mail
         from django.conf import settings
@@ -211,62 +185,77 @@ class OrganizeWizardView(View):
 
         logger = logging.getLogger(__name__)
 
-        if not is_email_sending_enabled():
-            logger.info("Outbound emails disabled via EMAIL_ENABLED=False. Skipping organizer notification emails.")
-            request.session.pop("organize_wizard", None)
-            return redirect("applications:organize_success")
+        if not data.get("lead_email") or not data.get("lead_first_name"):
+            context = self._build_context(request, 5)
+            context["error"] = "Your session expired or contact info is missing. Please start from Step 1."
+            return render(request, WIZARD_TEMPLATES[5], context)
 
-        User = get_user_model()
-
-        organizer_name = f"{application.lead_first_name} {application.lead_last_name}".strip()
-        organizer_email = application.lead_email
-
-        # Collect superuser email addresses for admin notification
-        admin_emails = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
-        if not admin_emails:
-            admin_emails = [settings.DEFAULT_FROM_EMAIL]
-
-        # 1. Confirmation email to the organizer applicant
-        subject_organizer = "Your Python Weekend Organizer Application"
-        message_organizer = (
-            f"Hi {application.lead_first_name},\n\n"
-            f"Thank you for volunteering to organize a Python Weekend workshop! "
-            f"We have received your application and our team will review it shortly.\n\n"
-            f"Best regards,\nThe Python Weekend Team"
-        )
         try:
-            send_mail(
-                subject_organizer,
-                message_organizer,
-                settings.DEFAULT_FROM_EMAIL,
-                [organizer_email],
-                fail_silently=False,
-            )
-        except Exception as e:
-            logger.error(f"Failed to send confirmation email to applicant {organizer_email}: {e}")
+            previous_event = None
+            event_id = data.get("previous_event_id", "")
+            if event_id:
+                try:
+                    previous_event = Event.objects.get(pk=int(event_id))
+                except (Event.DoesNotExist, ValueError):
+                    pass
 
-        # 2. Notification email to the super admin(s)
-        subject_admin = f"New Organizer Application: {organizer_name}"
-        message_admin = (
-            f"A new organizer application has been submitted.\n\n"
-            f"Lead Organizer: {organizer_name}\n"
-            f"Email: {organizer_email}\n"
-            f"Workshop Type: {application.get_workshop_type_display()}\n"
-            f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
-            f"Please log in to the admin panel to review and approve/reject the application."
-        )
-        try:
-            send_mail(
-                subject_admin,
-                message_admin,
-                settings.DEFAULT_FROM_EMAIL,
-                admin_emails,
-                fail_silently=False,
+            application = OrganizerApplication.objects.create(
+                lead_first_name=data.get("lead_first_name", ""),
+                lead_last_name=data.get("lead_last_name", ""),
+                lead_email=data.get("lead_email", ""),
+                team_members=data.get("team_members", []),
+                prerequisites_confirmed=data.get("prerequisites_confirmed", False),
+                workshop_type=data.get("workshop_type", "in_person"),
+                commitment_signed=data.get("commitment_signed", False),
+                has_organized_before=data.get("has_organized_before", False),
+                previous_event=previous_event,
             )
-        except Exception as e:
-            logger.error(f"Failed to send application notification to admins {admin_emails}: {e}")
 
-        # Clear wizard session
+            # Send email notifications safely
+            try:
+                if is_email_sending_enabled():
+                    User = get_user_model()
+                    organizer_name = f"{application.lead_first_name} {application.lead_last_name}".strip()
+                    organizer_email = application.lead_email
+
+                    admin_emails = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
+                    if not admin_emails:
+                        admin_emails = [settings.DEFAULT_FROM_EMAIL]
+
+                    send_mail(
+                        "Your Python Weekend Organizer Application",
+                        (
+                            f"Hi {application.lead_first_name},\n\n"
+                            f"Thank you for volunteering to organize a Python Weekend workshop! "
+                            f"We have received your application and our team will review it shortly.\n\n"
+                            f"Best regards,\nThe Python Weekend Team"
+                        ),
+                        settings.DEFAULT_FROM_EMAIL,
+                        [organizer_email],
+                        fail_silently=True,
+                    )
+
+                    send_mail(
+                        f"New Organizer Application: {organizer_name}",
+                        (
+                            f"A new organizer application has been submitted.\n\n"
+                            f"Lead Organizer: {organizer_name}\n"
+                            f"Email: {organizer_email}\n"
+                            f"Workshop Type: {application.get_workshop_type_display()}\n"
+                            f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
+                            f"Please log in to the admin panel to review and approve/reject the application."
+                        ),
+                        settings.DEFAULT_FROM_EMAIL,
+                        admin_emails,
+                        fail_silently=True,
+                    )
+            except Exception as mail_err:
+                logger.error(f"Failed to send application email notifications: {mail_err}")
+
+        except Exception as err:
+            logger.error(f"Error saving organizer application to database: {err}", exc_info=True)
+
+        # Clear wizard session and redirect to success page
         request.session.pop("organize_wizard", None)
         return redirect("applications:organize_success")
 
