@@ -16,7 +16,7 @@
   <div class="absolute inset-0 bg-gradient-to-t from-[#16213E] via-[#16213E]/85 to-[#16213E]/30 pointer-events-none"></div>
 
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full z-10">
-    <a href="{% url 'content:event_list' %}" class="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-white bg-shield-navy/80 px-3 py-1.5 border-2 border-white mb-4 hover:bg-white hover:text-shield-navy transition-all shadow-brutal-sm">&larr; All Events</a>
+    <a href="{% url 'content:event_list' %}" class="btn-all-events-hero">&larr; All Events</a>
     <div class="flex items-center gap-2 mt-2 mb-3">
       <span class="w-2.5 h-2.5 rounded-full {% if event.is_upcoming %}bg-[#FFB800] animate-pulse{% else %}bg-slate-400{% endif %}"></span>
       <span class="font-mono text-xs font-bold uppercase tracking-widest px-2.5 py-1 border-2 border-white text-white bg-shield-navy shadow-brutal-sm">
@@ -52,11 +52,11 @@
 </nav>
 
 <div class="bg-shield-ice/15 border-b-2.5 border-shield-navy">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-16 sm:space-y-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-16 sm:space-y-20">
 
     <!-- ── VENUE & DIRECTIONS ── -->
     {% if event.venue_name or event.location or event.city or event.latitude %}
-    <section id="venue" class="pt-6 sm:pt-10">
+    <section id="venue" class="pt-8 sm:pt-12">
       <h2 class="header-stroke-blue font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8 leading-none"
           style="border-left: 5px solid #306998; padding-left: 1rem;">
         Venue &amp; Directions
