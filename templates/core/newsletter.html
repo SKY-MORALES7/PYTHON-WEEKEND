@@ -43,9 +43,9 @@
     <h2 style="margin-bottom:2rem;">Past Editions</h2>
 
     {% if past_editions %}
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% for edition in past_editions %}
-      <div class="edition-card bg-white border-2.5 border-[#16213E] p-6 shadow-brutal hover:shadow-brutal-hover transition-all flex flex-col justify-between">
+      <div class="edition-card bg-white border-2.5 border-[#16213E] p-6 shadow-brutal hover:shadow-brutal-hover transition-all flex flex-col justify-between h-full">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
             <span class="font-mono text-xs font-bold uppercase tracking-wider bg-[#FFB800] text-[#16213E] px-2.5 py-1 border border-[#16213E] shadow-[1px_1px_0_#16213E]">
@@ -64,11 +64,6 @@
             {% if plain_content|wordcount > 25 %}
             <span class="edition-short">{{ plain_content|truncatewords:25 }}</span>
             <span class="edition-full hidden whitespace-pre-line">{{ plain_content }}</span>
-            <div class="mt-3 border-t border-[#16213E]/15 pt-2">
-              <button type="button" onclick="toggleNewsletter(this)" class="font-mono text-xs font-extrabold text-shield-blue hover:text-shield-navy uppercase tracking-wider cursor-pointer inline-flex items-center gap-1 focus:outline-none">
-                Read More &rarr;
-              </button>
-            </div>
             {% else %}
             <span class="whitespace-pre-line">{{ plain_content }}</span>
             {% endif %}
@@ -76,6 +71,18 @@
           {% endwith %}
           {% endif %}
         </div>
+
+        {% if edition.content %}
+        {% with plain_content=edition.content|striptags %}
+        {% if plain_content|wordcount > 25 %}
+        <div class="mt-4 border-t border-[#16213E]/15 pt-3">
+          <button type="button" onclick="toggleNewsletter(this)" class="font-mono text-xs font-extrabold text-shield-blue hover:text-shield-navy uppercase tracking-wider cursor-pointer inline-flex items-center gap-1 focus:outline-none">
+            Read More &rarr;
+          </button>
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% endif %}
       </div>
       {% endfor %}
     </div>
