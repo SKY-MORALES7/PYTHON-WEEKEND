@@ -103,26 +103,6 @@
 <!-- ── MAP SECTION ── -->
 <section class="py-12 bg-shield-ice/20 border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    
-    {% if not has_map_pins %}
-    <div class="mb-8 border-2.5 border-[#16213E] p-6 shadow-brutal flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
-         style="background-color: rgba(255, 184, 0, 0.2) !important;">
-      <div class="space-y-1">
-        <h3 class="font-mono text-sm font-bold text-[#16213E] uppercase flex items-center gap-2" style="color: #16213E !important;">
-          <span>📍</span> Backend GPS Coordinates Notice
-        </h3>
-        <p class="font-body text-xs text-[#16213E] font-semibold leading-relaxed max-w-3xl" style="color: #16213E !important;">
-          None of the published events currently have GPS coordinates set. To display markers on this map, open <strong>Django Admin &rarr; Content &rarr; Events &rarr; Edit Event</strong> and fill in the <strong>Latitude</strong> &amp; <strong>Longitude</strong> fields (e.g. Lagos: Latitude <code>6.5244</code>, Longitude <code>3.3792</code>).
-        </p>
-      </div>
-      <a href="/admin/content/event/" target="_blank"
-         class="flex-shrink-0 font-mono text-xs font-bold uppercase tracking-wider border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal transition-all"
-         style="background-color: #FFB800 !important; color: #16213E !important; padding: 0.625rem 1rem !important;">
-        Open Admin Panel &rarr;
-      </a>
-    </div>
-    {% endif %}
-
     <!-- Map Canvas Container -->
     <div class="bg-white border-2.5 border-shield-navy p-3 shadow-brutal">
       <div id="event-map" style="height: 550px !important; min-height: 550px !important; width: 100% !important; display: block !important;"></div>
