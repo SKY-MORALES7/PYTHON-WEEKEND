@@ -43,19 +43,36 @@
     <h2 style="margin-bottom:2rem;">Past Editions</h2>
 
     {% if past_editions %}
-    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% for edition in past_editions %}
-      <div style="border-bottom:1px solid #e8e8e8;padding-bottom:1.25rem;">
-        <h3 style="font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;color:var(--py-navy);margin-bottom:0.25rem;">{{ edition.subject }}</h3>
-        <p style="font-size:0.8rem;color:var(--py-muted);margin-bottom:0.5rem;">Sent {{ edition.sent_at|date:"j F Y" }}</p>
-        {% if edition.content %}<p style="color:var(--py-body);font-size:0.9rem;">{{ edition.content|truncatewords:30 }}</p>{% endif %}
+      <div class="bg-white border-2.5 border-[#16213E] p-6 shadow-brutal hover:shadow-brutal-hover transition-all flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider bg-[#FFB800] text-[#16213E] px-2.5 py-1 border border-[#16213E] shadow-[1px_1px_0_#16213E]">
+              Dispatch Edition
+            </span>
+            <span class="font-mono text-xs font-bold text-[#16213E]/70">
+              🗓️ {{ edition.sent_at|date:"j F Y" }}
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-2xl text-[#16213E] uppercase tracking-tight mb-3">
+            {{ edition.subject }}
+          </h3>
+          {% if edition.content %}
+          <p class="font-body text-[#16213E] text-sm font-medium leading-relaxed mb-4">
+            {{ edition.content|striptags|truncatewords:35 }}
+          </p>
+          {% endif %}
+        </div>
       </div>
       {% endfor %}
     </div>
     {% else %}
-    <p style="color:var(--py-muted);">
-      No editions published yet. <a href="#" onclick="document.querySelector('[name=email]').focus();return false;" style="color:var(--py-blue);">Subscribe above to be first to receive one.</a>
-    </p>
+    <div class="bg-white border-2.5 border-[#16213E] p-8 shadow-brutal text-center max-w-xl mx-auto">
+      <p class="font-body text-[#16213E] text-base font-semibold">
+        No editions published yet. <a href="#" onclick="document.querySelector('[name=email]').focus();return false;" class="text-shield-blue underline font-bold">Subscribe above</a> to be first to receive one.
+      </p>
+    </div>
     {% endif %}
 
   </div>
