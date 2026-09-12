@@ -103,10 +103,12 @@
     if (fullText.classList.contains('hidden')) {
       shortText.classList.add('hidden');
       fullText.classList.remove('hidden');
+      card.classList.add('self-start');
       btn.innerHTML = 'Show Less &uarr;';
     } else {
       fullText.classList.add('hidden');
       shortText.classList.remove('hidden');
+      card.classList.remove('self-start');
       btn.innerHTML = 'Read More &rarr;';
     }
   }
