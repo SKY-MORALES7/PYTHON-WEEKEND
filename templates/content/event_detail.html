@@ -7,11 +7,12 @@
 
 <!-- ── HERO ── -->
 <section class="relative min-h-[45vh] md:min-h-[50vh] flex items-end overflow-hidden bg-shield-navy border-b-2.5 border-shield-navy">
-  {% if event.image|file_exists %}
+  {% if event.image %}
   <img src="{{ event.image.url }}" alt="{{ event.title }}"
        class="absolute inset-0 w-full h-full object-cover opacity-60" />
   {% else %}
-  <div class="absolute inset-0 bg-shield-navy opacity-20"></div>
+  <img src="{% static 'img/code-campus-hero.jpg' %}" alt="{{ event.title }}"
+       class="absolute inset-0 w-full h-full object-cover opacity-60" />
   {% endif %}
   <div class="absolute inset-0 bg-gradient-to-t from-[#16213E] via-[#16213E]/85 to-[#16213E]/30 pointer-events-none"></div>
 

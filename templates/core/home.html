@@ -215,7 +215,7 @@
       {% for event in upcoming_events %}
       <a href="{% url 'content:event_detail' event.slug %}" class="event-card-overlay">
         <div class="event-card-overlay__bg"
-             style="background-color:#16213E;{% if event.image|file_exists %}background-image:url({{ event.image.url }});{% endif %}">
+             style="background-color:#16213E;{% if event.image %}background-image:url('{{ event.image.url }}');{% endif %}">
         </div>
         <div class="event-card-overlay__gradient"></div>
         <div class="event-card-overlay__text">
