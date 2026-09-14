@@ -77,8 +77,34 @@ class EventSponsorInline(admin.TabularInline):
     verbose_name_plural = "Sponsors"
 
 
+from django import forms
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+
+
+class EventAdminForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = "__all__"
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start_date")
+        end_date = cleaned_data.get("end_date")
+        application_open = cleaned_data.get("application_open")
+
+        if start_date and end_date and end_date < start_date:
+            raise ValidationError({"end_date": "End date cannot be earlier than start date."})
+
+        if application_open and start_date and start_date < timezone.now():
+            raise ValidationError({"application_open": "The start date has already passed. Applications cannot be open for a past event."})
+
+        return cleaned_data
+
+
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
+    form = EventAdminForm
     list_display  = ["title", "start_date", "city", "country", "application_open", "published"]
     list_editable = ["published", "application_open"]
     prepopulated_fields = {"slug": ("title",)}
