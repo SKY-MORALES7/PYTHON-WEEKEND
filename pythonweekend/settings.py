@@ -144,7 +144,8 @@ EMAIL_USE_SSL = False
 
 EMAIL_HOST_USER = "resend"
 
-EMAIL_HOST_PASSWORD = os.environ.get("RESEND_API_KEY")
+EMAIL_HOST_PASSWORD = os.environ.get("RESEND_API_KEY", "")
+EMAIL_TIMEOUT = 10  # Timeout after 10 seconds to prevent server worker hangs if Resend is unreachable
 
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
