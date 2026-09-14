@@ -315,14 +315,9 @@ class Event(models.Model):
     def clean(self):
         super().clean()
         from django.core.exceptions import ValidationError
-        from django.utils import timezone
 
         if self.start_date and self.end_date and self.end_date < self.start_date:
             raise ValidationError({"end_date": "End date cannot be earlier than start date."})
-
-        # Only check past start date when creating a new event
-        if not self.pk and self.start_date and self.start_date < timezone.now() and self.application_open:
-            raise ValidationError({"start_date": "This date has already passed. A past date cannot be selected for an upcoming event."})
 
     @property
     def is_upcoming(self):
