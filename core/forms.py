@@ -73,6 +73,11 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("Name must not contain numbers.")
         if len(name) < 2:
             raise forms.ValidationError("Please provide your full name.")
+        
+        # Anti-bot block for known spam signatures (e.g. 'Robertruche')
+        lower_name = name.lower()
+        if "robertruche" in lower_name or "ruche" in lower_name:
+            raise forms.ValidationError("Invalid submission.")
         return name
 
     def clean_message(self):

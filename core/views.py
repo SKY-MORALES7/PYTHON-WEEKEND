@@ -239,8 +239,8 @@ class ContactView(View):
             messages.error(request, "You have submitted too many requests recently. Please wait a few minutes before trying again.")
             return redirect("core:contact")
 
-        # 2. Honeypot check: If the hidden trap was filled, silently drop the request
-        if not validate_honeypot(request, "website"):
+        # 2. Honeypot check: If the hidden trap was filled or omitted by direct API bots, silently drop the request
+        if "website" not in request.POST or not validate_honeypot(request, "website"):
             messages.success(request, "Thanks! We'll be in touch soon.")
             return redirect("core:contact")
 
