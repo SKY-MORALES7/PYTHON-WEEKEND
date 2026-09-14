@@ -318,6 +318,16 @@ class Event(models.Model):
             return False
         return self.start_date >= timezone.now()
 
+    @property
+    def is_application_open(self):
+        if not getattr(self, "application_open", False):
+            return False
+        if not self.is_upcoming:
+            return False
+        if self.application_deadline and self.application_deadline < timezone.now().date():
+            return False
+        return True
+
     def day1_schedule_lines(self):
         return [l.strip() for l in self.day1_schedule.splitlines() if l.strip()]
 

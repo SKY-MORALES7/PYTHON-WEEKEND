@@ -47,7 +47,7 @@
     {% if event.who_should_apply %}<a href="#who-should-apply" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">Who should apply</a>{% endif %}
     {% if event.faq %}<a href="#faq" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">FAQ</a>{% endif %}
     {% if event_sponsors or event_partners %}<a href="#sponsors" class="text-shield-navy hover:text-shield-blue transition-colors whitespace-nowrap">Sponsors</a>{% endif %}
-    {% if event.application_open and event.is_upcoming %}<a href="#apply" class="text-shield-navy bg-[#FFB800] px-3 py-1 border border-shield-navy shadow-brutal-sm transition-all whitespace-nowrap">Apply &rarr;</a>{% endif %}
+    {% if event.is_application_open %}<a href="#apply" class="text-shield-navy bg-[#FFB800] px-3 py-1 border border-shield-navy shadow-brutal-sm transition-all whitespace-nowrap">Apply &rarr;</a>{% endif %}
   </div>
 </nav>
 
