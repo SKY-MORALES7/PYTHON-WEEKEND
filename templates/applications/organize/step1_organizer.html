@@ -12,6 +12,11 @@
 <form method="post" action="{% url 'applications:organize_step' step=1 %}">
   {% csrf_token %}
 
+  <!-- Honeypot anti-spam decoy field for bots -->
+  <div class="hidden" aria-hidden="true">
+    <input type="text" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
   <!-- ── Lead Organizer ── -->
   <div class="mb-10 bg-shield-ice/15 border-2 border-shield-navy p-6 shadow-brutal-sm">
     <div class="flex items-center gap-2 mb-2">

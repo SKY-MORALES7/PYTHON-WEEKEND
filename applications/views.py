@@ -85,7 +85,11 @@ class OrganizeWizardView(View):
         wizard_data = request.session.get("organize_wizard", {})
 
         if step == 1:
-            from core.security import check_rate_limit
+            from core.security import check_rate_limit, validate_honeypot
+            if not validate_honeypot(request, "website"):
+                # Bot detected — silently pretend success to prevent spam and protect email quotas
+                return redirect("applications:organize_step", step=2)
+
             is_allowed, _ = check_rate_limit(request, "organize_wizard", max_requests=10, window_seconds=600)
             if not is_allowed:
                 context = self._build_context(request, step)
