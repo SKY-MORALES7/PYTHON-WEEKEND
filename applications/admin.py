@@ -95,12 +95,15 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
         "lead_email",
         "workshop_type",
         "has_organized_before",
+        "previous_event",
+        "target_country",
+        "target_state",
         "status",
         "submitted_at",
     )
-    list_filter = ("status", "workshop_type", "has_organized_before")
+    list_filter = ("status", "workshop_type", "has_organized_before", "target_country")
     list_editable = ("status",)
-    search_fields = ("lead_first_name", "lead_last_name", "lead_email")
+    search_fields = ("lead_first_name", "lead_last_name", "lead_email", "target_country", "target_state")
     readonly_fields = ("submitted_at", "updated_at")
 
     fieldsets = (
@@ -113,8 +116,8 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
         ("Workshop Details", {
             "fields": ("workshop_type", "prerequisites_confirmed", "commitment_signed")
         }),
-        ("Experience", {
-            "fields": ("has_organized_before", "previous_event")
+        ("Experience & Target Location", {
+            "fields": ("has_organized_before", "previous_event", "target_country", "target_state")
         }),
         ("Status", {
             "fields": ("status", "submitted_at", "updated_at")
