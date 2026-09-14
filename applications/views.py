@@ -155,11 +155,48 @@ class OrganizeWizardView(View):
             previous_event_id = request.POST.get("previous_event", "")
             target_country = request.POST.get("target_country", "").strip()
             target_state = request.POST.get("target_state", "").strip()
+            target_country_custom = request.POST.get("target_country_custom", "").strip()
+            target_state_custom = request.POST.get("target_state_custom", "").strip()
 
-            wizard_data["has_organized_before"] = (experience == "yes")
-            wizard_data["previous_event_id"] = previous_event_id if experience == "yes" else ""
-            wizard_data["target_country"] = target_country if experience == "no" else ""
-            wizard_data["target_state"] = target_state if experience == "no" else ""
+            if not experience:
+                context = self._build_context(request, step)
+                context["error"] = "Please select an option indicating whether you have organized Python Weekend before."
+                return render(request, WIZARD_TEMPLATES[step], context)
+
+            if experience == "yes":
+                if not previous_event_id:
+                    context = self._build_context(request, step)
+                    context["error"] = "You selected that you have organized Python Weekend before. Please choose the previous event you organized."
+                    return render(request, WIZARD_TEMPLATES[step], context)
+
+                try:
+                    prev_ev = Event.objects.get(pk=int(previous_event_id))
+                except (Event.DoesNotExist, ValueError):
+                    context = self._build_context(request, step)
+                    context["error"] = "The selected previous event could not be found. Please select a valid event."
+                    return render(request, WIZARD_TEMPLATES[step], context)
+
+                wizard_data["has_organized_before"] = True
+                wizard_data["previous_event_id"] = previous_event_id
+                wizard_data["target_country"] = ""
+                wizard_data["target_state"] = ""
+                wizard_data["target_country_custom"] = ""
+                wizard_data["target_state_custom"] = ""
+            else:
+                final_country = target_country_custom if target_country == "Other" else target_country
+                final_state = target_state_custom if target_country == "Other" else target_state
+
+                if not final_country or not final_state:
+                    context = self._build_context(request, step)
+                    context["error"] = "Please select or enter your target Country and State / Region."
+                    return render(request, WIZARD_TEMPLATES[step], context)
+
+                wizard_data["has_organized_before"] = False
+                wizard_data["previous_event_id"] = ""
+                wizard_data["target_country"] = final_country
+                wizard_data["target_state"] = final_state
+                wizard_data["target_country_custom"] = target_country_custom
+                wizard_data["target_state_custom"] = target_state_custom
 
             # Final step — save to database
             request.session["organize_wizard"] = wizard_data
@@ -228,21 +265,37 @@ class OrganizeWizardView(View):
                     if not admin_emails:
                         admin_emails = [settings.DEFAULT_FROM_EMAIL]
 
+                    # Personalize applicant message based on experience
+                    if application.has_organized_before and application.previous_event:
+                        applicant_msg = (
+                            f"Hi {application.lead_first_name},\n\n"
+                            f"Thank you for volunteering to organize another Python Weekend workshop!\n\n"
+                            f"We are excited to see that you previously organized '{application.previous_event.title}' "
+                            f"and would love to host another event. We have received your application and our team will review it shortly.\n\n"
+                            f"Best regards,\nThe Python Weekend Team"
+                        )
+                        exp_summary = f"Yes (Previously organized: {application.previous_event.title})"
+                    else:
+                        loc_str = f"{application.target_state}, {application.target_country}".strip(", ")
+                        loc_info = f" in {loc_str}" if loc_str else ""
+                        applicant_msg = (
+                            f"Hi {application.lead_first_name},\n\n"
+                            f"Thank you for volunteering to organize a Python Weekend workshop{loc_info}!\n\n"
+                            f"We have received your application and our team will review it shortly.\n\n"
+                            f"Best regards,\nThe Python Weekend Team"
+                        )
+                        exp_summary = f"No (First-time organizer - Location: {loc_str or 'N/A'})"
+
                     try:
                         send_mail(
                             "Your Python Weekend Organizer Application",
-                            (
-                                f"Hi {application.lead_first_name},\n\n"
-                                f"Thank you for volunteering to organize a Python Weekend workshop! "
-                                f"We have received your application and our team will review it shortly.\n\n"
-                                f"Best regards,\nThe Python Weekend Team"
-                            ),
+                            applicant_msg,
                             settings.DEFAULT_FROM_EMAIL,
                             [organizer_email],
                             fail_silently=True,
                         )
                     except Exception as mail_err1:
-                        logger.warning(f"Could not send applicant confirmation email (rate limit or email provider offline): {mail_err1}")
+                        logger.warning(f"Could not send applicant confirmation email: {mail_err1}")
 
                     try:
                         send_mail(
@@ -252,7 +305,7 @@ class OrganizeWizardView(View):
                                 f"Lead Organizer: {organizer_name}\n"
                                 f"Email: {organizer_email}\n"
                                 f"Workshop Type: {application.get_workshop_type_display()}\n"
-                                f"Organized Before: {'Yes' if application.has_organized_before else 'No'}\n\n"
+                                f"Organized Before: {exp_summary}\n\n"
                                 f"Please log in to the admin panel to review and approve/reject the application."
                             ),
                             settings.DEFAULT_FROM_EMAIL,
@@ -260,7 +313,7 @@ class OrganizeWizardView(View):
                             fail_silently=True,
                         )
                     except Exception as mail_err2:
-                        logger.warning(f"Could not send admin notification email (rate limit or email provider offline): {mail_err2}")
+                        logger.warning(f"Could not send admin notification email: {mail_err2}")
             except Exception as mail_err:
                 logger.warning(f"Failed to process email notifications: {mail_err}")
 

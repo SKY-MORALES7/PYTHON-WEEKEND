@@ -105,9 +105,16 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+CLOUDINARY_URL = config("CLOUDINARY_URL", default="")
+if CLOUDINARY_URL:
+    INSTALLED_APPS += [
+        "cloudinary_storage",
+        "cloudinary",
+    ]
+
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage" if CLOUDINARY_URL else "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",

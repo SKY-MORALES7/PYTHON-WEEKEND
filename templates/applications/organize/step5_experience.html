@@ -48,39 +48,108 @@
         </label>
 
         <!-- Dynamic Location Selectors Container for New Organizers -->
-        <div id="new-organizer-location-box" class="mt-4 pt-4 border-t-2 border-shield-navy grid grid-cols-1 sm:grid-cols-2 gap-4 hidden">
-          <div>
-            <label for="country-select" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
-              Select Your Country <span class="text-red-600">*</span>
-            </label>
-            <select name="target_country" id="country-select"
-                    class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
-              <option value="">-- Choose Country --</option>
-              <option value="Nigeria" {% if wizard_data.target_country == "Nigeria" %}selected{% endif %}>Nigeria</option>
-              <option value="United States" {% if wizard_data.target_country == "United States" %}selected{% endif %}>United States</option>
-              <option value="United Kingdom" {% if wizard_data.target_country == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
-              <option value="Canada" {% if wizard_data.target_country == "Canada" %}selected{% endif %}>Canada</option>
-              <option value="Ghana" {% if wizard_data.target_country == "Ghana" %}selected{% endif %}>Ghana</option>
-              <option value="Kenya" {% if wizard_data.target_country == "Kenya" %}selected{% endif %}>Kenya</option>
-              <option value="South Africa" {% if wizard_data.target_country == "South Africa" %}selected{% endif %}>South Africa</option>
-              <option value="Germany" {% if wizard_data.target_country == "Germany" %}selected{% endif %}>Germany</option>
-              <option value="France" {% if wizard_data.target_country == "France" %}selected{% endif %}>France</option>
-              <option value="India" {% if wizard_data.target_country == "India" %}selected{% endif %}>India</option>
-              <option value="Australia" {% if wizard_data.target_country == "Australia" %}selected{% endif %}>Australia</option>
-              <option value="Brazil" {% if wizard_data.target_country == "Brazil" %}selected{% endif %}>Brazil</option>
-              <option value="Japan" {% if wizard_data.target_country == "Japan" %}selected{% endif %}>Japan</option>
-              <option value="Other" {% if wizard_data.target_country == "Other" %}selected{% endif %}>Other Country...</option>
-            </select>
+        <div id="new-organizer-location-box" class="mt-4 pt-4 border-t-2 border-shield-navy space-y-4 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="country-select" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
+                Select Your Country <span class="text-red-600">*</span>
+              </label>
+              <select name="target_country" id="country-select"
+                      class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
+                <option value="">-- Choose Country --</option>
+                <option value="Nigeria" {% if wizard_data.target_country == "Nigeria" %}selected{% endif %}>Nigeria</option>
+                <option value="United States" {% if wizard_data.target_country == "United States" %}selected{% endif %}>United States</option>
+                <option value="United Kingdom" {% if wizard_data.target_country == "United Kingdom" %}selected{% endif %}>United Kingdom</option>
+                <option value="Canada" {% if wizard_data.target_country == "Canada" %}selected{% endif %}>Canada</option>
+                <option value="Ghana" {% if wizard_data.target_country == "Ghana" %}selected{% endif %}>Ghana</option>
+                <option value="Kenya" {% if wizard_data.target_country == "Kenya" %}selected{% endif %}>Kenya</option>
+                <option value="South Africa" {% if wizard_data.target_country == "South Africa" %}selected{% endif %}>South Africa</option>
+                <option value="Germany" {% if wizard_data.target_country == "Germany" %}selected{% endif %}>Germany</option>
+                <option value="France" {% if wizard_data.target_country == "France" %}selected{% endif %}>France</option>
+                <option value="India" {% if wizard_data.target_country == "India" %}selected{% endif %}>India</option>
+                <option value="Australia" {% if wizard_data.target_country == "Australia" %}selected{% endif %}>Australia</option>
+                <option value="Brazil" {% if wizard_data.target_country == "Brazil" %}selected{% endif %}>Brazil</option>
+                <option value="Japan" {% if wizard_data.target_country == "Japan" %}selected{% endif %}>Japan</option>
+                <option value="Argentina" {% if wizard_data.target_country == "Argentina" %}selected{% endif %}>Argentina</option>
+                <option value="Austria" {% if wizard_data.target_country == "Austria" %}selected{% endif %}>Austria</option>
+                <option value="Belgium" {% if wizard_data.target_country == "Belgium" %}selected{% endif %}>Belgium</option>
+                <option value="Cameroon" {% if wizard_data.target_country == "Cameroon" %}selected{% endif %}>Cameroon</option>
+                <option value="Chile" {% if wizard_data.target_country == "Chile" %}selected{% endif %}>Chile</option>
+                <option value="China" {% if wizard_data.target_country == "China" %}selected{% endif %}>China</option>
+                <option value="Colombia" {% if wizard_data.target_country == "Colombia" %}selected{% endif %}>Colombia</option>
+                <option value="Egypt" {% if wizard_data.target_country == "Egypt" %}selected{% endif %}>Egypt</option>
+                <option value="Ethiopia" {% if wizard_data.target_country == "Ethiopia" %}selected{% endif %}>Ethiopia</option>
+                <option value="Finland" {% if wizard_data.target_country == "Finland" %}selected{% endif %}>Finland</option>
+                <option value="Greece" {% if wizard_data.target_country == "Greece" %}selected{% endif %}>Greece</option>
+                <option value="Hungary" {% if wizard_data.target_country == "Hungary" %}selected{% endif %}>Hungary</option>
+                <option value="Indonesia" {% if wizard_data.target_country == "Indonesia" %}selected{% endif %}>Indonesia</option>
+                <option value="Ireland" {% if wizard_data.target_country == "Ireland" %}selected{% endif %}>Ireland</option>
+                <option value="Israel" {% if wizard_data.target_country == "Israel" %}selected{% endif %}>Israel</option>
+                <option value="Italy" {% if wizard_data.target_country == "Italy" %}selected{% endif %}>Italy</option>
+                <option value="Ivory Coast" {% if wizard_data.target_country == "Ivory Coast" %}selected{% endif %}>Ivory Coast</option>
+                <option value="Malaysia" {% if wizard_data.target_country == "Malaysia" %}selected{% endif %}>Malaysia</option>
+                <option value="Mexico" {% if wizard_data.target_country == "Mexico" %}selected{% endif %}>Mexico</option>
+                <option value="Morocco" {% if wizard_data.target_country == "Morocco" %}selected{% endif %}>Morocco</option>
+                <option value="Netherlands" {% if wizard_data.target_country == "Netherlands" %}selected{% endif %}>Netherlands</option>
+                <option value="New Zealand" {% if wizard_data.target_country == "New Zealand" %}selected{% endif %}>New Zealand</option>
+                <option value="Norway" {% if wizard_data.target_country == "Norway" %}selected{% endif %}>Norway</option>
+                <option value="Pakistan" {% if wizard_data.target_country == "Pakistan" %}selected{% endif %}>Pakistan</option>
+                <option value="Peru" {% if wizard_data.target_country == "Peru" %}selected{% endif %}>Peru</option>
+                <option value="Philippines" {% if wizard_data.target_country == "Philippines" %}selected{% endif %}>Philippines</option>
+                <option value="Poland" {% if wizard_data.target_country == "Poland" %}selected{% endif %}>Poland</option>
+                <option value="Portugal" {% if wizard_data.target_country == "Portugal" %}selected{% endif %}>Portugal</option>
+                <option value="Romania" {% if wizard_data.target_country == "Romania" %}selected{% endif %}>Romania</option>
+                <option value="Rwanda" {% if wizard_data.target_country == "Rwanda" %}selected{% endif %}>Rwanda</option>
+                <option value="Saudi Arabia" {% if wizard_data.target_country == "Saudi Arabia" %}selected{% endif %}>Saudi Arabia</option>
+                <option value="Senegal" {% if wizard_data.target_country == "Senegal" %}selected{% endif %}>Senegal</option>
+                <option value="Singapore" {% if wizard_data.target_country == "Singapore" %}selected{% endif %}>Singapore</option>
+                <option value="South Korea" {% if wizard_data.target_country == "South Korea" %}selected{% endif %}>South Korea</option>
+                <option value="Spain" {% if wizard_data.target_country == "Spain" %}selected{% endif %}>Spain</option>
+                <option value="Sweden" {% if wizard_data.target_country == "Sweden" %}selected{% endif %}>Sweden</option>
+                <option value="Switzerland" {% if wizard_data.target_country == "Switzerland" %}selected{% endif %}>Switzerland</option>
+                <option value="Tanzania" {% if wizard_data.target_country == "Tanzania" %}selected{% endif %}>Tanzania</option>
+                <option value="Thailand" {% if wizard_data.target_country == "Thailand" %}selected{% endif %}>Thailand</option>
+                <option value="Turkey" {% if wizard_data.target_country == "Turkey" %}selected{% endif %}>Turkey</option>
+                <option value="Uganda" {% if wizard_data.target_country == "Uganda" %}selected{% endif %}>Uganda</option>
+                <option value="Ukraine" {% if wizard_data.target_country == "Ukraine" %}selected{% endif %}>Ukraine</option>
+                <option value="United Arab Emirates" {% if wizard_data.target_country == "United Arab Emirates" %}selected{% endif %}>United Arab Emirates</option>
+                <option value="Vietnam" {% if wizard_data.target_country == "Vietnam" %}selected{% endif %}>Vietnam</option>
+                <option value="Zimbabwe" {% if wizard_data.target_country == "Zimbabwe" %}selected{% endif %}>Zimbabwe</option>
+                <option value="Other" {% if wizard_data.target_country == "Other" %}selected{% endif %}>Other Country...</option>
+              </select>
+            </div>
+
+            <div id="state-select-wrapper">
+              <label for="state-select" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
+                Select State / Region <span class="text-red-600">*</span>
+              </label>
+              <select name="target_state" id="state-select"
+                      class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
+                <option value="">-- Select Country First --</option>
+              </select>
+            </div>
           </div>
 
-          <div>
-            <label for="state-select" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
-              Select State / Region <span class="text-red-600">*</span>
-            </label>
-            <select name="target_state" id="state-select"
-                    class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
-              <option value="">-- Select Country First --</option>
-            </select>
+          <!-- Custom Location Fields (Shown when 'Other' is selected) -->
+          <div id="custom-location-box" class="grid grid-cols-1 sm:grid-cols-2 gap-4 hidden bg-shield-ice/20 p-4 border-2 border-dashed border-shield-navy">
+            <div>
+              <label for="custom-country-input" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
+                Enter Your Country Name <span class="text-red-600">*</span>
+              </label>
+              <input type="text" name="target_country_custom" id="custom-country-input"
+                     value="{% if wizard_data.target_country == 'Other' %}{{ wizard_data.target_country_custom|default:'' }}{% endif %}"
+                     placeholder="e.g. New Zealand, Kenya, Jamaica"
+                     class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
+            </div>
+            <div>
+              <label for="custom-state-input" class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-2">
+                Enter Your State / Region <span class="text-red-600">*</span>
+              </label>
+              <input type="text" name="target_state_custom" id="custom-state-input"
+                     value="{% if wizard_data.target_country == 'Other' %}{{ wizard_data.target_state_custom|default:'' }}{% endif %}"
+                     placeholder="e.g. Auckland Region, Nairobi, Kingston"
+                     class="w-full bg-white border-2 border-shield-navy px-3 py-2.5 text-sm font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm">
+            </div>
           </div>
         </div>
       </div>
@@ -109,6 +178,10 @@
   const locationBox = document.getElementById('new-organizer-location-box');
   const countrySelect = document.getElementById('country-select');
   const stateSelect = document.getElementById('state-select');
+  const stateSelectWrapper = document.getElementById('state-select-wrapper');
+  const customLocationBox = document.getElementById('custom-location-box');
+  const customCountryInput = document.getElementById('custom-country-input');
+  const customStateInput = document.getElementById('custom-state-input');
 
   const selectedStatePreset = "{{ wizard_data.target_state|default:'' }}";
 
@@ -130,23 +203,43 @@
 
   function updateStates() {
     const country = countrySelect.value;
-    stateSelect.innerHTML = '<option value="">-- Choose State / Region --</option>';
 
-    if (country && stateData[country]) {
-      stateData[country].forEach(st => {
+    if (country === "Other") {
+      stateSelectWrapper.classList.add('hidden');
+      stateSelect.required = false;
+
+      customLocationBox.classList.remove('hidden');
+      if (expNo.checked) {
+        customCountryInput.required = true;
+        customStateInput.required = true;
+      }
+    } else {
+      customLocationBox.classList.add('hidden');
+      customCountryInput.required = false;
+      customStateInput.required = false;
+
+      stateSelectWrapper.classList.remove('hidden');
+      if (expNo.checked) {
+        stateSelect.required = true;
+      }
+
+      stateSelect.innerHTML = '<option value="">-- Choose State / Region --</option>';
+      if (country && stateData[country]) {
+        stateData[country].forEach(st => {
+          const opt = document.createElement('option');
+          opt.value = st;
+          opt.textContent = st;
+          if (st === selectedStatePreset) {
+            opt.selected = true;
+          }
+          stateSelect.appendChild(opt);
+        });
+      } else if (country) {
         const opt = document.createElement('option');
-        opt.value = st;
-        opt.textContent = st;
-        if (st === selectedStatePreset) {
-          opt.selected = true;
-        }
+        opt.value = "Capital Region / Main State";
+        opt.textContent = "Capital Region / Main State";
         stateSelect.appendChild(opt);
-      });
-    } else if (country) {
-      const opt = document.createElement('option');
-      opt.value = "Capital Region / Main State";
-      opt.textContent = "Capital Region / Main State";
-      stateSelect.appendChild(opt);
+      }
     }
   }
 
@@ -159,6 +252,8 @@
       locationBox.classList.add('hidden');
       countrySelect.required = false;
       stateSelect.required = false;
+      customCountryInput.required = false;
+      customStateInput.required = false;
     } else {
       eventSelect.disabled = true;
       eventSelect.classList.add('opacity-50');
@@ -167,7 +262,7 @@
 
       locationBox.classList.remove('hidden');
       countrySelect.required = true;
-      stateSelect.required = true;
+      updateStates();
     }
   }
 

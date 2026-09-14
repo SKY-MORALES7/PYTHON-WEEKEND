@@ -312,8 +312,17 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
-    # ... keeping all your helper property / utility split lines functions exactly the same ...
-    
+    def clean(self):
+        super().clean()
+        from django.core.exceptions import ValidationError
+        from django.utils import timezone
+
+        if self.start_date and self.end_date and self.end_date < self.start_date:
+            raise ValidationError({"end_date": "End date cannot be earlier than start date."})
+
+        if self.start_date and self.start_date < timezone.now() and self.application_open:
+            raise ValidationError({"start_date": "This date has already passed. A past date cannot be selected for an upcoming event."})
+
     @property
     def is_upcoming(self):
         if not getattr(self, "start_date", None):
