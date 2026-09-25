@@ -7,48 +7,67 @@
 {% get_content "newsletter_hero_intro" as newsletter_hero_intro %}
 
 <!-- Hero -->
-<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ newsletter_hero_heading|default:"Python Weekend Dispatch" }}</h1>
-    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto 2rem;">
+<section class="py-16 md:py-20 bg-shield-navy text-center border-b-2.5 border-shield-navy relative overflow-hidden" style="background-color: #16213E !important;">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-[#FFB800] px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Newsletter
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-white uppercase tracking-tight mb-4 leading-none">
+      {{ newsletter_hero_heading|default:"Python Weekend Dispatch" }}
+    </h1>
+    <p class="font-body text-slate-100 text-base leading-relaxed font-medium max-w-2xl mx-auto mb-8">
       {{ newsletter_hero_intro|default:"We send a regular newsletter to participants, volunteers, partners and people who are curious about what the Python Weekend community is building." }}
     </p>
 
     <!-- Subscribe form -->
     {% if messages %}
-    <div style="margin-bottom:1.5rem;">
+    <div class="mb-6 space-y-2 max-w-lg mx-auto">
       {% for message in messages %}
-      <div style="padding:0.75rem 1.25rem;border-radius:0.5rem;font-size:0.9rem;background:rgba(255,255,255,0.12);color:#fff;margin-bottom:0.5rem;">{{ message }}</div>
+      <div class="px-4 py-3 border-2 border-shield-navy font-mono text-xs font-bold uppercase tracking-wider {% if message.tags == 'success' %}bg-green-100 text-green-900{% else %}bg-red-100 text-red-900{% endif %}"
+           style="border: 2px solid #16213e !important; box-shadow: 3px 3px 0px #16213e !important;">
+        {{ message }}
+      </div>
       {% endfor %}
     </div>
     {% endif %}
 
-    <form action="{% url 'core:newsletter' %}" method="post" style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;max-width:480px;margin:0 auto;">
+    <form action="{% url 'core:newsletter' %}" method="post" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
       {% csrf_token %}
       <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
         <input type="text" name="website" tabindex="-1" autocomplete="off" />
       </div>
-      <input type="email" name="email" placeholder="email address" required
-             style="flex:1;min-width:220px;padding:0.75rem 1rem;border-radius:0.5rem;border:none;font-size:0.95rem;outline:none;" />
-      <button type="submit" class="btn-orange" style="white-space:nowrap;">Subscribe</button>
+      <input type="email" name="email" placeholder="Enter your email address" required
+             class="w-full sm:flex-1 px-4 py-3.5 bg-white text-shield-navy font-body font-medium text-base shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue"
+             style="border: 2.5px solid #16213e !important; box-shadow: 4px 4px 0px #16213e !important; flex: 1 1 auto; min-width: 0;" />
+      <button type="submit" class="btn-brutal-inline group whitespace-nowrap" style="background-color: #FFB800 !important;">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Subscribe</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </form>
-    <p style="margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.5);">We will not sell or share your email address for advertising. You can unsubscribe at any time.</p>
+    <p class="mt-4 font-mono text-xs text-slate-300">We will not sell or share your email address for advertising. You can unsubscribe at any time.</p>
   </div>
 </section>
 
 
 <!-- Past editions -->
-<section class="section-dg">
-  <div class="container-dg">
-    <h2 style="margin-bottom:2rem;">Past Editions</h2>
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy" style="border-bottom: 2.5px solid #16213e !important;">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-8">
+      Past Editions
+    </h2>
 
     {% if past_editions %}
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {% for edition in past_editions %}
-      <div class="edition-card bg-white border-2.5 border-[#16213E] p-6 shadow-brutal hover:shadow-brutal-hover transition-all flex flex-col justify-between h-full">
+      <div class="edition-card bg-white p-6 shadow-brutal hover:shadow-brutal-hover transition-all flex flex-col justify-between h-full"
+           style="border: 2.5px solid #16213e !important; box-shadow: 5px 5px 0px #16213e !important;">
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span class="font-mono text-xs font-bold uppercase tracking-wider bg-[#FFB800] text-[#16213E] px-2.5 py-1 border border-[#16213E] shadow-[1px_1px_0_#16213E]">
+            <span class="font-mono text-xs font-bold uppercase tracking-wider bg-[#FFB800] text-[#16213E] px-2.5 py-1 border-2 border-[#16213E] shadow-brutal-sm"
+                  style="border: 2px solid #16213e !important; box-shadow: 2px 2px 0px #16213e !important;">
               Dispatch Edition
             </span>
             <span class="font-mono text-xs font-bold text-[#16213E]/70">
@@ -60,7 +79,7 @@
           </h3>
           {% if edition.content %}
           {% with plain_content=edition.content|striptags %}
-          <div class="font-body text-[#16213E] text-sm font-medium leading-relaxed mb-2">
+          <div class="font-body text-[#16213E] text-base font-medium leading-relaxed mb-2">
             {% if plain_content|wordcount > 25 %}
             <span class="edition-short">{{ plain_content|truncatewords:25 }}</span>
             <span class="edition-full hidden whitespace-pre-line">{{ plain_content }}</span>
@@ -75,7 +94,7 @@
         {% if edition.content %}
         {% with plain_content=edition.content|striptags %}
         {% if plain_content|wordcount > 25 %}
-        <div class="mt-4 border-t border-[#16213E]/15 pt-3">
+        <div class="mt-4 border-t-2 border-[#16213E]/15 pt-3" style="border-top: 2px solid rgba(22,33,62,0.15) !important;">
           <button type="button" onclick="toggleNewsletter(this)" class="font-mono text-xs font-extrabold text-shield-blue hover:text-shield-navy uppercase tracking-wider cursor-pointer inline-flex items-center gap-1 focus:outline-none">
             Read More &rarr;
           </button>
@@ -87,8 +106,9 @@
       {% endfor %}
     </div>
     {% else %}
-    <div class="bg-white border-2.5 border-[#16213E] p-8 shadow-brutal text-center max-w-xl mx-auto">
-      <p class="font-body text-[#16213E] text-base font-semibold">
+    <div class="bg-white p-8 shadow-brutal text-center max-w-xl mx-auto"
+         style="border: 2.5px solid #16213e !important; box-shadow: 5px 5px 0px #16213e !important; background-color: #ffffff !important;">
+      <p class="font-body text-shield-navy text-base font-medium leading-relaxed">
         No editions published yet. <a href="#" onclick="document.querySelector('[name=email]').focus();return false;" class="text-shield-blue underline font-bold">Subscribe above</a> to be first to receive one.
       </p>
     </div>
