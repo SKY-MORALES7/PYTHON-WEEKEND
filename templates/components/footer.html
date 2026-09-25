@@ -85,9 +85,9 @@
     <!-- Bottom bar -->
     <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/50 font-mono font-bold uppercase tracking-widest">
       {% if footer_copyright %}
-        <p>{{ footer_copyright|striptags }}</p>
+        <p>{{ footer_copyright|striptags|linkify_codecampus }}</p>
       {% elif footer_cfg %}
-        <p>{{ footer_cfg.get_copyright }}</p>
+        <p>{{ footer_cfg.get_copyright|linkify_codecampus }}</p>
       {% else %}
         <p>© {% now "Y" %} Python Weekend · An initiative of <a href="https://codecampus.com.ng/" target="_blank" rel="noopener" class="hover:text-shield-ice transition-colors">Code Campus</a> International.</p>
       {% endif %}

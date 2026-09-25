@@ -24,9 +24,25 @@ Usage in templates:
 
 from django import template
 from django.core.cache import cache
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
+
+@register.filter
+def linkify_codecampus(value):
+    """
+    Replace the plain text 'Code Campus' in a copyright string with a
+    clickable link to https://codecampus.com.ng/.
+    Output is marked safe so the anchor tag renders correctly.
+    """
+    safe_value = escape(value)
+    link = (
+        '<a href="https://codecampus.com.ng/" target="_blank" rel="noopener" '
+        'class="hover:text-shield-ice transition-colors">Code Campus</a>'
+    )
+    return mark_safe(safe_value.replace("Code Campus", link))
 
 # ─── helpers ─────────────────────────────────────────────────────────────────
 
