@@ -369,8 +369,13 @@ class WebsiteMenuItemAdmin(admin.ModelAdmin):
 @admin.register(FooterConfig)
 class FooterConfigAdmin(admin.ModelAdmin):
     fieldsets = (
-        ("Brand tagline & Copyright", {
+        ("Brand Tagline & Copyright", {
             "fields": ("tagline", "copyright_text"),
+            "description": (
+                "The copyright text appears as a single line at the bottom of every page. "
+                "Use {year} as a dynamic year placeholder. "
+                "In the template's static fallback, \"Code Campus\" is automatically rendered as a link to codecampus.com.ng."
+            ),
         }),
         ("Social Media Links", {
             "fields": ("facebook_url", "instagram_url", "twitter_url", "linkedin_url"),
