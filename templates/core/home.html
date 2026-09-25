@@ -377,7 +377,7 @@
         </div>
 
         <div>
-          <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mb-4">
+          <a href="{% url 'core:contact' %}" class="btn-brutal-cta group mb-4">
             <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Get in touch to support us</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -417,8 +417,8 @@
             <div style="position:absolute; left:-9999px; top:-9999px; width:0; height:0; overflow:hidden;" aria-hidden="true">
               <input type="text" name="website" tabindex="-1" autocomplete="off" />
             </div>
-            <input type="email" name="email" placeholder="enter your email address" required class="w-full sm:flex-1 px-4 py-3.5 bg-white text-shield-navy font-body font-medium text-base border-2.5 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" />
-            <button type="submit" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy px-5 py-3 shadow-brutal hover:shadow-brutal-hover transition-all w-full sm:w-auto whitespace-nowrap">
+            <input type="email" name="email" placeholder="enter your email address" required class="w-full sm:flex-1 px-4 py-3.5 bg-white text-shield-navy font-body font-medium text-base border-2 border-shield-navy shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue" style="border: 2px solid #16213e !important; box-shadow: 3px 3px 0px #16213e !important;" />
+            <button type="submit" class="btn-brutal-cta group w-full sm:w-auto whitespace-nowrap" style="padding: 0.85rem 1.5rem !important;">
               <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Subscribe</span>
               <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
                 <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -482,7 +482,7 @@
       <p class="font-body text-shield-navy text-base font-medium mb-6">
         Python Weekend events are free for all attendees thanks to our generous sponsors and community partners.
       </p>
-      <a href="{% url 'core:contact' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+      <a href="{% url 'core:contact' %}" class="btn-brutal-cta group max-w-sm mx-auto">
         <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Get in touch to Sponsor</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -525,7 +525,7 @@
             <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-4">{{ story.intro|truncatewords:25 }}</p>
           </div>
           {% if story.link %}
-          <a href="{{ story.link }}" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-2">
+          <a href="{{ story.link }}" target="_blank" rel="noopener" class="btn-brutal-cta group mt-2">
             <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Read story</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
