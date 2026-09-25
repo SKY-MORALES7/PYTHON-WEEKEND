@@ -799,4 +799,16 @@ button:hover .btn-arrow-3d {
 .btn-all-events-hero:hover * {
   color: #16213e !important;
 }
+
+/* ═══════════════════════════════════════════════════════
+   DARK YELLOW BADGES & HEADERS (Non-clickable static text tags)
+   ═══════════════════════════════════════════════════════ */
+.badge-dark-yellow,
+.tag-dark-yellow,
+.bg-dark-yellow,
+.bg-shield-yellow-dark {
+  background-color: #E5A700 !important;
+  color: #16213e !important;
+}
+
 

@@ -1,7 +1,7 @@
 <article class="bg-white border-2 border-shield-navy transition-all duration-200 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] group flex flex-col h-full">
     <div class="relative p-6 flex flex-col flex-grow z-10">
         <!-- Difficulty badge -->
-        <span class="font-mono text-xs font-bold uppercase tracking-widest px-2.5 py-1 border-2 border-shield-navy bg-shield-ice text-shield-navy self-start mb-3">{{ tutorial.get_difficulty_display }}</span>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest px-2.5 py-1 border-2 border-shield-navy bg-dark-yellow text-shield-navy self-start mb-3" style="background-color: #E5A700 !important; color: #16213e !important;">{{ tutorial.get_difficulty_display }}</span>
 
         <h3 class="font-display text-2xl font-bold text-shield-navy mb-2 uppercase tracking-tight group-hover:text-shield-blue transition-colors">
             <a href="{{ tutorial.get_absolute_url }}">{{ tutorial.title }}</a>
