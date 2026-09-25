@@ -4,6 +4,7 @@
 {% get_footer_config as footer_cfg %}
 {% get_content "footer_tagline" as footer_tagline %}
 {% get_content "footer_copyright" as footer_copyright %}
+{% get_content "code_campus_url" as code_campus_url %}
 
 <footer class="bg-shield-navy text-white mt-auto border-t-2 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -85,11 +86,11 @@
     <!-- Bottom bar -->
     <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/50 font-mono font-bold uppercase tracking-widest">
       {% if footer_copyright %}
-        <p>{{ footer_copyright|striptags|linkify_codecampus }}</p>
+        <p>{{ footer_copyright|striptags|linkify_codecampus:code_campus_url }}</p>
       {% elif footer_cfg %}
-        <p>{{ footer_cfg.get_copyright|linkify_codecampus }}</p>
+        <p>{{ footer_cfg.get_copyright|linkify_codecampus:code_campus_url }}</p>
       {% else %}
-        <p>© {% now "Y" %} Python Weekend · An initiative of <a href="https://codecampus.com.ng/" target="_blank" rel="noopener" class="hover:text-shield-ice transition-colors">Code Campus</a> International.</p>
+        <p>© {% now "Y" %} Python Weekend · An initiative of <a href="{{ code_campus_url|default:'https://codecampus.com.ng/' }}" target="_blank" rel="noopener" class="hover:text-shield-ice transition-colors">Code Campus</a> International.</p>
       {% endif %}
     </div>
 
