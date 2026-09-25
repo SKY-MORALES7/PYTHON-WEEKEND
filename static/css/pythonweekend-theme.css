@@ -214,7 +214,7 @@ a:hover:not([class*="bg-"]):not([class*="btn-"]):not([class*="text-"]) {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
-  background-color: #FFB800 !important; /* MLH Golden Yellow */
+  background-color: #FFD43B !important; /* Lighter Yellow matching Contact header button */
   color: #16213e !important;
   padding: 0.95rem 1.85rem;
   font-family: "Martian Mono", monospace;
@@ -232,7 +232,7 @@ a:hover:not([class*="bg-"]):not([class*="btn-"]):not([class*="text-"]) {
 .btn-hero-primary:hover,
 .btn-brutal-primary:hover,
 .btn-mlh-yellow:hover {
-  background-color: #FFC72C !important;
+  background-color: #FFE066 !important;
   color: #16213e !important;
   transform: translate(2px, 2px);
   box-shadow: 3px 3px 0 #16213e;
