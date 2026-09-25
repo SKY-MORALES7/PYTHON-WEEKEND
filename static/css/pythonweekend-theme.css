@@ -672,6 +672,51 @@ button:hover .btn-arrow-3d {
 }
 
 /* ═══════════════════════════════════════════════════════
+   UNIVERSAL NEO-BRUTALIST BUTTONS
+   ═══════════════════════════════════════════════════════ */
+.btn-brutal-cta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #ffffff !important;
+  border: 2.5px solid #16213e !important;
+  box-shadow: 5px 5px 0px #16213e !important;
+  padding: 1rem 1.25rem !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.btn-brutal-cta:hover {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #16213e !important;
+  background-color: #ffffff !important;
+}
+
+.btn-brutal-hero {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background-color: #ffffff !important;
+  border: 2.5px solid #16213e !important;
+  box-shadow: 5px 5px 0px #16213e !important;
+  padding: 1.15rem 2rem !important;
+  text-decoration: none !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer !important;
+  gap: 1.5rem !important;
+  box-sizing: border-box !important;
+}
+
+.btn-brutal-hero:hover {
+  transform: translate(2px, 2px) !important;
+  box-shadow: 2px 2px 0px #16213e !important;
+  background-color: #ffffff !important;
+}
+
+/* ═══════════════════════════════════════════════════════
    VERTICAL HEADER ACCENT STROKES
    ═══════════════════════════════════════════════════════ */
 .header-stroke-blue {

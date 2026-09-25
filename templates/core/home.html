@@ -63,14 +63,14 @@
       {{ home_hero_subheadline|default:"Python Weekend organises free Python &amp; Django workshops, creates open-source online tutorials and curates amazing first experiences with technology." }}
     </p>
     <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
-      <a href="{% url 'content:event_list' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-5 sm:px-10 sm:py-5 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+      <a href="{% url 'content:event_list' %}" class="btn-brutal-hero group">
         <span class="font-display font-bold text-xl sm:text-2xl text-shield-navy uppercase tracking-wider">Find an event</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-8 py-5 sm:px-10 sm:py-5 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+      <a href="{% url 'applications:organize_start' %}" class="btn-brutal-hero group">
         <span class="font-display font-bold text-xl sm:text-2xl text-shield-navy uppercase tracking-wider">Become an Organizer</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -161,7 +161,7 @@
             <span class="inline-block bg-shield-ice border-2 border-shield-navy text-shield-navy font-mono font-bold px-2 py-0.5 text-xs shadow-brutal-sm uppercase mx-1">{{ total_countries }} location{{ total_countries|pluralize }}</span>.
           </p>
         </div>
-        <a href="{% url 'core:about' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy px-5 py-4 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
+        <a href="{% url 'core:about' %}" class="btn-brutal-cta group mt-6">
           <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Read about our impact</span>
           <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -180,7 +180,7 @@
             {{ home_bring_pw_body|default:"Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world." }}
           </p>
         </div>
-        <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy px-5 py-4 shadow-[5px_5px_0px_#16213e] hover:shadow-[2px_2px_0px_#16213e] hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full mt-6">
+        <a href="{% url 'applications:organize_start' %}" class="btn-brutal-cta group mt-6">
           <span class="font-display font-bold text-lg sm:text-xl text-shield-navy uppercase tracking-wider">Apply to organise a workshop</span>
           <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
             <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
