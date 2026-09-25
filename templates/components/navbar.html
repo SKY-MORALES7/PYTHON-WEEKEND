@@ -13,14 +13,14 @@
       </a>
 
       <!-- Desktop Links -->
-      <div class="hidden md:flex items-center gap-1 text-sm font-medium font-mono uppercase tracking-widest">
+      <div class="hidden md:flex items-center gap-1 text-sm font-medium font-mono tracking-widest">
 
         {% for item in header_menu %}
 
           {% if item.child_items %}
             <!-- Dropdown group: {{ item.label }} -->
             <div class="relative group">
-              <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold">
+              <button class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors flex items-center gap-1 font-bold uppercase">
                 {{ item.label }}
                 <svg class="w-3.5 h-3.5 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
               </button>
@@ -44,9 +44,8 @@
             </a>
 
           {% else %}
-            <!-- Plain link -->
             <a href="{{ item.url }}"
-               class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors font-bold"
+               class="px-3 py-2 text-shield-navy hover:text-shield-blue hover:bg-shield-ice/10 border-2 border-transparent transition-colors font-bold {% if item.label == 'Events' %}normal-case{% else %}uppercase{% endif %}"
                {% if item.open_in_new_tab %}target="_blank" rel="noopener"{% endif %}>
               {{ item.label }}
             </a>
