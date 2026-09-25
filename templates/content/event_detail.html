@@ -6,7 +6,7 @@
 {% block content %}
 
 <!-- ── HERO ── -->
-<section class="relative min-h-[45vh] md:min-h-[50vh] flex items-end overflow-hidden border-b-2.5 border-shield-navy bg-shield-navy">
+<section class="relative min-h-[45vh] md:min-h-[50vh] flex items-end overflow-hidden border-b-2.5 border-shield-navy bg-shield-navy" style="background-color: #16213E;">
   {% if event.image %}
   <img src="{{ event.image.url }}" alt="{{ event.title }}"
        class="absolute inset-0 w-full h-full object-cover" />
@@ -14,7 +14,7 @@
   <img src="{% static 'img/code-campus-hero.jpg' %}" alt="{{ event.title }}"
        class="absolute inset-0 w-full h-full object-cover" />
   {% endif %}
-  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(22, 33, 62, 0.75) 0%, rgba(22, 33, 62, 0.45) 50%, rgba(22, 33, 62, 0.25) 100%);"></div>
+  <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(105deg, rgba(22, 33, 62, 0.95) 0%, rgba(22, 33, 62, 0.82) 40%, rgba(22, 33, 62, 0.45) 75%, rgba(22, 33, 62, 0.2) 100%), linear-gradient(to top, rgba(22, 33, 62, 0.92) 0%, rgba(22, 33, 62, 0.35) 60%, transparent 100%);"></div>
 
   <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full z-10">
     <a href="{% url 'content:event_list' %}" class="btn-all-events-hero">&larr; All Events</a>
@@ -24,11 +24,11 @@
         {% if event.is_upcoming %}Upcoming Event{% else %}Past Event{% endif %}
       </span>
     </div>
-    <h1 class="font-display font-bold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-none mb-3">
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-none mb-3" style="text-shadow: 0 2px 12px rgba(0,0,0,0.85);">
       {{ event.title }}
     </h1>
     {% if event.tagline %}
-    <p class="font-body text-shield-ice text-lg sm:text-xl font-medium mb-4 max-w-2xl">{{ event.tagline }}</p>
+    <p class="font-body text-lg sm:text-xl font-bold mb-4 max-w-2xl" style="color: #FFB800 !important; text-shadow: 0 1px 8px rgba(0,0,0,0.85);">{{ event.tagline }}</p>
     {% endif %}
     <div class="flex flex-wrap gap-3 font-mono text-xs font-bold uppercase tracking-wider text-white">
       <span class="bg-shield-navy/80 border border-white/40 px-3 py-1.5 shadow-brutal-sm">Date: {{ event.start_date|date:"l, F j, Y" }}{% if event.end_date %} — {{ event.end_date|date:"F j, Y" }}{% endif %}</span>
