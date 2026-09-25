@@ -39,16 +39,15 @@
          style="background-color: #16213E !important;">
   {% if application_form.hero_image %}
   <img src="{{ application_form.hero_image.url }}" alt="{{ application_form.text_header }}"
-       class="absolute inset-0 w-full h-full object-cover" style="opacity: 0.35;" />
+       class="absolute inset-0 w-full h-full object-cover" />
   {% elif application_form.event.image %}
   <img src="{{ application_form.event.image.url }}" alt="{{ application_form.text_header }}"
-       class="absolute inset-0 w-full h-full object-cover" style="opacity: 0.35;" />
+       class="absolute inset-0 w-full h-full object-cover" />
   {% else %}
   <!-- Technical radial dot grid over dark sky blue background -->
   <div class="absolute inset-0 bg-[radial-gradient(#ffffff_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-15 pointer-events-none"></div>
   {% endif %}
-  <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to top, rgba(22, 33, 62, 0.95) 0%, rgba(22, 33, 62, 0.82) 50%, rgba(22, 33, 62, 0.65) 100%) !important;"></div>
-  <div class="absolute inset-0 z-0 pointer-events-none" style="background-color: rgba(22, 33, 62, 0.35) !important;"></div>
+  <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(to top, rgba(22, 33, 62, 0.75) 0%, rgba(22, 33, 62, 0.45) 50%, rgba(22, 33, 62, 0.25) 100%) !important;"></div>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
     <a href="{% url 'content:event_detail' application_form.event.slug %}"
