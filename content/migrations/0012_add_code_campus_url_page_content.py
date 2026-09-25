@@ -6,7 +6,7 @@ from django.db import migrations
 def create_page_content(apps, schema_editor):
     PageContent = apps.get_model('content', 'PageContent')
     PageContent.objects.get_or_create(
-        identifier='code_campus_url',
+        key='code_campus_url',
         defaults={
             'label': 'Footer — Code Campus URL',
             'value': 'https://codecampus.com.ng/',
