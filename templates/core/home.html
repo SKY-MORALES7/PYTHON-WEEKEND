@@ -320,7 +320,7 @@
               <a href="{% url 'content:blog_detail' post.slug %}" class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight hover:text-shield-blue block mb-2">
                 {{ post.title }}
               </a>
-              <p class="font-body text-shield-navy text-sm font-medium leading-relaxed mb-3">
+              <p class="font-body text-shield-navy text-base font-medium leading-relaxed mb-3">
                 {{ post.excerpt|truncatewords:25 }}
               </p>
               <a href="{% url 'content:blog_detail' post.slug %}" class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy hover:text-shield-blue inline-flex items-center gap-1">
