@@ -11,7 +11,7 @@ Usage: {% include "components/card-tutorial.html" with tutorial=tutorial %}
     {% if tutorial.difficulty %}
     <span class="font-mono text-xs font-bold uppercase tracking-widest px-2 py-1 border-2 border-shield-navy
       {% if tutorial.difficulty == 'beginner' %}bg-green-100 text-green-900
-      {% elif tutorial.difficulty == 'intermediate' %}bg-dark-yellow text-shield-navy" style="background-color: #E5A700 !important; color: #16213e !important;
+      {% elif tutorial.difficulty == 'intermediate' %}bg-shield-blue text-white" style="background-color: #E5A700 !important; color: #16213e !important;
       {% else %}bg-shield-red text-white{% endif %}">
       {{ tutorial.get_difficulty_display }}
     </span>
