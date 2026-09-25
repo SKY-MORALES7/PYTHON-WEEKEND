@@ -1,7 +1,7 @@
 {% comment %}
 Usage: {% include "components/card-blog.html" with post=post %}
 {% endcomment %}
-<article class="bg-white border-2 border-shield-navy transition-all duration-300 flex flex-col group">
+<article class="bg-white border-2 border-shield-navy transition-all duration-300 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] flex flex-col group">
   {% if post.cover_image %}
   <a href="{% url 'content:blog_detail' post.slug %}" class="border-b-2 border-shield-navy block relative overflow-hidden">
     <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-full h-44 object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />

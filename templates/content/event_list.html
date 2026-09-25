@@ -29,7 +29,7 @@
         </p>
 
         <div class="flex flex-wrap gap-4 items-center">
-          <a href="#upcoming-events" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 transition-all">
+          <a href="#upcoming-events" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
             <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Attend an Event</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -37,7 +37,7 @@
             </svg>
           </a>
 
-          <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 transition-all">
+          <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy px-6 py-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
             <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Host a Workshop</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -95,7 +95,7 @@
     {% if page_obj.object_list %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for event in page_obj %}
-      <div class="bg-white border-2.5 border-shield-navy transition-all flex flex-col justify-between overflow-hidden group">
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group">
         <div>
           <!-- Event Banner Image -->
           <a href="{% url 'content:event_detail' event.slug %}" class="block h-48 w-full overflow-hidden border-b-2.5 border-shield-navy relative bg-shield-navy">
@@ -137,7 +137,7 @@
 
         <!-- Action Button Box (MLH style 3D yellow arrow) -->
         <div class="p-6 pt-0">
-          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 transition-all w-full">
+          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
             <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">View Workshop</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -156,7 +156,7 @@
       <p class="font-body text-shield-navy text-lg font-medium mb-6">
         No upcoming events scheduled right now. Be the first to bring Python Weekend to your city!
       </p>
-      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 transition-all max-w-sm mx-auto">
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
         <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Host a Workshop</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -187,7 +187,7 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {% for event in past_events %}
-      <div class="bg-white border-2.5 border-shield-navy transition-all flex flex-col justify-between overflow-hidden group">
+      <div class="bg-white border-2.5 border-shield-navy shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex flex-col justify-between overflow-hidden group">
         <div>
           <!-- Event Banner Image -->
           <a href="{% url 'content:event_detail' event.slug %}" class="block h-48 w-full overflow-hidden border-b-2.5 border-shield-navy relative bg-shield-navy">
@@ -223,7 +223,7 @@
 
         <!-- Action Button Box (MLH style 3D yellow arrow) -->
         <div class="p-6 pt-0">
-          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 transition-all w-full">
+          <a href="{% url 'content:event_detail' event.slug %}" class="group flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-3.5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all w-full">
             <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Event Recap</span>
             <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
               <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -254,7 +254,7 @@
         Is there no Python Weekend workshop in your area? You can help make it happen! We provide the free curriculum, tools, and mentor support.
       </p>
 
-      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 transition-all max-w-md mx-auto">
+      <a href="{% url 'applications:organize_start' %}" class="group flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-md mx-auto">
         <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Apply to Organise a Workshop</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
