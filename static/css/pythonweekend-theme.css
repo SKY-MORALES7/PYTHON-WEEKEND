@@ -120,14 +120,12 @@ a:hover:not([class*="bg-"]):not([class*="btn-"]):not([class*="text-"]) {
 }
 .container-dg p,
 .section-dg p,
-.about-grid p,
-.subtext-consistent,
-p.font-body:not(.text-xs):not(.text-sm) {
+.about-grid p {
   font-family: "DM Sans", "Inter", sans-serif;
-  font-size: 1rem !important; /* 16px text-base matching What is Python Weekend */
-  line-height: 1.625 !important;
+  font-size: 1rem;
+  line-height: 1.625;
   color: var(--py-navy);
-  font-weight: 500 !important;
+  font-weight: 500;
 }
 
 /* Rock-solid 4-sided borders for cards and utilities */
