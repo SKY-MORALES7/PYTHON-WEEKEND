@@ -33,7 +33,7 @@
     {% if coaches %}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {% for coach in coaches %}
-      <div class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all text-center flex flex-col justify-between group overflow-hidden">
+      <div class="bg-white border-2.5 border-shield-navy p-6 transition-all text-center flex flex-col justify-between group overflow-hidden">
         <div>
           {% if coach.photo %}
           <img src="{{ coach.photo.url }}" alt="{{ coach.name }}" class="w-24 h-24 mx-auto mb-4 object-cover border-2 border-shield-navy shadow-brutal-sm group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -80,7 +80,7 @@
       <span class="font-mono text-xs font-bold uppercase tracking-widest text-shield-navy bg-shield-ice px-3 py-1 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">Mentors Directory</span>
       <h3 class="font-display font-bold text-2xl text-shield-navy uppercase tracking-tight mb-3">Coach Profiles Coming Soon</h3>
       <p class="font-body text-shield-navy text-base font-medium mb-6">Our volunteer team profiles are currently being updated for upcoming workshop editions.</p>
-      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-4 bg-white border-2.5 border-shield-navy p-4 transition-all">
         <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider">Apply to Coach</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
@@ -104,7 +104,7 @@
       <p class="font-body text-shield-navy text-base font-medium leading-relaxed mb-8">
         We are always looking for passionate Python developers to help mentor beginners during our weekend workshops.
       </p>
-      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 shadow-brutal hover:shadow-brutal-hover hover:translate-x-[2px] hover:translate-y-[2px] transition-all max-w-sm mx-auto">
+      <a href="{% url 'core:contact' %}" class="group inline-flex items-center justify-between gap-6 bg-white border-2.5 border-shield-navy p-4 sm:p-5 transition-all max-w-sm mx-auto">
         <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Get in Touch to Coach</span>
         <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
           <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
