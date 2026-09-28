@@ -15,8 +15,6 @@ python manage.py collectstatic --no-input
 # ---------------------------------------
 
 python manage.py migrate
-python manage.py loaddata core/fixtures/data_dump.json
-python populate_content.py
-python scripts/populate_flatpages.py
+python manage.py restore_db
 python scripts/update_resource_menus.py
 

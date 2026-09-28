@@ -1,0 +1,1598 @@
+[
+{
+  "model": "content.pagecontent",
+  "pk": 1,
+  "fields": {
+    "page": "home",
+    "key": "home_hero_headline",
+    "label": "Hero — Main Headline",
+    "admin_help_text": "The big bold headline over the hero image. Keep it inspiring and under 12 words.",
+    "value": "We inspire everyone to fall in love with programming.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.092Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 2,
+  "fields": {
+    "page": "home",
+    "key": "home_hero_subheadline",
+    "label": "Hero — Sub Headline",
+    "admin_help_text": "One or two sentences below the hero headline. Briefly describes what Python Weekend does.",
+    "value": "Python Weekend organises free Python workshops, creates open-source online tutorials and curates amazing first experiences with technology.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-28T11:39:13.806Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 3,
+  "fields": {
+    "page": "home",
+    "key": "home_what_is_heading",
+    "label": "\"What is Python Weekend?\" — Section Heading",
+    "admin_help_text": "Section heading for the 'What is Python Weekend?' block. Defaults to that phrase.",
+    "value": "What is Python Weekend?",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.092Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 4,
+  "fields": {
+    "page": "home",
+    "key": "home_what_is_body",
+    "label": "\"What is Python Weekend?\" — Body",
+    "admin_help_text": "Main description of Python Weekend shown to the left of the video on the home page. Explain what the initiative is, who runs it, and what happens at events. You can use line breaks to separate paragraphs.",
+    "value": "Python Weekend is a community-driven initiative that empowers and helps anyone organise free, hands-on programming workshops by providing tools, resources and support. We are a volunteer-run community with coaches contributing to bring more amazing people into the world of technology. We are making technology more approachable by creating resources designed with empathy.\n\nDuring each of our events, participants build their first web application using HTML, CSS, Python — in just one weekend.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-28T11:39:13.990Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 5,
+  "fields": {
+    "page": "home",
+    "key": "home_impact_heading",
+    "label": "Impact Section — Heading",
+    "admin_help_text": "Heading for the impact statistics section, e.g. 'Python Weekend impact'.",
+    "value": "Python Weekend impact",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.100Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 6,
+  "fields": {
+    "page": "home",
+    "key": "home_bring_pw_heading",
+    "label": "Bring PW to Your City — Heading",
+    "admin_help_text": "Heading for the 'Bring Python Weekend to your city!' section.",
+    "value": "Bring Python Weekend to your city!",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.100Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 7,
+  "fields": {
+    "page": "home",
+    "key": "home_bring_pw_body",
+    "label": "Bring PW to Your City — Body",
+    "admin_help_text": "Paragraph explaining how someone can bring Python Weekend to their city. Mention the curriculum, tools, and community support provided.",
+    "value": "Is there no Python Weekend event in your city? You can help make it happen! We provide the curriculum, tools, and a supportive community of organisers all over the world.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.100Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 8,
+  "fields": {
+    "page": "home",
+    "key": "home_coaches_heading",
+    "label": "Coaches Spotlight — Heading",
+    "admin_help_text": "Heading above the coaches spotlight grid, e.g. 'Python Weekend Coaches'.",
+    "value": "Python Weekend Coaches",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.100Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 9,
+  "fields": {
+    "page": "home",
+    "key": "home_coaches_intro",
+    "label": "Coaches Spotlight — Intro",
+    "admin_help_text": "One sentence shown above the coach cards, introducing the spotlight.",
+    "value": "Each week we try to introduce one amazing coach who uses Python and highlight their work:",
+    "content_type": "text",
+    "updated_at": "2026-09-28T11:39:13.485Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 10,
+  "fields": {
+    "page": "home",
+    "key": "home_blog_heading",
+    "label": "Latest Blog — Heading",
+    "admin_help_text": "Heading above the latest blog posts, e.g. 'Latest from our blog'.",
+    "value": "Latest from our blog",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.108Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 11,
+  "fields": {
+    "page": "home",
+    "key": "home_support_heading",
+    "label": "Support Our Work — Heading",
+    "admin_help_text": "Heading of the 'Support our work' section on the home page.",
+    "value": "Support our work",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.110Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 12,
+  "fields": {
+    "page": "home",
+    "key": "home_support_body",
+    "label": "Support Our Work — Body",
+    "admin_help_text": "Short paragraph explaining why donations or support are needed.",
+    "value": "Python Weekend is a volunteer-run organisation, and we depend on your support to make it happen.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.110Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 13,
+  "fields": {
+    "page": "home",
+    "key": "home_newsletter_heading",
+    "label": "Stay Up To Date — Heading",
+    "admin_help_text": "Heading above the newsletter sign-up form.",
+    "value": "Stay up to date!",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.112Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 14,
+  "fields": {
+    "page": "home",
+    "key": "home_newsletter_body",
+    "label": "Stay Up To Date — Body",
+    "admin_help_text": "One or two sentences above the email input encouraging newsletter sign-up.",
+    "value": "Subscribe to Python Weekend Dispatch to receive the latest and greatest from our community every two weeks, straight to your inbox!",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.114Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 15,
+  "fields": {
+    "page": "home",
+    "key": "home_community_heading",
+    "label": "Community Section — Heading",
+    "admin_help_text": "Heading for the 'Check out our community!' block.",
+    "value": "Check out our community!",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.114Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 16,
+  "fields": {
+    "page": "home",
+    "key": "home_community_body",
+    "label": "Community Section — Body",
+    "admin_help_text": "Short paragraph encouraging visitors to explore coaches and the blog.",
+    "value": "We have an amazing community of coaches, organisers and alumni who continue building after each workshop. Check out our coaches and blog to stay connected.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.117Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 17,
+  "fields": {
+    "page": "about",
+    "key": "about_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The large H1 heading shown in the dark hero banner at the top of the About page.",
+    "value": "About Python Weekend",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.117Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 18,
+  "fields": {
+    "page": "about",
+    "key": "about_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences shown beneath the heading in the hero banner.",
+    "value": "An initiative of Code Campus International created to make Python and artificial intelligence more approachable for complete beginners.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.117Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 19,
+  "fields": {
+    "page": "about",
+    "key": "about_what_we_do_heading",
+    "label": "\"About Python Weekend\" — Section Heading",
+    "admin_help_text": "Heading of the main 'About Python Weekend' content section.",
+    "value": "About Python Weekend",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.121Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 20,
+  "fields": {
+    "page": "about",
+    "key": "about_what_we_do_body",
+    "label": "\"About Python Weekend\" — Body",
+    "admin_help_text": "Main description. Describe what Python Weekend is, what it does, and how it came to be. Separate paragraphs with a blank line.",
+    "value": "Python Weekend is an initiative of Code Campus International created to make Python and artificial intelligence more approachable for complete beginners.\n\nOur goal is to advance practical technology education by supporting free beginner workshops, developing accessible learning materials and helping volunteer teams create welcoming first experiences with programming.\n\nPython Weekend does this by:\n✓ Supporting free, practical Python and AI workshops\n✓ Creating beginner learning resources\n✓ Equipping local organisers and mentors\n✓ Encouraging women and underserved groups to participate in technology\n✓ Highlighting relatable Python and AI role models\n✓ Helping participants identify clear next steps after the workshop",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.123Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 21,
+  "fields": {
+    "page": "about",
+    "key": "about_more_info_body",
+    "label": "More Information — Contact Text",
+    "admin_help_text": "Short paragraph in the 'More Information' section at the bottom of the About page.",
+    "value": "If you would like to learn more about Python Weekend or discuss a partnership, contact us at hello@pythonweekend.org.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.123Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 22,
+  "fields": {
+    "page": "faq",
+    "key": "faq_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading shown in the hero banner at the top of the FAQ page.",
+    "value": "Frequently Asked Questions",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.125Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 23,
+  "fields": {
+    "page": "faq",
+    "key": "faq_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One sentence shown beneath the FAQ page heading.",
+    "value": "Everything you need to know about Python Weekend workshops.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.125Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 24,
+  "fields": {
+    "page": "coc",
+    "key": "coc_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Code of Conduct page.",
+    "value": "Code of Conduct",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.127Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 25,
+  "fields": {
+    "page": "coc",
+    "key": "coc_intro",
+    "label": "Code of Conduct — Opening Paragraph",
+    "admin_help_text": "The introductory paragraph shown before the list of conduct rules.",
+    "value": "Python Weekend is dedicated to providing a harassment-free experience for everyone, regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), or technology choices.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.127Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 26,
+  "fields": {
+    "page": "support",
+    "key": "support_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Support Us page.",
+    "value": "Support Python Weekend",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.129Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 27,
+  "fields": {
+    "page": "support",
+    "key": "support_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences beneath the Support page heading.",
+    "value": "Help us bring free Python & AI workshops to more cities and more people.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.129Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 28,
+  "fields": {
+    "page": "organise",
+    "key": "organise_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Organise a Workshop page.",
+    "value": "Organise a Python Weekend",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.133Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 29,
+  "fields": {
+    "page": "organise",
+    "key": "organise_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences beneath the Organise page heading.",
+    "value": "Bring free Python & AI workshops to your city with our support.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.135Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 30,
+  "fields": {
+    "page": "contribute",
+    "key": "contribute_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Contribute page.",
+    "value": "Contribute to Python Weekend",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.135Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 31,
+  "fields": {
+    "page": "contribute",
+    "key": "contribute_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences beneath the Contribute page heading.",
+    "value": "Share your skills and help us build better resources for the whole community.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.137Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 32,
+  "fields": {
+    "page": "newsletter",
+    "key": "newsletter_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Newsletter page.",
+    "value": "Python Weekend Dispatch",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.139Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 33,
+  "fields": {
+    "page": "newsletter",
+    "key": "newsletter_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences describing the newsletter, shown at the top of the page.",
+    "value": "Our community newsletter — packed with workshop updates, Python tips, and stories from coaches and participants around the world. Published every two weeks.",
+    "content_type": "richtext",
+    "updated_at": "2026-09-11T13:43:07.139Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 34,
+  "fields": {
+    "page": "partners",
+    "key": "partners_hero_heading",
+    "label": "Page Heading (Hero)",
+    "admin_help_text": "The H1 heading for the Our Partners page.",
+    "value": "Our Partners",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.141Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 35,
+  "fields": {
+    "page": "partners",
+    "key": "partners_hero_intro",
+    "label": "Page Intro (Hero)",
+    "admin_help_text": "One or two sentences beneath the Partners page heading.",
+    "value": "Organisations that believe in the power of community-led technology education.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.141Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 36,
+  "fields": {
+    "page": "global",
+    "key": "footer_tagline",
+    "label": "Footer — Tagline",
+    "admin_help_text": "Short tagline shown under the Python Weekend logo in the footer on every page.",
+    "value": "Start with Python. Build with AI.",
+    "content_type": "text",
+    "updated_at": "2026-09-11T13:43:07.143Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 37,
+  "fields": {
+    "page": "global",
+    "key": "footer_copyright",
+    "label": "Footer — Copyright Text",
+    "admin_help_text": "Copyright line shown at the very bottom of every page. Use {year} as a placeholder for the current year. (Note: The words 'Code Campus International' will automatically be turned into a link using the Footer — Code Campus URL setting.)",
+    "value": "© {year} Python Weekend · An initiative of Code Campus International.",
+    "content_type": "text",
+    "updated_at": "2026-09-28T14:04:38.622Z"
+  }
+},
+{
+  "model": "content.pagecontent",
+  "pk": 38,
+  "fields": {
+    "page": "home",
+    "key": "code_campus_url",
+    "label": "Footer — Code Campus URL",
+    "admin_help_text": "The URL for the official Code Campus link in the footer.",
+    "value": "https://codecampus.com.ng/",
+    "content_type": "text",
+    "updated_at": "2026-09-25T12:53:50.336Z"
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 1,
+  "fields": {
+    "label": "Support Us",
+    "url": "#",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 2,
+  "fields": {
+    "label": "Volunteer",
+    "url": "#",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 3,
+  "fields": {
+    "label": "Resources",
+    "url": "/resources/",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 4,
+  "fields": {
+    "label": "Events",
+    "url": "/events/",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 4,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 5,
+  "fields": {
+    "label": "What's New?",
+    "url": "#",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 5,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 6,
+  "fields": {
+    "label": "Contact Us",
+    "url": "/contact/",
+    "position": "header",
+    "parent": null,
+    "footer_column": "",
+    "order": 6,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 7,
+  "fields": {
+    "label": "About",
+    "url": "/about/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Python Weekend",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 8,
+  "fields": {
+    "label": "FAQ",
+    "url": "/faq/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Python Weekend",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 9,
+  "fields": {
+    "label": "Newsletter",
+    "url": "/newsletter/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Python Weekend",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 10,
+  "fields": {
+    "label": "Code of Conduct",
+    "url": "/code-of-conduct/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Python Weekend",
+    "order": 4,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 11,
+  "fields": {
+    "label": "Contact",
+    "url": "/contact/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Python Weekend",
+    "order": 5,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 12,
+  "fields": {
+    "label": "Support a Workshop",
+    "url": "/support/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Support Us",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 13,
+  "fields": {
+    "label": "Contribute",
+    "url": "/contribute/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Support Us",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 14,
+  "fields": {
+    "label": "Sponsorships",
+    "url": "/sponsors/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Support Us",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 15,
+  "fields": {
+    "label": "Our Partners",
+    "url": "/partners/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Support Us",
+    "order": 4,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 16,
+  "fields": {
+    "label": "Python & AI Tutorial",
+    "url": "/resources/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Resources",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 17,
+  "fields": {
+    "label": "Organiser's Manual",
+    "url": "/resources/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Resources",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 18,
+  "fields": {
+    "label": "Mentoring Guide",
+    "url": "/resources/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Resources",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 19,
+  "fields": {
+    "label": "Tutorial Extensions",
+    "url": "/resources/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Resources",
+    "order": 4,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 20,
+  "fields": {
+    "label": "Terms & Conditions",
+    "url": "/terms/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Legal",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 21,
+  "fields": {
+    "label": "Privacy & Cookies",
+    "url": "/privacy/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Legal",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 22,
+  "fields": {
+    "label": "Job Board",
+    "url": "/jobs/",
+    "position": "footer",
+    "parent": null,
+    "footer_column": "Legal",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 23,
+  "fields": {
+    "label": "Corporate Sponsorships",
+    "url": "/sponsors/",
+    "position": "header",
+    "parent": 1,
+    "footer_column": "",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 24,
+  "fields": {
+    "label": "Support a Workshop",
+    "url": "/support/",
+    "position": "header",
+    "parent": 1,
+    "footer_column": "",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 25,
+  "fields": {
+    "label": "Our Partners",
+    "url": "/partners/",
+    "position": "header",
+    "parent": 1,
+    "footer_column": "",
+    "order": 3,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 26,
+  "fields": {
+    "label": "Organise a Workshop",
+    "url": "/apply/organise/",
+    "position": "header",
+    "parent": 2,
+    "footer_column": "",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 27,
+  "fields": {
+    "label": "Contribute",
+    "url": "/contribute/",
+    "position": "header",
+    "parent": 2,
+    "footer_column": "",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 28,
+  "fields": {
+    "label": "Newsletter",
+    "url": "/newsletter/",
+    "position": "header",
+    "parent": 5,
+    "footer_column": "",
+    "order": 1,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.websitemenuitem",
+  "pk": 29,
+  "fields": {
+    "label": "Our Blog",
+    "url": "/content/blog/",
+    "position": "header",
+    "parent": 5,
+    "footer_column": "",
+    "order": 2,
+    "is_active": true,
+    "open_in_new_tab": false
+  }
+},
+{
+  "model": "content.footerconfig",
+  "pk": 1,
+  "fields": {
+    "tagline": "Start with Python. Build with AI.",
+    "copyright_text": "© {year} Python Weekend · An initiative of Code Campus International.",
+    "facebook_url": "https://facebook.com",
+    "instagram_url": "https://instagram.com",
+    "twitter_url": "https://x.com",
+    "linkedin_url": "https://linkedin.com"
+  }
+},
+{
+  "model": "content.event",
+  "pk": 1,
+  "fields": {
+    "title": "Python weekend",
+    "slug": "python-weekend",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-06-09T09:00:00Z",
+    "end_date": "2026-06-09T17:00:00Z",
+    "location": "Lagos, Nigeria",
+    "venue_name": "",
+    "city": "",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "Learn Django with beginner friendly tutorials",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": false,
+    "published": true,
+    "created_at": "2026-06-09T16:14:47.927Z",
+    "updated_at": "2026-06-15T08:24:56.997Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 2,
+  "fields": {
+    "title": "Python weekend2",
+    "slug": "python-weekend2",
+    "tagline": "",
+    "image": "events/image-5.webp",
+    "start_date": "2026-06-27T06:00:00Z",
+    "end_date": "2026-06-28T18:00:00Z",
+    "location": "Lagos",
+    "venue_name": "",
+    "city": "",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "Lets learn python",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": false,
+    "published": false,
+    "created_at": "2026-06-09T20:07:24.413Z",
+    "updated_at": "2026-06-12T14:29:20.105Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 3,
+  "fields": {
+    "title": "Mande-weekend",
+    "slug": "mande-weekend",
+    "tagline": "Lets get the coding started",
+    "image": "events/chuttersnap-Q_KdjKxntH8-unsplash.jpg",
+    "start_date": "2026-06-27T04:00:00Z",
+    "end_date": "2026-06-28T17:00:00Z",
+    "location": "Abuja",
+    "venue_name": "Code campus int",
+    "city": "Abuja",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "Our evaluation process examined each blog’s technical accuracy, writing clarity, update frequency, and overall value to the Python development community.\r\n\r\nDuring this process, I used the same approach for analyzing and comparing common qualities (or deficiencies) in each of the Python programming blogs.\r\n\r\nI looked at the depth of each blog’s technical content and the usefulness of that content. I read a few posts from start to finish to get a sense of the writing quality and comprehensibility. Finally, I looked at how consistently the Python bloggers publish new content and did some digging to learn how long each site has been around.",
+    "day1_title": "Thursday, 25th June 2026",
+    "day1_schedule": "13:00 - Registration & Check-in\r\n14:00 - Welcome Session & Introductions\r\n14:30 - Python, Django & Tools Installation\r\n15:30 - Git & Development Environment Setup\r\n16:00 - Troubleshooting & Mentor Support\r\n17:00 - Networking & Closing",
+    "day2_title": "Friday, 26th June 2026",
+    "day2_schedule": "09:00 — Opening Remarks\r\n09:30 — Introduction to Python Basics\r\n10:30 — Understanding Django Framework\r\n11:30 — Building Your First Django Application\r\n13:00 — Lunch Break\r\n14:00 — Continuing Project Development\r\n15:30 — Deploying & Testing the Application\r\n16:30 — Q&A Session / Mentor Support\r\n17:00 — Wrap-up",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "Real Python, r/Python, and Talk Python Training lead the rankings at 4.6 out of 5.0, evaluated across writing quality, consistency, longevity, technical depth, and broad usefulness. Real Python scores highest for structured learning; r/Python for community breadth; Talk Python for ecosystem and podcast coverage.",
+    "who_should_apply": "Women interested in learning tech skills\r\nBeginners with little or no coding experience\r\nStudents, graduates, and career switchers\r\nAspiring software developers and creators\r\nWe can’t wait to learn, build, and grow together at Django Girls Eket 2026",
+    "faq": "Q:Am i craazy;\r\nA:I am not crazy\r\nQ:Lets go out today for some codee it would be nice?\r\nA: no man",
+    "application_deadline": "2026-06-16",
+    "application_open": false,
+    "published": true,
+    "created_at": "2026-06-09T22:21:05.873Z",
+    "updated_at": "2026-06-15T08:24:57.009Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 4,
+  "fields": {
+    "title": "Python weekend Newyork",
+    "slug": "python-weekend-newyork",
+    "tagline": "Lets get the coding started",
+    "image": "events/blogbg3.jpg",
+    "start_date": "2026-06-27T06:00:00Z",
+    "end_date": "2026-06-28T12:00:00Z",
+    "location": "Newyork",
+    "venue_name": "no 10: brooklyn street",
+    "city": "New Jersey",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "a python weekend",
+    "day1_title": "Friday, 26th June 2026",
+    "day1_schedule": "13:00 - Registration & Check-in\r\n14:00 - Welcome Session & Introductions\r\n14:30 - Python, Django & Tools Installation\r\n15:30 - Git & Development Environment Setup\r\n16:00 - Troubleshooting & Mentor Support\r\n17:00 - Networking & Closing",
+    "day2_title": "saturday, 27th june 2026",
+    "day2_schedule": "13:00 - Registration & Check-in\r\n14:00 - Welcome Session & Introductions\r\n14:30 - Python, Django & Tools Installation\r\n15:30 - Git & Development Environment Setup\r\n16:00 - Troubleshooting & Mentor Support\r\n17:00 - Networking & Closing",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "ai\r\nai\r\nai",
+    "who_should_apply": "youths\r\nnoobies",
+    "faq": "Q:will there be food?\r\nA:yes there will be food",
+    "application_deadline": "2026-06-19",
+    "application_open": true,
+    "published": true,
+    "created_at": "2026-06-15T08:16:28.823Z",
+    "updated_at": "2026-06-15T08:17:05.727Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 5,
+  "fields": {
+    "title": "Python Weekend - Makurdi",
+    "slug": "python-weekend-makurdi-2",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-08-17T10:36:52.039Z",
+    "end_date": "2026-08-19T10:36:52.039Z",
+    "location": "Makurdi, Nigeria",
+    "venue_name": "",
+    "city": "Makurdi",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": false,
+    "created_at": "2026-06-18T10:36:52.039Z",
+    "updated_at": "2026-06-18T10:36:52.039Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 6,
+  "fields": {
+    "title": "Python Weekend - Makurdi",
+    "slug": "python-weekend-makurdi-3",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-08-17T10:47:04.342Z",
+    "end_date": "2026-08-19T10:47:04.342Z",
+    "location": "Makurdi, Nigeria",
+    "venue_name": "",
+    "city": "Makurdi",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": false,
+    "created_at": "2026-06-18T10:47:04.342Z",
+    "updated_at": "2026-06-18T11:15:01.744Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 7,
+  "fields": {
+    "title": "Python Weekend - Abuja",
+    "slug": "python-weekend-abuja-4",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-08-17T10:53:06.543Z",
+    "end_date": "2026-08-19T10:53:06.543Z",
+    "location": "Abuja, Nigeria",
+    "venue_name": "",
+    "city": "Abuja",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": false,
+    "created_at": "2026-06-18T10:53:06.543Z",
+    "updated_at": "2026-06-18T10:53:06.543Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 8,
+  "fields": {
+    "title": "Python Weekend - Makurdi",
+    "slug": "python-weekend-makurdi-5",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-08-17T10:56:00.970Z",
+    "end_date": "2026-08-19T10:56:00.970Z",
+    "location": "Makurdi, Nigeria",
+    "venue_name": "",
+    "city": "Makurdi",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": false,
+    "created_at": "2026-06-18T10:56:00.970Z",
+    "updated_at": "2026-06-18T10:56:00.970Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 9,
+  "fields": {
+    "title": "Kamnde event",
+    "slug": "kamnde-event",
+    "tagline": "Encouraging future coders today",
+    "image": "events/sebastian-svenson-LpbyDENbQQg-unsplash.jpg",
+    "start_date": "2026-06-27T10:57:47Z",
+    "end_date": "2026-06-28T06:00:00Z",
+    "location": "Abuja",
+    "venue_name": "Code Camous Nigeria",
+    "city": "Abuja",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "from django.db import models\r\nfrom django.conf import settings\r\nfrom django.contrib.auth.models import User, Group\r\nfrom django.utils import timezone\r\nfrom django.utils.text import slugify\r\n\r\n# Import the Event model from your content/events app\r\nfrom content.models import Event  # 👈 Double-check that 'content' matches your event app name\r\n\r\n\r\nclass EventApplication(models.Model):\r\n    STATUS_CHOICES = [\r\n        ('pending', 'Pending'),\r\n        ('approved', 'Approved'),\r\n        ('rejected', 'Rejected'),\r\n    ]\r\n    \r\n    full_name = models.CharField(max_length=100)\r\n    email = models.EmailField()\r\n    city = models.CharField(max_length=100)\r\n    country = models.CharField(max_length=100)\r\n    motivation = models.TextField()\r\n    experience = models.TextField(blank=True)\r\n    expected_attendees = models.PositiveIntegerField(default=50)\r\n    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')\r\n\r\n    def save(self, *args, **kwargs):\r\n        # Check if this is an update to an existing record\r\n        if self.pk:\r\n            old_instance = EventApplication.objects.get(pk=self.pk)\r\n            \r\n            # Detect if the status field changed\r\n            if old_instance.status != self.status:",
+    "day1_title": "Thursday, 25th June 2026",
+    "day1_schedule": "09:00 — Opening Remarks\r\n09:30 — Introduction to Python Basics\r\n10:30 — Understanding Django Framework\r\n11:30 — Building Your First Django Application\r\n13:00 — Lunch Break\r\n14:00 — Continuing Project Development\r\n15:30 — Deploying & Testing the Application\r\n16:30 — Q&A Session / Mentor Support\r\n17:00 — Wrap-up",
+    "day2_title": "Friday, 26th June 2026",
+    "day2_schedule": "09:00 — Opening Remarks\r\n09:30 — Introduction to Python Basics\r\n10:30 — Understanding Django Framework\r\n11:30 — Building Your First Django Application\r\n13:00 — Lunch Break\r\n14:00 — Continuing Project Development\r\n15:30 — Deploying & Testing the Application\r\n16:30 — Q&A Session / Mentor Support\r\n17:00 — Wrap-up",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "alot of thjfjsbgfuahvybeuyhb",
+    "who_should_apply": "hgvj euvbgeugbeugbug",
+    "faq": "Q: will there be food?\r\nA: yes there will be food just come",
+    "application_deadline": "2026-06-17",
+    "application_open": true,
+    "published": true,
+    "created_at": "2026-06-18T11:00:30.679Z",
+    "updated_at": "2026-06-18T11:00:30.679Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 10,
+  "fields": {
+    "title": "Python Weekend - Abuja",
+    "slug": "python-weekend-abuja-6",
+    "tagline": "",
+    "image": "",
+    "start_date": "2026-08-17T12:20:49.055Z",
+    "end_date": "2026-08-19T12:20:49.055Z",
+    "location": "Abuja, Nigeria",
+    "venue_name": "",
+    "city": "Abuja",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": false,
+    "created_at": "2026-06-18T12:20:49.068Z",
+    "updated_at": "2026-06-18T12:20:49.068Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 11,
+  "fields": {
+    "title": "Python weekend Makurdi",
+    "slug": "python-weekend-makurdi",
+    "tagline": "Encouraging future coders",
+    "image": "events/blogbg3_kw1K812.jpg",
+    "start_date": "2026-07-04T06:00:00Z",
+    "end_date": "2026-06-07T12:00:00Z",
+    "location": "Makurdi",
+    "venue_name": "code campus Nigeria",
+    "city": "Makurdi",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "ihihig vufh93hffwihf uihf39ufhfn",
+    "day1_title": "Friday",
+    "day1_schedule": "09:00 — Welcome Back & Community Networking\r\n09:30 — Continue Improving Django Projects\r\n10:30 — Introduction to AI-Assisted Development\r\n11:30 — Build with AI Session\r\n13:00 — Lunch Break\r\n14:00 — Real-World Features Workshop\r\n15:00 — Career & Tech Growth Session\r\n15:45 — Project Showcase & Demo Presentations\r\n16:30 — Certificates, Group Photos & Networking\r\n17:00 — Event Ends",
+    "day2_title": "saturday",
+    "day2_schedule": "09:00 — Welcome Back & Community Networking\r\n09:30 — Continue Improving Django Projects\r\n10:30 — Introduction to AI-Assisted Development\r\n11:30 — Build with AI Session\r\n13:00 — Lunch Break\r\n14:00 — Real-World Features Workshop\r\n15:00 — Career & Tech Growth Session\r\n15:45 — Project Showcase & Demo Presentations\r\n16:30 — Certificates, Group Photos & Networking\r\n17:00 — Event Ends",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "09:00 — Welcome Back & Community Networking\r\n09:30 — Continue Improving Django Projects\r\n10:30 — Introduction to AI-Assisted Development\r\n11:30 — Build with AI Session\r\n13:00 — Lunch Break\r\n14:00 — Real-World Features Workshop\r\n15:00 — Career & Tech Growth Session\r\n15:45 — Project Showcase & Demo Presentations\r\n16:30 — Certificates, Group Photos & Networking\r\n17:00 — Event Ends",
+    "who_should_apply": "09:00 — Welcome Back & Community Networking\r\n09:30 — Continue Improving Django Projects\r\n10:30 — Introduction to AI-Assisted Development\r\n11:30 — Build with AI Session\r\n13:00 — Lunch Break\r\n14:00 — Real-World Features Workshop\r\n15:00 — Career & Tech Growth Session\r\n15:45 — Project Showcase & Demo Presentations\r\n16:30 — Certificates, Group Photos & Networking\r\n17:00 — Event Ends",
+    "faq": "Q:will you attend?\r\nA:please attend there will be...",
+    "application_deadline": "2026-06-02",
+    "application_open": true,
+    "published": true,
+    "created_at": "2026-06-18T12:40:39.276Z",
+    "updated_at": "2026-06-18T12:40:39.276Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": null
+  }
+},
+{
+  "model": "content.event",
+  "pk": 12,
+  "fields": {
+    "title": "Python Weekend Abuja",
+    "slug": "abuja-2025",
+    "tagline": "Build Your First Python Project With AI!",
+    "image": "",
+    "start_date": "2025-02-21T09:00:00Z",
+    "end_date": "2025-02-22T17:00:00Z",
+    "location": "To be announced",
+    "venue_name": "",
+    "city": "Abuja",
+    "country": "",
+    "latitude": null,
+    "longitude": null,
+    "attendees_count": 0,
+    "description": "Python Weekend Abuja is bringing complete beginners together for a free, practical weekend of learning.",
+    "day1_title": "",
+    "day1_schedule": "",
+    "day2_title": "",
+    "day2_schedule": "",
+    "day3_title": "",
+    "day3_schedule": "",
+    "what_you_learn": "",
+    "who_should_apply": "",
+    "faq": "",
+    "application_deadline": null,
+    "application_open": true,
+    "published": true,
+    "created_at": "2026-08-01T20:22:13.587Z",
+    "updated_at": "2026-08-01T20:22:13.587Z",
+    "custom_html": "",
+    "sponsors_title": "",
+    "schedule_title": "",
+    "owner": 2
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 1,
+  "fields": {
+    "url": "/support-us/",
+    "title": "Support a Workshop",
+    "content": "<h1>Support a Workshop Page</h1>\n<h2>Why Support Python Weekend?</h2>\n<h3>Our Mission</h3>\n<p>Python Weekend helps complete beginners learn Python and take their first practical step into artificial intelligence through free, mentor supported workshops.</p>\n<p>We support local volunteer teams with a shared programme framework, organiser guidance, learning resources and central coordination. Partners make it possible for these teams to provide the spaces, tools and participant support required for a strong learning experience.</p>\n<p>Our goal is to make Python and AI education more accessible, especially for people who have had limited opportunities to enter technology.</p>\n<p>We are committed to being transparent about the workshops and activities supported by our partners. Verified outcomes should be published in periodic impact reports.</p>\n<h2>Start Supporting Python Weekend Today</h2>\n<h3>Sponsor a Local Workshop</h3>\n<p>Support a specific Python Weekend edition by contacting its local organising team. Local sponsorship may cover venue costs, internet access, participant meals, learning materials, transport support, photography or equipment.</p>\n<a href=\"/events/\" class=\"btn\">View upcoming events</a>\n<h3>Become a Programme Partner</h3>\n<p>Companies and institutions can support several Python Weekend editions or contribute to resources used across the community.</p>\n<p>Programme partnerships may support curriculum development, organiser training, mentor preparation, website infrastructure, accessibility or the expansion of Python Weekend into new cities.</p>\n<a href=\"/contact/\" class=\"btn\">Discuss a partnership</a>\n<h3>Provide In Kind Support</h3>\n<p>Partners may provide:</p>\n<ul>\n<li>Learning venues</li>\n<li>Laptops and devices</li>\n<li>Internet connectivity</li>\n<li>Meals and refreshments</li>\n<li>Transport support</li>\n<li>Cloud or software credits</li>\n<li>Printing and learning materials</li>\n<li>Photography and media support</li>\n<li>Mentors and technical volunteers</li>\n</ul>\n<a href=\"/contact/\" class=\"btn\">Contact us</a>\n<h2>They Already Support Us!</h2>\n<p>(Display approved partner logos under the partner categories used on the homepage.)</p>\n<h2>Current Work That Will Benefit From Your Support</h2>\n<h3>Free Local Workshops</h3>\n<p>Help local volunteer teams deliver well organised, beginner friendly Python and AI workshops without charging participants.</p>\n<h3>Python and AI Tutorial</h3>\n<p>Support the development and maintenance of a clear, practical tutorial that participants can use during workshops and continue using afterwards.</p>\n<h3>Organiser and Mentor Resources</h3>\n<p>Help us equip local organisers and mentors with guidance that protects programme quality and creates a supportive experience for beginners.</p>\n<h3>Access and Participation</h3>\n<p>Support participants who may need access to devices, internet, transport, meals or other practical assistance to attend and complete a workshop.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 2,
+  "fields": {
+    "url": "/partners/",
+    "title": "Our Partners",
+    "content": "<h1>Our Partners</h1>\n<p>Our partners are organisations that support Python Weekend through programme sponsorship, local event sponsorship or approved in kind contributions.</p>\n<p>They help us create free learning opportunities, strengthen our resources and support volunteer teams bringing beginner Python and AI workshops to their communities.</p>\n<p>Would your organisation like to join them?</p>\n<a href=\"/contact/\" class=\"btn\">Contact us about partnership</a>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 3,
+  "fields": {
+    "url": "/organise/",
+    "title": "Organise a Python Weekend Workshop",
+    "content": "<h1>Organise a Python Weekend Workshop</h1>\n<p>Python Weekend events are organised by groups of committed volunteers in local communities.</p>\n<p>Official workshops are designed for complete beginners and are provided free to selected participants. Attendees do not need previous programming experience. They need access to a laptop, basic computer skills, curiosity and a willingness to learn.</p>\n<p>Local teams receive a shared programme framework and organiser guidance. Every workshop must follow the Python Weekend brand standards, learning objectives and Code of Conduct.</p>\n<h2>In Person Workshops</h2>\n<p>An in person workshop brings participants, mentors and organisers together in one physical location.</p>\n<p>Participants can work in small groups, receive face to face support and build relationships with other learners in their city. Organisers are responsible for choosing a safe, accessible venue and planning for internet, electricity, participant welfare and equipment needs.</p>\n<h2>Remote Workshops</h2>\n<p>A remote workshop is delivered online, with participants, mentors and organisers joining from different locations.</p>\n<p>This format may be suitable when travel, venue, safety, cost or geography makes an in person workshop difficult. Remote organisers must plan carefully for communication, technical support, internet limitations and participant engagement.</p>\n<h2>The Value of Organising Python Weekend</h2>\n<ul>\n<li>Join a supportive community of organisers, mentors and technology educators</li>\n<li>Give complete beginners a practical entry into Python and AI</li>\n<li>Strengthen the technology community in your city</li>\n<li>Create opportunities for women and other underserved groups to participate</li>\n<li>Develop leadership, programme management and community building experience</li>\n<li>Help participants move from curiosity to their first working project</li>\n</ul>\n<a href=\"/contact/\" class=\"btn\">Apply to organise a workshop &raquo;</a>\n<h2>Resources for Organisers</h2>\n<ul>\n<li>Python Weekend Organiser's Manual</li>\n<li>Python Weekend Mentoring Guide</li>\n<li>Media and brand resources</li>\n<li>Python and AI Workshop Tutorial</li>\n<li>Local sponsorship guidance</li>\n<li>Organiser community channel</li>\n</ul>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 4,
+  "fields": {
+    "url": "/contribute/",
+    "title": "Contribute",
+    "content": "<h1>Contribute</h1>\n<p>There are many ways to contribute to Python Weekend. You can organise an event, mentor beginners, improve the tutorial, support the website, translate resources or help a local workshop succeed.</p>\n<p>If you would rather provide financial or in kind support, you can sponsor a local event or contact the central team about a wider partnership.</p>\n<h2>Support Us!</h2>\n<p>Python Weekend workshops depend on partners who help local teams provide a strong learning experience at no cost to participants.</p>\n<p>Individuals and organisations can support a specific event by contacting its local organising team. Wider programme partnerships should be discussed with the central Python Weekend team.</p>\n<a href=\"/support-us/\">Support a workshop &raquo;</a>\n<h2>Organise!</h2>\n<p>Each Python Weekend event is a practical beginner workshop focused on Python foundations and an introduction to building with AI.</p>\n<p>Local organisers build a volunteer team, secure a suitable venue or remote platform, recruit mentors, select participants, manage event communication and deliver the programme using official resources.</p>\n<p>Ready to begin? Read the Organiser's Manual and apply to bring Python Weekend to your city.</p>\n<a href=\"/organise/\">Organise a workshop &raquo;</a>\n<h2>Mentor!</h2>\n<p>Have you seen a Python Weekend event happening in your city and want to help? Contact the local organising team and ask whether they need mentors.</p>\n<p>Mentors guide a small group of beginners through the workshop tutorial, help participants understand errors and encourage them to solve problems independently.</p>\n<p>You do not need to know everything. You need a sound understanding of the workshop material, patience, empathy and a willingness to guide without taking over.</p>\n<a href=\"/resources/\">Read the Mentoring Guide &raquo;</a>\n<h2>Work on the Website!</h2>\n<p>There is always something that can make the Python Weekend website clearer, faster and more useful.</p>\n<p>Contributors may report or fix bugs, correct typographical errors, improve accessibility, update documentation or help develop approved features.</p>\n<a href=\"https://github.com/SKY-MORALES7/PYTHON-WEEKEND\" target=\"_blank\">View the website repository &raquo;</a>\n<h2>Want to Do More?</h2>\n<p>If you have an idea that is not listed here, contact us and explain what you would like to contribute.</p>\n<a href=\"/contact/\">Contact the Python Weekend team &raquo;</a>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 5,
+  "fields": {
+    "url": "/resources/",
+    "title": "Resources",
+    "content": "<h1>Resources</h1>\n<p>Python Weekend resources are designed to help complete beginners learn during a workshop and continue practising afterwards.</p>\n<p>The official tutorial, organiser resources and mentoring guidance should be made publicly available when they are ready. Each resource must display its current version, ownership and licence clearly.</p>\n\n<h2>Python and AI Tutorial</h2>\n<p>The tutorial used during Python Weekend workshops.</p>\n<p>It introduces the learning environment, Python foundations, problem solving, working with simple data and a guided beginner AI project. It should be written in plain language and designed for someone learning to program for the first time.</p>\n<a href=\"/content/tutorials/\">Read it &raquo;</a>\n\n<h2>Organiser's Manual</h2>\n<p>A practical handbook containing what local teams need to plan and deliver an official Python Weekend workshop.</p>\n<p>It should cover team formation, approval, budgeting, sponsorship, venue selection, participant applications, mentor recruitment, communication, safety, event delivery and post event reporting.</p>\n\n<h2>Mentoring Guide</h2>\n<p>Good mentoring is central to the Python Weekend experience.</p>\n<p>This guide should explain how to support beginners, ask useful questions, respond to errors, work with different learning speeds and create a respectful environment without writing participants' projects for them.</p>\n\n<h2>Tutorial Extensions</h2>\n<p>Additional exercises and projects for participants who complete the main tutorial or want to continue learning after the workshop.</p>\n<p>Extensions may cover automation, data analysis, web applications, AI APIs and responsible AI practice. The main workshop tutorial should remain achievable within one weekend.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 6,
+  "fields": {
+    "url": "/newsletter/",
+    "title": "Newsletter",
+    "content": "# Python Weekend Dispatch\n\nWe send a regular newsletter to participants, volunteers, partners and people who are curious about what the Python Weekend community is building.\n\n## Subscribe\n\nReceive upcoming event announcements, application openings, learner stories, community news and opportunities to organise, mentor or contribute.\n\nWe will not sell or share your email address for advertising. You can unsubscribe at any time.\n\n**Field:** Email address  \n**Button:** Subscribe\n\n## Past Editions\n\nDisplay the newsletter archive in reverse chronological order.\n\n---",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 7,
+  "fields": {
+    "url": "/faq/",
+    "title": "FAQ: Frequently Asked Questions",
+    "content": "<h1>FAQ: Frequently Asked Questions</h1>\n<p>Everything you need to know about Python Weekend workshops. If your question is not answered here, please contact us.</p>\n\n<h2>Python Weekend Workshops</h2>\n<h3>Q: How can I register?</h3>\n<p>A: Find the workshop happening in your city and open its event page. If applications are open, you will see an application link. If no application link is displayed, registration has not opened or has already closed.</p>\n<h3>Q: I missed the deadline. Can I still apply?</h3>\n<p>A: Usually not. Local teams need time to review applications, confirm participants and prepare the workshop. You can subscribe to the newsletter to hear about future events.</p>\n<h3>Q: I want to mentor or sponsor an event. What should I do?</h3>\n<p>A: Contact the local organising team through the event page. They will tell you what support is needed.</p>\n<h3>Q: I am following the tutorial and my code is not working. Can the central team debug it for me?</h3>\n<p>A: The central team primarily supports local organisers and maintains programme resources. Use the official community support channel when available, or ask for help through the relevant workshop community.</p>\n\n<h2>Python Weekend in General</h2>\n<h3>Q: Who is Python Weekend for?</h3>\n<p>A: Python Weekend is for complete beginners who want to learn Python and understand how it can be used in artificial intelligence. Students, professionals, founders, creatives, job seekers and people changing careers are welcome to apply.</p>\n<h3>Q: Is Python Weekend only for women?</h3>\n<p>A: No. Python Weekend welcomes people of all genders. We intentionally encourage women and people from communities with limited access to technology education because a more inclusive learning environment strengthens the technology community.</p>\n<h3>Q: Is Python Weekend inclusive of transgender and nonbinary people?</h3>\n<p>A: Yes. Python Weekend welcomes people of every gender identity. All participants, mentors, organisers and partners must follow the Code of Conduct.</p>\n<h3>Q: Is there an age limit?</h3>\n<p>A: Eligibility may vary by local event. Check the relevant event page before applying. Where minors are accepted, the local team must state any consent or safeguarding requirements.</p>\n<h3>Q: Is Python Weekend free?</h3>\n<p>A: Official Python Weekend workshops are free to selected participants. Local teams may secure sponsors and partners to cover the cost of delivering the event.</p>\n<h3>Q: Do I need previous programming experience?</h3>\n<p>A: No. The workshop is designed for people who are learning to program for the first time.</p>\n<h3>Q: Will I become a Python or AI expert in one weekend?</h3>\n<p>A: No. Python Weekend provides a practical beginning. You will learn essential concepts, complete a guided project and leave with a clearer path for continued learning.</p>\n<h3>Q: Can I organise Python Weekend in my city?</h3>\n<p>A: Yes. Read the Organiser's Manual and submit an application to organise a workshop. Approval is required before using the Python Weekend name and brand for an event.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 8,
+  "fields": {
+    "url": "/about/",
+    "title": "About Python Weekend",
+    "content": "<h1>About Python Weekend</h1>\n<p>Python Weekend is an initiative of Code Campus International created to make Python and artificial intelligence more approachable for complete beginners.</p>\n<p>Our goal is to advance practical technology education by supporting free beginner workshops, developing accessible learning materials and helping volunteer teams create welcoming first experiences with programming.</p>\n<p>Python Weekend does this by:</p>\n<ul>\n<li>Supporting free, practical Python and AI workshops</li>\n<li>Creating beginner learning resources</li>\n<li>Equipping local organisers and mentors</li>\n<li>Encouraging women and underserved groups to participate in technology</li>\n<li>Highlighting relatable Python and AI role models</li>\n<li>Helping participants identify clear next steps after the workshop</li>\n</ul>\n<p>Python Weekend was shaped by Mayokun Adeoti's experience organising and coaching beginner tech events in Abuja. It applies the lessons of patient mentorship, accessible learning and community led delivery to a broader beginner programme focused on Python and AI.</p>\n<p>Python Weekend is independently operated by Code Campus International.</p>\n<h2>Initiative Details</h2>\n<p><strong>Official name:</strong> Python Weekend<br>\n<strong>Parent organisation:</strong> Code Campus International<br>\n<strong>Website:</strong> pythonweekend.org<br>\n<strong>Email:</strong> hello@pythonweekend.org<br>\n<strong>Programme office:</strong> Suite 207, DBM Plaza, Aminu Kano Crescent, Wuse 2, Abuja, Nigeria</p>\n<h2>Who Owns Python Weekend?</h2>\n<p>Python Weekend is an initiative and brand of Code Campus International. Its community includes the local organisers, mentors, contributors, participants and partners who help deliver its mission.</p>\n<p>Approval from Code Campus International is required before using the Python Weekend name or brand to organise an official event.</p>\n<h2>How Can I Support Python Weekend?</h2>\n<p>You can support a local workshop, provide approved in kind assistance or discuss a wider programme partnership with the central team.</p>\n<p><a href=\"/support-us/\">Support a workshop</a> &bull; <a href=\"/content/events/\">View events</a> &bull; <a href=\"/contact/\">Contact us</a></p>\n<h2>More Information</h2>\n<p>If you would like to learn more about Python Weekend or discuss a partnership, contact us at <strong>hello@pythonweekend.org</strong>.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 9,
+  "fields": {
+    "url": "/code-of-conduct/",
+    "title": "Code of Conduct",
+    "content": "<h1>Code of Conduct</h1>\n<p>Python Weekend should be a welcoming place where people learn, ask questions and meet others in a friendly environment.</p>\n<p>All attendees, mentors, speakers, organisers, volunteers, partners, exhibitors and visitors are required to treat one another with respect and follow this Code of Conduct before, during and after every Python Weekend activity.</p>\n<h2>In Short</h2>\n<ul>\n<li>Python Weekend is committed to a harassment free experience for everyone, regardless of gender, gender identity, sexual orientation, disability, physical appearance, body size, age, ethnicity, race, religion, nationality, level of experience or background.</li>\n<li>Harassment, discrimination, intimidation and unwanted sexual attention are not tolerated.</li>\n<li>Sexualised language or imagery is not appropriate in workshop content, communication channels or event spaces.</li>\n<li>Be kind. Do not insult, shame or deliberately exclude other people.</li>\n<li>Ask for consent before photographing, recording or publishing information about another person.</li>\n<li>Respect privacy, personal boundaries and different learning speeds.</li>\n<li>Participants who violate these rules may be warned, removed from an event or excluded from future Python Weekend activities.</li>\n</ul>\n<h2>Longer Version</h2>\n<p>Harassment includes offensive comments, discriminatory jokes, deliberate intimidation, stalking, unwanted following, harassing photography or recording, repeated disruption, inappropriate physical contact, threats and unwelcome sexual attention.</p>\n<p>It also includes conduct that targets a person because of gender, gender identity, sexual orientation, disability, physical appearance, body size, age, ethnicity, race, religion, nationality, technical ability or another personal characteristic.</p>\n<p>Anyone asked to stop inappropriate behaviour must comply immediately.</p>\n<p>Choose your words carefully. Sexist, racist, ableist or otherwise exclusionary comments and jokes can harm people and are not acceptable at Python Weekend.</p>\n<p>If someone engages in harmful or disruptive behaviour, organisers may take any action they consider necessary to protect the community. This may include a private warning, removal from the workshop, exclusion from online channels or restriction from future events.</p>\n<p>These expectations apply at event venues, online sessions, community channels, social activities connected to the workshop and all official Python Weekend communication.</p>\n<h2>Reporting a Concern</h2>\n<p>If you experience or witness harassment, or have another safety concern, contact a mentor or organiser immediately.</p>\n<p>If your concern involves the local organising team, send the details privately to <strong>hello@pythonweekend.org</strong>.</p>\n<p>Reports should be handled promptly, discreetly and with respect for the people involved. The organising team may help an affected person contact venue security, emergency services, local authorities or another appropriate source of assistance where necessary.</p>\n<p>We value your presence and want you to feel safe while participating in Python Weekend.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 10,
+  "fields": {
+    "url": "/jobs/",
+    "title": "Job Board",
+    "content": "<h1>Job Board</h1>\n<h3>Sorry, there are no job openings at the moment.</h3>\n<p>When approved Python, AI or entry level technology opportunities are available, they may be displayed on this page.</p>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 11,
+  "fields": {
+    "url": "/terms/",
+    "title": "Terms and Conditions",
+    "content": "<h1>Terms and Conditions</h1>\n<p>The final terms should address:</p>\n<ul>\n<li>Ownership and operation of pythonweekend.org</li>\n<li>Acceptance of the website terms</li>\n<li>Event applications and participant selection</li>\n<li>Accuracy of event information</li>\n<li>Use of Python Weekend learning materials</li>\n<li>Acceptable use of the website and community features</li>\n<li>Use of the Python Weekend name, logo and brand</li>\n<li>Submitted content, photographs and consent</li>\n<li>External websites and third party services</li>\n<li>Availability of the website and programme</li>\n<li>Disclaimer and limitation provisions appropriate to Nigerian law</li>\n<li>Changes to the terms</li>\n<li>Contact information</li>\n</ul>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "flatpages.flatpage",
+  "pk": 12,
+  "fields": {
+    "url": "/privacy/",
+    "title": "Privacy and Cookies Policy",
+    "content": "<h1>Privacy and Cookies Policy</h1>\n<p>The final policy should explain:</p>\n<ul>\n<li>What personal information is collected</li>\n<li>Information collected through participant, mentor and organiser applications</li>\n<li>Newsletter subscription data</li>\n<li>Contact form data</li>\n<li>Event photographs and consent</li>\n<li>Cookies, analytics and embedded media</li>\n<li>Why the information is used</li>\n<li>Who can access it, including approved local organisers and service providers</li>\n<li>How long different records are retained</li>\n<li>Data security measures</li>\n<li>Participant rights and how to make a request</li>\n<li>Children's or minors' data, if any edition accepts minors</li>\n<li>International data transfers, if applicable</li>\n<li>Policy changes</li>\n<li>Contact information for privacy questions</li>\n</ul>",
+    "enable_comments": false,
+    "template_name": "",
+    "registration_required": false,
+    "sites": [
+      1
+    ]
+  }
+},
+{
+  "model": "sites.site",
+  "pk": 1,
+  "fields": {
+    "domain": "pythonweekend.com",
+    "name": "Python Weekend"
+  }
+},
+{
+  "model": "coach.coach",
+  "pk": 1,
+  "fields": {
+    "name": "Samuel Yandev",
+    "role": "Python instructor",
+    "bio": "Learnt and Worked with code campus Nigeria, 2+ years experience",
+    "photo": "coaches/WIN_20260312_13_52_59_Pro.jpg",
+    "github": "https://github.com/SKY-MORALES7/",
+    "linkedIn": "https://linkedin.com",
+    "active": true,
+    "created_at": "2026-06-09T16:22:12.499Z"
+  }
+},
+{
+  "model": "sponsors.sponsor",
+  "pk": 1,
+  "fields": {
+    "name": "Code Campus",
+    "logo": "sponsors/spiderpunk.jpg",
+    "website": "https://codecampus.com.ng/",
+    "tagline": "Encouraging future coders",
+    "tier": "community",
+    "category": "community_supporter",
+    "active": true
+  }
+},
+{
+  "model": "sponsors.sponsor",
+  "pk": 2,
+  "fields": {
+    "name": "Mandela ltd",
+    "logo": "sponsors/sebastian-svenson-LpbyDENbQQg-unsplash.jpg",
+    "website": "",
+    "tagline": "Helping To Improve the world of programming",
+    "tier": "community",
+    "category": "community_supporter",
+    "active": true
+  }
+}
+]
