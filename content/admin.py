@@ -374,7 +374,7 @@ class FooterConfigAdmin(admin.ModelAdmin):
             "description": (
                 "The copyright text appears as a single line at the bottom of every page. "
                 "Use {year} as a dynamic year placeholder. "
-                "In the template's static fallback, \"Code Campus\" is automatically rendered as a link to codecampus.com.ng."
+                "In the template's static fallback, \"Code Campus International\" is automatically rendered as a link to codecampus.com.ng."
             ),
         }),
         ("Social Media Links", {

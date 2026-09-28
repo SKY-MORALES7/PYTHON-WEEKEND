@@ -558,7 +558,7 @@ class FooterConfig(models.Model):
         help_text=(
             "Copyright line shown at the bottom of every page. "
             "Use {year} as a placeholder and it will be replaced with the current year. "
-            "The static fallback in the template renders \"Code Campus\" as a clickable link automatically."
+            "The static fallback in the template renders \"Code Campus International\" as a clickable link automatically."
         ),
     )
     facebook_url  = models.URLField(blank=True, default="https://facebook.com",  help_text="Facebook page URL.")

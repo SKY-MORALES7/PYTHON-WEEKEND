@@ -342,7 +342,8 @@ PAGE_CONTENT_SEED = [
         "Footer — Copyright Text",
         (
             "Copyright line shown at the very bottom of every page. "
-            "Use {year} as a placeholder for the current year."
+            "Use {year} as a placeholder for the current year. "
+            "(Note: The words 'Code Campus International' will automatically be turned into a link using the Footer — Code Campus URL setting.)"
         ),
         "text",
         "© {year} Python Weekend · An initiative of Code Campus International.",

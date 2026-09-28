@@ -6,7 +6,7 @@ def update_help_text(apps, schema_editor):
         content = PageContent.objects.get(key='footer_copyright')
         content.admin_help_text = (
             "Copyright line shown at the very bottom of every page. Use {year} as a placeholder "
-            "for the current year. (Note: The words 'Code Campus' will automatically be turned into a link "
+            "for the current year. (Note: The words 'Code Campus International' will automatically be turned into a link "
             "using the Footer — Code Campus URL setting.)"
         )
         content.save()
