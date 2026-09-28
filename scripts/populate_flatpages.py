@@ -170,35 +170,35 @@ def run():
             "/faq/",
             "FAQ: Frequently Asked Questions",
             """<h1>FAQ: Frequently Asked Questions</h1>
-<p>Python Weekend workshops are organised in different cities, and many people ask similar questions. If your question is not answered here, please contact us.</p>
+<p>Everything you need to know about Python Weekend workshops. If your question is not answered here, please contact us.</p>
 
 <h2>Python Weekend Workshops</h2>
-<h3>How can I register?</h3>
-<p>Find the workshop happening in your city and open its event page. If applications are open, you will see an application link. If no application link is displayed, registration has not opened or has already closed.</p>
-<h3>I missed the deadline. Can I still apply?</h3>
-<p>Usually not. Local teams need time to review applications, confirm participants and prepare the workshop. You can subscribe to the newsletter to hear about future events.</p>
-<h3>I want to mentor or sponsor an event. What should I do?</h3>
-<p>Contact the local organising team through the event page. They will tell you what support is needed.</p>
-<h3>I am following the tutorial and my code is not working. Can the central team debug it for me?</h3>
-<p>The central team primarily supports local organisers and maintains programme resources. Use the official community support channel when available, or ask for help through the relevant workshop community.</p>
+<h3>Q: How can I register?</h3>
+<p>A: Find the workshop happening in your city and open its event page. If applications are open, you will see an application link. If no application link is displayed, registration has not opened or has already closed.</p>
+<h3>Q: I missed the deadline. Can I still apply?</h3>
+<p>A: Usually not. Local teams need time to review applications, confirm participants and prepare the workshop. You can subscribe to the newsletter to hear about future events.</p>
+<h3>Q: I want to mentor or sponsor an event. What should I do?</h3>
+<p>A: Contact the local organising team through the event page. They will tell you what support is needed.</p>
+<h3>Q: I am following the tutorial and my code is not working. Can the central team debug it for me?</h3>
+<p>A: The central team primarily supports local organisers and maintains programme resources. Use the official community support channel when available, or ask for help through the relevant workshop community.</p>
 
 <h2>Python Weekend in General</h2>
-<h3>Who is Python Weekend for?</h3>
-<p>Python Weekend is for complete beginners who want to learn Python and understand how it can be used in artificial intelligence. Students, professionals, founders, creatives, job seekers and people changing careers are welcome to apply.</p>
-<h3>Is Python Weekend only for women?</h3>
-<p>No. Python Weekend welcomes people of all genders. We intentionally encourage women and people from communities with limited access to technology education because a more inclusive learning environment strengthens the technology community.</p>
-<h3>Is Python Weekend inclusive of transgender and nonbinary people?</h3>
-<p>Yes. Python Weekend welcomes people of every gender identity. All participants, mentors, organisers and partners must follow the Code of Conduct.</p>
-<h3>Is there an age limit?</h3>
-<p>Eligibility may vary by local event. Check the relevant event page before applying. Where minors are accepted, the local team must state any consent or safeguarding requirements.</p>
-<h3>Is Python Weekend free?</h3>
-<p>Official Python Weekend workshops are free to selected participants. Local teams may secure sponsors and partners to cover the cost of delivering the event.</p>
-<h3>Do I need previous programming experience?</h3>
-<p>No. The workshop is designed for people who are learning to program for the first time.</p>
-<h3>Will I become a Python or AI expert in one weekend?</h3>
-<p>No. Python Weekend provides a practical beginning. You will learn essential concepts, complete a guided project and leave with a clearer path for continued learning.</p>
-<h3>Can I organise Python Weekend in my city?</h3>
-<p>Yes. Read the Organiser's Manual and submit an application to organise a workshop. Approval is required before using the Python Weekend name and brand for an event.</p>"""
+<h3>Q: Who is Python Weekend for?</h3>
+<p>A: Python Weekend is for complete beginners who want to learn Python and understand how it can be used in artificial intelligence. Students, professionals, founders, creatives, job seekers and people changing careers are welcome to apply.</p>
+<h3>Q: Is Python Weekend only for women?</h3>
+<p>A: No. Python Weekend welcomes people of all genders. We intentionally encourage women and people from communities with limited access to technology education because a more inclusive learning environment strengthens the technology community.</p>
+<h3>Q: Is Python Weekend inclusive of transgender and nonbinary people?</h3>
+<p>A: Yes. Python Weekend welcomes people of every gender identity. All participants, mentors, organisers and partners must follow the Code of Conduct.</p>
+<h3>Q: Is there an age limit?</h3>
+<p>A: Eligibility may vary by local event. Check the relevant event page before applying. Where minors are accepted, the local team must state any consent or safeguarding requirements.</p>
+<h3>Q: Is Python Weekend free?</h3>
+<p>A: Official Python Weekend workshops are free to selected participants. Local teams may secure sponsors and partners to cover the cost of delivering the event.</p>
+<h3>Q: Do I need previous programming experience?</h3>
+<p>A: No. The workshop is designed for people who are learning to program for the first time.</p>
+<h3>Q: Will I become a Python or AI expert in one weekend?</h3>
+<p>A: No. Python Weekend provides a practical beginning. You will learn essential concepts, complete a guided project and leave with a clearer path for continued learning.</p>
+<h3>Q: Can I organise Python Weekend in my city?</h3>
+<p>A: Yes. Read the Organiser's Manual and submit an application to organise a workshop. Approval is required before using the Python Weekend name and brand for an event.</p>"""
         ),
         (
             "/about/",
@@ -215,8 +215,8 @@ def run():
 <li>Highlighting relatable Python and AI role models</li>
 <li>Helping participants identify clear next steps after the workshop</li>
 </ul>
-<p>Python Weekend was shaped by Mayokun Adeoti's experience organising and coaching at seven editions of Django Girls Abuja. It applies the lessons of patient mentorship, accessible learning and community led delivery to a broader beginner programme focused on Python and AI.</p>
-<p>Python Weekend is independently operated by Code Campus International. It is not a Django Girls event and should not be presented as an official programme of Django Girls or the Django Software Foundation.</p>
+<p>Python Weekend was shaped by Mayokun Adeoti's experience organising and coaching beginner tech events in Abuja. It applies the lessons of patient mentorship, accessible learning and community led delivery to a broader beginner programme focused on Python and AI.</p>
+<p>Python Weekend is independently operated by Code Campus International.</p>
 <h2>Initiative Details</h2>
 <p><strong>Official name:</strong> Python Weekend<br>
 <strong>Parent organisation:</strong> Code Campus International<br>
