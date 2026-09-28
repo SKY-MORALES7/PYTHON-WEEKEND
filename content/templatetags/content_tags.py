@@ -33,15 +33,22 @@ register = template.Library()
 @register.filter
 def linkify_codecampus(value, custom_url=None):
     """
-    Replace the plain text 'Code Campus' in a copyright string with a
-    clickable link to the official site. The URL can be passed dynamically.
+    Replace the plain text 'Code Campus International' or 'Code Campus' in a copyright string
+    with a clickable link to the official site. The URL can be passed dynamically.
     Output is marked safe so the anchor tag renders correctly.
     """
     safe_value = escape(value)
     url = custom_url if custom_url else "https://codecampus.com.ng/"
+    link_intl = (
+        f'<a href="{escape(url)}" target="_blank" rel="noopener" '
+        'class="text-white hover:text-shield-ice transition-colors font-bold">Code Campus International</a>'
+    )
+    if "Code Campus International" in safe_value:
+        return mark_safe(safe_value.replace("Code Campus International", link_intl))
+
     link = (
         f'<a href="{escape(url)}" target="_blank" rel="noopener" '
-        'class="hover:text-shield-ice transition-colors">Code Campus</a>'
+        'class="text-white hover:text-shield-ice transition-colors font-bold">Code Campus</a>'
     )
     return mark_safe(safe_value.replace("Code Campus", link))
 

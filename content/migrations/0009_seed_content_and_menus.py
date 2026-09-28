@@ -31,7 +31,7 @@ PAGE_CONTENT_SEED = [
         "One or two sentences below the hero headline. Briefly describes what Python Weekend does.",
         "richtext",
         (
-            "Python Weekend organises free Python & Django workshops, creates open-source "
+            "Python Weekend organises free Python workshops, creates open-source "
             "online tutorials and curates amazing first experiences with technology."
         ),
     ),
@@ -58,7 +58,7 @@ PAGE_CONTENT_SEED = [
             "amazing people into the world of technology. We are making technology more "
             "approachable by creating resources designed with empathy.\n\n"
             "During each of our events, participants build their first web application using "
-            "HTML, CSS, Python and Django — in just one weekend."
+            "HTML, CSS, and Python — in just one weekend."
         ),
     ),
     (
@@ -101,7 +101,7 @@ PAGE_CONTENT_SEED = [
         "Coaches Spotlight — Intro",
         "One sentence shown above the coach cards, introducing the spotlight.",
         "text",
-        "Each week we try to introduce one amazing coach who uses Python or Django and highlight their work:",
+        "Each week we try to introduce one amazing coach who uses Python and highlight their work:",
     ),
     (
         "home", "home_blog_heading",
