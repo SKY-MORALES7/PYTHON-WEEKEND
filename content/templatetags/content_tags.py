@@ -41,14 +41,14 @@ def linkify_codecampus(value, custom_url=None):
     url = custom_url if custom_url else "https://codecampus.com.ng/"
     link_intl = (
         f'<a href="{escape(url)}" target="_blank" rel="noopener" '
-        'class="text-white hover:text-shield-ice transition-colors font-bold">Code Campus International</a>'
+        'class="text-sky-400 hover:text-shield-ice transition-colors font-bold">Code Campus International</a>'
     )
     if "Code Campus International" in safe_value:
         return mark_safe(safe_value.replace("Code Campus International", link_intl))
 
     link = (
         f'<a href="{escape(url)}" target="_blank" rel="noopener" '
-        'class="text-white hover:text-shield-ice transition-colors font-bold">Code Campus</a>'
+        'class="text-sky-400 hover:text-shield-ice transition-colors font-bold">Code Campus</a>'
     )
     return mark_safe(safe_value.replace("Code Campus", link))
 
