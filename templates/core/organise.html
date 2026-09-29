@@ -1,11 +1,8 @@
 {% extends "base.html" %}
 {% load static content_tags %}
-{% block title %}{{ flatpage.title|default:"Organise a Workshop" }} — Python Weekend{% endblock %}
+{% block title %}Organise a Workshop — Python Weekend{% endblock %}
 
 {% block content %}
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "organise_hero_heading" as organise_hero_heading %}
 {% get_content "organise_hero_intro" as organise_hero_intro %}
 
@@ -100,5 +97,4 @@
     </div>
   </div>
 </section>
-{% endif %}
 {% endblock %}

@@ -335,8 +335,7 @@ class OrganiseView(View):
     template_name = "core/organise.html"
 
     def get(self, request):
-        flatpage = FlatPage.objects.filter(url__in=["/organise/", "/organize/"]).first()
-        context = {"flatpage": flatpage}
+        context = {}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 
