@@ -996,5 +996,12 @@ def run():
     for url, title, content in pages:
         create_or_update_flatpage(url, title, content)
 
+    # Clean up obsolete flatpages from DB
+    valid_urls = {url for url, title, content in pages}
+    deleted_count, _ = FlatPage.objects.exclude(url__in=valid_urls).delete()
+    if deleted_count:
+        print(f"Cleaned up {deleted_count} obsolete FlatPages from database.")
+
 if __name__ == "__main__":
     run()
+

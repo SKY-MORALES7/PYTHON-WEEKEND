@@ -17,4 +17,6 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 python manage.py restore_db
 python scripts/update_resource_menus.py
+python scripts/populate_flatpages.py
+
 
