@@ -248,6 +248,28 @@ class ContactView(View):
             messages.success(request, "Thanks! We'll be in touch soon.")
             return redirect("core:contact")
 
+        # 3. Spam content & duplicate detection filter
+        email = request.POST.get("email", "").strip().lower()
+        message_text = request.POST.get("message", "").lower()
+        name = request.POST.get("name", "").lower()
+
+        spam_keywords = ["search-pythonweekend", "seo rank", "increase traffic", "backlink", "casino", "viagra", "crypto", "marketing agency"]
+        is_spam = any(kw in email or kw in message_text or kw in name for kw in spam_keywords)
+
+        if not is_spam and email:
+            from .models import ContactMessage
+            # Check for identical duplicate message from same email
+            duplicate_exists = ContactMessage.objects.filter(
+                email__iexact=email,
+                name__iexact=name
+            ).exists()
+            if duplicate_exists and ("williamphali" in name or "fausto" in name):
+                is_spam = True
+
+        if is_spam:
+            messages.success(request, "Thanks! We'll be in touch soon.")
+            return redirect("core:contact")
+
         form = ContactForm(request.POST)
         if form.is_valid():
             # Save the submission object 
@@ -261,6 +283,7 @@ class ContactView(View):
             
         messages.error(request, "There were errors with your submission. Please correct the fields below.")
         return render(request, self.template_name, {"form": form})
+
 
 
 def handler404(request, exception):
