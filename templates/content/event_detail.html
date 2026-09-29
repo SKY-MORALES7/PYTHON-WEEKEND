@@ -151,6 +151,14 @@
     </section>
     {% endif %}
 
+    <!-- ── CUSTOM HTML BLOCK ── -->
+    {% if event.custom_html %}
+    <section id="custom-content" class="pt-4 sm:pt-6">
+      {{ event.custom_html|safe }}
+    </section>
+    {% endif %}
+
+
     <!-- ── SCHEDULE ── -->
     {% if event.day1_schedule or event.day2_schedule or event.day3_schedule %}
     <section id="schedule" class="pt-4 sm:pt-6">

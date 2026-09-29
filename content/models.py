@@ -278,7 +278,10 @@ class Event(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     # ── Customization ────────────────────────────────────
-    custom_html = models.TextField(blank=True, help_text="Custom HTML block (Tailwind CSS classes supported) to include on the event page. You do not need a separate CSS field.")
+    custom_html = models.TextField(
+        blank=True,
+        help_text="Custom HTML block to include on the event page (supports inline CSS & Tailwind classes). Renders alongside normal event description without overriding it."
+    )
     sponsors_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Sponsors' section title")
     schedule_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Schedule' section title")
 
