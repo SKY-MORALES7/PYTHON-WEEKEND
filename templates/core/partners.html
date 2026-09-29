@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Our Partners — Python Weekend{% endblock %}
+{% block title %}{{ flatpage.title|default:"Our Partners" }} — Python Weekend{% endblock %}
 
 {% block content %}
 
+{% if flatpage and flatpage.content %}
+  {{ flatpage.content|safe }}
+{% else %}
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO
      ═══════════════════════════════════════════════════════ -->
@@ -34,6 +37,7 @@
     </div>
   </div>
 </section>
+{% endif %}
 
 
 <!-- ═══════════════════════════════════════════════════════
@@ -164,4 +168,3 @@
 {% endif %}
 
 {% endblock %}
-

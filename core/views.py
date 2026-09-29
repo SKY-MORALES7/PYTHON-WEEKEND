@@ -71,6 +71,7 @@ from django.conf import settings
 from django.db.models import Count, Sum
 
 
+from django.contrib.flatpages.models import FlatPage
 from content.models import BlogPost, Event
 from tutorials.models import Tutorial
 from coach.models import Coach
@@ -213,7 +214,10 @@ class AboutView(View):
     template_name = "core/about.html"
 
     def get(self, request):
-        return render(request, self.template_name)
+        flatpage = FlatPage.objects.filter(url="/about/").first()
+        context = {"flatpage": flatpage}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
 
 
 class ContactView(View):
@@ -301,7 +305,9 @@ class SupportView(View):
     template_name = "core/support.html"
 
     def get(self, request):
+        flatpage = FlatPage.objects.filter(url__in=["/support/", "/support-us/"]).first()
         context = {
+            "flatpage": flatpage,
             "upcoming_events": Event.objects.filter(published=True, start_date__gte=timezone.now()).order_by("start_date")[:6],
             "sponsors": Sponsor.objects.filter(active=True),
         }
@@ -313,8 +319,10 @@ class PartnersView(View):
     template_name = "core/partners.html"
 
     def get(self, request):
+        flatpage = FlatPage.objects.filter(url="/partners/").first()
         all_sponsors = Sponsor.objects.filter(active=True)
         context = {
+            "flatpage":           flatpage,
             "global_partners":    all_sponsors.filter(tier="platinum"),
             "event_partners":     all_sponsors.filter(tier="gold"),
             "community_partners": all_sponsors.filter(tier__in=["silver", "community"]),
@@ -327,7 +335,8 @@ class OrganiseView(View):
     template_name = "core/organise.html"
 
     def get(self, request):
-        context = {}
+        flatpage = FlatPage.objects.filter(url__in=["/organise/", "/organize/"]).first()
+        context = {"flatpage": flatpage}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 
@@ -336,7 +345,8 @@ class ContributeView(View):
     template_name = "core/contribute.html"
 
     def get(self, request):
-        context = {}
+        flatpage = FlatPage.objects.filter(url="/contribute/").first()
+        context = {"flatpage": flatpage}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 
@@ -345,9 +355,11 @@ class ResourcesView(View):
     template_name = "core/resources.html"
 
     def get(self, request):
+        flatpage = FlatPage.objects.filter(url="/resources/").first()
         from tutorials.models import Tutorial
         tutorials = Tutorial.objects.filter(published=True)
         context = {
+            "flatpage": flatpage,
             "workshop_tutorials": tutorials.filter(slug="python-ai-tutorial") if hasattr(Tutorial, 'resource_type') else tutorials[:1],
             "organisers_manual":  tutorials.filter(resource_type="organisers_manual") if hasattr(Tutorial, 'resource_type') else None,
             "mentoring_guide":    tutorials.filter(resource_type="mentoring_guide") if hasattr(Tutorial, 'resource_type') else None,
@@ -437,7 +449,8 @@ class FAQView(View):
     template_name = "core/faq.html"
 
     def get(self, request):
-        context = {}
+        flatpage = FlatPage.objects.filter(url="/faq/").first()
+        context = {"flatpage": flatpage}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 
@@ -446,7 +459,8 @@ class CoCView(View):
     template_name = "core/coc.html"
 
     def get(self, request):
-        context = {}
+        flatpage = FlatPage.objects.filter(url="/code-of-conduct/").first()
+        context = {"flatpage": flatpage}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 
@@ -455,7 +469,8 @@ class JobsView(View):
     template_name = "core/jobs.html"
 
     def get(self, request):
-        context = {}
+        flatpage = FlatPage.objects.filter(url="/jobs/").first()
+        context = {"flatpage": flatpage}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 

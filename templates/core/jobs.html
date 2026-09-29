@@ -1,28 +1,32 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}Job Board — Python Weekend{% endblock %}
+{% load static content_tags %}
+{% block title %}{{ flatpage.title|default:"Job Board" }} — Python Weekend{% endblock %}
 
 {% block content %}
-
+{% if flatpage and flatpage.content %}
+  {{ flatpage.content|safe }}
+{% else %}
+<!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
   <div style="max-width:720px;margin:0 auto;">
     <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">Job Board</h1>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto;">
+      Opportunities for Python, AI, and entry-level technology roles.
+    </p>
   </div>
 </section>
 
-<section class="section-dg">
-  <div class="container-dg" style="text-align:center;max-width:640px;">
-    <p style="font-size:1rem;color:var(--py-navy);line-height:1.625;font-weight:500;margin-bottom:1rem;">
-      Sorry, there are no job openings at the moment.
-    </p>
-    <p style="color:var(--py-navy);font-size:1rem;line-height:1.625;font-weight:500;">
-      When approved Python, AI or entry-level technology opportunities are available, they will be displayed on this page. Subscribe to the newsletter to be notified of future opportunities.
-    </p>
-    <div style="margin-top:2rem;">
-      <a href="{% url 'core:newsletter' %}" class="btn-orange" style="display:inline-block;">Subscribe to the newsletter</a>
+<section class="section-dg" style="text-align:center;padding:5rem 1.5rem;">
+  <div class="container-dg" style="max-width:640px;">
+    <div class="card-brutal p-10" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">💼</div>
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--py-navy);margin-bottom:1rem;">Sorry, there are no job openings at the moment.</h2>
+      <p style="color:var(--py-body);line-height:1.7;font-size:1rem;margin-bottom:1.5rem;">
+        When approved Python, AI, or entry-level technology opportunities are available, they will be displayed on this page.
+      </p>
+      <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us about listings »</a>
     </div>
   </div>
 </section>
-
+{% endif %}
 {% endblock %}

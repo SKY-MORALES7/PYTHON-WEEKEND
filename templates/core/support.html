@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% load static content_tags %}
-{% block title %}Support a Workshop — Python Weekend{% endblock %}
+{% block title %}{{ flatpage.title|default:"Support a Workshop" }} — Python Weekend{% endblock %}
 
 {% block content %}
+
+{% if flatpage and flatpage.content %}
+  {{ flatpage.content|safe }}
+{% else %}
 {% get_content "support_hero_heading" as support_hero_heading %}
 {% get_content "support_hero_intro" as support_hero_intro %}
 
@@ -87,31 +91,31 @@
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Laptops and devices</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Internet connectivity</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Meals and refreshments</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Transport support</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Cloud &amp; software credits</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Printing &amp; courseware</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Photography &amp; media</span>
             </li>
             <li class="flex items-start gap-3 bg-shield-ice/40 border-2 border-shield-navy p-3 shadow-brutal-sm col-span-1 sm:col-span-2">
-              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0 mt-0.5">✓</span>
+              <span class="w-6 h-6 rounded-none bg-[#FFB800] border-1.5 border-shield-navy flex items-center justify-center font-bold text-shield-navy text-sm shrink-0">✓</span>
               <span class="font-body font-semibold text-shield-navy text-sm leading-snug">Mentors and technical volunteer training</span>
             </li>
             {% endfor %}
@@ -269,6 +273,7 @@
     </div>
   </div>
 </section>
+{% endif %}
 
 
 <!-- ═══════════════════════════════════════════════════════
@@ -288,7 +293,6 @@
       {% for sponsor in sponsors %}
       <a href="{{ sponsor.website|default:'#' }}" target="_blank" rel="noopener sponsored"
          class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:border-shield-blue transition-all duration-300 flex flex-col items-center justify-center min-h-[130px] group overflow-hidden relative">
-        <!-- Python blue/yellow gradient glow on hover -->
         <div class="absolute inset-0 bg-gradient-to-r from-[#4B8BBE]/15 via-transparent to-[#FFD43B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
         {% if sponsor.logo %}
         <img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" class="max-h-14 max-w-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 relative z-10" loading="lazy" />
@@ -314,4 +318,3 @@
 {% endif %}
 
 {% endblock %}
-

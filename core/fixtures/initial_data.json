@@ -474,7 +474,7 @@
     "page": "global",
     "key": "footer_copyright",
     "label": "Footer — Copyright Text",
-    "admin_help_text": "Copyright line shown at the very bottom of every page. Use {year} as a placeholder for the current year. (Note: The words 'Code Campus International' will automatically be turned into a link using the Footer — Code Campus URL setting.)",
+    "admin_help_text": "Copyright line shown at the very bottom of every page. Use {year} as a placeholder for the current year. (Note: The words 'Code Campus International' will automatically be turned into a link using the Footer — Code Campus International URL setting.)",
     "value": "© {year} Python Weekend · An initiative of Code Campus International.",
     "content_type": "text",
     "updated_at": "2026-09-28T14:04:38.622Z"

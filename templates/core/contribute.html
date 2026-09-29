@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static content_tags %}
-{% block title %}Contribute — Python Weekend{% endblock %}
+{% block title %}{{ flatpage.title|default:"Contribute" }} — Python Weekend{% endblock %}
 
 {% block content %}
+{% if flatpage and flatpage.content %}
+  {{ flatpage.content|safe }}
+{% else %}
 {% get_content "contribute_hero_heading" as contribute_hero_heading %}
 {% get_content "contribute_hero_intro" as contribute_hero_intro %}
 
@@ -89,5 +92,5 @@
 
   </div>
 </section>
-
+{% endif %}
 {% endblock %}

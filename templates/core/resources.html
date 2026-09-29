@@ -1,116 +1,84 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}Resources — Python Weekend{% endblock %}
+{% load static content_tags %}
+{% block title %}{{ flatpage.title|default:"Resources" }} — Python Weekend{% endblock %}
 
 {% block content %}
+{% if flatpage and flatpage.content %}
+  {{ flatpage.content|safe }}
+{% else %}
+{% get_content "resources_hero_heading" as resources_hero_heading %}
+{% get_content "resources_hero_intro" as resources_hero_intro %}
 
-<!-- Hero Banner -->
+<!-- Hero -->
 <section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
-  <div style="max-width:760px;margin:0 auto;">
-    <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(255,212,59,0.15);border:1px solid rgba(255,212,59,0.3);color:var(--py-yellow);padding:0.35rem 0.85rem;border-radius:2rem;font-size:0.8rem;font-weight:600;margin-bottom:1rem;">
-      <span>📚 Python Weekend Learning &amp; Operations Hub</span>
-    </div>
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2.2rem,5vw,3.25rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">
-      Resources &amp; Guides
-    </h1>
-    <p style="font-size:1.1rem;color:rgba(255,255,255,0.8);line-height:1.7;max-width:620px;margin:0 auto;">
-      Comprehensive resources designed to help complete beginners learn during a workshop, equip organizers and mentors, and provide clear learning tracks for continued growth.
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ resources_hero_heading|default:"Resources" }}</h1>
+    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
+      {{ resources_hero_intro|default:"Python Weekend resources are designed to help complete beginners learn during a workshop and continue practising afterwards." }}
     </p>
   </div>
 </section>
 
-<!-- Resource Directory Cards -->
-<section class="section-dg" style="padding-top:4rem;padding-bottom:4.5rem;">
+
+<!-- Resource cards -->
+<section class="section-dg">
   <div class="container-dg">
+    <p style="color:var(--py-body);line-height:1.7;font-size:1.05rem;margin-bottom:2.5rem;max-width:780px;">
+      The official tutorial, organiser resources and mentoring guidance are made publicly available to help anyone learn Python and AI or bring a workshop to their city.
+    </p>
+
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
 
-      <!-- Python & AI Tutorial -->
-      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.2s,box-shadow 0.2s;" class="hover:shadow-lg hover:-translate-y-1">
+      <!-- Python and AI Tutorial -->
+      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-            <div style="width:3.5rem;height:3.5rem;border-radius:0.75rem;background:#f0fdf4;display:flex;align-items:center;justify-content:center;font-size:1.85rem;">🐍</div>
-            <span style="background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:1rem;">CURRICULUM</span>
-          </div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">
-            Python and AI Tutorial
-          </h2>
-          <p style="color:var(--py-body);font-size:0.925rem;line-height:1.7;margin-bottom:1.5rem;">
-            The official step-by-step tutorial used during Python Weekend workshops. Introduces the terminal, Python fundamentals, problem-solving, and a guided beginner AI project.
+          <div style="font-size:2rem;margin-bottom:1rem;">🐍</div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Python and AI Tutorial</h2>
+          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
+            The tutorial used during Python Weekend workshops. It introduces the learning environment, Python foundations, problem solving, working with simple data and a guided beginner AI project.
           </p>
         </div>
-        <div>
-          <a href="{% url 'core:resource_tutorial' %}" class="btn-orange" style="display:block;text-align:center;text-decoration:none;padding:0.7rem 1.25rem;font-weight:600;font-size:0.9rem;border-radius:0.5rem;">
-            View Tutorial Guide »
-          </a>
-        </div>
+        <a href="{% url 'core:resource_tutorial' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
       </div>
 
       <!-- Organiser's Manual -->
-      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.2s,box-shadow 0.2s;" class="hover:shadow-lg hover:-translate-y-1">
+      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-            <div style="width:3.5rem;height:3.5rem;border-radius:0.75rem;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:1.85rem;">📋</div>
-            <span style="background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:1rem;">OPERATIONS</span>
-          </div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">
-            Organiser's Manual
-          </h2>
-          <p style="color:var(--py-body);font-size:0.925rem;line-height:1.7;margin-bottom:1.5rem;">
-            A practical handbook containing everything local teams need to plan and deliver an official workshop: team formation, budgeting, venue selection, mentor recruitment, and event delivery.
+          <div style="font-size:2rem;margin-bottom:1rem;">📖</div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Organiser's Manual</h2>
+          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
+            A practical handbook containing what local teams need to plan and deliver an official Python Weekend workshop — from team formation to venue selection and delivery.
           </p>
         </div>
-        <div>
-          <a href="{% url 'core:resource_manual' %}" style="display:block;text-align:center;text-decoration:none;padding:0.7rem 1.25rem;background:var(--py-navy);color:#fff;font-weight:600;font-size:0.9rem;border-radius:0.5rem;transition:opacity 0.2s;">
-            Read Organiser's Manual »
-          </a>
-        </div>
+        <a href="{% url 'core:resource_manual' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
       </div>
 
       <!-- Mentoring Guide -->
-      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.2s,box-shadow 0.2s;" class="hover:shadow-lg hover:-translate-y-1">
+      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-            <div style="width:3.5rem;height:3.5rem;border-radius:0.75rem;background:#fefce8;display:flex;align-items:center;justify-content:center;font-size:1.85rem;">🧑‍🏫</div>
-            <span style="background:#fefce8;color:#854d0e;border:1px solid #fef08a;font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:1rem;">COACHING</span>
-          </div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">
-            Mentoring Guide
-          </h2>
-          <p style="color:var(--py-body);font-size:0.925rem;line-height:1.7;margin-bottom:1.5rem;">
-            Good mentoring is central to the Python Weekend experience. Explains how to support beginners with empathy, ask guiding questions, respond to errors, and build confidence.
+          <div style="font-size:2rem;margin-bottom:1rem;">🧑‍🏫</div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Mentoring Guide</h2>
+          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
+            Good mentoring is central to the Python Weekend experience. This guide explains how to support beginners, respond to errors, and foster a respectful environment.
           </p>
         </div>
-        <div>
-          <a href="{% url 'core:resource_mentoring' %}" style="display:block;text-align:center;text-decoration:none;padding:0.7rem 1.25rem;background:var(--py-navy);color:#fff;font-weight:600;font-size:0.9rem;border-radius:0.5rem;transition:opacity 0.2s;">
-            Explore Mentoring Guide »
-          </a>
-        </div>
+        <a href="{% url 'core:resource_mentoring' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
       </div>
 
       <!-- Tutorial Extensions -->
-      <div style="background:#fff;border-radius:1rem;padding:2.25rem;border:1px solid #e2e8f0;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);display:flex;flex-direction:column;justify-content:space-between;transition:transform 0.2s,box-shadow 0.2s;" class="hover:shadow-lg hover:-translate-y-1">
+      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
         <div>
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;">
-            <div style="width:3.5rem;height:3.5rem;border-radius:0.75rem;background:#faf5ff;display:flex;align-items:center;justify-content:center;font-size:1.85rem;">🚀</div>
-            <span style="background:#faf5ff;color:#6b21a8;border:1px solid #e9d5ff;font-size:0.75rem;font-weight:700;padding:0.25rem 0.65rem;border-radius:1rem;">POST-WORKSHOP</span>
-          </div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">
-            Tutorial Extensions
-          </h2>
-          <p style="color:var(--py-body);font-size:0.925rem;line-height:1.7;margin-bottom:1.5rem;">
-            Additional projects and learning paths for participants continuing after the workshop. Covers automation, data analysis, web applications, and modern AI APIs.
+          <div style="font-size:2rem;margin-bottom:1rem;">🚀</div>
+          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Tutorial Extensions</h2>
+          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
+            Additional exercises and projects for participants who complete the main tutorial or want to continue learning after the workshop.
           </p>
         </div>
-        <div>
-          <a href="{% url 'core:resource_extensions' %}" style="display:block;text-align:center;text-decoration:none;padding:0.7rem 1.25rem;background:var(--py-navy);color:#fff;font-weight:600;font-size:0.9rem;border-radius:0.5rem;transition:opacity 0.2s;">
-            Explore Extensions »
-          </a>
-        </div>
+        <a href="{% url 'core:resource_extensions' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
       </div>
 
     </div>
   </div>
 </section>
-
+{% endif %}
 {% endblock %}
