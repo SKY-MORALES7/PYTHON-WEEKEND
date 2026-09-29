@@ -37,11 +37,6 @@ class EventApplication(models.Model):
     )
     full_name = models.CharField(max_length=150)
     email = models.EmailField()
-    city = models.CharField(max_length=100, blank=True)
-    country = models.CharField(max_length=100, blank=True)
-    motivation = models.TextField(blank=True)
-    experience = models.TextField(blank=True)
-    expected_attendees = models.PositiveIntegerField(default=1)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
@@ -51,8 +46,9 @@ class EventApplication(models.Model):
         verbose_name_plural = "Event applications"
 
     def __str__(self):
-        event_title = self.event.title if self.event else (self.city or "General")
+        event_title = self.event.title if self.event else "General"
         return f"{self.full_name} - {event_title} ({self.get_status_display()})"
+
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -191,6 +187,13 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    application = models.ForeignKey(
+        EventApplication,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="answers",
+    )
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
@@ -199,6 +202,7 @@ class Answer(models.Model):
     applicant_email = models.EmailField()
     answer = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
+
 
     class Meta:
         ordering = ["-submitted_at"]

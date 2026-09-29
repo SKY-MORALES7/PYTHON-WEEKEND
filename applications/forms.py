@@ -73,13 +73,14 @@ class DynamicApplicationForm(forms.Form):
                     required=question.is_required,
                 )
 
-    def save_answers(self, applicant_email):
+    def save_answers(self, applicant_email, application=None):
         """Persist answers for every question."""
         answers = []
         for question in self.application_form.questions.all():
             field_name = f"question_{question.pk}"
             value = self.cleaned_data.get(field_name, "")
             answer = Answer.objects.create(
+                application=application,
                 question=question,
                 applicant_email=applicant_email,
                 answer=str(value),

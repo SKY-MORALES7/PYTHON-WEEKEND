@@ -47,20 +47,19 @@ class ApplicationFormView(View):
                 if "name" in q_title and not applicant_name:
                     applicant_name = str(val).strip()
 
-            # 1. Save answers
-            form.save_answers(applicant_email=applicant_email or "unknown@example.com")
-
-            # 2. Record in EventApplication for organizer review & approval
+            # 1. Record in EventApplication for organizer review & approval
             from .models import EventApplication
-            EventApplication.objects.create(
+            event_app = EventApplication.objects.create(
                 event=application_form.event,
                 form=application_form,
                 full_name=applicant_name or "Applicant",
                 email=applicant_email or "unknown@example.com",
-                city=application_form.event.city if application_form.event else "",
-                country=application_form.event.country if application_form.event else "",
                 status="pending"
             )
+
+            # 2. Save answers linked to this EventApplication
+            form.save_answers(applicant_email=applicant_email or "unknown@example.com", application=event_app)
+
 
             from django.contrib import messages
             messages.success(request, "Application submitted — we'll review and be in touch.")

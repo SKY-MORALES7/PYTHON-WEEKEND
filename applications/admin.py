@@ -3,19 +3,68 @@ from django.db import models
 from .models import Form, Question, Answer, OrganizerApplication, EventApplication
 
 
+from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+
 @admin.register(EventApplication)
 class EventApplicationAdmin(admin.ModelAdmin):
-    list_display = ("full_name", "email", "event", "city", "status", "created_at")
+    list_display = ("full_name", "email", "event", "status", "created_at")
     list_filter = ("status", "event", "created_at")
     list_editable = ("status",)
-    search_fields = ("full_name", "email", "city", "event__title")
-    readonly_fields = ("created_at",)
+    search_fields = ("full_name", "email", "event__title")
+    readonly_fields = ("created_at", "submitted_answers_display")
+
+    fieldsets = (
+        ("Applicant Information", {
+            "fields": ("full_name", "email", "event", "created_at"),
+        }),
+        ("Submitted Questions & Answers", {
+            "fields": ("submitted_answers_display",),
+            "description": "The exact questions and responses provided by the applicant when filling out this event's application form.",
+        }),
+        ("Review & Approval", {
+            "fields": ("status",),
+        }),
+    )
+
+    @admin.display(description="Submitted Responses")
+    def submitted_answers_display(self, obj):
+        if not obj.pk:
+            return "Save this application to view responses."
+
+        # Fetch answers linked directly to this application, or fallback to email/form match
+        answers = list(obj.answers.select_related("question").all())
+        if not answers and obj.form:
+            answers = list(Answer.objects.filter(question__form=obj.form, applicant_email=obj.email).select_related("question"))
+
+        if not answers:
+            return format_html("<p style='color: #64748b; font-style: italic;'>No answers recorded for this applicant.</p>")
+
+        html_blocks = ["<div style='display: flex; flex-direction: column; gap: 0.85rem; max-width: 760px; margin-top: 0.5rem;'>"]
+        for ans in answers:
+            q_title = ans.question.title
+            q_val = ans.answer.strip() if ans.answer else "(No answer provided)"
+            html_blocks.append(
+                format_html(
+                    """
+                    <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-left: 4px solid #306998; padding: 0.85rem 1.15rem; border-radius: 4px;">
+                        <div style="font-weight: 700; color: #16213e; font-size: 0.95rem; margin-bottom: 0.35rem;">{}</div>
+                        <div style="color: #334155; font-size: 0.95rem; white-space: pre-wrap; line-height: 1.55;">{}</div>
+                    </div>
+                    """,
+                    q_title,
+                    q_val
+                )
+            )
+        html_blocks.append("</div>")
+        return mark_safe("".join(html_blocks))
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
         return qs.filter(event__owner=request.user)
+
 
 
 
