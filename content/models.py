@@ -331,6 +331,23 @@ class Event(models.Model):
             return False
         return True
 
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        today = timezone.now().date()
+        errors = {}
+
+        if self.application_deadline:
+            if self.application_deadline < today:
+                errors["application_deadline"] = "The application deadline cannot be in the past."
+            if self.start_date and self.application_deadline > self.start_date.date():
+                errors["application_deadline"] = "The application deadline cannot be after the event start date."
+
+        if self.start_date and self.end_date and self.end_date < self.start_date:
+            errors["end_date"] = "The event end date cannot be before the start date."
+
+        if errors:
+            raise ValidationError(errors)
+
     def day1_schedule_lines(self):
         return [l.strip() for l in self.day1_schedule.splitlines() if l.strip()]
 

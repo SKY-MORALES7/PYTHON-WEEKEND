@@ -37,16 +37,35 @@ class ApplicationFormView(View):
 
         if form.is_valid():
             applicant_email = ""
+            applicant_name = ""
             for question in application_form.questions.all():
-                if question.question_type == "email":
-                    field_name = f"question_{question.pk}"
-                    applicant_email = form.cleaned_data.get(field_name, "")
-                    break
+                field_name = f"question_{question.pk}"
+                val = form.cleaned_data.get(field_name, "")
+                q_title = question.title.lower()
+                if (question.question_type == "email" or "email" in q_title) and not applicant_email:
+                    applicant_email = str(val).strip()
+                if "name" in q_title and not applicant_name:
+                    applicant_name = str(val).strip()
 
+            # 1. Save answers
             form.save_answers(applicant_email=applicant_email or "unknown@example.com")
+
+            # 2. Record in EventApplication for organizer review & approval
+            from .models import EventApplication
+            EventApplication.objects.create(
+                event=application_form.event,
+                form=application_form,
+                full_name=applicant_name or "Applicant",
+                email=applicant_email or "unknown@example.com",
+                city=application_form.event.city if application_form.event else "",
+                country=application_form.event.country if application_form.event else "",
+                status="pending"
+            )
+
             from django.contrib import messages
             messages.success(request, "Application submitted — we'll review and be in touch.")
             return redirect("applications:apply", form_id=form_id)
+
 
         from django.contrib import messages
         messages.error(request, "There were errors with your submission. Please correct the fields below.")

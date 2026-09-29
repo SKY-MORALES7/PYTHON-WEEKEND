@@ -5,10 +5,18 @@ from .models import Form, Question, Answer, OrganizerApplication, EventApplicati
 
 @admin.register(EventApplication)
 class EventApplicationAdmin(admin.ModelAdmin):
-    list_display = ("full_name", "email", "city", "country", "expected_attendees", "status")
-    list_filter = ("status", "country")
+    list_display = ("full_name", "email", "event", "city", "status", "created_at")
+    list_filter = ("status", "event", "created_at")
     list_editable = ("status",)
-    search_fields = ("full_name", "email", "city")
+    search_fields = ("full_name", "email", "city", "event__title")
+    readonly_fields = ("created_at",)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(event__owner=request.user)
+
 
 
 

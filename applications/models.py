@@ -20,14 +20,30 @@ class EventApplication(models.Model):
         ('rejected', 'Rejected'),
     ]
     
-    full_name = models.CharField(max_length=100)
+    event = models.ForeignKey(
+        Event,
+        on_delete=models.CASCADE,
+        related_name="event_applications",
+        null=True,
+        blank=True,
+        help_text="The event applied for"
+    )
+    form = models.ForeignKey(
+        'Form',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="event_applications"
+    )
+    full_name = models.CharField(max_length=150)
     email = models.EmailField()
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    motivation = models.TextField()
+    city = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    motivation = models.TextField(blank=True)
     experience = models.TextField(blank=True)
-    expected_attendees = models.PositiveIntegerField(default=50)
+    expected_attendees = models.PositiveIntegerField(default=1)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:
         ordering = ["-id"]
@@ -35,65 +51,53 @@ class EventApplication(models.Model):
         verbose_name_plural = "Event applications"
 
     def __str__(self):
-        return f"{self.full_name} - {self.city} ({self.get_status_display()})"
+        event_title = self.event.title if self.event else (self.city or "General")
+        return f"{self.full_name} - {event_title} ({self.get_status_display()})"
 
     def save(self, *args, **kwargs):
         if self.pk:
-            old_instance = EventApplication.objects.get(pk=self.pk)
-            if old_instance.status != self.status:
-                if self.status == 'approved':
-                    logger = logging.getLogger(__name__)
-                    default_password = "admin123"
-                    base_username = slugify(self.email.split('@')[0]) or 'organizer'
-                    username = base_username
-                    suffix = 0
-                    while User.objects.filter(username=username).exists():
-                        suffix += 1
-                        username = f"{base_username}{suffix}"
-
-                    try:
-                        user = User.objects.create_user(
-                            username=username,
-                            email=self.email,
-                            password=default_password,
-                            is_staff=True
+            old_instance = EventApplication.objects.filter(pk=self.pk).first()
+            if old_instance and old_instance.status != self.status:
+                logger = logging.getLogger(__name__)
+                try:
+                    site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
+                    event_name = self.event.title if self.event else "Python Weekend Workshop"
+                    if self.status == 'approved':
+                        subject = f"Your application for {event_name} has been approved!"
+                        message = (
+                            f"Hi {self.full_name},\n\n"
+                            f"Congratulations! Your application to attend {event_name} has been APPROVED.\n\n"
+                            f"We look forward to having you with us. We will follow up with further venue and preparation instructions.\n\n"
+                            f"Best regards,\nThe {site_name} Team"
                         )
-                        from django.contrib.contenttypes.models import ContentType
-                        from django.contrib.auth.models import Permission
-
-                        group, created = Group.objects.get_or_create(name="Organizers")
-                        content_type = ContentType.objects.get_for_model(Event)
-                        permissions = Permission.objects.filter(content_type=content_type)
-                        group.permissions.set(permissions)
-                        user.groups.add(group)
-
-                        Event.objects.create(
-                            title=f"Python Weekend - {self.city}",
-                            slug=slugify(f"python-weekend-{self.city}-{user.id}"),
-                            start_date=timezone.now() + timezone.timedelta(days=60),
-                            end_date=timezone.now() + timezone.timedelta(days=62),
-                            city=self.city,
-                            location=f"{self.city}, {self.country}",
-                            owner=user,
-                            published=False
+                        send_mail(
+                            subject=subject,
+                            message=message,
+                            from_email=settings.DEFAULT_FROM_EMAIL,
+                            recipient_list=[self.email],
+                            fail_silently=True
                         )
-                        try:
-                            subject = f"Your organizer account for {getattr(settings, 'SITE_NAME', 'Python Weekend')}"
-                            message = (
-                                f"Hi {self.full_name},\n\n"
-                                f"Your application was approved. You can sign in to manage your event with the following credentials:\n\n"
-                                f"Username: {username}\n"
-                                f"Password: {default_password}\n\n"
-                                f"Please change your password after first login.\n\n"
-                                f"Best,\nThe Team"
-                            )
-                            send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[self.email], fail_silently=True)
-                        except Exception as e:
-                            logger.error(f"Failed to send email: {e}")
-                    except Exception as e:
-                        logger.error(f"Failed to create user: {e}")
+                    elif self.status == 'rejected':
+                        subject = f"Update regarding your application for {event_name}"
+                        message = (
+                            f"Hi {self.full_name},\n\n"
+                            f"Thank you for applying to attend {event_name}.\n\n"
+                            f"Due to venue capacity constraints, we are unable to accept your application for this session.\n\n"
+                            f"Please stay tuned for future workshops and online resources.\n\n"
+                            f"Best regards,\nThe {site_name} Team"
+                        )
+                        send_mail(
+                            subject=subject,
+                            message=message,
+                            from_email=settings.DEFAULT_FROM_EMAIL,
+                            recipient_list=[self.email],
+                            fail_silently=True
+                        )
+                except Exception as e:
+                    logger.error(f"Failed to send application status email: {e}")
 
         super().save(*args, **kwargs)
+
 
 
 # ─────────────────────────────────────────────
