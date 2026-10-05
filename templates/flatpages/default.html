@@ -3,6 +3,12 @@
 {% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
 
 {% block content %}
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ flatpage.title }}</h1>
+  </div>
+</section>
+
 <section class="section-dg">
   <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg" style="color:var(--py-body);">
     {{ flatpage.content|linebreaks }}
