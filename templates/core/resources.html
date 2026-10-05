@@ -18,6 +18,13 @@
 
 
 <!-- Resource cards -->
+{% if flatpage and flatpage.content %}
+<section class="section-dg">
+  <div class="container-dg prose-dg" style="max-width:820px; color:var(--py-navy);">
+    {{ flatpage.content|linebreaks }}
+  </div>
+</section>
+{% else %}
 <section class="section-dg">
   <div class="container-dg">
     <p style="color:var(--py-body);line-height:1.7;font-size:1.05rem;margin-bottom:2.5rem;max-width:780px;">
@@ -77,4 +84,5 @@
     </div>
   </div>
 </section>
+{% endif %}
 {% endblock %}

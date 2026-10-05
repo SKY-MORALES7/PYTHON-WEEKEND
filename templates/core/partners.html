@@ -41,6 +41,13 @@
 <!-- ═══════════════════════════════════════════════════════
      SECTION 2 — GLOBAL PARTNERS
      ═══════════════════════════════════════════════════════ -->
+{% if flatpage and flatpage.content %}
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 prose-dg" style="color:var(--py-navy);">
+    {{ flatpage.content|linebreaks }}
+  </div>
+</section>
+{% endif %}
 {% if global_partners %}
 <section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
