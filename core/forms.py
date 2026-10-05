@@ -74,9 +74,9 @@ class ContactForm(forms.Form):
         if len(name) < 2:
             raise forms.ValidationError("Please provide your full name.")
         
-        # Exact match for known spam bot signatures (e.g. 'Robertruche')
+        # Exact match for known spam bot signatures
         normalized_name = "".join(name.lower().split())
-        if normalized_name in ("robertruche", "robertruches"):
+        if normalized_name in ("robertruche", "robertruches", "williamphali"):
             raise forms.ValidationError("Invalid submission.")
         return name
 
