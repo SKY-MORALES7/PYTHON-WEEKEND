@@ -4,8 +4,8 @@
 
 {% block content %}
 <section class="section-dg">
-  <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg">
-    {{ flatpage.content|safe }}
+  <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg" style="color:var(--py-body);">
+    {{ flatpage.content|linebreaks }}
   </div>
 </section>
 {% endblock %}

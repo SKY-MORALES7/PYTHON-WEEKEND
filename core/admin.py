@@ -29,13 +29,7 @@ class CustomFlatPageForm(forms.ModelForm):
                     "💡 <strong>What to write:</strong> Enter plain text content for the FAQ page. "
                     "Format questions using exactly <strong>Q: Your question?</strong> and "
                     "answers using <strong>A: Your answer text.</strong>"
-                )
-            elif url in ["/about/", "/organise/", "/organize/", "/contribute/"]:
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter plain text content for this page. "
-                    "Use blank lines to separate paragraphs. It will be formatted beautifully on the frontend."
-                )
-            elif url in ["/code-of-conduct/", "/coc/", "/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
+            elif url in ["/about/", "/organise/", "/organize/", "/contribute/", "/code-of-conduct/", "/coc/", "/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
                 self.fields["content"].help_text = (
                     "💡 <strong>Notice:</strong> This page's complex layout is hardcoded to ensure it looks beautiful. "
                     "To edit headings or text on this page, please use the <strong>Website Content (PageContent)</strong> app instead of this box."
