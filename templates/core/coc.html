@@ -20,11 +20,6 @@
 <section class="section-dg">
   <div class="container-dg" style="max-width:820px;">
 
-    {% if flatpage and flatpage.content %}
-      <div class="prose-dg" style="color:var(--py-body);">
-        {{ flatpage.content|linebreaks }}
-      </div>
-    {% else %}
     <p style="color:var(--py-body);line-height:1.8;margin-bottom:1.5rem;">
       All attendees, mentors, speakers, organisers, volunteers, partners, exhibitors and visitors are required to treat one another with respect and follow this Code of Conduct before, during and after every Python Weekend activity.
     </p>
@@ -82,7 +77,6 @@
       We value your presence and want you to feel safe while participating in Python Weekend.
     </p>
 
-    {% endif %}
   </div>
 </section>
 {% endblock %}
