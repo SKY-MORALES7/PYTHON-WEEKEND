@@ -24,7 +24,7 @@
     <div style="display:flex;flex-direction:column;gap:0;">
 
       {% for qa in flatpage.content|parse_faqs %}
-      <details style="border-bottom:1.5px solid #16213e;padding:1.25rem 0;" open="{{ forloop.first|yesno:'true,' }}">
+      <details style="border-bottom:1.5px solid #16213e;padding:1.25rem 0;">
         <summary style="font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--py-navy);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:1rem;">
           {{ qa.q }}
           <span style="font-size:1.2rem;flex-shrink:0;font-weight:800;">+</span>
