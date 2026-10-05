@@ -39,6 +39,16 @@
 
 
 <!-- ═══════════════════════════════════════════════════════
+     FLATPAGE CONTENT
+     ═══════════════════════════════════════════════════════ -->
+<section class="section-dg">
+  <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg" style="color:var(--py-body);">
+    {{ flatpage.content|linebreaks }}
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
      SECTION 2 — GLOBAL PARTNERS
      ═══════════════════════════════════════════════════════
 {% if global_partners %}
@@ -79,7 +89,7 @@
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 3 — EVENT PARTNERS
-     ═══════════════════════════════════════════════════════ -->
+     ═══════════════════════════════════════════════════════
 {% if event_partners %}
 <section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -113,6 +123,7 @@
   </div>
 </section>
 {% endif %}
+-->
 
 
 <!-- ═══════════════════════════════════════════════════════
@@ -147,7 +158,7 @@
 -->
 
 
-<!-- Empty State -->
+<!-- Empty State 
 {% if not global_partners and not event_partners and not community_partners %}
 <section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-2xl mx-auto px-4 text-center">
@@ -166,4 +177,5 @@
   </div>
 </section>
 {% endif %}
+-->
 {% endblock %}
