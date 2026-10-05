@@ -19,8 +19,8 @@ def create_or_update_flatpage(url, title, content):
     )
     
     if not created:
+        # We only update the title, not the content, so user edits are not lost on deploy
         page.title = title
-        page.content = content
         page.save()
         
     page.sites.add(site)
