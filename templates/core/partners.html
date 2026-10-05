@@ -1,8 +1,167 @@
 {% extends "base.html" %}
-{% load content_tags %}
+{% load static content_tags %}
 
-{% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
+{% block title %}{{ flatpage.title|default:"Our Partners" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{{ flatpage.content|safe }}
+{% get_content 'partners_hero_heading' as partners_hero_heading %}
+{% get_content 'partners_hero_intro' as partners_hero_intro %}
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1 — HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="py-16 md:py-20 bg-white border-b-2.5 border-shield-navy relative overflow-hidden">
+  <!-- Technical grid background -->
+  <div class="absolute inset-0 bg-[radial-gradient(#16213e_1.2px,transparent_1.2px)] [background-size:20px_20px] opacity-10 pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1.5 border-2 border-shield-navy inline-block mb-4 shadow-brutal-sm">
+      Global Community Network
+    </span>
+    <h1 class="font-display font-bold text-4xl sm:text-6xl text-shield-navy uppercase tracking-tight mb-6 leading-none">
+      {{ partners_hero_heading|default:'Our Partners' }}
+    </h1>
+    <p class="font-body text-shield-navy text-lg sm:text-xl font-medium leading-relaxed mb-8 max-w-2xl mx-auto">
+      {{ partners_hero_intro|default:'Our partners are organisations that support Python Weekend through programme sponsorship, local event sponsorship, or approved in-kind contributions.' }}
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-5">
+      <a href="{% url 'core:contact' %}" class="btn-brutal-hero group">
+        <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider">Contact Us About Partnership</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — GLOBAL PARTNERS
+     ═══════════════════════════════════════════════════════ -->
+{% if global_partners %}
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Platinum</span>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
+      Global Partners
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      {% for partner in global_partners %}
+      <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener sponsored"
+         class="bg-white border-2.5 border-shield-navy p-8 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all flex flex-col items-center justify-between min-h-[160px] group overflow-hidden relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#4B8BBE]/15 via-transparent to-[#FFD43B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+        <div class="flex-1 flex items-center justify-center w-full mb-3">
+          {% if partner.logo %}
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="max-h-16 max-w-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 relative z-10" loading="lazy" />
+          {% else %}
+          <span class="font-display font-bold text-2xl text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors relative z-10">
+            {{ partner.name }}
+          </span>
+          {% endif %}
+        </div>
+        {% if partner.tagline %}
+        <p class="font-body text-shield-navy text-xs font-semibold leading-relaxed border-t-2 border-shield-navy/20 pt-3 w-full relative z-10">
+          {{ partner.tagline }}
+        </p>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3 — EVENT PARTNERS
+     ═══════════════════════════════════════════════════════ -->
+{% if event_partners %}
+<section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Gold</span>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
+      Event Partners
+    </h2>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {% for partner in event_partners %}
+      <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener sponsored"
+         class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 transition-all flex flex-col items-center justify-between min-h-[140px] group overflow-hidden relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#4B8BBE]/15 via-transparent to-[#FFD43B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+        <div class="flex-1 flex items-center justify-center w-full mb-3">
+          {% if partner.logo %}
+          <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="max-h-14 max-w-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 relative z-10" loading="lazy" />
+          {% else %}
+          <span class="font-display font-bold text-xl text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors relative z-10">
+            {{ partner.name }}
+          </span>
+          {% endif %}
+        </div>
+        {% if partner.tagline %}
+        <p class="font-body text-shield-navy text-xs font-semibold leading-relaxed border-t-2 border-shield-navy/20 pt-3 w-full relative z-10">
+          {{ partner.tagline }}
+        </p>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4 — COMMUNITY SUPPORTERS
+     ═══════════════════════════════════════════════════════ -->
+{% if community_partners %}
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Community</span>
+    <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
+      Community Supporters
+    </h2>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+      {% for partner in community_partners %}
+      <a href="{{ partner.website|default:'#' }}" target="_blank" rel="noopener sponsored"
+         class="bg-white border-2.5 border-shield-navy p-6 shadow-brutal hover:shadow-brutal-hover hover:-translate-y-1 hover:border-shield-blue transition-all duration-300 flex flex-col items-center justify-center min-h-[120px] group overflow-hidden relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#4B8BBE]/15 via-transparent to-[#FFD43B]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+        {% if partner.logo %}
+        <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="max-h-12 max-w-full object-contain grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300 relative z-10" loading="lazy" />
+        {% else %}
+        <span class="font-display font-bold text-base text-shield-navy uppercase tracking-wider group-hover:text-shield-blue transition-colors relative z-10">
+          {{ partner.name }}
+        </span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- Empty State -->
+{% if not global_partners and not event_partners and not community_partners %}
+<section class="py-16 bg-white border-b-2.5 border-shield-navy">
+  <div class="max-w-2xl mx-auto px-4 text-center">
+    <div class="bg-white border-2.5 border-shield-navy p-10 shadow-brutal">
+      <p class="font-body text-shield-navy text-lg font-medium mb-6">
+        We are currently building our partner community.
+      </p>
+      <a href="{% url 'core:contact' %}" class="btn-brutal-cta group max-w-sm mx-auto">
+        <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Become Our First Partner</span>
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none" class="flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1">
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#16213E" transform="translate(2.5, 2.5)"/>
+          <path d="M2 10H24V2L42 15L24 28V20H2V10Z" fill="#FFB800" stroke="#16213E" stroke-width="2.5" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
 {% endblock %}
