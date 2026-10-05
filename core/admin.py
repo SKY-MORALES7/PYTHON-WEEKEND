@@ -13,16 +13,56 @@ class ContactMessageAdmin(admin.ModelAdmin):
 	readonly_fields = ("created_at", "updated_at")
 
 
+from django.utils.safestring import mark_safe
+
+class CodeMirrorWidget(forms.Textarea):
+    def render(self, name, value, attrs=None, renderer=None):
+        html = super().render(name, value, attrs, renderer)
+        id_ = attrs.get('id', f'id_{name}')
+        script = f"""
+        <script>
+        (function() {{
+            function init() {{
+                if (typeof CodeMirror === 'undefined') {{
+                    setTimeout(init, 100);
+                    return;
+                }}
+                var el = document.getElementById('{id_}');
+                if (el && !el.nextElementSibling?.classList?.contains('CodeMirror')) {{
+                    var cm = CodeMirror.fromTextArea(el, {{
+                        mode: 'htmlmixed',
+                        theme: 'monokai',
+                        lineNumbers: true,
+                        lineWrapping: true,
+                        viewportMargin: Infinity
+                    }});
+                }}
+            }}
+            if (document.readyState === 'loading') {{
+                document.addEventListener('DOMContentLoaded', init);
+            }} else {{
+                init();
+            }}
+        }})();
+        </script>
+        <style>
+        .CodeMirror {{ height: auto; min-height: 400px; border: 1px solid #333; border-radius: 4px; font-size: 14px; font-family: 'JetBrains Mono', monospace; }}
+        </style>
+        """
+        return mark_safe(html + script)
+
+
 class CustomFlatPageForm(forms.ModelForm):
     class Meta:
         model = FlatPage
         fields = "__all__"
+        widgets = {
+            'content': CodeMirrorWidget()
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if "content" in self.fields:
-            # Adjust spacing in the admin textarea so lines aren't too far apart
-            self.fields["content"].widget.attrs.update({"style": "line-height: 1.4; font-family: monospace;"})
             url = getattr(self.instance, "url", "")
             if url == "/faq/":
                 self.fields["content"].help_text = (
@@ -30,21 +70,34 @@ class CustomFlatPageForm(forms.ModelForm):
                     "Format questions using exactly <strong>Q: Your question?</strong> and "
                     "answers using <strong>A: Your answer text.</strong>"
                 )
-            elif url in ["/about/", "/organise/", "/organize/", "/contribute/", "/code-of-conduct/", "/coc/", "/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
+            elif url in ["/support/", "/support-us/", "/partners/"]:
                 self.fields["content"].help_text = (
-                    "💡 <strong>Notice:</strong> This page's complex layout is hardcoded to ensure it looks beautiful. "
-                    "To edit headings or text on this page, please use the <strong>Website Content (PageContent)</strong> app instead of this box."
+                    "💡 <strong>Notice:</strong> This page's complex layout and dynamic sponsor lists are hardcoded. "
+                    "You cannot edit the main layout here."
                 )
             else:
                 self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter plain text content for this page. "
-                    "Use empty lines to separate paragraphs."
+                    "💡 <strong>What to write:</strong> You can edit the text inside the HTML tags here. "
+                    "The color-coding helps you distinguish between tags (pink/blue) and text (white/yellow)."
                 )
 
 
 class CustomFlatPageAdmin(DefaultFlatPageAdmin):
     form = CustomFlatPageForm
     view_on_site = False
+
+    class Media:
+        css = {
+            'all': (
+                'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css',
+            )
+        }
+        js = (
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js',
+        )
 
 
 try:

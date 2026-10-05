@@ -1,80 +1,8 @@
 {% extends "base.html" %}
-{% load static content_tags %}
-{% block title %}{{ flatpage.title|default:"Resources" }} — Python Weekend{% endblock %}
+{% load content_tags %}
+
+{% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
 
 {% block content %}
-{% get_content "resources_hero_heading" as resources_hero_heading %}
-{% get_content "resources_hero_intro" as resources_hero_intro %}
-
-<!-- Hero -->
-<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ resources_hero_heading|default:"Resources" }}</h1>
-    <p style="font-size:1.1rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:580px;margin:0 auto;">
-      {{ resources_hero_intro|default:"Python Weekend resources are designed to help complete beginners learn during a workshop and continue practising afterwards." }}
-    </p>
-  </div>
-</section>
-
-
-<!-- Resource cards -->
-<section class="section-dg">
-  <div class="container-dg">
-    <p style="color:var(--py-body);line-height:1.7;font-size:1.05rem;margin-bottom:2.5rem;max-width:780px;">
-      The official tutorial, organiser resources and mentoring guidance are made publicly available to help anyone learn Python and AI or bring a workshop to their city.
-    </p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;">
-
-      <!-- Python and AI Tutorial -->
-      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
-        <div>
-          <div style="font-size:2rem;margin-bottom:1rem;">🐍</div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Python and AI Tutorial</h2>
-          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
-            The tutorial used during Python Weekend workshops. It introduces the learning environment, Python foundations, problem solving, working with simple data and a guided beginner AI project.
-          </p>
-        </div>
-        <a href="{% url 'core:resource_tutorial' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
-      </div>
-
-      <!-- Organiser's Manual -->
-      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
-        <div>
-          <div style="font-size:2rem;margin-bottom:1rem;">📖</div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Organiser's Manual</h2>
-          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
-            A practical handbook containing what local teams need to plan and deliver an official Python Weekend workshop — from team formation to venue selection and delivery.
-          </p>
-        </div>
-        <a href="{% url 'core:resource_manual' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
-      </div>
-
-      <!-- Mentoring Guide -->
-      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
-        <div>
-          <div style="font-size:2rem;margin-bottom:1rem;">🧑‍🏫</div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Mentoring Guide</h2>
-          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
-            Good mentoring is central to the Python Weekend experience. This guide explains how to support beginners, respond to errors, and foster a respectful environment.
-          </p>
-        </div>
-        <a href="{% url 'core:resource_mentoring' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
-      </div>
-
-      <!-- Tutorial Extensions -->
-      <div class="card-brutal p-8" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;display:flex;flex-direction:column;justify-between;">
-        <div>
-          <div style="font-size:2rem;margin-bottom:1rem;">🚀</div>
-          <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.4rem;font-weight:700;color:var(--py-navy);margin-bottom:0.75rem;">Tutorial Extensions</h2>
-          <p style="color:var(--py-body);font-size:0.95rem;line-height:1.65;margin-bottom:1.5rem;">
-            Additional exercises and projects for participants who complete the main tutorial or want to continue learning after the workshop.
-          </p>
-        </div>
-        <a href="{% url 'core:resource_extensions' %}" style="color:var(--py-blue);font-weight:700;font-size:0.95rem;">Read it »</a>
-      </div>
-
-    </div>
-  </div>
-</section>
+{{ flatpage.content|safe }}
 {% endblock %}
