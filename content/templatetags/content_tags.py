@@ -52,6 +52,46 @@ def linkify_codecampus(value, custom_url=None):
     )
     return mark_safe(safe_value.replace("Code Campus", link))
 
+
+@register.filter
+def parse_faqs(text):
+    """
+    Parses Q&A pairs from text formatted as:
+    Q: Question here
+    A: Answer here
+    """
+    if not text:
+        return []
+        
+    pairs = []
+    current_q = None
+    current_a = []
+    
+    # Clean up HTML tags if user accidentally pastes HTML
+    from django.utils.html import strip_tags
+    import re
+    
+    # Replace common block tags with newlines before stripping to preserve line breaks
+    text = re.sub(r'<(p|br|div|h[1-6])[^>]*>', '\n', text)
+    clean_text = strip_tags(text)
+    
+    for line in clean_text.splitlines():
+        line = line.strip()
+        if line.startswith("Q:"):
+            if current_q:
+                pairs.append({'q': current_q, 'a': " ".join(current_a).strip()})
+            current_q = line[2:].strip()
+            current_a = []
+        elif line.startswith("A:") and current_q:
+            current_a.append(line[2:].strip())
+        elif line and current_q:
+            current_a.append(line)
+            
+    if current_q:
+        pairs.append({'q': current_q, 'a': " ".join(current_a).strip()})
+        
+    return pairs
+
 # ─── helpers ─────────────────────────────────────────────────────────────────
 
 def _get_content_map():
