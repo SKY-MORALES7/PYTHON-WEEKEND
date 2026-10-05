@@ -21,58 +21,35 @@ class CustomFlatPageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if "content" in self.fields:
+            # Adjust spacing in the admin textarea so lines aren't too far apart
+            self.fields["content"].widget.attrs.update({"style": "line-height: 1.4; font-family: monospace;"})
             url = getattr(self.instance, "url", "")
             if url == "/faq/":
                 self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for the FAQ page. "
-                    "Format questions using <code>&lt;h3&gt;Q: Your question?&lt;/h3&gt;</code> and "
-                    "answers using <code>&lt;p&gt;A: Your answer text.&lt;/p&gt;</code>."
+                    "💡 <strong>What to write:</strong> Enter plain text content for the FAQ page. "
+                    "Format questions using exactly <strong>Q: Your question?</strong> and "
+                    "answers using <strong>A: Your answer text.</strong>"
                 )
-            elif url == "/about/":
+            elif url in ["/code-of-conduct/", "/coc/", "/about/", "/organise/", "/organize/", "/contribute/"]:
                 self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for the About page. "
-                    "Use <code>&lt;h2&gt;</code> for section headers, <code>&lt;p&gt;</code> for paragraphs, "
-                    "and <code>&lt;ul&gt;&lt;li&gt;</code> for bulleted lists."
+                    "💡 <strong>What to write:</strong> Enter plain text content for this page. "
+                    "Use blank lines to separate paragraphs. It will be formatted beautifully on the frontend."
                 )
-            elif url in ["/code-of-conduct/", "/coc/"]:
+            elif url in ["/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
                 self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for Code of Conduct. "
-                    "Use <code>&lt;h2&gt;</code> for section headings and <code>&lt;ul&gt;&lt;li&gt;</code> for conduct rules."
-                )
-            elif url in ["/support/", "/support-us/"]:
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for the Support page. "
-                    "Describe your mission, sponsorship tracks, and how partners can contribute."
-                )
-            elif url == "/partners/":
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for Our Partners. "
-                    "Describe partnership tiers and how organisations can partner with Python Weekend."
-                )
-            elif url in ["/organise/", "/organize/"]:
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for the Organise page. "
-                    "Explain requirements for hosting in-person and remote workshops."
-                )
-            elif url == "/contribute/":
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for the Contribute page. "
-                    "Outline how volunteers can mentor, organize, write tutorials, or support."
-                )
-            elif url == "/resources/":
-                self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML content for Resources. "
-                    "Detail the tutorial, organiser manual, mentoring guide, and extensions."
+                    "💡 <strong>Notice:</strong> This page's complex layout is hardcoded to ensure it looks beautiful. "
+                    "To edit headings or text on this page, please use the <strong>Website Content (PageContent)</strong> app instead of this box."
                 )
             else:
                 self.fields["content"].help_text = (
-                    "💡 <strong>What to write:</strong> Enter HTML or rich text content for this page. "
-                    "Supported HTML tags: &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;a&gt;."
+                    "💡 <strong>What to write:</strong> Enter plain text content for this page. "
+                    "Use empty lines to separate paragraphs."
                 )
 
 
 class CustomFlatPageAdmin(DefaultFlatPageAdmin):
     form = CustomFlatPageForm
+    view_on_site = False
 
 
 try:
