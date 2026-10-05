@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static content_tags %}
-{% get_content 'partners_hero_heading' as partners_hero_heading %}
-{% get_content 'partners_hero_intro' as partners_hero_intro %}
 
 {% block title %}{{ flatpage.title|default:"Our Partners" }} — Python Weekend{% endblock %}
 
 {% block content %}
+{% get_content 'partners_hero_heading' as partners_hero_heading %}
+{% get_content 'partners_hero_intro' as partners_hero_intro %}
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 1 — HERO
