@@ -1,8 +1,30 @@
 {% extends "base.html" %}
-{% load content_tags %}
-
-{% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
+{% load static content_tags %}
+{% block title %}{{ flatpage.title|default:"Job Board" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{{ flatpage.content|safe }}
+{% get_content 'jobs_hero_heading' as jobs_hero_heading %}
+{% get_content 'jobs_hero_intro' as jobs_hero_intro %}
+<!-- Hero -->
+<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ jobs_hero_heading|default:'Job Board' }}</h1>
+    <p style="font-size:1.05rem;color:rgba(255,255,255,0.75);line-height:1.7;max-width:560px;margin:0 auto;">
+      {{ jobs_hero_intro|default:'Opportunities for Python, AI, and entry-level technology roles.' }}
+    </p>
+  </div>
+</section>
+
+<section class="section-dg" style="text-align:center;padding:5rem 1.5rem;">
+  <div class="container-dg" style="max-width:640px;">
+    <div class="card-brutal p-10" style="background:#fff;border:2.5px solid #16213e;box-shadow:5px 5px 0px #16213e;">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">💼</div>
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:1.5rem;font-weight:700;color:var(--py-navy);margin-bottom:1rem;">Sorry, there are no job openings at the moment.</h2>
+      <p style="color:var(--py-body);line-height:1.7;font-size:1rem;margin-bottom:1.5rem;">
+        When approved Python, AI, or entry-level technology opportunities are available, they will be displayed on this page.
+      </p>
+      <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us about listings »</a>
+    </div>
+  </div>
+</section>
 {% endblock %}
