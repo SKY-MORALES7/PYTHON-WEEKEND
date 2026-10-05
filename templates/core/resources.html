@@ -3,9 +3,6 @@
 {% block title %}{{ flatpage.title|default:"Resources" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "resources_hero_heading" as resources_hero_heading %}
 {% get_content "resources_hero_intro" as resources_hero_intro %}
 
@@ -80,5 +77,4 @@
     </div>
   </div>
 </section>
-{% endif %}
 {% endblock %}

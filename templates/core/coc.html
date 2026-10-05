@@ -3,9 +3,6 @@
 {% block title %}{{ flatpage.title|default:"Code of Conduct" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "coc_hero_heading" as coc_hero_heading %}
 {% get_content "coc_intro" as coc_intro %}
 
@@ -82,5 +79,4 @@
 
   </div>
 </section>
-{% endif %}
 {% endblock %}

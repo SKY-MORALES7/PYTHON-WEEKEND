@@ -3,9 +3,6 @@
 {% block title %}{{ flatpage.title|default:"FAQ" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "faq_hero_heading" as faq_hero_heading %}
 {% get_content "faq_hero_intro" as faq_hero_intro %}
 
@@ -126,5 +123,4 @@
     });
   });
 </script>
-{% endif %}
 {% endblock %}

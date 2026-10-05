@@ -409,10 +409,8 @@ class PageContent(models.Model):
     PAGE_CHOICES = [
         ("home",        "Home"),
         ("about",       "About"),
-        ("contact",     "Contact"),
         ("support",     "Support Us"),
         ("partners",    "Partners"),
-        ("organise",    "Organise"),
         ("contribute",  "Contribute"),
         ("resources",   "Resources"),
         ("newsletter",  "Newsletter"),

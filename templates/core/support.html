@@ -4,9 +4,6 @@
 
 {% block content %}
 
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "support_hero_heading" as support_hero_heading %}
 {% get_content "support_hero_intro" as support_hero_intro %}
 
@@ -315,6 +312,4 @@
     </a>
   </div>
 </section>
-{% endif %}
-
 {% endblock %}
