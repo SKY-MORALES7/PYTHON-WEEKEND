@@ -67,9 +67,9 @@
 #         logger.error(f"Failed to send email notifications for application {application.id}: {e}")
 
 import logging
-from django.core.mail import send_mail
 from django.conf import settings
 from core.security import is_email_sending_enabled
+from core.utils import send_resend_email
 
 logger = logging.getLogger(__name__)
 
@@ -113,12 +113,11 @@ def send_status_update_email(application):
         return
 
     try:
-        send_mail(
+        send_resend_email(
             subject=subject,
             message=message_body,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user_email],
-            fail_silently=False,
         )
     except Exception as e:
         logger.error(f"Failed to send status update email for application {application.id}: {e}")
@@ -167,22 +166,20 @@ def send_application_notifications(application):
 
     try:
         # Send confirmation to the applicant
-        send_mail(
+        send_resend_email(
             subject=attendee_subject,
             message=attendee_message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[getattr(application, 'email', '')],
-            fail_silently=False,
         )
 
         # Send notification to staff
         if staff_recipients:
-            send_mail(
+            send_resend_email(
                 subject=staff_subject,
                 message=staff_message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=staff_recipients,
-                fail_silently=False,
             )
     except Exception as e:
         logger.error(f"Failed to send email notifications for application {getattr(application, 'id', 'unknown')}: {e}")
