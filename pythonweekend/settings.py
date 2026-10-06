@@ -145,18 +145,14 @@ WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
 EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "True").strip().lower() in ("true", "1", "yes")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "smtp.resend.com"
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.resend.com")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "465"))
+EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "True" if EMAIL_PORT == 465 else "False").strip().lower() in ("true", "1", "yes")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False" if EMAIL_PORT == 465 else "True").strip().lower() in ("true", "1", "yes")
 
-EMAIL_PORT = 587
-
-EMAIL_USE_TLS = True
-
-EMAIL_USE_SSL = False
-
-EMAIL_HOST_USER = "resend"
-
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "resend")
 EMAIL_HOST_PASSWORD = os.environ.get("RESEND_API_KEY", "")
-EMAIL_TIMEOUT = 10  # Timeout after 10 seconds to prevent server worker hangs if Resend is unreachable
+EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "15"))  # Timeout after 15 seconds to prevent server worker hangs
 
 DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
