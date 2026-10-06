@@ -3,9 +3,6 @@
 {% block title %}{{ flatpage.title|default:"About Python Weekend" }} — Python Weekend{% endblock %}
 
 {% block content %}
-{% if flatpage and flatpage.content %}
-  {{ flatpage.content|safe }}
-{% else %}
 {% get_content "about_hero_heading" as about_hero_heading %}
 {% get_content "about_hero_intro" as about_hero_intro %}
 {% get_content "about_what_we_do_body" as about_what_we_do_body %}
@@ -127,5 +124,4 @@
     <a href="{% url 'core:contact' %}" class="btn-orange" style="display:inline-block;">Contact us</a>
   </div>
 </section>
-{% endif %}
 {% endblock %}
