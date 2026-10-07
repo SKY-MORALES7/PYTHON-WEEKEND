@@ -61,7 +61,7 @@ class EventApplication(models.Model):
             return
 
         site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
         event_name = self.event.title if self.event else "Python Weekend Workshop"
         from_email = settings.DEFAULT_FROM_EMAIL
         applicant_name = self.full_name or "Applicant"
@@ -445,7 +445,7 @@ class OrganizerApplication(models.Model):
 
         people = self._get_all_applicants()
         site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
         from_email = settings.DEFAULT_FROM_EMAIL
 
         created_users = []
@@ -626,7 +626,7 @@ class OrganizerApplication(models.Model):
         logger = logging.getLogger(__name__)
         people = self._get_all_applicants()
         site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
         from_email = settings.DEFAULT_FROM_EMAIL
 
         def _send_rejection_emails():

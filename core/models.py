@@ -78,7 +78,7 @@ class ContactMessage(TimeStampedModel):
 
     def send_reply_email(self):
         site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+        site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
         from_email = settings.DEFAULT_FROM_EMAIL
         recipient_email = self.email
         recipient_name = self.name or "there"

@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 def populate():
     # Setup Site
     site, _ = Site.objects.get_or_create(id=1)
-    site.domain = 'pythonweekend.com'
+    site.domain = 'pythonweekend.org'
     site.name = 'Python Weekend'
     site.save()
     

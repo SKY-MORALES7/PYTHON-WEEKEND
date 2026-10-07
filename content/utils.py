@@ -22,7 +22,7 @@ def send_co_organizer_removal_notification(user, event):
     recipient_name = user.first_name or user.username
     event_title = event.title
     site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
 
     # Check if this user still has any other events they own or co-organize
     from content.models import Event

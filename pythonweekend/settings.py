@@ -163,7 +163,7 @@ DEFAULT_FROM_EMAIL = config(
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 # Public site domain for absolute links in emails (e.g. unsubscribe link)
-SITE_URL = config("SITE_URL", default=os.environ.get("SITE_URL", "https://pythonweekend.com")).rstrip("/")
+SITE_URL = config("SITE_URL", default=os.environ.get("SITE_URL", "https://pythonweekend.org")).rstrip("/")
 
 # Optional internal staff notification inbox for contact form submissions
 CONTACT_NOTIFICATION_EMAIL = config("CONTACT_NOTIFICATION_EMAIL", default=os.environ.get("CONTACT_NOTIFICATION_EMAIL", "")).strip()

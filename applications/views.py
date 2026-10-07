@@ -69,7 +69,7 @@ class ApplicationFormView(View):
                     from core.utils import send_resend_email
 
                     site_name = getattr(settings, "SITE_NAME", "Python Weekend")
-                    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+                    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
                     event_title = application_form.event.title if application_form.event else "Python Weekend"
                     from_email = settings.DEFAULT_FROM_EMAIL
 
@@ -411,7 +411,7 @@ class OrganizeWizardView(View):
                         f"We have received your application and our team will review it shortly. "
                         f"We will be in touch with organizer onboarding materials and next steps.\n\n"
                         f"Best regards,\nThe {site_name} Team\n"
-                        f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}\n"
+                        f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.org')}\n"
                     )
 
                     applicant_html = f"""<!DOCTYPE html>
@@ -444,7 +444,7 @@ class OrganizeWizardView(View):
           </tr>
           <tr>
             <td style="background-color: #f8fafc; padding: 16px 28px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b;">
-              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.com')}</a>.
+              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.org')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.org')}</a>.
             </td>
           </tr>
         </table>
@@ -508,7 +508,7 @@ class OrganizeWizardView(View):
                                 f"Our team is currently reviewing the proposal. Once the event is approved by admin, you will receive "
                                 f"your backend login credentials to help manage and organize the event.\n\n"
                                 f"Best regards,\nThe {site_name} Team\n"
-                                f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}\n"
+                                f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.org')}\n"
                             )
                             co_html = f"""<!DOCTYPE html>
 <html>
@@ -540,7 +540,7 @@ class OrganizeWizardView(View):
           </tr>
           <tr>
             <td style="background-color: #f8fafc; padding: 16px 28px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b;">
-              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.com')}</a>.
+              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.org')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.org')}</a>.
             </td>
           </tr>
         </table>

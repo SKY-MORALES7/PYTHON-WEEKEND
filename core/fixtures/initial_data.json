@@ -1551,7 +1551,7 @@
   "model": "sites.site",
   "pk": 1,
   "fields": {
-    "domain": "pythonweekend.com",
+    "domain": "pythonweekend.org",
     "name": "Python Weekend"
   }
 },

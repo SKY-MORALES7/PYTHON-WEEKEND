@@ -135,7 +135,7 @@ def get_unsubscribe_url(email, request=None):
     if request:
         return request.build_absolute_uri(path)
 
-    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
     return f"{site_url}{path}"
 
 
@@ -234,7 +234,7 @@ def send_newsletter_broadcast(newsletter, request=None):
         logger.info(f"No active subscribers found for newsletter '{newsletter.subject}'.")
         return 0
 
-    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.org").rstrip("/")
     if request:
         base_url = request.build_absolute_uri("/").rstrip("/")
     else:
@@ -286,7 +286,7 @@ def _deliver_contact_notifications(name, email, interest, message):
         f"\"{message}\"\n\n"
         f"Our team will review your inquiry and get back to you shortly.\n\n"
         f"Best regards,\nThe {site_name} Team\n"
-        f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}\n"
+        f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.org')}\n"
     )
     user_html = f"""<!DOCTYPE html>
 <html>
