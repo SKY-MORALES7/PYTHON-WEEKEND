@@ -67,13 +67,45 @@ class EventApplication(models.Model):
         applicant_name = self.full_name or "Applicant"
         applicant_email = self.email
 
+        ev = self.event
+        venue_parts = []
+        if ev:
+            if ev.venue_name:
+                venue_parts.append(ev.venue_name.strip())
+            if ev.location and ev.location.strip() != (ev.venue_name or "").strip():
+                venue_parts.append(ev.location.strip())
+            if ev.city and ev.city.strip() not in (ev.location or ""):
+                venue_parts.append(ev.city.strip())
+            if ev.country and ev.country.strip() not in (ev.location or ""):
+                venue_parts.append(ev.country.strip())
+        venue_display = ", ".join(venue_parts) if venue_parts else "To be announced"
+
+        if ev and ev.start_date:
+            from django.utils import timezone
+            start_local = timezone.localtime(ev.start_date)
+            date_display = start_local.strftime("%B %d, %Y")
+            time_display = start_local.strftime("%I:%M %p")
+            if ev.end_date:
+                end_local = timezone.localtime(ev.end_date)
+                if end_local.date() == start_local.date():
+                    time_display = f"{start_local.strftime('%I:%M %p')} – {end_local.strftime('%I:%M %p')}"
+                else:
+                    date_display = f"{start_local.strftime('%B %d, %Y')} – {end_local.strftime('%B %d, %Y')}"
+                    time_display = f"Starts at {start_local.strftime('%I:%M %p')}"
+        else:
+            date_display = "To be announced"
+            time_display = "To be announced"
+
         if status == "approved":
             subject = f"Your application for {event_name} has been approved! 🎉"
             text_body = (
                 f"Hi {applicant_name},\n\n"
                 f"Congratulations! Your application to attend {event_name} has been APPROVED.\n\n"
-                f"We are excited to welcome you to the workshop. Our team will follow up with schedule details, "
-                f"venue instructions, and prerequisites.\n\n"
+                f"Workshop Details:\n"
+                f"- Venue: {venue_display}\n"
+                f"- Date: {date_display}\n"
+                f"- Time: {time_display}\n\n"
+                f"We look forward to having you with us! Please make sure to arrive on time with your laptop.\n\n"
                 f"Best regards,\nThe {site_name} Team\n"
                 f"{site_url}\n"
             )
@@ -94,7 +126,13 @@ class EventApplication(models.Model):
             <td style="padding: 24px; font-size: 15px; line-height: 1.6;">
               <p style="margin: 0 0 16px 0;">Hi <strong>{escape(applicant_name)}</strong>,</p>
               <p style="margin: 0 0 16px 0;">Congratulations! Your application to attend <strong>{escape(event_name)}</strong> has been <strong>approved</strong>.</p>
-              <p style="margin: 0 0 16px 0;">We look forward to having you with us. We will follow up with venue details, preparation guidelines, and the full schedule shortly.</p>
+              <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 18px 0; font-size: 14px; color: #16213e; line-height: 1.6;">
+                <p style="margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; font-size: 12px; color: #64748b; letter-spacing: 0.5px;">Workshop Details</p>
+                <p style="margin: 0 0 6px 0;"><strong>Venue:</strong> {escape(venue_display)}</p>
+                <p style="margin: 0 0 6px 0;"><strong>Date:</strong> {escape(date_display)}</p>
+                <p style="margin: 0;"><strong>Time:</strong> {escape(time_display)}</p>
+              </div>
+              <p style="margin: 0 0 16px 0;">We look forward to having you with us! Please ensure you arrive on time with your laptop and charger.</p>
               <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
             </td>
           </tr>
