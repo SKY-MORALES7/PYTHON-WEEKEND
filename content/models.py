@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 # ─────────────────────────────────────────────
@@ -19,6 +20,14 @@ class BlogPost(models.Model):
     )
     cover_image = models.ImageField(upload_to="blog/", blank=True, null=True)
     author = models.CharField(max_length=200, blank=True)
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="blog_posts",
+        help_text="The user account that authored/created this blog post."
+    )
     published = models.BooleanField(default=False)
     published_at = models.DateTimeField(default=timezone.now)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -317,6 +326,29 @@ class Event(models.Model):
 
     class Meta:
         ordering = ["start_date"]
+
+    def save(self, *args, **kwargs):
+        from django.utils.text import slugify
+        if not self.slug:
+            base_slug = slugify(self.title) or "python-weekend"
+            new_slug = base_slug
+            cnt = 1
+            while Event.objects.filter(slug=new_slug).exclude(pk=self.pk).exists():
+                new_slug = f"{base_slug}-{cnt}"
+                cnt += 1
+            self.slug = new_slug
+        elif not self.published and self.pk:
+            # Keep slug synced with title for unpublished draft events
+            expected_base = slugify(self.title)
+            if expected_base and not self.slug.startswith(expected_base):
+                base_slug = expected_base
+                new_slug = base_slug
+                cnt = 1
+                while Event.objects.filter(slug=new_slug).exclude(pk=self.pk).exists():
+                    new_slug = f"{base_slug}-{cnt}"
+                    cnt += 1
+                self.slug = new_slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title

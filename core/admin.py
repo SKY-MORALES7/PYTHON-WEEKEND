@@ -34,6 +34,7 @@ class CustomFlatPageForm(forms.ModelForm):
         fields = "__all__"
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
         if "content" in self.fields:
             # Adjust spacing in the admin textarea so lines aren't too far apart
@@ -46,10 +47,17 @@ class CustomFlatPageForm(forms.ModelForm):
                     "answers using <strong>A: Your answer text.</strong>"
                 )
             elif url in ["/about/", "/organise/", "/organize/", "/contribute/", "/code-of-conduct/", "/coc/", "/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
-                self.fields["content"].help_text = (
-                    "💡 <strong>Notice:</strong> This page's complex layout is hardcoded to ensure it looks beautiful. "
-                    "To edit headings or text on this page, please use the <strong>Website Content (PageContent)</strong> app instead of this box."
-                )
+                is_superuser = bool(self.request and self.request.user and self.request.user.is_superuser)
+                if is_superuser:
+                    self.fields["content"].help_text = (
+                        "💡 <strong>Notice:</strong> This page's complex layout is hardcoded to ensure it looks beautiful. "
+                        "To edit headings or text on this page, please use the <strong>Website Content (PageContent)</strong> app instead of this box."
+                    )
+                else:
+                    self.fields["content"].help_text = (
+                        "💡 <strong>Notice:</strong> This page uses a standardized community layout managed by platform leadership. "
+                        "If you need custom sections, layout changes, or heading updates on this page, please contact a platform super administrator."
+                    )
             else:
                 self.fields["content"].help_text = (
                     "💡 <strong>What to write:</strong> Enter plain text content for this page. "
@@ -60,6 +68,14 @@ class CustomFlatPageForm(forms.ModelForm):
 class CustomFlatPageAdmin(DefaultFlatPageAdmin):
     form = CustomFlatPageForm
     view_on_site = False
+
+    def get_form(self, request, obj=None, change=False, **kwargs):
+        Form = super().get_form(request, obj, change=change, **kwargs)
+        class RequestAwareFlatPageForm(Form):
+            def __init__(self, *f_args, **f_kwargs):
+                f_kwargs["request"] = request
+                super().__init__(*f_args, **f_kwargs)
+        return RequestAwareFlatPageForm
 
 
 try:

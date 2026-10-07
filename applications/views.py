@@ -397,6 +397,9 @@ class OrganizeWizardView(View):
                             f"and would love to host another event."
                         )
                         exp_summary = f"Yes (Previously organized: {application.previous_event.title})"
+                        location_html = ""
+                        location_text = ""
+                        admin_location_line = f"Previous Event: {application.previous_event.title}\n"
                     else:
                         loc_str = f"{application.target_state}, {application.target_country}".strip(", ")
                         loc_info = f" in {loc_str}" if loc_str else ""
@@ -404,6 +407,14 @@ class OrganizeWizardView(View):
                             f"Thank you for volunteering to organize a {site_name} workshop{loc_info}!"
                         )
                         exp_summary = f"No (First-time organizer - Location: {loc_str or 'N/A'})"
+                        if loc_str:
+                            location_html = f"<strong>Location:</strong> {escape(loc_str)}<br>\n"
+                            location_text = f"Location: {loc_str}\n"
+                            admin_location_line = f"Country / Region: {loc_str}\n"
+                        else:
+                            location_html = ""
+                            location_text = ""
+                            admin_location_line = "Country / Region: N/A\n"
 
                     applicant_text = (
                         f"Hi {application.lead_first_name},\n\n"
@@ -436,8 +447,7 @@ class OrganizeWizardView(View):
               <p style="margin: 0 0 16px 0;">We have received your application and our team is currently reviewing your proposal. We'll be in touch with onboarding materials, workshop timeline details, and next steps.</p>
               <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #334155;">
                 <strong>Workshop Type:</strong> {escape(application.get_workshop_type_display())}<br>
-                <strong>Location:</strong> {escape(application.target_state or '')}, {escape(application.target_country or '')}<br>
-                <strong>Experience:</strong> {escape(exp_summary)}
+                {location_html}<strong>Experience:</strong> {escape(exp_summary)}
               </div>
               <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
             </td>
@@ -454,13 +464,13 @@ class OrganizeWizardView(View):
 </body>
 </html>"""
 
-                    admin_subject = f"New Organizer Application: {organizer_name} ({application.target_country or 'Global'})"
+                    admin_subject = f"New Organizer Application: {organizer_name} ({application.target_country or 'Global'})" if not (application.has_organized_before and application.previous_event) else f"Returning Organizer Application: {organizer_name} ({application.previous_event.title})"
                     admin_body = (
                         f"A new organizer application has been submitted on {site_name}.\n\n"
                         f"Lead Organizer: {organizer_name}\n"
                         f"Email: {organizer_email}\n"
                         f"Workshop Type: {application.get_workshop_type_display()}\n"
-                        f"Country / Region: {application.target_state}, {application.target_country}\n"
+                        f"{admin_location_line}"
                         f"Organized Before: {exp_summary}\n\n"
                         f"Please log in to the admin panel to review and approve/reject the application."
                     )
@@ -504,7 +514,8 @@ class OrganizeWizardView(View):
                                 f"{organizer_name} ({organizer_email}) has submitted an application to organize a {site_name} workshop "
                                 f"and selected you as a co-organizer!\n\n"
                                 f"Workshop Type: {application.get_workshop_type_display()}\n"
-                                f"Location: {application.target_state or ''}, {application.target_country or ''}\n\n"
+                                f"{location_text}"
+                                f"Lead Organizer: {organizer_name} ({organizer_email})\n\n"
                                 f"Our team is currently reviewing the proposal. Once the event is approved by admin, you will receive "
                                 f"your backend login credentials to help manage and organize the event.\n\n"
                                 f"Best regards,\nThe {site_name} Team\n"
@@ -531,8 +542,7 @@ class OrganizeWizardView(View):
               <p style="margin: 0 0 16px 0;"><strong>{escape(organizer_name)}</strong> ({escape(organizer_email)}) has submitted an application to organize a {site_name} workshop and selected you as a <strong>co-organizer</strong>.</p>
               <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #334155;">
                 <strong>Workshop Type:</strong> {escape(application.get_workshop_type_display())}<br>
-                <strong>Location:</strong> {escape(application.target_state or '')}, {escape(application.target_country or '')}<br>
-                <strong>Lead Organizer:</strong> {escape(organizer_name)} ({escape(organizer_email)})
+                {location_html}<strong>Lead Organizer:</strong> {escape(organizer_name)} ({escape(organizer_email)})
               </div>
               <p style="margin: 0 0 16px 0;">Our team is reviewing the workshop application. Once approved, you will receive an email with your backend login credentials to help manage the workshop.</p>
               <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>

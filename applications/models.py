@@ -462,6 +462,7 @@ class OrganizerApplication(models.Model):
             # Generate random password format: admin + random digits (e.g. admin7294)
             pwd = f"admin{random.randint(1000, 9999)}"
 
+            is_existing = False
             user = User.objects.filter(email__iexact=email).first()
             if not user:
                 # Generate username: first name + 3 random digits (e.g. Sarah482)
@@ -482,9 +483,10 @@ class OrganizerApplication(models.Model):
                     is_superuser=False
                 )
             else:
+                is_existing = True
                 user.is_staff = True
                 user.is_superuser = False
-                user.set_password(pwd)
+                # Do NOT overwrite password for returning organizers who already have an account!
                 if first_name and not user.first_name:
                     user.first_name = first_name
                 if last_name and not user.last_name:
@@ -499,8 +501,9 @@ class OrganizerApplication(models.Model):
                 "email": email,
                 "first_name": first_name or user.username,
                 "username": user.username,
-                "password": pwd,
+                "password": pwd if not is_existing else None,
                 "is_lead": is_lead,
+                "is_existing": is_existing,
             })
 
         if not created_users:
@@ -549,20 +552,51 @@ class OrganizerApplication(models.Model):
         def _send_approval_emails():
             for cred in user_credentials:
                 role_label = "Lead Organizer" if cred["is_lead"] else "Co-Organizer"
+                is_returning = cred.get("is_existing", False)
                 subject = f"Your {site_name} Organizer Application has been Approved! 🎉"
-                text_body = (
-                    f"Hi {cred['first_name']},\n\n"
-                    f"Congratulations! Your application to organize a {site_name} workshop has been approved.\n"
-                    f"You have been granted backend access as a {role_label}.\n\n"
-                    f"Your Admin Login Credentials:\n"
-                    f"Login URL: {site_url}/admin/\n"
-                    f"Username: {cred['username']}\n"
-                    f"Password: {cred['password']}\n\n"
-                    f"Please log in to manage your event, view attendee applications, and customize event details. "
-                    f"You can change your password anytime in the admin portal.\n\n"
-                    f"Best regards,\nThe {site_name} Team\n"
-                    f"{site_url}\n"
-                )
+
+                if is_returning:
+                    text_body = (
+                        f"Hi {cred['first_name']},\n\n"
+                        f"Congratulations! Your application to organize a {site_name} workshop has been approved.\n"
+                        f"A new workshop draft has been created and linked to your existing organizer account ({role_label}).\n\n"
+                        f"Your Admin Login Details:\n"
+                        f"Login URL: {site_url}/admin/\n"
+                        f"Username: {cred['username']}\n"
+                        f"Password: (Use your existing account password)\n\n"
+                        f"Please log in to your admin portal to begin managing your workshop draft, review applications, and coordinate details.\n\n"
+                        f"Best regards,\nThe {site_name} Team\n"
+                        f"{site_url}\n"
+                    )
+                    login_box_html = f"""
+                <p style="margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; font-size: 12px; color: #64748b;">Your Admin Login Details</p>
+                <p style="margin: 0 0 4px 0;"><strong>Login URL:</strong> <a href="{site_url}/admin/" style="color: #0284c7;">{site_url}/admin/</a></p>
+                <p style="margin: 0 0 4px 0;"><strong>Username:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 3px; font-weight: bold;">{escape(cred['username'])}</code></p>
+                <p style="margin: 0;"><strong>Password:</strong> <span style="color: #475569; font-style: italic;">Use your existing account password</span></p>"""
+                    headline_text = f"Welcome Back, {escape(role_label)}! 🎉"
+                    intro_text = f"Congratulations! Your application to organize a <strong>{site_name}</strong> workshop has been approved. Your existing organizer account has been linked to your new event draft as a <strong>{escape(role_label)}</strong>."
+                else:
+                    text_body = (
+                        f"Hi {cred['first_name']},\n\n"
+                        f"Congratulations! Your application to organize a {site_name} workshop has been approved.\n"
+                        f"You have been granted backend access as a {role_label}.\n\n"
+                        f"Your Admin Login Credentials:\n"
+                        f"Login URL: {site_url}/admin/\n"
+                        f"Username: {cred['username']}\n"
+                        f"Password: {cred['password']}\n\n"
+                        f"Please log in to manage your event, view attendee applications, and customize event details. "
+                        f"You can change your password anytime in the admin portal.\n\n"
+                        f"Best regards,\nThe {site_name} Team\n"
+                        f"{site_url}\n"
+                    )
+                    login_box_html = f"""
+                <p style="margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; font-size: 12px; color: #64748b;">Your Admin Login Details</p>
+                <p style="margin: 0 0 4px 0;"><strong>Login URL:</strong> <a href="{site_url}/admin/" style="color: #0284c7;">{site_url}/admin/</a></p>
+                <p style="margin: 0 0 4px 0;"><strong>Username:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 3px; font-weight: bold;">{escape(cred['username'])}</code></p>
+                <p style="margin: 0;"><strong>Password:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 3px; font-weight: bold;">{escape(cred['password'])}</code></p>"""
+                    headline_text = f"Welcome, {escape(role_label)}! 🎉"
+                    intro_text = f"Congratulations! Your application to organize a <strong>{site_name}</strong> workshop has been approved. You have been granted backend access as a <strong>{escape(role_label)}</strong>."
+
                 html_body = f"""<!DOCTYPE html>
 <html>
 <body style="margin: 0; padding: 24px 12px; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #16213e;">
@@ -575,20 +609,17 @@ class OrganizerApplication(models.Model):
               <span style="background-color: #0284c7; color: #ffffff; font-family: monospace; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border: 1.5px solid #16213e;">
                 Application Approved
               </span>
-              <h1 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px; font-weight: 800;">Welcome, {escape(role_label)}! 🎉</h1>
+              <h1 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px; font-weight: 800;">{headline_text}</h1>
             </td>
           </tr>
           <tr>
             <td style="padding: 28px; font-size: 15px; line-height: 1.6; color: #16213e;">
               <p style="margin: 0 0 16px 0;">Hi <strong>{escape(cred['first_name'])}</strong>,</p>
-              <p style="margin: 0 0 16px 0;">Congratulations! Your application to organize a <strong>{site_name}</strong> workshop has been approved. You have been granted backend access as a <strong>{escape(role_label)}</strong>.</p>
+              <p style="margin: 0 0 16px 0;">{intro_text}</p>
               <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 16px 20px; margin: 20px 0; font-size: 14px; color: #16213e;">
-                <p style="margin: 0 0 8px 0; font-weight: bold; text-transform: uppercase; font-size: 12px; color: #64748b;">Your Admin Login Details</p>
-                <p style="margin: 0 0 4px 0;"><strong>Login URL:</strong> <a href="{site_url}/admin/" style="color: #0284c7;">{site_url}/admin/</a></p>
-                <p style="margin: 0 0 4px 0;"><strong>Username:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 3px; font-weight: bold;">{escape(cred['username'])}</code></p>
-                <p style="margin: 0;"><strong>Password:</strong> <code style="background: #e2e8f0; padding: 2px 6px; border-radius: 3px; font-weight: bold;">{escape(cred['password'])}</code></p>
+{login_box_html}
               </div>
-              <p style="margin: 16px 0 0 0;">Please log in to manage your workshop, review applicant responses, and coordinate with your team. You can change your password anytime after logging in.</p>
+              <p style="margin: 16px 0 0 0;">Please log in to manage your workshop, review applicant responses, and coordinate with your team.</p>
               <p style="margin: 16px 0 0 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
             </td>
           </tr>

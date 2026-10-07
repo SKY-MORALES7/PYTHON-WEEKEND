@@ -52,6 +52,52 @@ class BlogPostAdmin(admin.ModelAdmin):
         }),
     )
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        from django.db.models import Q
+        full_name = request.user.get_full_name().strip()
+        q = Q(created_by=request.user)
+        if full_name:
+            q |= Q(author__iexact=full_name)
+        if request.user.username:
+            q |= Q(author__iexact=request.user.username)
+        return qs.filter(q).distinct()
+
+    def has_change_permission(self, request, obj=None):
+        if obj is None or request.user.is_superuser:
+            return True
+        full_name = request.user.get_full_name().strip()
+        return (
+            obj.created_by == request.user
+            or (obj.created_by is None and bool(full_name and obj.author.lower() == full_name.lower()))
+            or (obj.created_by is None and bool(request.user.username and obj.author.lower() == request.user.username.lower()))
+        )
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is None or request.user.is_superuser:
+            return True
+        full_name = request.user.get_full_name().strip()
+        return (
+            obj.created_by == request.user
+            or (obj.created_by is None and bool(full_name and obj.author.lower() == full_name.lower()))
+            or (obj.created_by is None and bool(request.user.username and obj.author.lower() == request.user.username.lower()))
+        )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.created_by:
+            obj.created_by = request.user
+        if not obj.author:
+            obj.author = request.user.get_full_name() or request.user.username
+        super().save_model(request, obj, form, change)
+
+    def get_changeform_initial_data(self, request):
+        initial = super().get_changeform_initial_data(request)
+        if not request.user.is_superuser and "author" not in initial:
+            initial["author"] = request.user.get_full_name() or request.user.username
+        return initial
+
 
 # ─────────────────────────────────────────────
 #  EVENT INLINES

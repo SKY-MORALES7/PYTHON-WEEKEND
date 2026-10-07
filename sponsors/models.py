@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Sponsor(models.Model):
@@ -27,6 +28,14 @@ class Sponsor(models.Model):
         help_text="Used to group this partner on the Our Partners page."
     )
     active = models.BooleanField(default=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="sponsors",
+        help_text="The admin/organizer who added this sponsor."
+    )
 
     class Meta:
         ordering = ["tier", "name"]
