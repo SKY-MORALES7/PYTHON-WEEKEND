@@ -304,12 +304,18 @@ class SubscribeView(View):
             referer = request.META.get('HTTP_REFERER')
             return redirect(referer if referer else 'core:home')
 
-        email = request.POST.get("email")
-        if email:
-            subscriber, created = Subscriber.objects.get_or_create(email=email)
-            if created:
-                send_newsletter_welcome(email)
+        email = request.POST.get("email", "").strip().lower()
+        if email and "@" in email:
+            subscriber = Subscriber.objects.filter(email__iexact=email).first()
+            if not subscriber:
+                subscriber = Subscriber.objects.create(email=email, is_active=True)
+                send_newsletter_welcome(email, request=request)
                 messages.success(request, "Thanks for subscribing! Check your inbox for a welcome email.")
+            elif not subscriber.is_active:
+                subscriber.is_active = True
+                subscriber.save(update_fields=["is_active"])
+                send_newsletter_welcome(email, request=request)
+                messages.success(request, "Welcome back! Your subscription to Python Weekend Dispatch has been reactivated.")
             else:
                 messages.info(request, "You're already subscribed to our newsletter!")
         else:
@@ -448,12 +454,18 @@ class NewsletterView(View):
             messages.error(request, "Too many requests. Please try again later.")
             return redirect("core:newsletter")
 
-        email = request.POST.get("email")
-        if email:
-            subscriber, created = Subscriber.objects.get_or_create(email=email)
-            if created:
-                send_newsletter_welcome(email)
+        email = request.POST.get("email", "").strip().lower()
+        if email and "@" in email:
+            subscriber = Subscriber.objects.filter(email__iexact=email).first()
+            if not subscriber:
+                subscriber = Subscriber.objects.create(email=email, is_active=True)
+                send_newsletter_welcome(email, request=request)
                 messages.success(request, "You're subscribed! Welcome to the Python Weekend Dispatch.")
+            elif not subscriber.is_active:
+                subscriber.is_active = True
+                subscriber.save(update_fields=["is_active"])
+                send_newsletter_welcome(email, request=request)
+                messages.success(request, "Welcome back! Your subscription to Python Weekend Dispatch has been reactivated.")
             else:
                 messages.info(request, "You're already subscribed to our newsletter!")
         else:
@@ -465,6 +477,64 @@ class NewsletterView(View):
         context = {"past_editions": past_editions}
         context.update(_footer_context())
         return render(request, self.template_name, context)
+
+
+class NewsletterUnsubscribeView(View):
+    """
+    Handles 1-click unsubscribe links embedded in all dispatch emails,
+    plus self-service re-subscription.
+    """
+    template_name = "core/unsubscribed.html"
+
+    def get(self, request, token=None):
+        from .utils import verify_unsubscribe_token
+        target_token = token or request.GET.get("token", "").strip()
+        email = None
+        status = "form"
+
+        if target_token:
+            email = verify_unsubscribe_token(target_token)
+            if email:
+                updated_count = Subscriber.objects.filter(email__iexact=email).update(is_active=False)
+                status = "success"
+            else:
+                status = "invalid"
+
+        context = {
+            "email": email,
+            "status": status,
+            "token": target_token,
+        }
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+    def post(self, request, token=None):
+        action = request.POST.get("action", "").strip()
+        email = request.POST.get("email", "").strip().lower()
+
+        if action == "resubscribe" and email and "@" in email:
+            sub = Subscriber.objects.filter(email__iexact=email).first()
+            if sub:
+                sub.is_active = True
+                sub.save(update_fields=["is_active"])
+            else:
+                Subscriber.objects.create(email=email, is_active=True)
+            send_newsletter_welcome(email, request=request)
+            messages.success(request, "You have successfully re-subscribed! Welcome back to Python Weekend Dispatch.")
+            return redirect("core:newsletter")
+
+        # Manual email unsubscribe
+        if email and "@" in email:
+            Subscriber.objects.filter(email__iexact=email).update(is_active=False)
+            context = {
+                "email": email,
+                "status": "success",
+            }
+            context.update(_footer_context())
+            return render(request, self.template_name, context)
+
+        messages.error(request, "Please enter a valid email address.")
+        return redirect("core:newsletter_unsubscribe")
 
 
 class FAQView(View):

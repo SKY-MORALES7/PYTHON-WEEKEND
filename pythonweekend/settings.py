@@ -142,24 +142,31 @@ WHITENOISE_SKIP_COMPRESS_EXTENSIONS = (
 
 
 # Email — Resend SMTP & Emergency Kill-switch
-EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "True").strip().lower() in ("true", "1", "yes")
+EMAIL_ENABLED = config("EMAIL_ENABLED", default=os.environ.get("EMAIL_ENABLED", "True")).strip().lower() in ("true", "1", "yes")
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.resend.com")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "465"))
-EMAIL_USE_SSL = os.environ.get("EMAIL_USE_SSL", "True" if EMAIL_PORT == 465 else "False").strip().lower() in ("true", "1", "yes")
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "False" if EMAIL_PORT == 465 else "True").strip().lower() in ("true", "1", "yes")
+EMAIL_HOST = config("EMAIL_HOST", default=os.environ.get("EMAIL_HOST", "smtp.resend.com"))
+EMAIL_PORT = int(config("EMAIL_PORT", default=os.environ.get("EMAIL_PORT", "465")))
+EMAIL_USE_SSL = config("EMAIL_USE_SSL", default="True" if EMAIL_PORT == 465 else "False").strip().lower() in ("true", "1", "yes")
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", default="False" if EMAIL_PORT == 465 else "True").strip().lower() in ("true", "1", "yes")
 
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "resend")
-EMAIL_HOST_PASSWORD = os.environ.get("RESEND_API_KEY", "")
-EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", "15"))  # Timeout after 15 seconds to prevent server worker hangs
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default=os.environ.get("EMAIL_HOST_USER", "resend"))
+RESEND_API_KEY = config("RESEND_API_KEY", default=os.environ.get("RESEND_API_KEY", "")).strip()
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default=RESEND_API_KEY).strip()
+EMAIL_TIMEOUT = int(config("EMAIL_TIMEOUT", default=os.environ.get("EMAIL_TIMEOUT", "15")))  # Timeout after 15 seconds to prevent server worker hangs
 
-DEFAULT_FROM_EMAIL = os.environ.get(
+DEFAULT_FROM_EMAIL = config(
     "DEFAULT_FROM_EMAIL",
-    "Python Weekend <hello@pythonweekend.org>"
+    default=os.environ.get("DEFAULT_FROM_EMAIL", "Python Weekend <hello@pythonweekend.org>")
 )
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+# Public site domain for absolute links in emails (e.g. unsubscribe link)
+SITE_URL = config("SITE_URL", default=os.environ.get("SITE_URL", "https://pythonweekend.com")).rstrip("/")
+
+# Optional internal staff notification inbox for contact form submissions
+CONTACT_NOTIFICATION_EMAIL = config("CONTACT_NOTIFICATION_EMAIL", default=os.environ.get("CONTACT_NOTIFICATION_EMAIL", "")).strip()
 
 # Console logging so unhandled 500 errors print their full traceback to Render logs
 LOGGING = {

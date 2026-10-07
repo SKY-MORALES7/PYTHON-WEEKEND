@@ -1,9 +1,8 @@
 from django.contrib import admin, messages
-from django.core.mail import send_mass_mail
-from django.conf import settings
 from django.utils import timezone
 from .models import Newsletter, NewsletterSubscriber
 from subscribers.models import Subscriber
+from core.utils import send_newsletter_broadcast
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
@@ -12,33 +11,40 @@ class NewsletterAdmin(admin.ModelAdmin):
     search_fields = ("subject", "content")
     actions = ["send_newsletter_to_subscribers"]
 
+    def save_model(self, request, obj, form, change):
+        is_new = not change
+        super().save_model(request, obj, form, change)
+        if is_new:
+            count = send_newsletter_broadcast(obj, request=request)
+            if count > 0:
+                self.message_user(
+                    request,
+                    f"Newsletter '{obj.subject}' was created and queued for delivery to {count} active subscriber(s). Each email includes a personalized unsubscribe link.",
+                    level=messages.SUCCESS,
+                )
+            else:
+                self.message_user(
+                    request,
+                    f"Newsletter '{obj.subject}' was saved. No active subscribers found to send to.",
+                    level=messages.WARNING,
+                )
+
     def send_newsletter_to_subscribers(self, request, queryset):
-        active_subscribers = list(Subscriber.objects.filter(is_active=True).values_list('email', flat=True))
-        if not active_subscribers:
+        active_count = Subscriber.objects.filter(is_active=True).count()
+        if active_count == 0:
             self.message_user(request, "No active subscribers found.", level=messages.WARNING)
             return
 
-        total_sent = 0
+        total_queued = 0
         for newsletter in queryset:
-            email_messages = [
-                (
-                    newsletter.subject,
-                    newsletter.content,
-                    settings.DEFAULT_FROM_EMAIL,
-                    [sub_email]
-                )
-                for sub_email in active_subscribers
-            ]
-            try:
-                send_mass_mail(email_messages, fail_silently=False)
-                newsletter.sent_at = timezone.now()
-                newsletter.save()
-                total_sent += len(active_subscribers)
-            except Exception as e:
-                self.message_user(request, f"Error sending newsletter '{newsletter.subject}': {e}", level=messages.ERROR)
+            count = send_newsletter_broadcast(newsletter, request=request)
+            total_queued += count
 
-        if total_sent > 0:
-            self.message_user(request, f"Successfully sent newsletter to {total_sent} subscriber(s).", level=messages.SUCCESS)
+        self.message_user(
+            request,
+            f"Successfully queued {queryset.count()} newsletter edition(s) for delivery to {active_count} active subscriber(s) with personalized unsubscribe links.",
+            level=messages.SUCCESS,
+        )
 
     send_newsletter_to_subscribers.short_description = "Send selected newsletter(s) to all active subscribers"
 

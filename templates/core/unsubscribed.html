@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Newsletter Unsubscribe — Python Weekend{% endblock %}
+
+{% block content %}
+<section class="py-16 md:py-24 bg-shield-ice/20 border-b-2.5 border-shield-navy min-h-[60vh] flex items-center">
+  <div class="max-w-2xl mx-auto px-4 sm:px-6 w-full">
+
+    {% if messages %}
+    <div class="mb-6 space-y-2">
+      {% for message in messages %}
+      <div class="px-4 py-3 border-2 border-shield-navy font-mono text-xs font-bold uppercase tracking-wider {% if message.tags == 'success' %}bg-green-100 text-green-900{% else %}bg-red-100 text-red-900{% endif %}"
+           style="border: 2px solid #16213e !important; box-shadow: 3px 3px 0px #16213e !important;">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="bg-white border-2 border-shield-navy p-8 sm:p-10 shadow-brutal text-center"
+         style="border: 2.5px solid #16213e !important; box-shadow: 6px 6px 0px #16213e !important;">
+
+      {% if status == "success" %}
+        <!-- Success State -->
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 border-2 border-shield-navy mb-6 text-red-700 shadow-brutal-sm">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-navy px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+          Subscription Updated
+        </span>
+
+        <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+          You have been unsubscribed
+        </h1>
+
+        <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-6 max-w-lg mx-auto">
+          {% if email %}
+            <strong class="font-bold text-shield-blue">{{ email }}</strong> will no longer receive any updates, newsletters, or announcements from the Python Weekend Dispatch.
+          {% else %}
+            You will no longer receive any emails from the Python Weekend Dispatch.
+          {% endif %}
+        </p>
+
+        <div class="bg-shield-ice/20 border-2 border-dashed border-shield-navy/40 p-6 mb-8 text-center max-w-md mx-auto">
+          <p class="font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-3">
+            Unsubscribed by accident?
+          </p>
+          <form method="post" action="{% url 'core:newsletter_unsubscribe' %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="resubscribe">
+            {% if email %}
+            <input type="hidden" name="email" value="{{ email }}">
+            {% else %}
+            <input type="email" name="email" placeholder="Enter your email" required
+                   class="w-full px-3 py-2 border-2 border-shield-navy mb-3 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-shield-blue">
+            {% endif %}
+            <button type="submit" class="btn-orange text-xs py-2 px-5 font-bold uppercase tracking-wider">
+              Re-subscribe to Newsletter &raquo;
+            </button>
+          </form>
+        </div>
+
+      {% elif status == "invalid" %}
+        <!-- Invalid / Expired Token -->
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-amber-100 border-2 border-shield-navy mb-6 text-amber-700 shadow-brutal-sm">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+
+        <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+          Link Expired or Invalid
+        </h1>
+
+        <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-8 max-w-lg mx-auto">
+          The unsubscribe link was either invalid or has expired. You can still unsubscribe manually below by entering your email address:
+        </p>
+
+        <form method="post" action="{% url 'core:newsletter_unsubscribe' %}" class="max-w-md mx-auto space-y-4">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Enter your email address" required
+                 class="w-full px-4 py-3 bg-white text-shield-navy font-body font-medium text-base shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue"
+                 style="border: 2px solid #16213e !important; box-shadow: 3px 3px 0px #16213e !important;">
+          <button type="submit" class="btn-orange w-full text-sm py-3 font-bold uppercase tracking-wider">
+            Unsubscribe Me &raquo;
+          </button>
+        </form>
+
+      {% else %}
+        <!-- Manual Unsubscribe Form -->
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-navy px-3 py-1.5 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">
+          Manage Subscription
+        </span>
+
+        <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+          Unsubscribe from Newsletter
+        </h1>
+
+        <p class="font-body text-shield-navy text-base leading-relaxed font-medium mb-8 max-w-lg mx-auto">
+          Enter your email address below to unsubscribe from all Python Weekend Dispatch newsletters:
+        </p>
+
+        <form method="post" action="{% url 'core:newsletter_unsubscribe' %}" class="max-w-md mx-auto space-y-4">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Enter your email address" required
+                 class="w-full px-4 py-3 bg-white text-shield-navy font-body font-medium text-base shadow-brutal-sm focus:outline-none focus:ring-2 focus:ring-shield-blue"
+                 style="border: 2px solid #16213e !important; box-shadow: 3px 3px 0px #16213e !important;">
+          <button type="submit" class="btn-orange w-full text-sm py-3 font-bold uppercase tracking-wider">
+            Unsubscribe &raquo;
+          </button>
+        </form>
+      {% endif %}
+
+      <div class="mt-8 pt-6 border-t-2 border-shield-navy/15 flex justify-center gap-4 text-xs font-mono font-bold uppercase tracking-wider">
+        <a href="{% url 'core:home' %}" class="text-shield-blue hover:text-shield-navy underline">&larr; Back to Home</a>
+        <span class="text-shield-navy/40">&bull;</span>
+        <a href="{% url 'core:newsletter' %}" class="text-shield-blue hover:text-shield-navy underline">Newsletter Archive</a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+{% endblock %}

@@ -276,68 +276,143 @@ class OrganizeWizardView(View):
                 target_state=data.get("target_state", ""),
             )
 
-            # Send email notifications safely
+            # Send email notifications safely via background thread using Resend HTTPS API / SMTP fallback
             try:
                 if is_email_sending_enabled():
+                    import threading
+                    from django.contrib.auth import get_user_model
+                    from core.utils import send_resend_email
+                    from django.utils.html import escape
+
                     User = get_user_model()
                     organizer_name = f"{application.lead_first_name} {application.lead_last_name}".strip()
                     organizer_email = application.lead_email
+                    from_email = settings.DEFAULT_FROM_EMAIL
+                    site_name = getattr(settings, 'SITE_NAME', 'Python Weekend')
 
-                    admin_emails = list(User.objects.filter(is_superuser=True, is_active=True).exclude(email='').values_list('email', flat=True))
+                    # Prepare admin list
+                    admin_emails = []
+                    custom_inbox = getattr(settings, "CONTACT_NOTIFICATION_EMAIL", "").strip()
+                    if custom_inbox:
+                        admin_emails.append(custom_inbox)
+
+                    superuser_emails = list(
+                        User.objects.filter(is_superuser=True, is_active=True)
+                        .exclude(email="")
+                        .exclude(email__endswith="@example.com")
+                        .values_list("email", flat=True)
+                    )
+                    for s_email in superuser_emails:
+                        if s_email not in admin_emails:
+                            admin_emails.append(s_email)
+
                     if not admin_emails:
-                        admin_emails = [settings.DEFAULT_FROM_EMAIL]
+                        admin_emails = [from_email]
 
                     # Personalize applicant message based on experience
                     if application.has_organized_before and application.previous_event:
-                        applicant_msg = (
-                            f"Hi {application.lead_first_name},\n\n"
-                            f"Thank you for volunteering to organize another Python Weekend workshop!\n\n"
+                        exp_greeting = (
+                            f"Thank you for volunteering to organize another {site_name} workshop! "
                             f"We are excited to see that you previously organized '{application.previous_event.title}' "
-                            f"and would love to host another event. We have received your application and our team will review it shortly.\n\n"
-                            f"Best regards,\nThe Python Weekend Team"
+                            f"and would love to host another event."
                         )
                         exp_summary = f"Yes (Previously organized: {application.previous_event.title})"
                     else:
                         loc_str = f"{application.target_state}, {application.target_country}".strip(", ")
                         loc_info = f" in {loc_str}" if loc_str else ""
-                        applicant_msg = (
-                            f"Hi {application.lead_first_name},\n\n"
-                            f"Thank you for volunteering to organize a Python Weekend workshop{loc_info}!\n\n"
-                            f"We have received your application and our team will review it shortly.\n\n"
-                            f"Best regards,\nThe Python Weekend Team"
+                        exp_greeting = (
+                            f"Thank you for volunteering to organize a {site_name} workshop{loc_info}!"
                         )
                         exp_summary = f"No (First-time organizer - Location: {loc_str or 'N/A'})"
 
-                    try:
-                        send_mail(
-                            "Your Python Weekend Organizer Application",
-                            applicant_msg,
-                            settings.DEFAULT_FROM_EMAIL,
-                            [organizer_email],
-                            fail_silently=True,
-                        )
-                    except Exception as mail_err1:
-                        logger.warning(f"Could not send applicant confirmation email: {mail_err1}")
+                    applicant_text = (
+                        f"Hi {application.lead_first_name},\n\n"
+                        f"{exp_greeting}\n\n"
+                        f"We have received your application and our team will review it shortly. "
+                        f"We will be in touch with organizer onboarding materials and next steps.\n\n"
+                        f"Best regards,\nThe {site_name} Team\n"
+                        f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}\n"
+                    )
 
-                    try:
-                        send_mail(
-                            f"New Organizer Application: {organizer_name}",
-                            (
-                                f"A new organizer application has been submitted.\n\n"
-                                f"Lead Organizer: {organizer_name}\n"
-                                f"Email: {organizer_email}\n"
-                                f"Workshop Type: {application.get_workshop_type_display()}\n"
-                                f"Organized Before: {exp_summary}\n\n"
-                                f"Please log in to the admin panel to review and approve/reject the application."
-                            ),
-                            settings.DEFAULT_FROM_EMAIL,
-                            admin_emails,
-                            fail_silently=True,
-                        )
-                    except Exception as mail_err2:
-                        logger.warning(f"Could not send admin notification email: {mail_err2}")
+                    applicant_html = f"""<!DOCTYPE html>
+<html>
+<body style="margin: 0; padding: 24px 12px; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #16213e;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border: 3px solid #16213e; box-shadow: 6px 6px 0px #16213e;">
+          <tr>
+            <td style="background-color: #16213e; padding: 24px 28px;">
+              <span style="background-color: #0284c7; color: #ffffff; font-family: monospace; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border: 1.5px solid #16213e;">
+                Organizer Application
+              </span>
+              <h1 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px; font-weight: 800;">Application Received!</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; font-size: 15px; line-height: 1.6; color: #16213e;">
+              <p style="margin: 0 0 16px 0;">Hi <strong>{escape(application.lead_first_name)}</strong>,</p>
+              <p style="margin: 0 0 16px 0;">{escape(exp_greeting)}</p>
+              <p style="margin: 0 0 16px 0;">We have received your application and our team is currently reviewing your proposal. We'll be in touch with onboarding materials, workshop timeline details, and next steps.</p>
+              <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #334155;">
+                <strong>Workshop Type:</strong> {escape(application.get_workshop_type_display())}<br>
+                <strong>Location:</strong> {escape(application.target_state or '')}, {escape(application.target_country or '')}<br>
+                <strong>Experience:</strong> {escape(exp_summary)}
+              </div>
+              <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #f8fafc; padding: 16px 28px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b;">
+              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.com')}</a>.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>"""
+
+                    admin_subject = f"New Organizer Application: {organizer_name} ({application.target_country or 'Global'})"
+                    admin_body = (
+                        f"A new organizer application has been submitted on {site_name}.\n\n"
+                        f"Lead Organizer: {organizer_name}\n"
+                        f"Email: {organizer_email}\n"
+                        f"Workshop Type: {application.get_workshop_type_display()}\n"
+                        f"Country / Region: {application.target_state}, {application.target_country}\n"
+                        f"Organized Before: {exp_summary}\n\n"
+                        f"Please log in to the admin panel to review and approve/reject the application."
+                    )
+
+                    def _send_organizer_emails():
+                        try:
+                            send_resend_email(
+                                subject=f"Your {site_name} Organizer Application",
+                                message=applicant_text,
+                                from_email=from_email,
+                                recipient_list=[organizer_email],
+                                html_message=applicant_html,
+                            )
+                            logger.info(f"Organizer confirmation email successfully sent to {organizer_email}")
+                        except Exception as m_err:
+                            logger.error(f"Failed to send organizer confirmation email to {organizer_email}: {m_err}")
+
+                        try:
+                            send_resend_email(
+                                subject=admin_subject,
+                                message=admin_body,
+                                from_email=from_email,
+                                recipient_list=admin_emails,
+                            )
+                            logger.info(f"Organizer alert email successfully sent to staff: {admin_emails}")
+                        except Exception as m_err2:
+                            logger.error(f"Failed to send organizer admin alert to {admin_emails}: {m_err2}")
+
+                    mail_thread = threading.Thread(target=_send_organizer_emails, daemon=True)
+                    mail_thread.start()
             except Exception as mail_err:
-                logger.warning(f"Failed to process email notifications: {mail_err}")
+                logger.warning(f"Failed to queue organizer email notifications: {mail_err}")
 
         except Exception as err:
             logger.error(f"Error saving organizer application to database: {err}", exc_info=True)

@@ -31,6 +31,8 @@ urlpatterns = [
 
     # ── Community pages ──────────────────────────────────────────
     path("newsletter/", views.NewsletterView.as_view(), name="newsletter"),
+    path("newsletter/unsubscribe/", views.NewsletterUnsubscribeView.as_view(), name="newsletter_unsubscribe"),
+    path("newsletter/unsubscribe/<str:token>/", views.NewsletterUnsubscribeView.as_view(), name="newsletter_unsubscribe_token"),
     path("faq/", views.FAQView.as_view(), name="faq"),
     path("code-of-conduct/", views.CoCView.as_view(), name="coc"),
     path("jobs/", views.JobsView.as_view(), name="jobs"),
