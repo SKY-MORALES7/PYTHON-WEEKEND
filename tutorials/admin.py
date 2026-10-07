@@ -15,3 +15,38 @@ class TutorialAdmin(admin.ModelAdmin):
     list_filter  = ["published", "difficulty", "resource_type"]
     search_fields = ["title"]
     inlines = [TutorialSectionInline]
+
+    def get_changelist_form(self, request, **kwargs):
+        FormClass = super().get_changelist_form(request, **kwargs)
+        class ScopedTutorialChangelistForm(FormClass):
+            def __init__(self, *f_args, **f_kwargs):
+                super().__init__(*f_args, **f_kwargs)
+                if not request.user.is_superuser:
+                    # If this tutorial was not added by the current user, disable inline editing for published
+                    if self.instance and self.instance.pk and self.instance.created_by_id != request.user.id:
+                        if "published" in self.fields:
+                            del self.fields["published"]
+        return ScopedTutorialChangelistForm
+
+    def has_view_permission(self, request, obj=None):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        if obj is None or request.user.is_superuser:
+            return True
+        return obj.created_by_id == request.user.id
+
+    def has_delete_permission(self, request, obj=None):
+        if obj is None or request.user.is_superuser:
+            return True
+        return obj.created_by_id == request.user.id
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.is_superuser and obj and obj.created_by_id != request.user.id:
+            return [f.name for f in self.model._meta.fields]
+        return super().get_readonly_fields(request, obj)
+
+    def save_model(self, request, obj, form, change):
+        if not change and not obj.created_by:
+            obj.created_by = request.user
+        super().save_model(request, obj, form, change)

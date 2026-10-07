@@ -43,11 +43,11 @@
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 2 — GLOBAL PARTNERS
-     ═══════════════════════════════════════════════════════
+     ═══════════════════════════════════════════════════════ -->
 {% if global_partners %}
 <section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Platinum</span>
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Global Partner</span>
     <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
       Global Partners
     </h2>
@@ -77,16 +77,15 @@
   </div>
 </section>
 {% endif %}
--->
 
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 3 — EVENT PARTNERS
-     ═══════════════════════════════════════════════════════
+     ═══════════════════════════════════════════════════════ -->
 {% if event_partners %}
 <section class="py-16 bg-shield-ice/20 border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Gold</span>
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Event Partner</span>
     <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
       Event Partners
     </h2>
@@ -116,16 +115,15 @@
   </div>
 </section>
 {% endif %}
--->
 
 
 <!-- ═══════════════════════════════════════════════════════
      SECTION 4 — COMMUNITY SUPPORTERS
-     ═══════════════════════════════════════════════════════
+     ═══════════════════════════════════════════════════════ -->
 {% if community_partners %}
 <section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Community</span>
+    <span class="font-mono text-xs font-bold uppercase tracking-widest text-white bg-shield-blue px-3 py-1 border-2 border-shield-navy inline-block mb-3 shadow-brutal-sm">Community Supporter</span>
     <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-10">
       Community Supporters
     </h2>
@@ -148,10 +146,9 @@
   </div>
 </section>
 {% endif %}
--->
 
 
-<!-- Empty State 
+<!-- Empty State -->
 {% if not global_partners and not event_partners and not community_partners %}
 <section class="py-16 bg-white border-b-2.5 border-shield-navy">
   <div class="max-w-2xl mx-auto px-4 text-center">
@@ -170,5 +167,4 @@
   </div>
 </section>
 {% endif %}
--->
 {% endblock %}

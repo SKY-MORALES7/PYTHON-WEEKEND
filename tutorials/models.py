@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 LANGUAGE_CHOICES = [
     ("python", "Python"),
@@ -51,6 +52,14 @@ class Tutorial(models.Model):
         help_text="Optional banner shown at the top of the tutorial detail page."
     )
     published = models.BooleanField(default=False)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="tutorials",
+        help_text="The user account that created this tutorial."
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

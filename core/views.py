@@ -348,13 +348,19 @@ class PartnersView(View):
     template_name = "core/partners.html"
 
     def get(self, request):
+        from django.db.models import Q
         flatpage = FlatPage.objects.filter(url="/partners/").first()
         all_sponsors = Sponsor.objects.filter(active=True)
+        global_partners = all_sponsors.filter(Q(category="global") | (Q(category="") & Q(tier="platinum")))
+        event_partners = all_sponsors.filter(Q(category="event") | (Q(category="") & Q(tier="gold")))
+        community_partners = all_sponsors.filter(
+            Q(category__in=["community_supporter", "community"]) | (Q(category="") & Q(tier__in=["silver", "community"]))
+        )
         context = {
             "flatpage":           flatpage,
-            "global_partners":    all_sponsors.filter(tier="platinum"),
-            "event_partners":     all_sponsors.filter(tier="gold"),
-            "community_partners": all_sponsors.filter(tier__in=["silver", "community"]),
+            "global_partners":    global_partners,
+            "event_partners":     event_partners,
+            "community_partners": community_partners,
         }
         context.update(_footer_context())
         return render(request, self.template_name, context)

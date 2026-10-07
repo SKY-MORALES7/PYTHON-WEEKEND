@@ -138,12 +138,28 @@ class EventAdminForm(forms.ModelForm):
         start_date = cleaned_data.get("start_date")
         end_date = cleaned_data.get("end_date")
         application_open = cleaned_data.get("application_open")
+        title = cleaned_data.get("title")
+        published = cleaned_data.get("published")
+        slug = cleaned_data.get("slug")
 
         if start_date and end_date and end_date < start_date:
             raise ValidationError({"end_date": "End date cannot be earlier than start date."})
 
         if application_open and start_date and start_date < timezone.now():
             raise ValidationError({"application_open": "The start date has already passed. Applications cannot be open for a past event."})
+
+        if not published and title:
+            from django.utils.text import slugify
+            expected_base = slugify(title)
+            if expected_base and (not slug or not slug.startswith(expected_base)):
+                base_slug = expected_base
+                new_slug = base_slug
+                cnt = 1
+                qs = Event.objects.exclude(pk=self.instance.pk) if (self.instance and self.instance.pk) else Event.objects.all()
+                while qs.filter(slug=new_slug).exists():
+                    new_slug = f"{base_slug}-{cnt}"
+                    cnt += 1
+                cleaned_data["slug"] = new_slug
 
         return cleaned_data
 
@@ -157,6 +173,9 @@ class EventAdmin(admin.ModelAdmin):
     list_filter  = ["published", "application_open", "country"]
     search_fields = ["title", "city", "location", "country"]
     inlines = [EventCoachInline, EventSponsorInline]
+
+    class Media:
+        js = ("js/admin_event_slug.js",)
 
     filter_horizontal = ("co_organizers",)
 
