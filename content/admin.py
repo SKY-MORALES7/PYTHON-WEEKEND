@@ -154,6 +154,11 @@ class EventAdmin(admin.ModelAdmin):
         }),
     )
 
+    def has_add_permission(self, request):
+        if not request.user.is_superuser:
+            return False
+        return super().has_add_permission(request)
+
     def get_readonly_fields(self, request, obj=None):
         ro = list(super().get_readonly_fields(request, obj))
         if not request.user.is_superuser:
@@ -167,10 +172,42 @@ class EventAdmin(admin.ModelAdmin):
         from django.db.models import Q
         return qs.filter(Q(owner=request.user) | Q(co_organizers=request.user)).distinct()
 
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "co_organizers":
+            from django.contrib.auth import get_user_model
+            User = get_user_model()
+            # Only show active organizers, excluding superusers and system accounts (admin, render)
+            qs = User.objects.filter(is_active=True).exclude(is_superuser=True).exclude(username__in=["admin", "render"])
+            object_id = request.resolver_match.kwargs.get("object_id") if request.resolver_match else None
+            if object_id:
+                try:
+                    obj = self.get_object(request, object_id)
+                    if obj and obj.owner_id:
+                        qs = qs.exclude(id=obj.owner_id)
+                except Exception:
+                    pass
+            elif not request.user.is_superuser:
+                qs = qs.exclude(id=request.user.id)
+            kwargs["queryset"] = qs.order_by("username")
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
     def save_model(self, request, obj, form, change):
         if not request.user.is_superuser and not obj.owner:
             obj.owner = request.user
         super().save_model(request, obj, form, change)
+
+    def save_related(self, request, form, formsets, change):
+        old_co_organizer_ids = set(form.instance.co_organizers.values_list("id", flat=True)) if change else set()
+        super().save_related(request, form, formsets, change)
+        if change:
+            new_co_organizer_ids = set(form.instance.co_organizers.values_list("id", flat=True))
+            removed_ids = old_co_organizer_ids - new_co_organizer_ids
+            if removed_ids:
+                from django.contrib.auth import get_user_model
+                from .utils import send_co_organizer_removal_notification
+                User = get_user_model()
+                for removed_user in User.objects.filter(id__in=removed_ids):
+                    send_co_organizer_removal_notification(removed_user, form.instance)
 
 
 # ─────────────────────────────────────────────

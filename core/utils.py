@@ -21,7 +21,7 @@ def _sanitize_header(value):
     return re.sub(r"[\r\n]+", " ", str(value or "")).strip()
 
 
-def send_resend_email(subject, message, from_email, recipient_list, html_message=None):
+def send_resend_email(subject, message, from_email, recipient_list, html_message=None, **kwargs):
     """
     Sends email via Resend's HTTPS REST API (https://api.resend.com/emails) over port 443.
     This avoids cloud platform (Render, EC2, Heroku) SMTP port blocks (25, 465, 587)
@@ -37,6 +37,8 @@ def send_resend_email(subject, message, from_email, recipient_list, html_message
     if not recipients:
         return
 
+    fail_silently = kwargs.get("fail_silently", False)
+
     if not api_key:
         logger.info(f"No Resend API key found. Falling back to Django send_mail for {recipients}...")
         send_mail(
@@ -45,7 +47,7 @@ def send_resend_email(subject, message, from_email, recipient_list, html_message
             from_email=from_email,
             recipient_list=recipients,
             html_message=html_message,
-            fail_silently=False,
+            fail_silently=fail_silently,
         )
         return
 
@@ -82,7 +84,7 @@ def send_resend_email(subject, message, from_email, recipient_list, html_message
                 from_email=from_email,
                 recipient_list=recipients,
                 html_message=html_message,
-                fail_silently=False,
+                fail_silently=fail_silently,
             )
         except Exception as fallback_err:
             logger.error(f"Fallback send_mail also failed: {fallback_err}")
@@ -95,7 +97,7 @@ def send_resend_email(subject, message, from_email, recipient_list, html_message
             from_email=from_email,
             recipient_list=recipients,
             html_message=html_message,
-            fail_silently=False,
+            fail_silently=fail_silently,
         )
 
 

@@ -81,15 +81,30 @@ class EventApplicationAdmin(admin.ModelAdmin):
                 count += 1
         self.message_user(request, f"{count} application(s) rejected and notification emails sent.")
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "event" and not request.user.is_superuser:
+            from django.db.models import Q
+            from content.models import Event
+            kwargs["queryset"] = Event.objects.filter(
+                Q(owner=request.user) | Q(co_organizers=request.user)
+            ).distinct()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def get_field_queryset(self, db, db_field, request):
+        if db_field.name == "event" and not request.user.is_superuser:
+            from django.db.models import Q
+            from content.models import Event
+            return Event.objects.filter(
+                Q(owner=request.user) | Q(co_organizers=request.user)
+            ).distinct()
+        return super().get_field_queryset(db, db_field, request)
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
         from django.db.models import Q
         return qs.filter(Q(event__owner=request.user) | Q(event__co_organizers=request.user)).distinct()
-
-
-
 
 
 # ─────────────────────────────────────────────
@@ -121,6 +136,15 @@ class FormAdmin(admin.ModelAdmin):
     search_fields = ("event__title", "text_header")
     inlines = [QuestionInline]
 
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "event" and not request.user.is_superuser:
+            from django.db.models import Q
+            from content.models import Event
+            kwargs["queryset"] = Event.objects.filter(
+                Q(owner=request.user) | Q(co_organizers=request.user)
+            ).distinct()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
@@ -138,6 +162,15 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = ("title", "form", "question_type", "is_required", "order")
     list_filter = ("question_type", "is_required")
     search_fields = ("title",)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "form" and not request.user.is_superuser:
+            from django.db.models import Q
+            from applications.models import Form
+            kwargs["queryset"] = Form.objects.filter(
+                Q(event__owner=request.user) | Q(event__co_organizers=request.user)
+            ).distinct()
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

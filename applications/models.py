@@ -472,28 +472,37 @@ class OrganizerApplication(models.Model):
         lead_user = created_users[0]
         co_users = created_users[1:]
 
-        event = Event.objects.filter(owner=lead_user).first()
-        if not event:
-            loc_label = self.target_state or self.target_country or lead_user.first_name or "Workshop"
-            event_title = f"Python Weekend - {loc_label}"
-            base_slug = slugify(f"python-weekend-{loc_label}-{lead_user.id}")
-            event_slug = base_slug
-            slug_cnt = 1
-            while Event.objects.filter(slug=event_slug).exists():
-                event_slug = f"{base_slug}-{slug_cnt}"
-                slug_cnt += 1
+        prev_ev = self.previous_event
+        t_country = (self.target_country or (prev_ev.country if prev_ev else "")).strip()
+        t_state = (self.target_state or (prev_ev.city if prev_ev else "")).strip()
 
-            event = Event.objects.create(
-                title=event_title,
-                slug=event_slug,
-                start_date=timezone.now() + timezone.timedelta(days=60),
-                end_date=timezone.now() + timezone.timedelta(days=62),
-                location=f"{self.target_state}, {self.target_country}".strip(", ") or "To be announced",
-                city=self.target_state or self.target_country or "TBA",
-                country=self.target_country or "",
-                owner=lead_user,
-                published=False
-            )
+        loc_label = t_state or t_country
+        if not loc_label and prev_ev and prev_ev.title:
+            loc_label = prev_ev.title.replace("Python Weekend - ", "").strip()
+        if not loc_label:
+            loc_label = lead_user.first_name or "Workshop"
+
+        event_title = f"Python Weekend - {loc_label}"
+        base_slug = slugify(f"python-weekend-{loc_label}-{lead_user.id}")
+        event_slug = base_slug
+        slug_cnt = 1
+        while Event.objects.filter(slug=event_slug).exists():
+            event_slug = f"{base_slug}-{slug_cnt}"
+            slug_cnt += 1
+
+        loc_str = f"{t_state}, {t_country}".strip(", ") or (prev_ev.location if prev_ev else "To be announced")
+
+        event = Event.objects.create(
+            title=event_title,
+            slug=event_slug,
+            start_date=timezone.now() + timezone.timedelta(days=60),
+            end_date=timezone.now() + timezone.timedelta(days=62),
+            location=loc_str,
+            city=t_state or (prev_ev.city if prev_ev else "TBA"),
+            country=t_country or "",
+            owner=lead_user,
+            published=False
+        )
 
         if co_users:
             event.co_organizers.add(*co_users)

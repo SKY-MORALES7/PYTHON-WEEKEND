@@ -1,4 +1,14 @@
+import logging
+import threading
+
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
+from django.utils.html import escape
+
+from core.utils import send_resend_email
+
+logger = logging.getLogger(__name__)
 
 # Create your models here.
 
@@ -58,7 +68,6 @@ class ContactMessage(TimeStampedModel):
         should_send = bool(new_reply and new_reply != (old_reply or "").strip())
 
         if should_send:
-            from django.utils import timezone
             self.read = True
             self.replied_at = timezone.now()
 
@@ -68,13 +77,6 @@ class ContactMessage(TimeStampedModel):
             self.send_reply_email()
 
     def send_reply_email(self):
-        import threading
-        import logging
-        from django.conf import settings
-        from django.utils.html import escape
-        from core.utils import send_resend_email
-
-        logger = logging.getLogger(__name__)
         site_name = getattr(settings, "SITE_NAME", "Python Weekend")
         site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
         from_email = settings.DEFAULT_FROM_EMAIL
