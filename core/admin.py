@@ -7,10 +7,25 @@ from .models import ContactMessage
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-	list_display = ("name", "email", "interest", "created_at", "read")
-	list_filter = ("interest", "read", "created_at")
-	search_fields = ("name", "email", "message")
-	readonly_fields = ("created_at", "updated_at")
+    list_display = ("name", "email", "interest", "created_at", "read", "replied_status")
+    list_filter = ("interest", "read", "created_at")
+    search_fields = ("name", "email", "message", "reply")
+    readonly_fields = ("created_at", "updated_at", "replied_at")
+    fields = (
+        "name",
+        "email",
+        "interest",
+        "message",
+        "read",
+        "reply",
+        "replied_at",
+        "created_at",
+        "updated_at",
+    )
+
+    @admin.display(description="Replied", boolean=True)
+    def replied_status(self, obj):
+        return bool(obj.reply and obj.reply.strip())
 
 
 class CustomFlatPageForm(forms.ModelForm):

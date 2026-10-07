@@ -60,6 +60,86 @@ class ApplicationFormView(View):
             # 2. Save answers linked to this EventApplication
             form.save_answers(applicant_email=applicant_email or "unknown@example.com", application=event_app)
 
+            # 3. Send confirmation email (using Form.confirmation_mail if specified)
+            if applicant_email and "@" in applicant_email:
+                try:
+                    import threading
+                    from django.conf import settings
+                    from django.utils.html import escape
+                    from core.utils import send_resend_email
+
+                    site_name = getattr(settings, "SITE_NAME", "Python Weekend")
+                    site_url = getattr(settings, "SITE_URL", "https://pythonweekend.com").rstrip("/")
+                    event_title = application_form.event.title if application_form.event else "Python Weekend"
+                    from_email = settings.DEFAULT_FROM_EMAIL
+
+                    custom_text = application_form.confirmation_mail.strip() if application_form.confirmation_mail else ""
+                    if not custom_text:
+                        custom_text = (
+                            f"Thank you for applying to attend {event_title}! "
+                            f"We have received your application and will review it shortly. "
+                            f"We will notify you by email once your application status has been updated."
+                        )
+
+                    subject = f"Application Received: {event_title}"
+                    text_body = (
+                        f"Hi {applicant_name or 'there'},\n\n"
+                        f"{custom_text}\n\n"
+                        f"Best regards,\nThe {site_name} Team\n"
+                        f"{site_url}\n"
+                    )
+
+                    html_body = f"""<!DOCTYPE html>
+<html>
+<body style="margin: 0; padding: 24px 12px; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #16213e;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border: 3px solid #16213e; box-shadow: 6px 6px 0px #16213e;">
+          <tr>
+            <td style="background-color: #16213e; padding: 24px 28px;">
+              <span style="background-color: #0284c7; color: #ffffff; font-family: monospace; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border: 1.5px solid #16213e;">
+                Application Received
+              </span>
+              <h1 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px; font-weight: 800;">{escape(event_title)}</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; font-size: 15px; line-height: 1.6; color: #16213e;">
+              <p style="margin: 0 0 16px 0;">Hi <strong>{escape(applicant_name or 'there')}</strong>,</p>
+              <div style="white-space: pre-line; margin: 0 0 20px 0; color: #334155;">{escape(custom_text)}</div>
+              <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #f8fafc; padding: 16px 28px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b;">
+              Questions? Visit <a href="{site_url}" style="color: #0284c7; font-weight: bold;">{site_url}</a>.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>"""
+
+                    def _send_confirmation():
+                        try:
+                            send_resend_email(
+                                subject=subject,
+                                message=text_body,
+                                from_email=from_email,
+                                recipient_list=[applicant_email],
+                                html_message=html_body,
+                            )
+                        except Exception as e:
+                            import logging
+                            logging.getLogger(__name__).error(f"Failed to send confirmation_mail to {applicant_email}: {e}")
+
+                    threading.Thread(target=_send_confirmation, daemon=True).start()
+                except Exception as mail_err:
+                    import logging
+                    logging.getLogger(__name__).warning(f"Failed to queue attendee confirmation email: {mail_err}")
 
             from django.contrib import messages
             messages.success(request, "Application submitted — we'll review and be in touch.")
@@ -408,6 +488,78 @@ class OrganizeWizardView(View):
                             logger.info(f"Organizer alert email successfully sent to staff: {admin_emails}")
                         except Exception as m_err2:
                             logger.error(f"Failed to send organizer admin alert to {admin_emails}: {m_err2}")
+
+                        # Also notify co-organizers listed in team_members
+                        for tm in (application.team_members or []):
+                            tm_email = tm.get("email", "").strip() if isinstance(tm, dict) else ""
+                            if not tm_email or tm_email.lower() == organizer_email.lower():
+                                continue
+                            tm_first = tm.get("first_name", "").strip() if isinstance(tm, dict) else ""
+                            tm_last = tm.get("last_name", "").strip() if isinstance(tm, dict) else ""
+                            tm_greeting_name = tm_first or "there"
+
+                            co_subject = f"You have been selected as Co-Organizer for {site_name} by {organizer_name}"
+                            co_text = (
+                                f"Hi {tm_greeting_name},\n\n"
+                                f"{organizer_name} ({organizer_email}) has submitted an application to organize a {site_name} workshop "
+                                f"and selected you as a co-organizer!\n\n"
+                                f"Workshop Type: {application.get_workshop_type_display()}\n"
+                                f"Location: {application.target_state or ''}, {application.target_country or ''}\n\n"
+                                f"Our team is currently reviewing the proposal. Once the event is approved by admin, you will receive "
+                                f"your backend login credentials to help manage and organize the event.\n\n"
+                                f"Best regards,\nThe {site_name} Team\n"
+                                f"{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}\n"
+                            )
+                            co_html = f"""<!DOCTYPE html>
+<html>
+<body style="margin: 0; padding: 24px 12px; background-color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #16213e;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border: 3px solid #16213e; box-shadow: 6px 6px 0px #16213e;">
+          <tr>
+            <td style="background-color: #16213e; padding: 24px 28px;">
+              <span style="background-color: #0284c7; color: #ffffff; font-family: monospace; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; padding: 4px 8px; border: 1.5px solid #16213e;">
+                Co-Organizer Notification
+              </span>
+              <h1 style="color: #ffffff; margin: 12px 0 0 0; font-size: 22px; font-weight: 800;">You're a Co-Organizer!</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 28px; font-size: 15px; line-height: 1.6; color: #16213e;">
+              <p style="margin: 0 0 16px 0;">Hi <strong>{escape(tm_greeting_name)}</strong>,</p>
+              <p style="margin: 0 0 16px 0;"><strong>{escape(organizer_name)}</strong> ({escape(organizer_email)}) has submitted an application to organize a {site_name} workshop and selected you as a <strong>co-organizer</strong>.</p>
+              <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #334155;">
+                <strong>Workshop Type:</strong> {escape(application.get_workshop_type_display())}<br>
+                <strong>Location:</strong> {escape(application.target_state or '')}, {escape(application.target_country or '')}<br>
+                <strong>Lead Organizer:</strong> {escape(organizer_name)} ({escape(organizer_email)})
+              </div>
+              <p style="margin: 0 0 16px 0;">Our team is reviewing the workshop application. Once approved, you will receive an email with your backend login credentials to help manage the workshop.</p>
+              <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #f8fafc; padding: 16px 28px; border-top: 2px solid #e2e8f0; font-size: 12px; color: #64748b;">
+              Questions? Visit <a href="{getattr(settings, 'SITE_URL', 'https://pythonweekend.com')}" style="color: #0284c7; font-weight: bold;">{getattr(settings, 'SITE_URL', 'pythonweekend.com')}</a>.
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>"""
+                            try:
+                                send_resend_email(
+                                    subject=co_subject,
+                                    message=co_text,
+                                    from_email=from_email,
+                                    recipient_list=[tm_email],
+                                    html_message=co_html,
+                                )
+                                logger.info(f"Co-organizer notification sent to {tm_email}")
+                            except Exception as co_err:
+                                logger.error(f"Failed to send co-organizer notification to {tm_email}: {co_err}")
 
                     mail_thread = threading.Thread(target=_send_organizer_emails, daemon=True)
                     mail_thread.start()

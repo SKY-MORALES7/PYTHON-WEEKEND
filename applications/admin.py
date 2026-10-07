@@ -59,11 +59,34 @@ class EventApplicationAdmin(admin.ModelAdmin):
         html_blocks.append("</div>")
         return mark_safe("".join(html_blocks))
 
+    actions = ["approve_applications", "reject_applications"]
+
+    @admin.action(description="Approve selected attendee applications")
+    def approve_applications(self, request, queryset):
+        count = 0
+        for app in queryset:
+            if app.status != "approved":
+                app.status = "approved"
+                app.save()
+                count += 1
+        self.message_user(request, f"{count} application(s) approved and notification emails sent.")
+
+    @admin.action(description="Reject selected attendee applications")
+    def reject_applications(self, request, queryset):
+        count = 0
+        for app in queryset:
+            if app.status != "rejected":
+                app.status = "rejected"
+                app.save()
+                count += 1
+        self.message_user(request, f"{count} application(s) rejected and notification emails sent.")
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(event__owner=request.user)
+        from django.db.models import Q
+        return qs.filter(Q(event__owner=request.user) | Q(event__co_organizers=request.user)).distinct()
 
 
 
@@ -102,7 +125,8 @@ class FormAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(event__owner=request.user)
+        from django.db.models import Q
+        return qs.filter(Q(event__owner=request.user) | Q(event__co_organizers=request.user)).distinct()
 
 
 # ─────────────────────────────────────────────
@@ -119,7 +143,8 @@ class QuestionAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(form__event__owner=request.user)
+        from django.db.models import Q
+        return qs.filter(Q(form__event__owner=request.user) | Q(form__event__co_organizers=request.user)).distinct()
 
 
 # ─────────────────────────────────────────────
@@ -137,7 +162,8 @@ class AnswerAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(question__form__event__owner=request.user)
+        from django.db.models import Q
+        return qs.filter(Q(question__form__event__owner=request.user) | Q(question__form__event__co_organizers=request.user)).distinct()
 
 
 # ─────────────────────────────────────────────
@@ -180,6 +206,21 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
             "fields": ("status", "submitted_at", "updated_at")
         }),
     )
+
+    def has_module_permission(self, request):
+        return request.user.is_superuser
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)

@@ -112,9 +112,11 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ["title", "city", "location", "country"]
     inlines = [EventCoachInline, EventSponsorInline]
 
+    filter_horizontal = ("co_organizers",)
+
     fieldsets = (
         ("Core", {
-            "fields": ("title", "slug", "tagline", "image", "published")
+            "fields": ("title", "slug", "tagline", "image", "published", "owner", "co_organizers")
         }),
         ("Dates & Location", {
             "fields": ("start_date", "end_date", "location", "venue_name", "city", "country")
@@ -152,11 +154,18 @@ class EventAdmin(admin.ModelAdmin):
         }),
     )
 
+    def get_readonly_fields(self, request, obj=None):
+        ro = list(super().get_readonly_fields(request, obj))
+        if not request.user.is_superuser:
+            ro.append("owner")
+        return ro
+
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.is_superuser:
             return qs
-        return qs.filter(owner=request.user)
+        from django.db.models import Q
+        return qs.filter(Q(owner=request.user) | Q(co_organizers=request.user)).distinct()
 
     def save_model(self, request, obj, form, change):
         if not request.user.is_superuser and not obj.owner:

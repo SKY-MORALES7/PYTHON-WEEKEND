@@ -285,7 +285,7 @@ class Event(models.Model):
     sponsors_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Sponsors' section title")
     schedule_title = models.CharField(max_length=255, blank=True, default='', help_text="Override the 'Schedule' section title")
 
-    # ── Owner ────────────────────────────────────────────
+    # ── Owner & Co-Organizers ─────────────────────────────
     owner = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
@@ -293,6 +293,12 @@ class Event(models.Model):
         blank=True,
         related_name="owned_events",
         help_text="The approved event organizer responsible for this specific execution."
+    )
+    co_organizers = models.ManyToManyField(
+        User,
+        related_name="co_organized_events",
+        blank=True,
+        help_text="Co-organizers assigned to help manage this event."
     )
 
     # ── Coaches & Sponsors (M2M via through-models) ───────
