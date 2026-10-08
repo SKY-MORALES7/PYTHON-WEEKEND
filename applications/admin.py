@@ -278,6 +278,7 @@ class EventApplicationAdmin(admin.ModelAdmin):
 
             extra_context["grouped_events"] = grouped_data
             extra_context["is_grouped_view"] = bool(request.GET.get("view") != "flat" and not request.GET.get("q"))
+            extra_context["is_super_admin"] = bool(request.user and request.user.is_superuser)
 
         return super().changelist_view(request, extra_context=extra_context)
 
@@ -461,10 +462,10 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
         return mark_safe(html)
 
     def has_module_permission(self, request):
-        return request.user.is_staff
+        return request.user.is_superuser
 
     def has_view_permission(self, request, obj=None):
-        return request.user.is_staff
+        return request.user.is_superuser
 
     def has_change_permission(self, request, obj=None):
         return request.user.is_superuser

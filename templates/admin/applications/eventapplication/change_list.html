@@ -407,7 +407,7 @@
             Rejected: <strong>{{ current_event_rejected }}</strong>
           </span>
         </div>
-        {% if current_event_organizer_name %}
+        {% if is_super_admin and current_event_organizer_name %}
         <div style="margin-top: 8px; font-size: 13px;">
           <span style="color: #64748b; font-weight: 600;">Organizer:</span>
           {% if current_event_organizer_app_id %}
@@ -467,7 +467,7 @@
                   &bull; {{ item.event.start_date|date:"M d, Y" }}
                 {% endif %}
               </div>
-              {% if item.organizer_name %}
+              {% if is_super_admin and item.organizer_name %}
               <div style="font-size: 12px; margin-top: 4px;">
                 <span style="color: #64748b; font-weight: 600;">Organizer:</span>
                 {% if item.organizer_app_id %}
