@@ -132,6 +132,16 @@ Open **http://127.0.0.1:8000/** in your browser.
 
 ---
 
-## License
+## Acknowledgments & Design Attribution
 
-This project is open-source under the [MIT License](LICENSE).
+- Python Weekend was inspired by community workshop models like **[Django Girls](https://djangogirls.org/)**, building on lessons of patient mentorship and accessible beginner learning.
+- **Trademark Notice**: *Python Weekend is an independent initiative developed and operated by Code Campus International. It is not affiliated with, endorsed by, or an official programme of Django Girls or the Django Software Foundation.*
+
+---
+
+## License & Brand Protection
+
+This project's source code is licensed under the **[MIT License](LICENSE)**:
+
+- **Code Use**: You are free to view, learn from, fork, and adapt the code for open-source or commercial purposes, provided the original copyright notice is preserved.
+- **Brand & Trademark Restriction**: The name **"Python Weekend"**, logos, workshop materials, and brand marks are proprietary assets of Python Weekend and Code Campus International. The MIT License **does not** grant permission to use our name, trademarks, or logos. Anyone adapting or hosting this project must re-brand their instance and cannot claim affiliation or endorsement.
