@@ -5,6 +5,7 @@ from .models import Form, Question, Answer, OrganizerApplication, EventApplicati
 from content.models import Event
 
 
+from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
@@ -169,6 +170,8 @@ class EventApplicationAdmin(admin.ModelAdmin):
 
         extra_context["current_event"] = current_event
 
+        now = timezone.now()
+
         if current_event:
             ev_apps = base_qs.filter(event=current_event)
             extra_context["current_event_total"] = ev_apps.count()
@@ -176,6 +179,14 @@ class EventApplicationAdmin(admin.ModelAdmin):
             extra_context["current_event_pending"] = ev_apps.filter(status="pending").count()
             extra_context["current_event_rejected"] = ev_apps.filter(status="rejected").count()
             extra_context["is_grouped_view"] = False
+
+            if current_event.end_date:
+                cur_is_passed = current_event.end_date < now
+            elif current_event.start_date:
+                cur_is_passed = current_event.start_date < now
+            else:
+                cur_is_passed = False
+            extra_context["current_event_is_passed"] = cur_is_passed
 
             # Organizer lookup for drilled-down event
             cur_org_app = None
@@ -193,13 +204,13 @@ class EventApplicationAdmin(admin.ModelAdmin):
                 extra_context["current_event_organizer_name"] = "Platform Admin"
                 extra_context["current_event_organizer_app_id"] = None
         else:
-            # Grouped view overview for all accessible events
+            # Grouped view overview for all accessible events (ordered by newest first)
             if request.user.is_superuser:
-                accessible_events = Event.objects.all().order_by("-start_date", "-id")
+                accessible_events = Event.objects.all().order_by("-id")
             else:
                 accessible_events = Event.objects.filter(
                     Q(owner=request.user) | Q(co_organizers=request.user)
-                ).distinct().order_by("-start_date", "-id")
+                ).distinct().order_by("-id")
 
             grouped_data = []
             for ev in accessible_events:
@@ -210,6 +221,13 @@ class EventApplicationAdmin(admin.ModelAdmin):
                 rej = ev_apps.filter(status="rejected").count()
                 expected = getattr(ev, "expected_attendees", 50) or 50
                 pct = min(100, int((tot / expected) * 100)) if expected > 0 else 0
+
+                if ev.end_date:
+                    ev_passed = ev.end_date < now
+                elif ev.start_date:
+                    ev_passed = ev.start_date < now
+                else:
+                    ev_passed = False
 
                 # Organizer lookup for admin view
                 organizer_name = None
@@ -259,6 +277,7 @@ class EventApplicationAdmin(admin.ModelAdmin):
                     "has_more": tot > 2,
                     "organizer_name": organizer_name,
                     "organizer_app_id": organizer_app_id,
+                    "is_passed": ev_passed,
                 })
 
             unassigned_apps = base_qs.filter(event__isnull=True)
