@@ -1,6 +1,9 @@
 {% extends "admin/change_list.html" %}
 {% load i18n admin_urls static admin_list %}
 
+{# Completely disable Add button for all users on Event Applications changelist #}
+{% block object-tools %}{% endblock %}
+
 {% block extrahead %}
 {{ block.super }}
 <style>
@@ -201,6 +204,12 @@
     color: #306998 !important;
     text-decoration: underline !important;
   }
+  .action-btn-group {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
   .btn-drilldown {
     display: inline-flex;
     align-items: center;
@@ -216,6 +225,7 @@
     text-decoration: none !important;
     box-shadow: 2px 2px 0 #16213E;
     transition: all 0.15s ease;
+    cursor: pointer;
   }
   .btn-drilldown:hover {
     background: #16213E;
@@ -229,16 +239,35 @@
     border: 1.5px solid #16213E;
     color: #16213E;
     font-family: var(--font-display, 'Rajdhani', sans-serif);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 6px 12px;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
     cursor: pointer;
     box-shadow: 1.5px 1.5px 0 #16213E;
-    margin-left: 6px;
+    margin-top: 4px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .action-btn-group:hover .btn-preview-toggle,
+  .btn-preview-toggle.is-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
   }
   .btn-preview-toggle:hover {
-    background: #f1f5f9;
+    background: #16213E;
+    color: #ffffff;
+  }
+  .btn-preview-toggle.is-open {
+    background: #16213E;
+    color: #FFD43B;
   }
 
   /* Inline preview drawer */
@@ -378,6 +407,18 @@
             Rejected: <strong>{{ current_event_rejected }}</strong>
           </span>
         </div>
+        {% if current_event_organizer_name %}
+        <div style="margin-top: 8px; font-size: 13px;">
+          <span style="color: #64748b; font-weight: 600;">Organizer:</span>
+          {% if current_event_organizer_app_id %}
+            <a href="{% url 'admin:applications_organizerapplication_change' current_event_organizer_app_id %}" style="color: #0284c7; font-weight: 700; text-decoration: underline;" title="View organizer application">
+              {{ current_event_organizer_name }} &rarr;
+            </a>
+          {% else %}
+            <strong style="color: #16213E;">{{ current_event_organizer_name }}</strong>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
       <div>
         <a href="{% url 'admin:applications_eventapplication_changelist' %}" class="btn-return-group">
@@ -391,21 +432,6 @@
 
   <!-- SCENARIO 2: Grouped overview mode (Default) -->
   {% else %}
-
-    <!-- Object tools (Add button) positioned cleanly at the top right -->
-    {% block object-tools %}
-      <ul class="object-tools">
-        {% block object-tools-items %}
-          {% if has_add_permission %}
-            <li>
-              <a href="{% url 'admin:applications_eventapplication_add' %}">
-                Add Event Application +
-              </a>
-            </li>
-          {% endif %}
-        {% endblock %}
-      </ul>
-    {% endblock %}
 
     <!-- Informational Header Mode Bar -->
     <div class="view-mode-bar">
@@ -441,6 +467,18 @@
                   &bull; {{ item.event.start_date|date:"M d, Y" }}
                 {% endif %}
               </div>
+              {% if item.organizer_name %}
+              <div style="font-size: 12px; margin-top: 4px;">
+                <span style="color: #64748b; font-weight: 600;">Organizer:</span>
+                {% if item.organizer_app_id %}
+                  <a href="{% url 'admin:applications_organizerapplication_change' item.organizer_app_id %}" style="color: #0284c7; font-weight: 700; text-decoration: underline;" title="View organizer application">
+                    {{ item.organizer_name }} &rarr;
+                  </a>
+                {% else %}
+                  <span style="color: #16213E; font-weight: 700;">{{ item.organizer_name }}</span>
+                {% endif %}
+              </div>
+              {% endif %}
             {% else %}
               <div class="event-title-link" style="color: #64748b !important;">
                 General / Unassigned Applications
@@ -497,21 +535,23 @@
 
           <!-- Action Buttons Column -->
           <td style="text-align: right;">
-            {% if item.event %}
-              <a href="?event__id__exact={{ item.event.id }}" class="btn-drilldown" title="View all applicants for this event">
-                View Applicants &raquo;
-              </a>
-            {% else %}
-              <a href="?event__isnull=True" class="btn-drilldown">
-                View &raquo;
-              </a>
-            {% endif %}
+            <div class="action-btn-group">
+              {% if item.event %}
+                <a href="?event__id__exact={{ item.event.id }}" class="btn-drilldown" title="View all applicants for this event">
+                  View Applicants &raquo;
+                </a>
+              {% else %}
+                <a href="?event__isnull=True" class="btn-drilldown">
+                  View &raquo;
+                </a>
+              {% endif %}
 
-            {% if item.applications %}
-            <button type="button" class="btn-preview-toggle" onclick="togglePreview('preview-{{ forloop.counter }}')">
-              Preview
-            </button>
-            {% endif %}
+              {% if item.applications %}
+              <button type="button" class="btn-preview-toggle" onclick="togglePreview('preview-{{ forloop.counter }}', this)">
+                Preview
+              </button>
+              {% endif %}
+            </div>
           </td>
         </tr>
 
@@ -595,13 +635,21 @@
 </div>
 
 <script>
-  function togglePreview(id) {
+  function togglePreview(id, btn) {
     const el = document.getElementById(id);
     if (!el) return;
     if (el.style.display === 'none' || !el.style.display) {
       el.style.display = 'table-row';
+      if (btn) {
+        btn.classList.add('is-open');
+        btn.textContent = 'Hide Preview';
+      }
     } else {
       el.style.display = 'none';
+      if (btn) {
+        btn.classList.remove('is-open');
+        btn.textContent = 'Preview';
+      }
     }
   }
 </script>

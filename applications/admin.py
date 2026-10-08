@@ -148,6 +148,10 @@ class EventApplicationAdmin(admin.ModelAdmin):
         from django.db.models import Q
         return qs.filter(Q(event__owner=request.user) | Q(event__co_organizers=request.user)).distinct()
 
+    def has_add_permission(self, request):
+        # Event applications must always originate from frontend attendee submissions
+        return False
+
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
         from django.db.models import Q
@@ -172,6 +176,19 @@ class EventApplicationAdmin(admin.ModelAdmin):
             extra_context["current_event_pending"] = ev_apps.filter(status="pending").count()
             extra_context["current_event_rejected"] = ev_apps.filter(status="rejected").count()
             extra_context["is_grouped_view"] = False
+
+            # Organizer lookup for drilled-down event
+            cur_org_app = None
+            if current_event.owner and current_event.owner.email:
+                cur_org_app = OrganizerApplication.objects.filter(lead_email__iexact=current_event.owner.email).order_by("-submitted_at").first()
+            if not cur_org_app and hasattr(current_event, 'returning_organizers'):
+                cur_org_app = current_event.returning_organizers.order_by("-submitted_at").first()
+            if cur_org_app:
+                extra_context["current_event_organizer_name"] = f"{cur_org_app.lead_first_name} {cur_org_app.lead_last_name}".strip()
+                extra_context["current_event_organizer_app_id"] = cur_org_app.id
+            elif current_event.owner:
+                extra_context["current_event_organizer_name"] = f"{current_event.owner.first_name} {current_event.owner.last_name}".strip() or current_event.owner.username
+                extra_context["current_event_organizer_app_id"] = None
         else:
             # Grouped view overview for all accessible events
             if request.user.is_superuser:
@@ -191,6 +208,40 @@ class EventApplicationAdmin(admin.ModelAdmin):
                 expected = getattr(ev, "expected_attendees", 50) or 50
                 pct = min(100, int((tot / expected) * 100)) if expected > 0 else 0
 
+                # Organizer lookup for admin view
+                organizer_name = None
+                organizer_app_id = None
+                org_app = None
+
+                if ev.owner:
+                    if ev.owner.email:
+                        org_app = OrganizerApplication.objects.filter(lead_email__iexact=ev.owner.email).order_by("-submitted_at").first()
+                    if not org_app and (ev.owner.first_name or ev.owner.last_name):
+                        org_app = OrganizerApplication.objects.filter(
+                            Q(lead_first_name__iexact=ev.owner.first_name, lead_last_name__iexact=ev.owner.last_name) |
+                            Q(lead_first_name__iexact=ev.owner.first_name)
+                        ).order_by("-submitted_at").first()
+
+                if not org_app and hasattr(ev, 'returning_organizers'):
+                    org_app = ev.returning_organizers.order_by("-submitted_at").first()
+
+                if not org_app and ev.co_organizers.exists():
+                    co_emails = list(ev.co_organizers.values_list('email', flat=True))
+                    org_app = OrganizerApplication.objects.filter(lead_email__in=co_emails).order_by("-submitted_at").first()
+
+                if not org_app:
+                    # Match by target state or country in event title or city
+                    for cand in OrganizerApplication.objects.all():
+                        if cand.target_state and (cand.target_state.lower() in ev.title.lower() or (ev.city and cand.target_state.lower() in ev.city.lower())):
+                            org_app = cand
+                            break
+
+                if org_app:
+                    organizer_name = f"{org_app.lead_first_name} {org_app.lead_last_name}".strip()
+                    organizer_app_id = org_app.id
+                elif ev.owner:
+                    organizer_name = f"{ev.owner.first_name} {ev.owner.last_name}".strip() or ev.owner.username
+
                 grouped_data.append({
                     "event": ev,
                     "expected_attendees": expected,
@@ -201,6 +252,8 @@ class EventApplicationAdmin(admin.ModelAdmin):
                     "progress_pct": pct,
                     "applications": list(ev_apps[:2]),
                     "has_more": tot > 2,
+                    "organizer_name": organizer_name,
+                    "organizer_app_id": organizer_app_id,
                 })
 
             unassigned_apps = base_qs.filter(event__isnull=True)
@@ -338,14 +391,14 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
     list_filter = ("status", "workshop_type", "has_organized_before", "target_country")
     list_editable = ("status",)
     search_fields = ("lead_first_name", "lead_last_name", "lead_email", "target_country", "target_state")
-    readonly_fields = ("submitted_at", "updated_at")
+    readonly_fields = ("team_members_display", "submitted_at", "updated_at")
 
     fieldsets = (
         ("Lead Organizer", {
             "fields": ("lead_first_name", "lead_last_name", "lead_email")
         }),
         ("Team Members", {
-            "fields": ("team_members",),
+            "fields": ("team_members_display",),
         }),
         ("Workshop Details & Capacity", {
             "fields": ("workshop_type", "expected_attendees", "prerequisites_confirmed", "commitment_signed")
@@ -358,11 +411,55 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
         }),
     )
 
+    @admin.display(description="Team Members")
+    def team_members_display(self, obj):
+        from django.utils.html import escape
+        members = obj.team_members
+        if not members or not isinstance(members, list):
+            return format_html('<span style="color: #64748b; font-style: italic;">No additional team members provided.</span>')
+
+        rows = []
+        for idx, m in enumerate(members, 1):
+            if isinstance(m, dict):
+                first = escape(str(m.get("first_name", ""))).strip()
+                last = escape(str(m.get("last_name", ""))).strip()
+                email = escape(str(m.get("email", ""))).strip()
+                full_name = f"{first} {last}".strip() or "Unnamed"
+                email_link = f'<a href="mailto:{email}" style="color: #0284c7; text-decoration: underline; font-weight: 600;">{email}</a>' if email else '—'
+                rows.append(
+                    f'<tr style="border-bottom: 1.5px solid #e2e8f0; background: #ffffff;">'
+                    f'<td style="padding: 10px 16px; font-weight: 800; color: #16213E; font-family: monospace;">#{idx}</td>'
+                    f'<td style="padding: 10px 16px; font-weight: 700; color: #16213E;">{full_name}</td>'
+                    f'<td style="padding: 10px 16px;">{email_link}</td>'
+                    f'</tr>'
+                )
+
+        if not rows:
+            return format_html('<span style="color: #64748b; font-style: italic;">No additional team members provided.</span>')
+
+        html = (
+            f'<div style="max-width: 650px; background: #ffffff; border: 2px solid #16213E; box-shadow: 3px 3px 0 #16213E; margin-top: 4px;">'
+            f'<table style="width: 100%; border-collapse: collapse; font-size: 13px;">'
+            f'<thead>'
+            f'<tr style="background: #16213E; color: #ffffff; text-transform: uppercase; font-size: 11px; letter-spacing: 0.05em;">'
+            f'<th style="padding: 10px 16px; text-align: left; width: 45px;">#</th>'
+            f'<th style="padding: 10px 16px; text-align: left;">Full Name</th>'
+            f'<th style="padding: 10px 16px; text-align: left;">Email Address</th>'
+            f'</tr>'
+            f'</thead>'
+            f'<tbody>'
+            f'{"".join(rows)}'
+            f'</tbody>'
+            f'</table>'
+            f'</div>'
+        )
+        return mark_safe(html)
+
     def has_module_permission(self, request):
-        return request.user.is_superuser
+        return request.user.is_staff
 
     def has_view_permission(self, request, obj=None):
-        return request.user.is_superuser
+        return request.user.is_staff
 
     def has_change_permission(self, request, obj=None):
         return request.user.is_superuser
