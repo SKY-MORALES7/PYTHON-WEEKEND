@@ -5,22 +5,24 @@
 
 {% block content %}
 <!-- ── Top Hero ──────────────────────────────────────────────────────────── -->
-<section class="bg-[#16213E] border-b-4 border-[#16213E] py-14 sm:py-20 px-4 sm:px-6 relative overflow-hidden">
-  <!-- Subtle background grid pattern -->
-  <div class="absolute inset-0 opacity-5 pointer-events-none"
-       style="background-image: radial-gradient(#FFD43B 1.5px, transparent 1.5px); background-size: 24px 24px;"></div>
+<section style="background-color: #F8FAFC; border-bottom: 2.5px solid #16213E; padding-top: 5rem; padding-bottom: 3.5rem; padding-left: 1.25rem; padding-right: 1.25rem; text-align: center; position: relative; overflow: hidden;">
+  <!-- Subtle decorative background dots -->
+  <div style="position: absolute; inset: 0; opacity: 0.08; pointer-events: none; background-image: radial-gradient(#16213E 1.5px, transparent 1.5px); background-size: 24px 24px;"></div>
 
-  <div class="max-w-4xl mx-auto text-center relative z-10">
-    <div class="inline-flex items-center gap-2 bg-[#FFD43B] text-[#16213E] font-mono text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#16213E] shadow-brutal-sm mb-5">
+  <div style="max-width: 820px; margin: 0 auto; position: relative; z-index: 10;">
+    <!-- Blue header badge with white text & extra top space -->
+    <div style="display: inline-flex; align-items: center; gap: 8px; background-color: #306998; color: #ffffff; font-family: monospace; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 6px 16px; border: 2px solid #16213E; box-shadow: 3px 3px 0 #16213E; margin-bottom: 1.25rem;">
       <span>⚖️</span>
       <span>Legal &amp; Policy Standards</span>
     </div>
 
-    <h1 class="font-display font-black text-3xl sm:text-5xl md:text-6xl text-white uppercase tracking-tight mb-4 leading-tight">
+    <!-- Visible title in solid deep navy (NOT white) -->
+    <h1 style="font-family: 'Rajdhani', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800; color: #16213E; text-transform: uppercase; letter-spacing: -0.01em; margin: 0 0 1rem 0; line-height: 1.15;">
       {{ flatpage.title|default:"Legal Policy" }}
     </h1>
 
-    <p class="font-body text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6 font-medium">
+    <!-- Subtitle description -->
+    <p style="font-family: 'Inter', sans-serif; color: #475569; font-size: 1.05rem; line-height: 1.65; max-width: 680px; margin: 0 auto; font-weight: 500;">
       {% if is_privacy or "/privacy" in request.path %}
         How Python Weekend collects, safeguards, and respects your personal information across all workshops and programs.
       {% elif is_terms or "/terms" in request.path %}
@@ -29,65 +31,56 @@
         Official platform terms and community documentation for Python Weekend workshops and educational initiatives.
       {% endif %}
     </p>
-
-    <!-- Metadata pill row -->
-    <div class="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs font-mono text-slate-300 bg-white/10 px-4 py-2 border border-white/20 rounded-sm">
-      <span><strong>Jurisdiction:</strong> Community Initiative</span>
-      <span class="text-[#FFD43B]">•</span>
-      <span><strong>Status:</strong> Active &amp; Enforced</span>
-      <span class="text-[#FFD43B]">•</span>
-      <span><strong>Contact:</strong> <a href="mailto:hello@pythonweekend.org" class="text-[#FFD43B] underline hover:text-white">hello@pythonweekend.org</a></span>
-    </div>
   </div>
 </section>
 
 <!-- ── Main Policy Content ───────────────────────────────────────────────── -->
-<section class="bg-[#F8F9FA] py-12 sm:py-16 px-4 sm:px-6">
-  <div class="max-w-4xl mx-auto">
+<section style="background-color: #F1F5F9; padding-top: 3.5rem; padding-bottom: 4.5rem; padding-left: 1.25rem; padding-right: 1.25rem;">
+  <div style="max-width: 860px; margin: 0 auto;">
 
     <!-- Policy Document Card -->
-    <div class="bg-white border-3 border-[#16213E] shadow-[8px_8px_0_#16213E] p-6 sm:p-10 md:p-12 mb-10">
+    <div style="background-color: #ffffff; border: 2.5px solid #16213E; box-shadow: 7px 7px 0 #16213E; padding: 2.5rem; margin-bottom: 2.5rem;">
 
       <!-- Trust & Commitment Banner -->
-      <div class="bg-[#EBF3FA] border-2 border-[#16213E] p-4 sm:p-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-brutal-sm">
-        <div class="flex items-start gap-3">
-          <div class="w-9 h-9 flex-shrink-0 bg-[#306998] text-[#FFD43B] font-display font-black text-lg flex items-center justify-center border-2 border-[#16213E] shadow-sm">
+      <div style="background-color: #EBF3FA; border: 2px solid #16213E; padding: 1.25rem 1.5rem; margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; box-shadow: 3px 3px 0 #16213E;">
+        <div style="display: flex; align-items: flex-start; gap: 0.85rem;">
+          <div style="width: 38px; height: 38px; flex-shrink: 0; background-color: #306998; color: #FFD43B; font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; border: 2px solid #16213E;">
             PW
           </div>
           <div>
-            <h3 class="font-display font-bold text-base text-[#16213E] uppercase tracking-wide">
+            <h3 style="font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 16px; color: #16213E; text-transform: uppercase; margin: 0; letter-spacing: 0.02em;">
               Committed to Beginner Safety &amp; Open Education
             </h3>
-            <p class="font-body text-xs text-slate-600 mt-0.5 leading-relaxed">
+            <p style="font-size: 13px; color: #475569; margin: 3px 0 0 0; line-height: 1.5;">
               We never sell your data, monetize participant details, or share personal info with third-party advertisers.
             </p>
           </div>
         </div>
-        <div class="sm:text-right flex-shrink-0">
-          <span class="inline-block font-mono text-[11px] font-bold uppercase bg-[#FFD43B] text-[#16213E] px-2.5 py-1 border border-[#16213E]">
+        <div>
+          <span style="display: inline-block; font-family: monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; background-color: #FFD43B; color: #16213E; padding: 4px 10px; border: 1.5px solid #16213E;">
             Verified Policy
           </span>
         </div>
       </div>
 
       <!-- Rendered Content with Enhanced Typography & Formatting -->
-      <article class="policy-prose font-body text-[#16213E] text-base leading-relaxed" id="policy-content-article">
+      <article class="policy-prose" id="policy-content-article" style="font-family: 'Inter', sans-serif; color: #16213E; font-size: 1rem; line-height: 1.75;">
         {{ flatpage.content|linebreaks }}
       </article>
 
       <!-- Bottom Sign-off Box -->
-      <div class="mt-12 pt-8 border-t-2 border-[#16213E]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;">
         <div>
-          <span class="font-display font-bold text-lg text-[#16213E] uppercase tracking-tight block">
+          <span style="font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; color: #16213E; text-transform: uppercase; display: block;">
             Python Weekend Community Team
           </span>
-          <span class="font-body text-xs text-slate-500">
-            For data inquiries, rights requests, or clarifications: <a href="mailto:hello@pythonweekend.org" class="font-bold text-[#306998] hover:underline">hello@pythonweekend.org</a>
+          <span style="font-size: 13px; color: #64748b;">
+            For data inquiries or questions: <a href="mailto:hello@pythonweekend.org" style="font-weight: 700; color: #306998; text-decoration: underline;">hello@pythonweekend.org</a>
           </span>
         </div>
         <div>
           <a href="{% url 'core:contact' %}"
-             class="inline-block bg-[#16213E] text-[#FFD43B] font-display font-bold text-sm uppercase px-5 py-2.5 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+             style="display: inline-block; background-color: #16213E; color: #FFD43B; font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 14px; text-transform: uppercase; padding: 10px 20px; border: 2px solid #16213E; box-shadow: 3px 3px 0 #FFD43B; text-decoration: none;">
             Contact Support &raquo;
           </a>
         </div>
@@ -96,40 +89,40 @@
     </div>
 
     <!-- Related Legal Links Cards -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
       <a href="/code-of-conduct/"
-         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Community Rules</span>
-          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+         style="background-color: #ffffff; border: 2px solid #16213E; padding: 1.25rem; box-shadow: 4px 4px 0 #16213E; text-decoration: none; display: block; color: inherit;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #306998; text-transform: uppercase;">Community Rules</span>
+          <span style="font-size: 14px; color: #16213E;">&rarr;</span>
         </div>
-        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Code of Conduct</h4>
-        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+        <h4 style="font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; color: #16213E; text-transform: uppercase; margin: 0 0 4px 0;">Code of Conduct</h4>
+        <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5;">
           Our anti-harassment pledge and standards for mentors, attendees, and volunteers.
         </p>
       </a>
 
       {% if is_privacy or "/privacy" in request.path %}
       <a href="/terms/"
-         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Legal Terms</span>
-          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+         style="background-color: #ffffff; border: 2px solid #16213E; padding: 1.25rem; box-shadow: 4px 4px 0 #16213E; text-decoration: none; display: block; color: inherit;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #306998; text-transform: uppercase;">Legal Terms</span>
+          <span style="font-size: 14px; color: #16213E;">&rarr;</span>
         </div>
-        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Terms &amp; Conditions</h4>
-        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+        <h4 style="font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; color: #16213E; text-transform: uppercase; margin: 0 0 4px 0;">Terms &amp; Conditions</h4>
+        <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5;">
           Website terms of use, content licensing, and platform guidelines.
         </p>
       </a>
       {% else %}
       <a href="/privacy/"
-         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
-        <div class="flex items-center justify-between mb-1.5">
-          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Privacy &amp; Data</span>
-          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+         style="background-color: #ffffff; border: 2px solid #16213E; padding: 1.25rem; box-shadow: 4px 4px 0 #16213E; text-decoration: none; display: block; color: inherit;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+          <span style="font-family: monospace; font-size: 11px; font-weight: 700; color: #306998; text-transform: uppercase;">Privacy &amp; Data</span>
+          <span style="font-size: 14px; color: #16213E;">&rarr;</span>
         </div>
-        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Privacy &amp; Cookies</h4>
-        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+        <h4 style="font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 18px; color: #16213E; text-transform: uppercase; margin: 0 0 4px 0;">Privacy &amp; Cookies</h4>
+        <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5;">
           How personal records, applications, and cookies are managed safely.
         </p>
       </a>
@@ -210,7 +203,6 @@
     const paragraphs = article.querySelectorAll("p");
     paragraphs.forEach(p => {
       const text = p.textContent.trim();
-      // Match patterns like "1. Information We Collect" or "Section 2: ..."
       const match = text.match(/^(\d+\.|\bSection\s+\d+:?)\s+(.*)$/i);
       if (match && text.length < 100) {
         const header = document.createElement("div");
