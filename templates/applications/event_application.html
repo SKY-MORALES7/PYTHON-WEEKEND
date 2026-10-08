@@ -80,7 +80,7 @@
           <div class="mb-6 space-y-3">
             {% for message in messages %}
               <div class="border-2 border-shield-navy p-4 shadow-brutal-sm font-mono text-xs font-bold uppercase tracking-wider"
-                   {% if 'success' in message.tags %}style="background-color:#dcfce7;color:#14532d;"{% elif 'error' in message.tags %}style="background-color:#fee2e2;color:#991b1b;"{% else %}style="background-color:#e0f2fe;color:#16213e;"{% endif %}>
+                   {% if 'success' in message.tags %}style="background-color:#dcfce7;color:#14532d;"{% elif 'error' in message.tags %}style="background-color:#fee2e2;color:#991b1b;"{% elif 'warning' in message.tags %}style="background-color:#fef3c7;color:#92400e;"{% elif 'info' in message.tags %}style="background-color:#dbeafe;color:#1e40af;"{% else %}style="background-color:#e0f2fe;color:#16213e;"{% endif %}>
                 {{ message }}
               </div>
             {% endfor %}

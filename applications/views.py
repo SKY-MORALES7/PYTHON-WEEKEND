@@ -47,8 +47,43 @@ class ApplicationFormView(View):
                 if "name" in q_title and not applicant_name:
                     applicant_name = str(val).strip()
 
-            # 1. Record in EventApplication for organizer review & approval
             from .models import EventApplication
+
+            # Duplicate Check: Prevent an attendee from submitting multiple applications for the same workshop
+            if applicant_email and "@" in applicant_email:
+                existing_app = None
+                if application_form.event:
+                    existing_app = EventApplication.objects.filter(
+                        event=application_form.event,
+                        email__iexact=applicant_email
+                    ).first()
+                else:
+                    existing_app = EventApplication.objects.filter(
+                        form=application_form,
+                        email__iexact=applicant_email
+                    ).first()
+
+                if existing_app:
+                    from django.contrib import messages
+                    event_title = application_form.event.title if application_form.event else "this workshop"
+                    if existing_app.status == "approved":
+                        messages.info(
+                            request,
+                            f"You have already applied and have been approved for {event_title}! Please check your email ({applicant_email}) for event schedule and onboarding instructions."
+                        )
+                    elif existing_app.status == "rejected":
+                        messages.warning(
+                            request,
+                            f"An application for {event_title} using {applicant_email} has already been reviewed. Duplicate applications cannot be accepted for this workshop."
+                        )
+                    else:
+                        messages.warning(
+                            request,
+                            f"You have already submitted an application for {event_title} using {applicant_email}. It is currently under review by our team, and we will email you once a decision is made."
+                        )
+                    return redirect("applications:apply", form_id=form_id)
+
+            # 1. Record in EventApplication for organizer review & approval
             event_app = EventApplication.objects.create(
                 event=application_form.event,
                 form=application_form,
