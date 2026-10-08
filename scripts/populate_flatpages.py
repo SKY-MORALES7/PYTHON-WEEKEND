@@ -955,7 +955,10 @@ def run():
       <h2>4. Code of Conduct</h2>
       <p>All participants, organisers, mentors, and visitors must adhere to the official Python Weekend Code of Conduct across all physical and digital spaces.</p>
       
-      <h2>5. Changes and Contact Information</h2>
+      <h2>5. Availability of the Site</h2>
+      <p>We do not guarantee that pythonweekend.org or its services will be available uninterrupted or error-free at all times. If the site is unavailable, suspended, or interrupted for any reason, we cannot be held responsible or liable for any loss, delay, or damage incurred as a result. We reserve the right to modify, update, suspend, or discontinue any aspect of the site or the services offered at any time without prior notice.</p>
+      
+      <h2>6. Changes and Contact Information</h2>
       <p>We reserve the right to update these terms at any time. For questions regarding terms and conditions, contact us at <strong>hello@pythonweekend.org</strong>.</p>
     </div>
   </div>
