@@ -19,8 +19,15 @@ def create_or_update_flatpage(url, title, content):
     )
     
     if not created:
-        # We only update the title, not the content, so user edits are not lost on deploy
+        # We only update the title by default, but sync critical legal terms
         page.title = title
+        if url == "/terms/":
+            from django.utils.html import strip_tags
+            import re
+            cleaned = content.replace('</p>', '\n\n').replace('<br>', '\n').replace('</div>', '\n\n').replace('</h2>', '\n\n')
+            cleaned = strip_tags(cleaned)
+            cleaned = re.sub(r'\n{3,}', '\n\n', cleaned).strip()
+            page.content = cleaned
         page.save()
         
     page.sites.add(site)
