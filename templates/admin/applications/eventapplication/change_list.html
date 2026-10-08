@@ -15,7 +15,7 @@
     position: relative;
   }
   ul.object-tools {
-    margin: 0 0 16px 0 !important;
+    margin: 0 0 20px 0 !important;
     float: right !important;
     display: flex !important;
     gap: 8px !important;
@@ -43,6 +43,25 @@
     color: #ffffff !important;
     transform: translate(1px, 1px) !important;
     box-shadow: 1px 1px 0 #16213E !important;
+  }
+
+  /* Informational Header Mode Bar */
+  .view-mode-bar {
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-left: 5px solid #306998;
+    padding: 12px 18px;
+    margin: 16px 0 24px 0;
+    clear: both;
+    box-shadow: 2px 2px 0 rgba(22, 33, 62, 0.06);
+    display: flex;
+    align-items: center;
+  }
+  .view-mode-bar .view-mode-info {
+    font-size: 13px;
+    font-weight: 700;
+    color: #16213E;
+    letter-spacing: 0.01em;
   }
 
   /* Single Event Active Banner */
@@ -229,28 +248,43 @@
     border-bottom: 2px solid #16213E !important;
   }
   .preview-drawer-content {
-    padding: 16px 20px;
-    border-left: 5px solid #4B8BBE;
+    padding: 24px 30px;
+    border-left: 6px solid #4B8BBE;
   }
   .mini-applicants-table {
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
     border: 1.5px solid #cbd5e1;
-    font-size: 13px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   }
   .mini-applicants-table th {
-    background: #e2e8f0;
+    background: #f1f5f9;
     color: #334155;
-    font-weight: 700;
-    padding: 8px 12px;
+    font-weight: 800;
+    padding: 14px 20px;
     text-transform: uppercase;
     font-size: 11px;
-    border-bottom: 1.5px solid #cbd5e1;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #cbd5e1;
+  }
+  .mini-applicants-table th:first-child,
+  .mini-applicants-table td:first-child {
+    padding-left: 28px;
+  }
+  .mini-applicants-table th:last-child,
+  .mini-applicants-table td:last-child {
+    padding-right: 24px;
   }
   .mini-applicants-table td {
-    padding: 9px 12px;
-    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 20px;
+    border-bottom: 1.5px solid #e2e8f0;
+    vertical-align: middle;
+  }
+  .mini-applicants-table tbody tr:hover td {
+    background: #f8fafc;
   }
 
   /* Status Badges */
@@ -347,7 +381,14 @@
       </ul>
     {% endblock %}
 
-    <!-- Grouped Events Table (No top bar banner) -->
+    <!-- Informational Header Mode Bar -->
+    <div class="view-mode-bar">
+      <div class="view-mode-info">
+        Grouped by Event: Showing workshops and attendee counts. Click an event name to view applicants.
+      </div>
+    </div>
+
+    <!-- Grouped Events Table -->
     <table class="grouped-events-table">
       <thead>
         <tr>
@@ -453,15 +494,17 @@
         <tr id="preview-{{ forloop.counter }}" class="preview-drawer-row" style="display: none;">
           <td colspan="5">
             <div class="preview-drawer-content">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <span style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #16213E;">
                   Recent Applicants for {{ item.event.title|default:"General" }} (Showing {{ item.applications|length }} of {{ item.total_applicants }})
                 </span>
-                {% if item.event %}
-                <a href="?event__id__exact={{ item.event.id }}" style="font-size: 12px; font-weight: 700; color: #0284c7;">
-                  Manage all {{ item.total_applicants }} applicants &rarr;
+                <a href="{% if item.event %}?event__id__exact={{ item.event.id }}{% else %}?event__isnull=True{% endif %}" style="font-size: 12px; font-weight: 700; color: #0284c7;">
+                  {% if item.total_applicants == 1 %}
+                    Manage applicant &rarr;
+                  {% else %}
+                    Manage all {{ item.total_applicants }} applicants &rarr;
+                  {% endif %}
                 </a>
-                {% endif %}
               </div>
               <table class="mini-applicants-table">
                 <thead>
@@ -497,6 +540,14 @@
                   {% endfor %}
                 </tbody>
               </table>
+              {% if item.has_more %}
+              <div style="margin-top: 14px; text-align: center; font-size: 12px; color: #475569; background: #ffffff; padding: 12px; border: 1.5px dashed #cbd5e1;">
+                Showing 2 of {{ item.total_applicants }} applicants.
+                <a href="{% if item.event %}?event__id__exact={{ item.event.id }}{% else %}?event__isnull=True{% endif %}" style="font-weight: 700; color: #0284c7; margin-left: 6px;">
+                  Manage all {{ item.total_applicants }} applicants &rarr;
+                </a>
+              </div>
+              {% endif %}
             </div>
           </td>
         </tr>

@@ -199,8 +199,8 @@ class EventApplicationAdmin(admin.ModelAdmin):
                     "pending_count": pend,
                     "rejected_count": rej,
                     "progress_pct": pct,
-                    "applications": list(ev_apps[:10]),
-                    "has_more": tot > 10,
+                    "applications": list(ev_apps[:2]),
+                    "has_more": tot > 2,
                 })
 
             unassigned_apps = base_qs.filter(event__isnull=True)
@@ -214,8 +214,8 @@ class EventApplicationAdmin(admin.ModelAdmin):
                     "pending_count": unassigned_apps.filter(status="pending").count(),
                     "rejected_count": unassigned_apps.filter(status="rejected").count(),
                     "progress_pct": 0,
-                    "applications": list(unassigned_apps[:10]),
-                    "has_more": u_tot > 10,
+                    "applications": list(unassigned_apps[:2]),
+                    "has_more": u_tot > 2,
                 })
 
             extra_context["grouped_events"] = grouped_data

@@ -420,7 +420,7 @@ class OrganizeWizardView(View):
                         exp_greeting = (
                             f"Thank you for volunteering to organize a {site_name} workshop{loc_info}!"
                         )
-                        exp_summary = f"No (First-time organizer - Location: {loc_str or 'N/A'})"
+                        exp_summary = "No (First-time organizer)"
                         if loc_str:
                             location_html = f"<strong>Location:</strong> {escape(loc_str)}<br>\n"
                             location_text = f"Location: {loc_str}\n"
