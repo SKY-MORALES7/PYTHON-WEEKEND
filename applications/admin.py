@@ -189,6 +189,9 @@ class EventApplicationAdmin(admin.ModelAdmin):
             elif current_event.owner:
                 extra_context["current_event_organizer_name"] = f"{current_event.owner.first_name} {current_event.owner.last_name}".strip() or current_event.owner.username
                 extra_context["current_event_organizer_app_id"] = None
+            else:
+                extra_context["current_event_organizer_name"] = "Platform Admin"
+                extra_context["current_event_organizer_app_id"] = None
         else:
             # Grouped view overview for all accessible events
             if request.user.is_superuser:
@@ -241,6 +244,8 @@ class EventApplicationAdmin(admin.ModelAdmin):
                     organizer_app_id = org_app.id
                 elif ev.owner:
                     organizer_name = f"{ev.owner.first_name} {ev.owner.last_name}".strip() or ev.owner.username
+                else:
+                    organizer_name = "Platform Admin"
 
                 grouped_data.append({
                     "event": ev,
