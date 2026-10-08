@@ -4,24 +4,60 @@
 {% block extrahead %}
 {{ block.super }}
 <style>
-  /* ── Event Applications Grouped & Single View Styling ── */
+  /* ── Clean & Professional Admin Styling (No Emojis) ── */
   .pw-admin-container {
     margin-bottom: 24px;
     font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
   }
 
+  /* Fix Add Button Placement */
+  #content-main {
+    position: relative;
+  }
+  ul.object-tools {
+    margin: 0 0 16px 0 !important;
+    float: right !important;
+    display: flex !important;
+    gap: 8px !important;
+    position: relative !important;
+    top: 0 !important;
+  }
+  ul.object-tools li a {
+    background: #16213E !important;
+    color: #FFD43B !important;
+    border: 2px solid #16213E !important;
+    box-shadow: 2.5px 2.5px 0 #16213E !important;
+    font-family: var(--font-display, 'Rajdhani', sans-serif) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 16px !important;
+    height: auto !important;
+    line-height: normal !important;
+    border-radius: 0 !important;
+    transition: all 0.15s ease !important;
+  }
+  ul.object-tools li a:hover {
+    background: #306998 !important;
+    color: #ffffff !important;
+    transform: translate(1px, 1px) !important;
+    box-shadow: 1px 1px 0 #16213E !important;
+  }
+
   /* Single Event Active Banner */
   .event-focus-card {
+    clear: both;
     background: #ffffff;
     border: 2.5px solid #16213E;
-    box-shadow: 6px 6px 0 #16213E;
+    box-shadow: 5px 5px 0 #16213E;
     padding: 20px 24px;
     margin-bottom: 24px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 18px;
+    gap: 16px;
   }
   .event-focus-card .focus-label {
     font-family: var(--font-display, 'Rajdhani', sans-serif);
@@ -29,7 +65,7 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #4B8BBE;
+    color: #306998;
     margin-bottom: 4px;
   }
   .event-focus-card .focus-title {
@@ -49,7 +85,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 12px;
+    padding: 5px 12px;
     border: 1.5px solid #16213E;
     background: #f8fafc;
     font-size: 13px;
@@ -85,7 +121,7 @@
     background: #16213E;
     color: #FFD43B !important;
     font-family: var(--font-display, 'Rajdhani', sans-serif);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -98,41 +134,7 @@
     background: #306998;
     color: #ffffff !important;
     transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0 #16213E;
-  }
-
-  /* View Mode Switcher */
-  .view-mode-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #f1f5f9;
-    border: 2px solid #16213E;
-    padding: 10px 16px;
-    margin-bottom: 20px;
-    box-shadow: 3px 3px 0 #16213E;
-  }
-  .mode-switch-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 6px 14px;
-    border: 1.5px solid #16213E;
-    text-decoration: none !important;
-  }
-  .mode-switch-btn.active {
-    background: #16213E;
-    color: #FFD43B !important;
-  }
-  .mode-switch-btn.inactive {
-    background: #ffffff;
-    color: #16213E !important;
-  }
-  .mode-switch-btn.inactive:hover {
-    background: #e2e8f0;
+    box-shadow: 1.5px 1.5px 0 #16213E;
   }
 
   /* Grouped Events Table */
@@ -144,6 +146,7 @@
     border: 2.5px solid #16213E;
     box-shadow: 6px 6px 0 #16213E;
     margin-bottom: 24px;
+    clear: both;
   }
   .grouped-events-table th {
     background: #16213E;
@@ -153,7 +156,7 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: 12px 16px;
+    padding: 14px 16px;
     text-align: left;
     border-bottom: 2px solid #16213E;
   }
@@ -183,7 +186,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 14px;
+    padding: 7px 14px;
     background: #FFD43B;
     color: #16213E !important;
     border: 1.5px solid #16213E;
@@ -206,9 +209,11 @@
     background: #ffffff;
     border: 1.5px solid #16213E;
     color: #16213E;
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
     font-size: 12px;
-    font-weight: 700;
-    padding: 4px 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 6px 12px;
     cursor: pointer;
     box-shadow: 1.5px 1.5px 0 #16213E;
     margin-left: 6px;
@@ -244,7 +249,7 @@
     border-bottom: 1.5px solid #cbd5e1;
   }
   .mini-applicants-table td {
-    padding: 8px 12px;
+    padding: 9px 12px;
     border-bottom: 1px solid #e2e8f0;
   }
 
@@ -252,11 +257,12 @@
   .badge-app-status {
     display: inline-block;
     padding: 3px 8px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 800;
+    border-radius: 2px;
     text-transform: uppercase;
-    border: 1px solid transparent;
+    border: 1.5px solid transparent;
+    letter-spacing: 0.03em;
   }
   .badge-app-status.approved {
     background: #dcfce7;
@@ -293,29 +299,29 @@
   {% if current_event %}
     <div class="event-focus-card">
       <div>
-        <div class="focus-label">📂 Event Applications Group</div>
+        <div class="focus-label">Event Applications</div>
         <h2 class="focus-title">{{ current_event.title }}</h2>
         <div class="focus-stats">
           <span class="stat-pill expected">
-            🎯 Expected Attendees: <strong>{{ current_event.expected_attendees }}</strong>
+            Expected Attendees: <strong>{{ current_event.expected_attendees }}</strong>
           </span>
           <span class="stat-pill">
-            👥 Total Applicants: <strong>{{ current_event_total }}</strong>
+            Total Applicants: <strong>{{ current_event_total }}</strong>
           </span>
           <span class="stat-pill approved">
-            ✅ Approved: <strong>{{ current_event_approved }}</strong>
+            Approved: <strong>{{ current_event_approved }}</strong>
           </span>
           <span class="stat-pill pending">
-            ⏳ Pending: <strong>{{ current_event_pending }}</strong>
+            Pending: <strong>{{ current_event_pending }}</strong>
           </span>
           <span class="stat-pill rejected">
-            ❌ Rejected: <strong>{{ current_event_rejected }}</strong>
+            Rejected: <strong>{{ current_event_rejected }}</strong>
           </span>
         </div>
       </div>
       <div>
         <a href="{% url 'admin:applications_eventapplication_changelist' %}" class="btn-return-group">
-          ← Back to All Events (Grouped Overview)
+          &larr; Back to All Events
         </a>
       </div>
     </div>
@@ -323,22 +329,25 @@
     <!-- Render the standard changelist results for this event -->
     {{ block.super }}
 
-  <!-- SCENARIO 2: Grouped overview mode (Default when no single event is selected) -->
-  {% elif is_grouped_view %}
+  <!-- SCENARIO 2: Grouped overview mode (Default) -->
+  {% else %}
 
-    <!-- Top View Switcher -->
-    <div class="view-mode-bar">
-      <div style="font-size: 13px; font-weight: 700; color: #16213E; display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 18px;">📁</span>
-        <span>Applications are grouped under each Event for better organization. Click an event name to view applicants.</span>
-      </div>
-      <div style="display: flex; gap: 8px;">
-        <span class="mode-switch-btn active">Grouped by Event</span>
-        <a href="?view=flat" class="mode-switch-btn inactive">Show All Applications (Flat List)</a>
-      </div>
-    </div>
+    <!-- Object tools (Add button) positioned cleanly at the top right -->
+    {% block object-tools %}
+      <ul class="object-tools">
+        {% block object-tools-items %}
+          {% if has_add_permission %}
+            <li>
+              <a href="{% url 'admin:applications_eventapplication_add' %}">
+                Add Event Application +
+              </a>
+            </li>
+          {% endif %}
+        {% endblock %}
+      </ul>
+    {% endblock %}
 
-    <!-- Grouped Events Table -->
+    <!-- Grouped Events Table (No top bar banner) -->
     <table class="grouped-events-table">
       <thead>
         <tr>
@@ -360,9 +369,9 @@
                 </a>
               </div>
               <div style="font-size: 12px; color: #64748b; margin-top: 3px;">
-                📍 {{ item.event.city }}{% if item.event.country %}, {{ item.event.country }}{% endif %}
+                {{ item.event.city }}{% if item.event.country %}, {{ item.event.country }}{% endif %}
                 {% if item.event.start_date %}
-                  • 🗓️ {{ item.event.start_date|date:"M d, Y" }}
+                  &bull; {{ item.event.start_date|date:"M d, Y" }}
                 {% endif %}
               </div>
             {% else %}
@@ -392,7 +401,7 @@
             </div>
           </td>
 
-          <!-- Status Breakdown Column -->
+          <!-- Status Breakdown Column (Clean text badges, no emojis) -->
           <td>
             <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px;">
               <span class="badge-app-status approved" title="Approved applicants">
@@ -433,13 +442,13 @@
 
             {% if item.applications %}
             <button type="button" class="btn-preview-toggle" onclick="togglePreview('preview-{{ forloop.counter }}')">
-              Preview ▼
+              Preview
             </button>
             {% endif %}
           </td>
         </tr>
 
-        <!-- Expandable preview of applicants for this event -->
+        <!-- Expandable preview of applicants for this event (No emojis) -->
         {% if item.applications %}
         <tr id="preview-{{ forloop.counter }}" class="preview-drawer-row" style="display: none;">
           <td colspan="5">
@@ -471,11 +480,11 @@
                     <td>{{ app.email }}</td>
                     <td>
                       {% if app.status == 'approved' %}
-                        <span class="badge-app-status approved">✅ Approved 🔒</span>
+                        <span class="badge-app-status approved">Approved</span>
                       {% elif app.status == 'rejected' %}
-                        <span class="badge-app-status rejected">❌ Rejected 🔒</span>
+                        <span class="badge-app-status rejected">Rejected</span>
                       {% else %}
-                        <span class="badge-app-status pending">⏳ Pending</span>
+                        <span class="badge-app-status pending">Pending</span>
                       {% endif %}
                     </td>
                     <td>{{ app.created_at|date:"M d, Y, g:i a"|default:"—" }}</td>
@@ -503,21 +512,6 @@
         {% endfor %}
       </tbody>
     </table>
-
-  <!-- SCENARIO 3: Flat list mode (explicitly requested with ?view=flat or searching) -->
-  {% else %}
-    <div class="view-mode-bar">
-      <div style="font-size: 13px; font-weight: 700; color: #16213E;">
-        📄 Showing all individual applications as a flat list.
-      </div>
-      <div>
-        <a href="{% url 'admin:applications_eventapplication_changelist' %}" class="mode-switch-btn inactive">
-          ← Switch to Grouped by Event
-        </a>
-      </div>
-    </div>
-
-    {{ block.super }}
 
   {% endif %}
 
