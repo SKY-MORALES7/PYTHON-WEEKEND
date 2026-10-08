@@ -1,12 +1,12 @@
 {% extends "applications/organize/_base_wizard.html" %}
-{% block title %}Workshop Format{% endblock %}
+{% block title %}Workshop Format & Capacity{% endblock %}
 
 {% block wizard_content %}
 <h2 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight text-center mb-2">
-  Workshop Format
+  Format & Capacity
 </h2>
 <p class="font-body text-shield-navy text-sm text-center font-medium mb-8">
-  Choose whether your workshop will be held in-person or remotely online.
+  Select your workshop delivery format and expected attendee target.
 </p>
 
 {% if error %}
@@ -15,10 +15,11 @@
 </div>
 {% endif %}
 
-<form method="post" action="{% url 'applications:organize_step' step=3 %}">
+<form method="post" action="{% url 'applications:organize_step' step=3 %}" id="organize-step3-form">
   {% csrf_token %}
 
-  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-10">
+  <!-- 1. Workshop Type -->
+  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-8">
     <label class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider mb-4">
       Select Workshop Type <span class="text-red-600">*</span>
     </label>
@@ -50,6 +51,69 @@
     </div>
   </div>
 
+  <!-- 2. Expected Attendees Selection -->
+  <div class="bg-white border-2 border-shield-navy p-6 sm:p-8 shadow-brutal-sm mb-10">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+      <label class="block font-mono text-xs font-bold text-shield-navy uppercase tracking-wider">
+        Expected Attendees <span class="text-red-600">*</span>
+      </label>
+      <span class="font-mono text-xs text-shield-navy/70">
+        How many participants do you plan to accept?
+      </span>
+    </div>
+
+    <!-- Preset Selection Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 mb-6" id="preset-attendees-grid">
+      {% with current_val=wizard_data.expected_attendees|default:50 %}
+      <button type="button" data-val="20"
+              class="attendee-preset-btn p-3 border-2 border-shield-navy text-center transition-all shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px] {% if current_val == 20 %}bg-[#FFD43B] font-black{% else %}bg-shield-ice/10 font-bold{% endif %}">
+        <span class="block font-display text-2xl text-shield-navy">20</span>
+        <span class="block font-mono text-[10px] text-shield-navy/80 uppercase">Small</span>
+      </button>
+
+      <button type="button" data-val="30"
+              class="attendee-preset-btn p-3 border-2 border-shield-navy text-center transition-all shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px] {% if current_val == 30 %}bg-[#FFD43B] font-black{% else %}bg-shield-ice/10 font-bold{% endif %}">
+        <span class="block font-display text-2xl text-shield-navy">30</span>
+        <span class="block font-mono text-[10px] text-shield-navy/80 uppercase">Standard</span>
+      </button>
+
+      <button type="button" data-val="50"
+              class="attendee-preset-btn p-3 border-2 border-shield-navy text-center transition-all shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px] {% if current_val == 50 or not current_val %}bg-[#FFD43B] font-black{% else %}bg-shield-ice/10 font-bold{% endif %}">
+        <span class="block font-display text-2xl text-shield-navy">50</span>
+        <span class="block font-mono text-[10px] text-shield-navy/80 uppercase">Recommended</span>
+      </button>
+
+      <button type="button" data-val="75"
+              class="attendee-preset-btn p-3 border-2 border-shield-navy text-center transition-all shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px] {% if current_val == 75 %}bg-[#FFD43B] font-black{% else %}bg-shield-ice/10 font-bold{% endif %}">
+        <span class="block font-display text-2xl text-shield-navy">75</span>
+        <span class="block font-mono text-[10px] text-shield-navy/80 uppercase">Large</span>
+      </button>
+
+      <button type="button" data-val="100"
+              class="attendee-preset-btn p-3 border-2 border-shield-navy text-center transition-all shadow-brutal-sm hover:translate-x-[1px] hover:translate-y-[1px] {% if current_val == 100 %}bg-[#FFD43B] font-black{% else %}bg-shield-ice/10 font-bold{% endif %}">
+        <span class="block font-display text-2xl text-shield-navy">100+</span>
+        <span class="block font-mono text-[10px] text-shield-navy/80 uppercase">Auditorium</span>
+      </button>
+      {% endwith %}
+    </div>
+
+    <!-- Custom Number Input & Sync -->
+    <div class="bg-shield-ice/15 border-2 border-shield-navy p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-brutal-sm">
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-xs font-bold text-shield-navy uppercase">Selected Target:</span>
+        <span id="selected-summary" class="font-display font-extrabold text-lg text-shield-blue">50 Attendees</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <label for="expected_attendees" class="font-mono text-xs font-bold text-shield-navy whitespace-nowrap">
+          Or Enter Custom:
+        </label>
+        <input type="number" id="expected_attendees" name="expected_attendees" min="5" max="2000" step="1"
+               value="{{ wizard_data.expected_attendees|default:50 }}" required
+               class="w-28 bg-white border-2 border-shield-navy px-3 py-1.5 text-base font-mono text-shield-navy font-bold focus:ring-2 focus:ring-shield-blue focus:outline-none shadow-brutal-sm text-center" />
+      </div>
+    </div>
+  </div>
+
   <!-- Submit Button -->
   <div class="flex justify-end mt-10">
     <button type="submit" class="btn-brutal-hero group w-full sm:w-auto">
@@ -61,5 +125,49 @@
     </button>
   </div>
 </form>
-{% endblock %}
 
+<script>
+  (function() {
+    const input = document.getElementById('expected_attendees');
+    const summary = document.getElementById('selected-summary');
+    const buttons = document.querySelectorAll('.attendee-preset-btn');
+
+    function updateDisplay(val) {
+      if (summary) {
+        summary.textContent = val + (val === 1 ? ' Attendee' : ' Attendees');
+      }
+      buttons.forEach(btn => {
+        if (btn.getAttribute('data-val') === String(val)) {
+          btn.classList.add('bg-[#FFD43B]', 'font-black');
+          btn.classList.remove('bg-shield-ice/10', 'font-bold');
+        } else {
+          btn.classList.remove('bg-[#FFD43B]', 'font-black');
+          btn.classList.add('bg-shield-ice/10', 'font-bold');
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const val = this.getAttribute('data-val');
+        if (input) {
+          input.value = val;
+          updateDisplay(parseInt(val, 10));
+        }
+      });
+    });
+
+    if (input) {
+      input.addEventListener('input', function() {
+        const val = parseInt(this.value, 10);
+        if (!isNaN(val)) {
+          updateDisplay(val);
+        }
+      });
+      // Initial state
+      const initial = parseInt(input.value, 10) || 50;
+      updateDisplay(initial);
+    }
+  })();
+</script>
+{% endblock %}

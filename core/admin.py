@@ -46,6 +46,13 @@ class CustomFlatPageForm(forms.ModelForm):
                     "Format questions using exactly <strong>Q: Your question?</strong> and "
                     "answers using <strong>A: Your answer text.</strong>"
                 )
+            elif url in ["/privacy/", "/terms/"]:
+                self.fields["content"].help_text = (
+                    "💡 <strong>What to write:</strong> Enter policy text for this legal page. "
+                    "This content IS fully editable here in FlatPages! "
+                    "Numbered sections (e.g. <strong>1. Information We Collect</strong>), headings, paragraphs, "
+                    "and lists will be automatically formatted with premium legal styling on the live website."
+                )
             elif url in ["/about/", "/organise/", "/organize/", "/contribute/", "/code-of-conduct/", "/coc/", "/support/", "/support-us/", "/partners/", "/jobs/", "/resources/"]:
                 is_superuser = bool(self.request and self.request.user and self.request.user.is_superuser)
                 if is_superuser:

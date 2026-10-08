@@ -247,7 +247,20 @@ class OrganizeWizardView(View):
                 context = self._build_context(request, step)
                 context["error"] = "Please select a workshop type."
                 return render(request, WIZARD_TEMPLATES[step], context)
+
+            raw_attendees = request.POST.get("expected_attendees", "").strip()
+            try:
+                expected_attendees = int(raw_attendees)
+                if expected_attendees <= 0 or expected_attendees > 10000:
+                    raise ValueError
+            except (ValueError, TypeError):
+                context = self._build_context(request, step)
+                context["error"] = "Please select or enter a valid number of expected attendees (positive number)."
+                context["form_data"] = request.POST
+                return render(request, WIZARD_TEMPLATES[step], context)
+
             wizard_data["workshop_type"] = workshop_type
+            wizard_data["expected_attendees"] = expected_attendees
 
         elif step == 4:
             wizard_data["commitment_signed"] = True
@@ -349,6 +362,7 @@ class OrganizeWizardView(View):
                 team_members=data.get("team_members", []),
                 prerequisites_confirmed=data.get("prerequisites_confirmed", False),
                 workshop_type=data.get("workshop_type", "in_person"),
+                expected_attendees=int(data.get("expected_attendees", 50)),
                 commitment_signed=data.get("commitment_signed", False),
                 has_organized_before=data.get("has_organized_before", False),
                 previous_event=previous_event,
@@ -447,6 +461,7 @@ class OrganizeWizardView(View):
               <p style="margin: 0 0 16px 0;">We have received your application and our team is currently reviewing your proposal. We'll be in touch with onboarding materials, workshop timeline details, and next steps.</p>
               <div style="background-color: #f8fafc; border-left: 4px solid #0284c7; padding: 14px 18px; margin: 20px 0; font-size: 14px; color: #334155;">
                 <strong>Workshop Type:</strong> {escape(application.get_workshop_type_display())}<br>
+                <strong>Expected Attendees:</strong> {application.expected_attendees}<br>
                 {location_html}<strong>Experience:</strong> {escape(exp_summary)}
               </div>
               <p style="margin: 0;">Warm regards,<br><strong>The {site_name} Team</strong></p>
@@ -470,6 +485,7 @@ class OrganizeWizardView(View):
                         f"Lead Organizer: {organizer_name}\n"
                         f"Email: {organizer_email}\n"
                         f"Workshop Type: {application.get_workshop_type_display()}\n"
+                        f"Expected Attendees: {application.expected_attendees}\n"
                         f"{admin_location_line}"
                         f"Organized Before: {exp_summary}\n\n"
                         f"Please log in to the admin panel to review and approve/reject the application."

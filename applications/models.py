@@ -195,11 +195,24 @@ class EventApplication(models.Model):
 
         threading.Thread(target=_send, daemon=True).start()
 
+    def clean(self):
+        super().clean()
+        if self.pk:
+            old_status = EventApplication.objects.filter(pk=self.pk).values_list("status", flat=True).first()
+            if old_status in ("approved", "rejected") and self.status != old_status:
+                from django.core.exceptions import ValidationError
+                raise ValidationError({
+                    "status": f"Application status has already been finalized as '{old_status}'. It cannot be changed again."
+                })
+
     def save(self, *args, **kwargs):
         is_new = self.pk is None
         old_status = None
         if not is_new:
             old_status = EventApplication.objects.filter(pk=self.pk).values_list("status", flat=True).first()
+            if old_status in ("approved", "rejected") and self.status != old_status:
+                # Lock status once approved or rejected: prevent altering finalized status
+                self.status = old_status
 
         super().save(*args, **kwargs)
 
@@ -349,6 +362,10 @@ class OrganizerApplication(models.Model):
         max_length=20,
         choices=WORKSHOP_TYPE_CHOICES,
         default="in_person",
+    )
+    expected_attendees = models.PositiveIntegerField(
+        default=50,
+        help_text="Expected number of attendees the organizer plans to host."
     )
 
     commitment_signed = models.BooleanField(default=False)
@@ -542,6 +559,7 @@ class OrganizerApplication(models.Model):
             city=t_state or (prev_ev.city if prev_ev else "TBA"),
             country=t_country or "",
             owner=lead_user,
+            expected_attendees=self.expected_attendees,
             published=False
         )
 

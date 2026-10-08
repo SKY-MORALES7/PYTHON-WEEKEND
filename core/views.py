@@ -91,7 +91,11 @@ def _footer_context():
         now = timezone.now()
         published = Event.objects.filter(published=True)
         try:
-            total_attendees = published.aggregate(s=Sum("attendees_count"))["s"] or 0
+            total_attendees = (
+                EventApplication.objects.filter(status="approved").count()
+                or published.aggregate(s=Sum("expected_attendees"))["s"]
+                or 0
+            )
         except Exception:
             total_attendees = 0
 
@@ -569,6 +573,26 @@ class JobsView(View):
     def get(self, request):
         flatpage = FlatPage.objects.filter(url="/jobs/").first()
         context = {"flatpage": flatpage}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class PrivacyView(View):
+    template_name = "flatpages/default.html"
+
+    def get(self, request):
+        flatpage = FlatPage.objects.filter(url="/privacy/").first()
+        context = {"flatpage": flatpage, "is_privacy": True}
+        context.update(_footer_context())
+        return render(request, self.template_name, context)
+
+
+class TermsView(View):
+    template_name = "flatpages/default.html"
+
+    def get(self, request):
+        flatpage = FlatPage.objects.filter(url="/terms/").first()
+        context = {"flatpage": flatpage, "is_terms": True}
         context.update(_footer_context())
         return render(request, self.template_name, context)
 

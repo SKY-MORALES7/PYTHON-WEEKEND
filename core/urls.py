@@ -36,6 +36,8 @@ urlpatterns = [
     path("faq/", views.FAQView.as_view(), name="faq"),
     path("code-of-conduct/", views.CoCView.as_view(), name="coc"),
     path("jobs/", views.JobsView.as_view(), name="jobs"),
+    path("privacy/", views.PrivacyView.as_view(), name="privacy"),
+    path("terms/", views.TermsView.as_view(), name="terms"),
     path("video/stream/", views.VideoStreamView.as_view(), name="video_stream"),
 ]
 

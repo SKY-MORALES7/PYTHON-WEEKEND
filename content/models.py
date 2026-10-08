@@ -251,9 +251,9 @@ class Event(models.Model):
         max_digits=9, decimal_places=6, blank=True, null=True,
         help_text="GPS longitude — used on the event map page."
     )
-    attendees_count = models.PositiveIntegerField(
-        default=0,
-        help_text="Verified number of people who attended this event. Update after the event."
+    expected_attendees = models.PositiveIntegerField(
+        default=50,
+        help_text="Target number of expected attendees planned for this event."
     )
 
     # ── About ─────────────────────────────────────────────

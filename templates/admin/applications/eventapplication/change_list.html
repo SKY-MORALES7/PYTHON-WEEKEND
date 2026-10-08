@@ -1,0 +1,537 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+  /* ── Event Applications Grouped & Single View Styling ── */
+  .pw-admin-container {
+    margin-bottom: 24px;
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  }
+
+  /* Single Event Active Banner */
+  .event-focus-card {
+    background: #ffffff;
+    border: 2.5px solid #16213E;
+    box-shadow: 6px 6px 0 #16213E;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .event-focus-card .focus-label {
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #4B8BBE;
+    margin-bottom: 4px;
+  }
+  .event-focus-card .focus-title {
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 24px;
+    font-weight: 800;
+    color: #16213E;
+    margin: 0 0 12px 0;
+    line-height: 1.2;
+  }
+  .focus-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .stat-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border: 1.5px solid #16213E;
+    background: #f8fafc;
+    font-size: 13px;
+    font-weight: 600;
+    color: #16213E;
+  }
+  .stat-pill.expected {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0369a1;
+    font-weight: 700;
+  }
+  .stat-pill.approved {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #15803d;
+  }
+  .stat-pill.pending {
+    background: #fef9c3;
+    border-color: #ca8a04;
+    color: #854d0e;
+  }
+  .stat-pill.rejected {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #991b1b;
+  }
+  .btn-return-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: #16213E;
+    color: #FFD43B !important;
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none !important;
+    border: 2px solid #16213E;
+    box-shadow: 3px 3px 0 #FFD43B;
+    transition: all 0.15s ease;
+  }
+  .btn-return-group:hover {
+    background: #306998;
+    color: #ffffff !important;
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 #16213E;
+  }
+
+  /* View Mode Switcher */
+  .view-mode-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f5f9;
+    border: 2px solid #16213E;
+    padding: 10px 16px;
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 0 #16213E;
+  }
+  .mode-switch-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1.5px solid #16213E;
+    text-decoration: none !important;
+  }
+  .mode-switch-btn.active {
+    background: #16213E;
+    color: #FFD43B !important;
+  }
+  .mode-switch-btn.inactive {
+    background: #ffffff;
+    color: #16213E !important;
+  }
+  .mode-switch-btn.inactive:hover {
+    background: #e2e8f0;
+  }
+
+  /* Grouped Events Table */
+  .grouped-events-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border: 2.5px solid #16213E;
+    box-shadow: 6px 6px 0 #16213E;
+    margin-bottom: 24px;
+  }
+  .grouped-events-table th {
+    background: #16213E;
+    color: #ffffff;
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 2px solid #16213E;
+  }
+  .grouped-events-table td {
+    padding: 16px;
+    border-bottom: 1.5px solid #e2e8f0;
+    vertical-align: middle;
+    font-size: 14px;
+    color: #16213E;
+  }
+  .grouped-events-table tr:hover td {
+    background: #f8fafc;
+  }
+  .event-title-link {
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 18px;
+    font-weight: 800;
+    color: #16213E !important;
+    text-decoration: none !important;
+    display: inline-block;
+  }
+  .event-title-link:hover {
+    color: #306998 !important;
+    text-decoration: underline !important;
+  }
+  .btn-drilldown {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: #FFD43B;
+    color: #16213E !important;
+    border: 1.5px solid #16213E;
+    font-family: var(--font-display, 'Rajdhani', sans-serif);
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    box-shadow: 2px 2px 0 #16213E;
+    transition: all 0.15s ease;
+  }
+  .btn-drilldown:hover {
+    background: #16213E;
+    color: #FFD43B !important;
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #16213E;
+  }
+
+  .btn-preview-toggle {
+    background: #ffffff;
+    border: 1.5px solid #16213E;
+    color: #16213E;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    cursor: pointer;
+    box-shadow: 1.5px 1.5px 0 #16213E;
+    margin-left: 6px;
+  }
+  .btn-preview-toggle:hover {
+    background: #f1f5f9;
+  }
+
+  /* Inline preview drawer */
+  .preview-drawer-row td {
+    padding: 0 !important;
+    background: #f8fafc !important;
+    border-bottom: 2px solid #16213E !important;
+  }
+  .preview-drawer-content {
+    padding: 16px 20px;
+    border-left: 5px solid #4B8BBE;
+  }
+  .mini-applicants-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    font-size: 13px;
+  }
+  .mini-applicants-table th {
+    background: #e2e8f0;
+    color: #334155;
+    font-weight: 700;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    font-size: 11px;
+    border-bottom: 1.5px solid #cbd5e1;
+  }
+  .mini-applicants-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  /* Status Badges */
+  .badge-app-status {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 3px;
+    text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+  .badge-app-status.approved {
+    background: #dcfce7;
+    color: #15803d;
+    border-color: #86efac;
+  }
+  .badge-app-status.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+    border-color: #fca5a5;
+  }
+  .badge-app-status.pending {
+    background: #fef9c3;
+    color: #854d0e;
+    border-color: #fde047;
+  }
+
+  /* Read-only / disabled select styling in changelist */
+  select[disabled] {
+    background-color: #f1f5f9 !important;
+    color: #64748b !important;
+    cursor: not-allowed !important;
+    border: 1.5px dashed #94a3b8 !important;
+    opacity: 0.85;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="pw-admin-container">
+
+  <!-- SCENARIO 1: Viewing applications for a specific event (Drilled down) -->
+  {% if current_event %}
+    <div class="event-focus-card">
+      <div>
+        <div class="focus-label">📂 Event Applications Group</div>
+        <h2 class="focus-title">{{ current_event.title }}</h2>
+        <div class="focus-stats">
+          <span class="stat-pill expected">
+            🎯 Expected Attendees: <strong>{{ current_event.expected_attendees }}</strong>
+          </span>
+          <span class="stat-pill">
+            👥 Total Applicants: <strong>{{ current_event_total }}</strong>
+          </span>
+          <span class="stat-pill approved">
+            ✅ Approved: <strong>{{ current_event_approved }}</strong>
+          </span>
+          <span class="stat-pill pending">
+            ⏳ Pending: <strong>{{ current_event_pending }}</strong>
+          </span>
+          <span class="stat-pill rejected">
+            ❌ Rejected: <strong>{{ current_event_rejected }}</strong>
+          </span>
+        </div>
+      </div>
+      <div>
+        <a href="{% url 'admin:applications_eventapplication_changelist' %}" class="btn-return-group">
+          ← Back to All Events (Grouped Overview)
+        </a>
+      </div>
+    </div>
+
+    <!-- Render the standard changelist results for this event -->
+    {{ block.super }}
+
+  <!-- SCENARIO 2: Grouped overview mode (Default when no single event is selected) -->
+  {% elif is_grouped_view %}
+
+    <!-- Top View Switcher -->
+    <div class="view-mode-bar">
+      <div style="font-size: 13px; font-weight: 700; color: #16213E; display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 18px;">📁</span>
+        <span>Applications are grouped under each Event for better organization. Click an event name to view applicants.</span>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <span class="mode-switch-btn active">Grouped by Event</span>
+        <a href="?view=flat" class="mode-switch-btn inactive">Show All Applications (Flat List)</a>
+      </div>
+    </div>
+
+    <!-- Grouped Events Table -->
+    <table class="grouped-events-table">
+      <thead>
+        <tr>
+          <th style="width: 32%;">Event</th>
+          <th style="width: 15%; text-align: center;">Expected Attendees</th>
+          <th style="width: 15%; text-align: center;">Attendees (Applicants)</th>
+          <th style="width: 22%;">Status Breakdown</th>
+          <th style="width: 16%; text-align: right;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in grouped_events %}
+        <tr>
+          <td>
+            {% if item.event %}
+              <div>
+                <a href="?event__id__exact={{ item.event.id }}" class="event-title-link">
+                  {{ item.event.title }}
+                </a>
+              </div>
+              <div style="font-size: 12px; color: #64748b; margin-top: 3px;">
+                📍 {{ item.event.city }}{% if item.event.country %}, {{ item.event.country }}{% endif %}
+                {% if item.event.start_date %}
+                  • 🗓️ {{ item.event.start_date|date:"M d, Y" }}
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="event-title-link" style="color: #64748b !important;">
+                General / Unassigned Applications
+              </div>
+              <div style="font-size: 12px; color: #94a3b8; margin-top: 3px;">
+                Applications not attached to any specific event
+              </div>
+            {% endif %}
+          </td>
+
+          <!-- Expected Attendees Column -->
+          <td style="text-align: center;">
+            <span class="stat-pill expected" style="font-size: 15px;">
+              {{ item.expected_attendees }}
+            </span>
+          </td>
+
+          <!-- Actual Attendees / Applicants Column -->
+          <td style="text-align: center;">
+            <div style="font-size: 16px; font-weight: 800; color: #16213E;">
+              {{ item.total_applicants }}
+            </div>
+            <div style="font-size: 11px; font-weight: bold; color: #64748b; text-transform: uppercase;">
+              {% if item.total_applicants == 1 %}Applicant{% else %}Applicants{% endif %}
+            </div>
+          </td>
+
+          <!-- Status Breakdown Column -->
+          <td>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 6px;">
+              <span class="badge-app-status approved" title="Approved applicants">
+                {{ item.approved_count }} Approved
+              </span>
+              <span class="badge-app-status pending" title="Pending review">
+                {{ item.pending_count }} Pending
+              </span>
+              {% if item.rejected_count %}
+              <span class="badge-app-status rejected" title="Rejected applications">
+                {{ item.rejected_count }} Rejected
+              </span>
+              {% endif %}
+            </div>
+
+            <!-- Mini Progress bar toward expected attendees -->
+            {% if item.event and item.expected_attendees and item.expected_attendees > 0 %}
+            <div style="background: #e2e8f0; height: 6px; border-radius: 3px; overflow: hidden; width: 100%; max-width: 180px;">
+              <div style="background: {% if item.progress_pct >= 100 %}#16a34a{% else %}#0284c7{% endif %}; height: 100%; width: {{ item.progress_pct }}%;"></div>
+            </div>
+            <div style="font-size: 10px; color: #64748b; margin-top: 2px;">
+              {{ item.total_applicants }} of {{ item.expected_attendees }} target filled ({{ item.progress_pct }}%)
+            </div>
+            {% endif %}
+          </td>
+
+          <!-- Action Buttons Column -->
+          <td style="text-align: right;">
+            {% if item.event %}
+              <a href="?event__id__exact={{ item.event.id }}" class="btn-drilldown" title="View all applicants for this event">
+                View Applicants &raquo;
+              </a>
+            {% else %}
+              <a href="?event__isnull=True" class="btn-drilldown">
+                View &raquo;
+              </a>
+            {% endif %}
+
+            {% if item.applications %}
+            <button type="button" class="btn-preview-toggle" onclick="togglePreview('preview-{{ forloop.counter }}')">
+              Preview ▼
+            </button>
+            {% endif %}
+          </td>
+        </tr>
+
+        <!-- Expandable preview of applicants for this event -->
+        {% if item.applications %}
+        <tr id="preview-{{ forloop.counter }}" class="preview-drawer-row" style="display: none;">
+          <td colspan="5">
+            <div class="preview-drawer-content">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 12px; text-transform: uppercase; color: #16213E;">
+                  Recent Applicants for {{ item.event.title|default:"General" }} (Showing {{ item.applications|length }} of {{ item.total_applicants }})
+                </span>
+                {% if item.event %}
+                <a href="?event__id__exact={{ item.event.id }}" style="font-size: 12px; font-weight: 700; color: #0284c7;">
+                  Manage all {{ item.total_applicants }} applicants &rarr;
+                </a>
+                {% endif %}
+              </div>
+              <table class="mini-applicants-table">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Applied Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for app in item.applications %}
+                  <tr>
+                    <td><strong>{{ app.full_name }}</strong></td>
+                    <td>{{ app.email }}</td>
+                    <td>
+                      {% if app.status == 'approved' %}
+                        <span class="badge-app-status approved">✅ Approved 🔒</span>
+                      {% elif app.status == 'rejected' %}
+                        <span class="badge-app-status rejected">❌ Rejected 🔒</span>
+                      {% else %}
+                        <span class="badge-app-status pending">⏳ Pending</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ app.created_at|date:"M d, Y, g:i a"|default:"—" }}</td>
+                    <td>
+                      <a href="{% url 'admin:applications_eventapplication_change' app.id %}" style="color: #0284c7; font-weight: 700;">
+                        Review Answers &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+
+        {% empty %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 40px; color: #64748b;">
+            <p style="font-size: 16px; font-weight: bold; margin-bottom: 6px;">No Event Applications Found</p>
+            <p style="font-size: 13px;">When attendees apply for your workshops, their applications will appear grouped here by event.</p>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  <!-- SCENARIO 3: Flat list mode (explicitly requested with ?view=flat or searching) -->
+  {% else %}
+    <div class="view-mode-bar">
+      <div style="font-size: 13px; font-weight: 700; color: #16213E;">
+        📄 Showing all individual applications as a flat list.
+      </div>
+      <div>
+        <a href="{% url 'admin:applications_eventapplication_changelist' %}" class="mode-switch-btn inactive">
+          ← Switch to Grouped by Event
+        </a>
+      </div>
+    </div>
+
+    {{ block.super }}
+
+  {% endif %}
+
+</div>
+
+<script>
+  function togglePreview(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.style.display === 'none' || !el.style.display) {
+      el.style.display = 'table-row';
+    } else {
+      el.style.display = 'none';
+    }
+  }
+</script>
+{% endblock %}

@@ -1,17 +1,224 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}{{ flatpage.title }} - Python Weekend{% endblock %}
+{% block title %}{{ flatpage.title }} — Python Weekend{% endblock %}
 
 {% block content %}
-<section style="background:var(--py-navy);padding:5rem 1.5rem 4rem;text-align:center;">
-  <div style="max-width:720px;margin:0 auto;">
-    <h1 style="font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;color:var(--py-yellow);margin-bottom:1rem;">{{ flatpage.title }}</h1>
+<!-- ── Top Hero ──────────────────────────────────────────────────────────── -->
+<section class="bg-[#16213E] border-b-4 border-[#16213E] py-14 sm:py-20 px-4 sm:px-6 relative overflow-hidden">
+  <!-- Subtle background grid pattern -->
+  <div class="absolute inset-0 opacity-5 pointer-events-none"
+       style="background-image: radial-gradient(#FFD43B 1.5px, transparent 1.5px); background-size: 24px 24px;"></div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="inline-flex items-center gap-2 bg-[#FFD43B] text-[#16213E] font-mono text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 border-2 border-[#16213E] shadow-brutal-sm mb-5">
+      <span>⚖️</span>
+      <span>Legal &amp; Policy Standards</span>
+    </div>
+
+    <h1 class="font-display font-black text-3xl sm:text-5xl md:text-6xl text-white uppercase tracking-tight mb-4 leading-tight">
+      {{ flatpage.title|default:"Legal Policy" }}
+    </h1>
+
+    <p class="font-body text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed mb-6 font-medium">
+      {% if is_privacy or "/privacy" in request.path %}
+        How Python Weekend collects, safeguards, and respects your personal information across all workshops and programs.
+      {% elif is_terms or "/terms" in request.path %}
+        The terms, conditions, and community standards governing the use of pythonweekend.org and our educational events.
+      {% else %}
+        Official platform terms and community documentation for Python Weekend workshops and educational initiatives.
+      {% endif %}
+    </p>
+
+    <!-- Metadata pill row -->
+    <div class="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs font-mono text-slate-300 bg-white/10 px-4 py-2 border border-white/20 rounded-sm">
+      <span><strong>Jurisdiction:</strong> Community Initiative</span>
+      <span class="text-[#FFD43B]">•</span>
+      <span><strong>Status:</strong> Active &amp; Enforced</span>
+      <span class="text-[#FFD43B]">•</span>
+      <span><strong>Contact:</strong> <a href="mailto:hello@pythonweekend.org" class="text-[#FFD43B] underline hover:text-white">hello@pythonweekend.org</a></span>
+    </div>
   </div>
 </section>
 
-<section class="section-dg">
-  <div class="container-dg max-w-4xl mx-auto py-12 prose prose-dg" style="color:var(--py-body);">
-    {{ flatpage.content|linebreaks }}
+<!-- ── Main Policy Content ───────────────────────────────────────────────── -->
+<section class="bg-[#F8F9FA] py-12 sm:py-16 px-4 sm:px-6">
+  <div class="max-w-4xl mx-auto">
+
+    <!-- Policy Document Card -->
+    <div class="bg-white border-3 border-[#16213E] shadow-[8px_8px_0_#16213E] p-6 sm:p-10 md:p-12 mb-10">
+
+      <!-- Trust & Commitment Banner -->
+      <div class="bg-[#EBF3FA] border-2 border-[#16213E] p-4 sm:p-5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-brutal-sm">
+        <div class="flex items-start gap-3">
+          <div class="w-9 h-9 flex-shrink-0 bg-[#306998] text-[#FFD43B] font-display font-black text-lg flex items-center justify-center border-2 border-[#16213E] shadow-sm">
+            PW
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base text-[#16213E] uppercase tracking-wide">
+              Committed to Beginner Safety &amp; Open Education
+            </h3>
+            <p class="font-body text-xs text-slate-600 mt-0.5 leading-relaxed">
+              We never sell your data, monetize participant details, or share personal info with third-party advertisers.
+            </p>
+          </div>
+        </div>
+        <div class="sm:text-right flex-shrink-0">
+          <span class="inline-block font-mono text-[11px] font-bold uppercase bg-[#FFD43B] text-[#16213E] px-2.5 py-1 border border-[#16213E]">
+            Verified Policy
+          </span>
+        </div>
+      </div>
+
+      <!-- Rendered Content with Enhanced Typography & Formatting -->
+      <article class="policy-prose font-body text-[#16213E] text-base leading-relaxed" id="policy-content-article">
+        {{ flatpage.content|linebreaks }}
+      </article>
+
+      <!-- Bottom Sign-off Box -->
+      <div class="mt-12 pt-8 border-t-2 border-[#16213E]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span class="font-display font-bold text-lg text-[#16213E] uppercase tracking-tight block">
+            Python Weekend Community Team
+          </span>
+          <span class="font-body text-xs text-slate-500">
+            For data inquiries, rights requests, or clarifications: <a href="mailto:hello@pythonweekend.org" class="font-bold text-[#306998] hover:underline">hello@pythonweekend.org</a>
+          </span>
+        </div>
+        <div>
+          <a href="{% url 'core:contact' %}"
+             class="inline-block bg-[#16213E] text-[#FFD43B] font-display font-bold text-sm uppercase px-5 py-2.5 border-2 border-[#16213E] shadow-brutal-sm hover:shadow-brutal-hover hover:translate-x-[1px] hover:translate-y-[1px] transition-all">
+            Contact Support &raquo;
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Related Legal Links Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <a href="/code-of-conduct/"
+         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Community Rules</span>
+          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Code of Conduct</h4>
+        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+          Our anti-harassment pledge and standards for mentors, attendees, and volunteers.
+        </p>
+      </a>
+
+      {% if is_privacy or "/privacy" in request.path %}
+      <a href="/terms/"
+         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Legal Terms</span>
+          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Terms &amp; Conditions</h4>
+        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+          Website terms of use, content licensing, and platform guidelines.
+        </p>
+      </a>
+      {% else %}
+      <a href="/privacy/"
+         class="bg-white border-2 border-[#16213E] p-5 shadow-brutal-sm hover:shadow-brutal-hover hover:border-[#306998] hover:translate-x-[1px] hover:translate-y-[1px] transition-all group block">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-mono text-xs font-bold text-[#306998] uppercase">Privacy &amp; Data</span>
+          <span class="text-base group-hover:translate-x-1 transition-transform">→</span>
+        </div>
+        <h4 class="font-display font-bold text-xl text-[#16213E] uppercase tracking-tight">Privacy &amp; Cookies</h4>
+        <p class="font-body text-xs text-slate-600 mt-1 leading-relaxed">
+          How personal records, applications, and cookies are managed safely.
+        </p>
+      </a>
+      {% endif %}
+    </div>
+
   </div>
 </section>
+
+<!-- ── Automatic Section Styling Script ───────────────────────────────────── -->
+<style>
+  /* Rich formatting for legal policy body */
+  .policy-prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.75;
+    color: #334155;
+    font-size: 1rem;
+  }
+  .policy-prose h2, .policy-prose h3 {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    color: #16213E;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .policy-prose h2 { font-size: 1.5rem; }
+  .policy-prose h3 { font-size: 1.25rem; }
+  .policy-prose ul, .policy-prose ol {
+    margin: 1rem 0 1.5rem 1.5rem;
+  }
+  .policy-prose li {
+    margin-bottom: 0.5rem;
+    line-height: 1.65;
+    color: #334155;
+  }
+  .policy-prose strong {
+    color: #0f172a;
+    font-weight: 700;
+  }
+  .policy-prose a {
+    color: #306998;
+    text-decoration: underline;
+    font-weight: 600;
+  }
+  .policy-prose a:hover {
+    color: #16213E;
+  }
+
+  /* Specific high-polish styling for numbered headings like "1. Information We Collect" */
+  .policy-section-header {
+    background: #f8fafc;
+    border-left: 4px solid #306998;
+    padding: 0.65rem 1rem;
+    margin-top: 2.2rem;
+    margin-bottom: 1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #16213E;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    border-top: 1px solid #e2e8f0;
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+</style>
+
+<script>
+  // Enhance plaintext paragraphs that represent numbered sections (e.g., "1. Information We Collect")
+  document.addEventListener("DOMContentLoaded", function() {
+    const article = document.getElementById("policy-content-article");
+    if (!article) return;
+
+    const paragraphs = article.querySelectorAll("p");
+    paragraphs.forEach(p => {
+      const text = p.textContent.trim();
+      // Match patterns like "1. Information We Collect" or "Section 2: ..."
+      const match = text.match(/^(\d+\.|\bSection\s+\d+:?)\s+(.*)$/i);
+      if (match && text.length < 100) {
+        const header = document.createElement("div");
+        header.className = "policy-section-header";
+        header.textContent = text;
+        p.replaceWith(header);
+      }
+    });
+  });
+</script>
 {% endblock %}

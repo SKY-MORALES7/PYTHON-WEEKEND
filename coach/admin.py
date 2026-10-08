@@ -7,6 +7,26 @@ class CoachAdmin(admin.ModelAdmin):
     list_editable = ["active"]
     search_fields = ["name"]
 
+    def get_changelist(self, request, **kwargs):
+        BaseCL = super().get_changelist(request, **kwargs)
+        if not request.user.is_authenticated or request.user.is_superuser:
+            return BaseCL
+
+        from django.db.models import Case, When, Value, IntegerField
+
+        class ScopedCoachChangeList(BaseCL):
+            def get_queryset(self, request):
+                qs = super().get_queryset(request)
+                return qs.annotate(
+                    _is_my=Case(
+                        When(created_by=request.user, then=Value(0)),
+                        default=Value(1),
+                        output_field=IntegerField(),
+                    )
+                ).order_by("_is_my", *self.get_ordering(request, qs))
+
+        return ScopedCoachChangeList
+
     def get_changelist_form(self, request, **kwargs):
         FormClass = super().get_changelist_form(request, **kwargs)
         class ScopedCoachChangelistForm(FormClass):

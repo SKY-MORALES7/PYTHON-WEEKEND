@@ -167,7 +167,7 @@ class EventAdminForm(forms.ModelForm):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     form = EventAdminForm
-    list_display  = ["title", "start_date", "city", "country", "application_open", "published"]
+    list_display  = ["title", "start_date", "city", "country", "expected_attendees", "application_open", "published"]
     list_editable = ["published", "application_open"]
     prepopulated_fields = {"slug": ("title",)}
     list_filter  = ["published", "application_open", "country"]
@@ -210,9 +210,9 @@ class EventAdmin(admin.ModelAdmin):
         ("Applications", {
             "fields": ("application_open", "application_deadline")
         }),
-        ("Impact", {
-            "fields": ("attendees_count",),
-            "description": "Update after the event with verified attendance numbers."
+        ("Attendance & Capacity", {
+            "fields": ("expected_attendees",),
+            "description": "Target number of attendees planned for this event."
         }),
         ("Customization", {
             "fields": ("custom_html", "sponsors_title", "schedule_title")
