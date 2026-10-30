@@ -25,7 +25,12 @@ class ApplicationFormView(View):
         })
 
     def post(self, request, form_id):
-        from core.security import check_rate_limit
+        from core.security import check_rate_limit, validate_honeypot
+        if not validate_honeypot(request, "website"):
+            from django.contrib import messages
+            messages.success(request, "Application submitted — we'll review and be in touch.")
+            return redirect("applications:apply", form_id=form_id)
+
         is_allowed, _ = check_rate_limit(request, "event_application", max_requests=5, window_seconds=600)
         if not is_allowed:
             from django.contrib import messages
@@ -334,19 +339,27 @@ class OrganizeWizardView(View):
                 wizard_data["target_state_custom"] = ""
             else:
                 final_country = target_country_custom if target_country == "Other" else target_country
-                final_state = target_state_custom if target_country == "Other" else target_state
+                final_state = (
+                    target_state_custom
+                    if (target_country == "Other" or target_state == "Other")
+                    else target_state
+                )
+
+                wizard_data["has_organized_before"] = False
+                wizard_data["previous_event_id"] = ""
+                wizard_data["target_country"] = target_country if target_country == "Other" else final_country
+                wizard_data["target_state"] = target_state if target_state == "Other" else final_state
+                wizard_data["target_country_custom"] = target_country_custom
+                wizard_data["target_state_custom"] = target_state_custom
 
                 if not final_country or not final_state:
+                    request.session["organize_wizard"] = wizard_data
                     context = self._build_context(request, step)
                     context["error"] = "Please select or enter your target Country and State / Region."
                     return render(request, WIZARD_TEMPLATES[step], context)
 
-                wizard_data["has_organized_before"] = False
-                wizard_data["previous_event_id"] = ""
                 wizard_data["target_country"] = final_country
                 wizard_data["target_state"] = final_state
-                wizard_data["target_country_custom"] = target_country_custom
-                wizard_data["target_state_custom"] = target_state_custom
 
             # Final step — save to database
             request.session["organize_wizard"] = wizard_data

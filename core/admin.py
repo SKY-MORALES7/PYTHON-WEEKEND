@@ -11,6 +11,7 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_filter = ("interest", "read", "created_at")
     search_fields = ("name", "email", "message", "reply")
     readonly_fields = ("created_at", "updated_at", "replied_at")
+    actions = ["mark_as_read", "purge_spam_messages"]
     fields = (
         "name",
         "email",
@@ -26,6 +27,25 @@ class ContactMessageAdmin(admin.ModelAdmin):
     @admin.display(description="Replied", boolean=True)
     def replied_status(self, obj):
         return bool(obj.reply and obj.reply.strip())
+
+    @admin.action(description="Mark selected messages as read")
+    def mark_as_read(self, request, queryset):
+        updated = queryset.update(read=True)
+        self.message_user(request, f"Marked {updated} message(s) as read.")
+
+    @admin.action(description="Purge all detected bot/spam contact messages")
+    def purge_spam_messages(self, request, queryset):
+        import re
+        deleted_count = 0
+        for msg in ContactMessage.objects.all():
+            raw_name = (msg.name or "").strip()
+            raw_message = (msg.message or "").strip()
+            is_camel_bot = " " not in raw_name and bool(re.search(r"[a-z]+[A-Z][a-z]+", raw_name))
+            is_single_word_msg = len(raw_message.split()) < 2
+            if is_camel_bot or is_single_word_msg:
+                msg.delete()
+                deleted_count += 1
+        self.message_user(request, f"Purged {deleted_count} bot/spam contact message(s).")
 
 
 class CustomFlatPageForm(forms.ModelForm):

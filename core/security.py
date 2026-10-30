@@ -1,8 +1,12 @@
 import logging
+import time
 from django.conf import settings
 from django.core.cache import cache
+from django.core.signing import BadSignature, SignatureExpired, dumps, loads
 
 logger = logging.getLogger(__name__)
+
+FORM_TIMESTAMP_SALT = "pw-anti-bot-ts"
 
 
 def is_email_sending_enabled():
@@ -27,19 +31,64 @@ def get_client_ip(request):
     return ip
 
 
+def generate_form_timestamp():
+    """
+    Generates a cryptographically signed timestamp token when a form is rendered.
+    Used to detect bots that submit forms impossibly fast (< min_seconds) or
+    replay direct POST requests without loading the form page.
+    """
+    return dumps(time.time(), salt=FORM_TIMESTAMP_SALT)
+
+
+def validate_form_timestamp(request, field_name="form_ts", min_seconds=2.5, max_age=7200):
+    """
+    Validates the signed timestamp token submitted with a POST form.
+    - Returns False if the token is missing, tampered with, expired, or submitted
+      faster than `min_seconds` (typical for automated spam bots).
+    """
+    if getattr(settings, "DEBUG", False) and not getattr(settings, "TESTING_HONEYPOT", False):
+        # Still validate if token is present, but allow fast local test client posts without token
+        token = request.POST.get(field_name, "").strip()
+        if not token:
+            return True
+
+    token = request.POST.get(field_name, "").strip()
+    if not token:
+        logger.warning(f"Missing form timestamp token '{field_name}' from IP {get_client_ip(request)}.")
+        return False
+
+    try:
+        rendered_at = float(loads(token, salt=FORM_TIMESTAMP_SALT, max_age=max_age))
+    except (BadSignature, SignatureExpired, ValueError, TypeError) as exc:
+        logger.warning(f"Invalid/expired form timestamp token from IP {get_client_ip(request)}: {exc}")
+        return False
+
+    elapsed = time.time() - rendered_at
+    if elapsed < min_seconds:
+        logger.warning(
+            f"Bot speed trap triggered by IP {get_client_ip(request)}: "
+            f"submitted in {elapsed:.2f}s (min {min_seconds}s)."
+        )
+        return False
+
+    return True
+
+
 def validate_honeypot(request, field_name="website"):
     """
-    Checks if a hidden honeypot decoy field was filled out.
+    Checks if hidden honeypot decoy field(s) were filled out.
     - Real humans: cannot see the field, so it remains empty -> returns True (safe).
     - Bots: automatically populate every input -> returns False (flagged as bot).
     """
-    honeypot_value = request.POST.get(field_name, "").strip()
-    if honeypot_value:
-        logger.warning(
-            f"Honeypot triggered on field '{field_name}' by IP {get_client_ip(request)}. "
-            f"Value: '{honeypot_value[:50]}'"
-        )
-        return False
+    decoy_fields = [field_name, "company_url", "phone_number_ext"]
+    for fname in decoy_fields:
+        honeypot_value = request.POST.get(fname, "").strip()
+        if honeypot_value:
+            logger.warning(
+                f"Honeypot triggered on field '{fname}' by IP {get_client_ip(request)}. "
+                f"Value: '{honeypot_value[:50]}'"
+            )
+            return False
     return True
 
 

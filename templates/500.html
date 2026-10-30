@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temporary Issue — Python Weekend</title>
+  <link rel="stylesheet" href="{% static 'css/dist/output.css' %}">
+  <link rel="stylesheet" href="{% static 'css/pythonweekend-theme.css' %}">
+</head>
+<body class="bg-white text-shield-navy font-body min-h-screen flex flex-col">
+  <main class="flex-1 flex items-center justify-center py-20 px-4 bg-shield-ice/20">
+    <div class="max-w-2xl w-full bg-white border-2.5 border-shield-navy p-8 sm:p-12 shadow-brutal text-center">
+      <div class="inline-block bg-[#FFB800] text-shield-navy border-2 border-shield-navy shadow-brutal-sm font-display font-extrabold text-5xl sm:text-7xl px-8 py-4 mb-6 tracking-wider">
+        500
+      </div>
+      <h1 class="font-display font-bold text-3xl sm:text-4xl text-shield-navy uppercase tracking-tight mb-4">
+        Something Went Wrong on This Page
+      </h1>
+      <p class="font-body text-shield-navy text-base sm:text-lg font-medium leading-relaxed mb-8 max-w-lg mx-auto">
+        We ran into a temporary technical hiccup processing this request. The rest of Python Weekend is working normally, and our team has logged the issue.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/" class="btn-brutal-hero">
+          <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Back to Homepage</span>
+        </a>
+        <a href="/contact/" class="btn-brutal-outline">
+          <span class="font-display font-bold text-lg text-shield-navy uppercase tracking-wider">Contact Us</span>
+        </a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+

@@ -81,7 +81,7 @@ from subscribers.models import Subscriber
 from newsletter.models import Newsletter
 from .forms import ContactForm
 from .utils import send_contact_notifications, send_newsletter_welcome
-from .security import validate_honeypot, check_rate_limit
+from .security import validate_honeypot, validate_form_timestamp, check_rate_limit
 
 
 def _footer_context():
@@ -247,27 +247,48 @@ class ContactView(View):
             messages.error(request, "You have submitted too many requests recently. Please wait a few minutes before trying again.")
             return redirect("core:contact")
 
-        # 2. Honeypot check: If the hidden trap was filled or omitted by direct API bots, silently drop the request
-        if "website" not in request.POST or not validate_honeypot(request, "website"):
+        # 2. Honeypot & signed timestamp speed-trap check:
+        #    If hidden decoy fields were filled/omitted OR the form was submitted
+        #    impossibly fast (<2.5s) / via direct bot POST, silently drop the request.
+        if (
+            "website" not in request.POST
+            or not validate_honeypot(request, "website")
+            or not validate_form_timestamp(request, "form_ts", min_seconds=2.5)
+        ):
             messages.success(request, "Thanks! We'll be in touch soon.")
             return redirect("core:contact")
 
-        # 3. Spam content & duplicate detection filter
+        # 3. Spam content, bot signature & duplicate detection filter
+        raw_name = request.POST.get("name", "").strip()
+        raw_message = request.POST.get("message", "").strip()
         email = request.POST.get("email", "").strip().lower()
-        message_text = request.POST.get("message", "").lower()
-        name = request.POST.get("name", "").lower()
+        message_text = raw_message.lower()
+        name = raw_name.lower()
 
-        spam_keywords = ["search-pythonweekend", "seo rank", "increase traffic", "backlink", "casino", "viagra", "crypto", "marketing agency"]
+        spam_keywords = [
+            "search-pythonweekend", "seo rank", "increase traffic", "backlink",
+            "casino", "viagra", "crypto", "marketing agency", "lead generation",
+            "rank your", "telegram", "t.me/", "wa.me/", "whatsapp", "bit.ly/",
+            "tinyurl.com", ".ru/", ".xyz/", "http://", "https://", "www.",
+        ]
         is_spam = any(kw in email or kw in message_text or kw in name for kw in spam_keywords)
+
+        # Single-word CamelCase bot names (e.g., "RobertRuche", "WilliamPhali", "FaustoBex")
+        # or single-word gibberish messages with no spaces
+        if not is_spam:
+            if (" " not in raw_name and re.search(r"[a-z]+[A-Z][a-z]+", raw_name)) or len(raw_message.split()) < 2:
+                is_spam = True
 
         if not is_spam and email:
             from .models import ContactMessage
-            # Check for identical duplicate message from same email
-            duplicate_exists = ContactMessage.objects.filter(
-                email__iexact=email,
-                name__iexact=name
-            ).exists()
-            if duplicate_exists and ("williamphali" in name or "fausto" in name):
+            from datetime import timedelta
+            recent_cutoff = timezone.now() - timedelta(hours=1)
+            # Drop identical duplicate messages or rapid repeat submissions from same email
+            duplicate_exists = (
+                ContactMessage.objects.filter(email__iexact=email, message__iexact=raw_message).exists()
+                or ContactMessage.objects.filter(email__iexact=email, created_at__gte=recent_cutoff).count() >= 2
+            )
+            if duplicate_exists:
                 is_spam = True
 
         if is_spam:
@@ -292,6 +313,10 @@ class ContactView(View):
 
 def handler404(request, exception):
     return render(request, "404.html", status=404)
+
+
+def handler500(request):
+    return render(request, "500.html", status=500)
 
 
 class SubscribeView(View):
