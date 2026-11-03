@@ -398,8 +398,22 @@ class AnswerAdmin(admin.ModelAdmin):
 #  ORGANIZER APPLICATION
 # ─────────────────────────────────────────────
 
+class OrganizerApplicationChangelistForm(forms.ModelForm):
+    class Meta:
+        model = OrganizerApplication
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            if self.instance.status in ("approved", "rejected"):
+                if "status" in self.fields:
+                    self.fields["status"].disabled = True
+
+
 @admin.register(OrganizerApplication)
 class OrganizerApplicationAdmin(admin.ModelAdmin):
+    form = OrganizerApplicationChangelistForm
     list_display = (
         "lead_first_name",
         "lead_last_name",
@@ -417,6 +431,7 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
     list_editable = ("status",)
     search_fields = ("lead_first_name", "lead_last_name", "lead_email", "target_country", "target_state")
     readonly_fields = ("team_members_display", "submitted_at", "updated_at")
+    actions = ["approve_organizer_applications", "reject_organizer_applications"]
 
     fieldsets = (
         ("Lead Organizer", {
@@ -435,6 +450,52 @@ class OrganizerApplicationAdmin(admin.ModelAdmin):
             "fields": ("status", "submitted_at", "updated_at")
         }),
     )
+
+    def get_changelist_form(self, request, **kwargs):
+        return OrganizerApplicationChangelistForm
+
+    def get_readonly_fields(self, request, obj=None):
+        ro = list(super().get_readonly_fields(request, obj))
+        if obj and obj.status in ("approved", "rejected"):
+            if "status" not in ro:
+                ro.append("status")
+        return ro
+
+    @admin.action(description="Approve selected organizer applications (pending only)")
+    def approve_organizer_applications(self, request, queryset):
+        pending_qs = queryset.filter(status="pending")
+        count = 0
+        for app in pending_qs:
+            app.status = "approved"
+            app.save()
+            count += 1
+        skipped = queryset.count() - count
+        if skipped > 0:
+            self.message_user(
+                request,
+                f"{count} pending organizer application(s) approved. "
+                f"{skipped} application(s) were already finalized (approved/rejected) and remained unchanged."
+            )
+        else:
+            self.message_user(request, f"{count} organizer application(s) approved.")
+
+    @admin.action(description="Reject selected organizer applications (pending only)")
+    def reject_organizer_applications(self, request, queryset):
+        pending_qs = queryset.filter(status="pending")
+        count = 0
+        for app in pending_qs:
+            app.status = "rejected"
+            app.save()
+            count += 1
+        skipped = queryset.count() - count
+        if skipped > 0:
+            self.message_user(
+                request,
+                f"{count} pending organizer application(s) rejected. "
+                f"{skipped} application(s) were already finalized (approved/rejected) and remained unchanged."
+            )
+        else:
+            self.message_user(request, f"{count} organizer application(s) rejected.")
 
     @admin.display(description="Team Members")
     def team_members_display(self, obj):

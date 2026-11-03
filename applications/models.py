@@ -185,7 +185,7 @@ class EventApplication(models.Model):
             try:
                 send_resend_email(
                     subject=subject,
-                    message=text_body,
+                    message =text_body,
                     from_email=from_email,
                     recipient_list=[applicant_email],
                     html_message=html_body,
@@ -393,14 +393,24 @@ class OrganizerApplication(models.Model):
     def __str__(self):
         return f"{self.lead_first_name} {self.lead_last_name} ({self.get_status_display()})"
 
+    def clean(self):
+        super().clean()
+        if self.pk:
+            old_status = OrganizerApplication.objects.filter(pk=self.pk).values_list("status", flat=True).first()
+            if old_status in ("approved", "rejected") and self.status != old_status:
+                from django.core.exceptions import ValidationError
+                raise ValidationError({
+                    "status": f"Organizer application status has already been finalized as '{old_status}'. It cannot be changed again."
+                })
+
     def save(self, *args, **kwargs):
         is_new = self.pk is None
         old_status = None
         if not is_new:
-            try:
-                old_status = OrganizerApplication.objects.get(pk=self.pk).status
-            except OrganizerApplication.DoesNotExist:
-                pass
+            old_status = OrganizerApplication.objects.filter(pk=self.pk).values_list("status", flat=True).first()
+            if old_status in ("approved", "rejected") and self.status != old_status:
+                # Lock status once approved or rejected: prevent altering finalized status
+                self.status = old_status
 
         super().save(*args, **kwargs)
 
@@ -740,4 +750,4 @@ class OrganizerApplication(models.Model):
 
         threading.Thread(target=_send_rejection_emails, daemon=True).start()
 
-
+
