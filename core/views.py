@@ -247,7 +247,13 @@ class ContactView(View):
             messages.error(request, "You have submitted too many requests recently. Please wait a few minutes before trying again.")
             return redirect("core:contact")
 
-        # 2. Honeypot & signed timestamp speed-trap check:
+        # 2. Form validation first: Ensure human users see field errors if fields are empty
+        form = ContactForm(request.POST)
+        if not form.is_valid():
+            messages.error(request, "There were errors with your submission. Please correct the fields below.")
+            return render(request, self.template_name, {"form": form})
+
+        # 3. Honeypot & signed timestamp speed-trap check:
         #    If hidden decoy fields were filled/omitted OR the form was submitted
         #    impossibly fast (<2.5s) / via direct bot POST, silently drop the request.
         if (
@@ -295,19 +301,14 @@ class ContactView(View):
             messages.success(request, "Thanks! We'll be in touch soon.")
             return redirect("core:contact")
 
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            # Save the submission object 
-            contact_submission = form.save()
+        # Save the submission object
+        contact_submission = form.save()
             
             # Fire off the email router! (Sends to staff only; auto-reflection to submitter is disabled)
-            send_contact_notifications(contact_submission)
+        send_contact_notifications(contact_submission)
             
-            messages.success(request, "Thanks! We'll be in touch soon.")
-            return redirect("core:contact")
-            
-        messages.error(request, "There were errors with your submission. Please correct the fields below.")
-        return render(request, self.template_name, {"form": form})
+        messages.success(request, "Thanks! We'll be in touch soon.")
+        return redirect("core:contact")
 
 
 
